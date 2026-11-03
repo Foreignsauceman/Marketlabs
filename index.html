@@ -1,0 +1,1048 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#101713">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MarketLab">
+<meta name="application-name" content="MarketLab">
+<meta name="description" content="MarketLab simulated stock exchange. Paper money, fictional companies, offline-first trading.">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
+<title>MARKETLAB | The Simulated Exchange v0.4.4</title>
+<style>
+:root{--bg:#101713;--panel:#1a251e;--panel2:#213026;--line:#33483a;--mint:#aaf6ad;--green:#81e4a0;--red:#ff9d9a;--amber:#ffd18a;--text:#e3eee2;--muted:#9ab09e;--c1:#9ef4a1;--c2:#e5bd7c;--c3:#86cafa;--c4:#e89acd;--c5:#b0a4fa;--c6:#ff997b}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 75% -15%,#25392a 0,transparent 37%),var(--bg);color:var(--text);font:12px/1.45 ui-monospace,Consolas,'Liberation Mono',monospace}button,input{font:inherit}button{cursor:pointer;transition:background .12s,border .12s}button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}button:disabled{opacity:.40;cursor:not-allowed}.wrap{max-width:none;margin:auto;padding:14px 18px 20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}.brand h1{font-size:27px;letter-spacing:-.08em;line-height:1;margin:0;font-weight:950}.brand em{color:var(--mint);font-style:normal}.tagline{color:var(--muted);font-size:10px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.tag{border:1px solid var(--line);padding:3px 7px;border-radius:3px;color:var(--muted);white-space:nowrap;font-size:10px}.reset{border:0;background:none;color:var(--muted);font-size:10px;text-decoration:underline;text-underline-offset:3px}.reset:hover{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:9px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:9px 11px;min-width:0}.statlabel,.minor{color:var(--muted);font-size:10px;letter-spacing:.025em}.statvalue{font-size:clamp(15px,1.7vw,22px);font-weight:850;letter-spacing:-.05em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.statnote{color:var(--muted);font-size:10px;min-height:13px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;overflow:hidden}.panelhead{padding:8px 11px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:37px}.heading{color:var(--mint);font-weight:850;letter-spacing:.08em;font-size:10px}.meta{color:var(--muted);font-size:10px}.main{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(300px,.92fr);gap:9px}.left,.right{display:grid;align-content:start;gap:9px;min-width:0}.clock{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.clock p{margin:0}.clockbuttons{display:flex;gap:6px}.btn{border:1px solid #526957;background:#293c2e;border-radius:4px;color:var(--text);font-weight:800;padding:6px 10px;font-size:11px}.btn:hover{border-color:var(--mint)}.btn.primary{background:var(--amber);color:#2d2210;border-color:var(--amber)}.btn.active{color:var(--mint);border-color:var(--mint)}.chartopts{display:flex;gap:5px}.mini{border:1px solid var(--line);border-radius:3px;padding:4px 7px;background:#18231b;color:var(--muted);font-size:10px;font-weight:850}.mini[aria-pressed="true"]{color:#102118;background:var(--mint);border-color:var(--mint)}.chartarea{padding:4px 10px 6px;position:relative}.chart{width:100%;height:auto;display:block;aspect-ratio:850/270;min-height:178px;touch-action:pan-y}.chartfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:9px;padding:0 5px 3px}.legend{display:flex;flex-wrap:wrap;gap:4px 7px;padding:3px 10px 9px}.legend button{border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;padding:4px 6px;border-radius:3px;font-weight:800}.legend button:hover,.legend button[aria-pressed="true"]{background:#2d4232;color:var(--text);border-color:#486451}.swatch{width:13px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px;border-radius:2px}.tooltip{pointer-events:none;position:absolute;z-index:2;min-width:125px;max-width:205px;background:#0c1810f5;border:1px solid #54745b;padding:7px 9px;box-shadow:0 8px 24px #0008;border-radius:4px;font-size:10px}.tooltip[hidden]{display:none}.tooltip div{display:flex;justify-content:space-between;gap:15px}.boardheader,.stock{display:grid;grid-template-columns:55px minmax(100px,1.25fr) 78px 78px 66px 82px;align-items:center;gap:8px}.boardheader{color:var(--muted);padding:7px 11px 5px;font-size:9px}.boardheader>span:nth-child(n+3){text-align:right}.stock{width:100%;text-align:left;background:transparent;color:var(--text);border:0;border-top:1px solid #304135;padding:8px 11px;font-size:11px}.stock:hover{background:#26372b}.stock[aria-pressed="true"]{background:#2a3f30;box-shadow:inset 3px 0 var(--mint)}.ticker{font-weight:900;color:var(--mint)}.sname{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector{font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.num{text-align:right;white-space:nowrap;font-size:11px}.num.strong{font-weight:850}.trade{padding:10px 11px 12px}.pair{display:flex;gap:6px}.pair button{flex:1}.side{padding:7px 9px;border:1px solid var(--line);border-radius:4px;background:#122017;color:var(--muted);font-weight:850;letter-spacing:.1em}.side[aria-pressed="true"]{color:#0f2118;background:var(--mint);border-color:var(--mint)}.fieldrow{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:10px 0 5px}.fieldrow label{color:var(--muted);font-size:10px}.fillmax{color:var(--amber);background:#2d3124;border:1px solid #77714e;border-radius:3px;padding:3px 10px;font-size:10px;font-weight:900}.fillmax:disabled{opacity:.4}.qty{width:100%;border:1px solid var(--line);background:#111c15;color:var(--text);border-radius:4px;padding:7px 9px;font-size:15px;font-weight:800}.lineitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;color:var(--muted);border-bottom:1px dashed #324837;font-size:11px}.lineitem strong{font-size:11px;color:var(--text)}.execute{width:100%;border:0;border-radius:4px;background:var(--mint);color:#0d2314;padding:9px;margin-top:10px;font-size:11px;font-weight:950;letter-spacing:.03em}.execute:hover:not(:disabled){background:#d1ffcc}.toast{color:var(--amber);font-size:10px;min-height:15px;margin:6px 0 0}.holding{display:grid;grid-template-columns:51px 1fr auto;gap:5px;align-items:center;padding:7px 11px;border-bottom:1px solid #304135;font-size:11px}.holding:last-child{border-bottom:0}.holding strong{color:var(--mint)}.holding .muted{color:var(--muted)}.empty{color:var(--muted);padding:11px;font-size:10px}.activity{padding:2px 11px 7px;min-height:65px;max-height:147px;overflow:auto}.event{display:grid;grid-template-columns:auto 1fr;gap:10px;border-bottom:1px dashed #324635;padding:6px 0;font-size:10px;color:var(--muted)}.event:last-child{border-bottom:0}.eventday{color:var(--green)}.marketnote{color:var(--muted);font-size:9px;padding:0 10px 8px}.footer{color:var(--muted);font-size:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-top:10px}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px;vertical-align:middle}
+@media(max-width:980px){.main{grid-template-columns:minmax(0,1.5fr) minmax(270px,1fr)}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.boardheader,.stock{grid-template-columns:45px minmax(65px,1fr) 67px 65px 60px}.boardheader>span:nth-child(6),.stock>span:nth-child(6){display:none}}
+@media(max-width:700px){.wrap{padding:10px}.main{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.top{align-items:flex-start}.brand{gap:3px;flex-direction:column}.brand h1{font-size:23px}.tagline{font-size:9px}.tag{font-size:9px}.stat{padding:7px}.statvalue{font-size:clamp(13px,3vw,18px)}.boardheader,.stock{grid-template-columns:47px minmax(75px,1fr) 65px 61px 65px 74px}.boardheader>span:nth-child(6),.stock>span:nth-child(6){display:block}}
+@media(max-width:470px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.boardheader,.stock{grid-template-columns:43px minmax(54px,1fr) 67px 58px 62px;gap:5px;padding-left:8px;padding-right:8px}.boardheader>span:nth-child(6),.stock>span:nth-child(6){display:none}.sname{font-size:10px}.num{font-size:10px}.chart{min-height:145px}.topright{gap:5px}.tagline{max-width:190px}.clockbuttons .btn{padding:6px}}
+@media(prefers-reduced-motion:reduce){button{transition:none}}
+
+/* v0.3: flexible workspaces, chart series selectors, and compact clock controls */
+#main{grid-template-columns:minmax(0,var(--left-width,72%)) 16px minmax(0,1fr);gap:0;align-items:start}
+#main .left{margin-right:4px}#main .right{margin-left:4px}
+.column-divider{align-self:stretch;min-height:180px;cursor:col-resize;display:flex;align-items:center;justify-content:center;touch-action:none;color:#79947c;border-radius:4px;position:relative;outline-offset:1px}
+.column-divider::before{content:"";position:absolute;top:0;bottom:0;left:6px;width:4px;background:#344a3b;border-radius:5px}
+.column-divider:hover,.column-divider.dragging,.column-divider:focus-visible{background:#2e4534;color:var(--mint)}
+.column-divider span{position:sticky;top:46vh;z-index:1;background:#233829;border:1px solid #44634b;border-radius:4px;font-size:18px;line-height:28px;height:35px;width:16px;text-align:center}
+.panel.sizable{display:flex;flex-direction:column;position:relative;min-width:0}
+#chartpanel{min-height:265px}#chartpanel .chartarea{flex:1;display:flex;flex-direction:column;min-height:105px}#chartpanel .chart{height:231px;aspect-ratio:auto;min-height:0;flex:1;width:100%}#chartpanel.sized .chart{height:100%;min-height:90px}
+#exchangepanel{min-height:155px}#exchangepanel .boardlist{flex:1;min-height:52px;overflow-y:auto;scrollbar-width:thin}
+#tradepanel{min-height:215px}#tradepanel .trade{flex:1;min-height:150px;overflow-y:auto;scrollbar-width:thin}
+#holdingspanel{min-height:76px}#holdingspanel #holdings{flex:1;min-height:32px;overflow-y:auto}
+#tapepanel{min-height:82px}#tapepanel .activity{flex:1;min-height:65px;overflow-y:auto;scrollbar-width:thin}#tapepanel.sized .activity{max-height:none}
+.panelsizer{height:16px;flex:0 0 16px;cursor:ns-resize;display:flex;align-items:center;justify-content:center;touch-action:none;border-top:1px solid #283c2e;color:var(--muted)}
+.panelsizer span{display:block;width:40px;height:4px;border-radius:4px;background:#4c6550}
+.panelsizer:hover,.panelsizer.dragging,.panelsizer:focus-visible{background:#2b4331;outline-offset:-1px}.panelsizer:hover span,.panelsizer.dragging span{background:var(--mint)}
+.chartactions{display:flex;align-items:center;flex-wrap:wrap;gap:5px;padding:0 12px 5px;font-size:9px;color:var(--muted)}
+.chartactions button{background:#17271d;color:var(--muted);border:1px solid var(--line);padding:3px 6px;border-radius:3px;font-size:9px;white-space:nowrap}.chartactions button:hover{color:var(--mint);border-color:var(--mint)}.chartactions button[aria-pressed="true"]{background:var(--mint);color:#102118;border-color:var(--mint)}.resizehelp{margin-left:auto;color:#809986}
+.legend{gap:5px;align-items:center;padding-bottom:7px}.legendgroup{display:inline-flex;align-items:stretch;border:1px solid #3a5640;border-radius:4px;overflow:hidden}
+.legendgroup .legend-vis,.legendgroup .legend-focus{border:0;border-radius:0;background:#14251a;color:#718e7c;min-height:25px;padding:4px 7px;font-weight:850;font-size:10px}
+.legendgroup .legend-vis[aria-pressed="true"]{color:var(--text);background:#273d2d}.legendgroup .legend-focus{border-left:1px solid #3a5640;font-size:13px;width:29px;padding:2px 6px}
+.legendgroup .legend-focus[aria-pressed="true"]{background:#675636;color:#ffe8ad}.legendgroup button:hover{background:#3b553f;color:#fff}
+.legendgroup .legend-focus:disabled{opacity:.25;cursor:not-allowed}.legendnote{font-size:9px;color:var(--muted);padding-left:5px}
+.clocksettings{display:flex;align-items:center;flex-wrap:wrap;gap:9px;padding:6px 11px 8px;border-top:1px solid #304135}
+.clocksettings label{color:var(--muted);font-size:10px;display:inline-flex;align-items:center;gap:6px}
+.clocksettings select{background:#101e15;border:1px solid #456049;color:var(--text);padding:4px 6px;border-radius:4px;font:inherit;cursor:pointer;min-width:85px}
+.clocksettings select:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
+.clocksettings .meta{margin-left:auto}
+@media(max-width:980px){.resizehelp{display:none}.boardheader,.stock{gap:5px}}
+@media(max-width:760px){#main{display:grid;grid-template-columns:minmax(0,1fr);gap:9px}#main .left,#main .right{margin:0}.column-divider{display:none}#chartpanel .chart{height:205px}.clocksettings .meta{margin-left:0}}
+@media(max-width:470px){#chartpanel{min-height:365px}.clocksettings{gap:5px}.clocksettings select{min-width:70px}.chartactions{gap:4px}.chartactions button{padding:3px 5px}.legendnote{width:100%}}
+@media(prefers-reduced-motion:reduce){.column-divider,.panelsizer{transition:none}}
+
+/* v0.3.2: roomier, fully adjustable columns; each panel keeps its own height */
+#main .left,#main .right{min-width:0}
+#main .panelhead{min-width:0}
+#main .panelhead .heading{white-space:nowrap}
+#main .panelhead .meta{min-width:0;text-align:right;overflow:hidden;text-overflow:ellipsis}
+#main .right .lineitem{gap:4px}
+#main .right .lineitem span{min-width:0}
+#main .right .lineitem strong{text-align:right;flex-shrink:0}
+#main .right .fieldrow{flex-wrap:wrap}
+#main .right .trade{scrollbar-width:thin}
+.split-readout{font-size:9px;color:var(--mint);margin-left:auto;white-space:nowrap}
+.chartactions #focusleft{color:var(--amber);border-color:#74633f}
+.chartactions #focusleft[aria-pressed="true"]{color:#102118;border-color:var(--mint)}
+#main.focus-left{grid-template-columns:minmax(0,1fr)}
+#main.focus-left .left{margin:0}
+#main.focus-left .column-divider{display:none}
+#main.focus-left .right{margin:9px 0 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:start;gap:9px}
+#main.focus-left #chartpanel .chart{height:285px}
+#main.focus-left #chartpanel.sized .chart{height:100%}
+#main.focus-left .right .panel{min-width:0}
+@media(max-width:940px){#main.focus-left .right{grid-template-columns:repeat(2,minmax(0,1fr))}#main.focus-left #tapepanel{grid-column:1/-1}}
+@media(max-width:760px){#main.focus-left .right{grid-template-columns:minmax(0,1fr);margin:0}#main.focus-left #tapepanel{grid-column:auto}.split-readout{display:none}}
+@media(min-width:761px) and (max-width:1070px){#main:not(.focus-left) .right .panelhead .meta{display:none}#main:not(.focus-left) .right .trade{padding:8px}#main:not(.focus-left) .right .lineitem{font-size:10px}#main:not(.focus-left) .right .lineitem strong{font-size:10px}}
+@media(max-width:470px){.chartactions{gap:4px}.chartactions .split-readout{display:none}}
+
+/* v0.3.2: the SVG plot now uses the panel's actual dimensions, not a fixed-height letterboxed viewBox. */
+#chartpanel .chartarea{min-height:0}
+#chartpanel .chart{min-height:0;overflow:visible}
+
+.holding[data-holding]{width:100%;border:0;border-bottom:1px solid #304135;background:transparent;color:var(--text);text-align:left;cursor:pointer}.holding[data-holding]:hover{background:#26372b}
+/* v0.3.3: two interface profiles, shared market data, independent workspace preferences */
+.profile-picker{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:10px;letter-spacing:.025em}
+.profile-picker select,.mobile-stock-picker select{background:#102117;color:var(--text);border:1px solid #55715a;border-radius:5px;padding:6px 8px;font:inherit;cursor:pointer}
+.profile-picker select:focus-visible,.mobile-stock-picker select:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.mobile-nav,.mobile-stock-picker,.mobile-reset{display:none}
+/* Forced desktop on a small phone is intentionally scrollable, never crushed to unusable columns. */
+body[data-profile="desktop"] .wrap{min-width:1030px}
+body[data-profile="desktop"] .stats{grid-template-columns:repeat(6,minmax(0,1fr))}
+body[data-profile="desktop"] #main:not(.focus-left){display:grid;grid-template-columns:minmax(0,var(--left-width,72%)) 16px minmax(0,1fr);gap:0}
+body[data-profile="desktop"] #main .left{display:flex;flex-direction:column;align-items:stretch;gap:9px;margin-right:4px}
+body[data-profile="desktop"] #main .right{display:flex;flex-direction:column;align-items:stretch;gap:9px;margin-left:4px}
+body[data-profile="desktop"] #main .column-divider{display:flex}
+body[data-profile="desktop"] #main.focus-left{display:grid;grid-template-columns:minmax(0,1fr)}
+body[data-profile="desktop"] #main.focus-left .column-divider{display:none}
+body[data-profile="desktop"] #main.focus-left .right{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-auto-rows:min-content;align-items:start;margin:9px 0 0}
+body[data-profile="desktop"] .boardheader,body[data-profile="desktop"] .stock{grid-template-columns:55px minmax(100px,1.25fr) 78px 78px 66px 82px}
+body[data-profile="desktop"] .boardheader>span:nth-child(6),body[data-profile="desktop"] .stock>span:nth-child(6){display:block}
+body[data-profile="desktop"] .statvalue{font-size:clamp(15px,1.7vw,22px)}
+body[data-profile="desktop"] .chart{min-height:0}
+@media(max-width:1070px){body[data-profile="desktop"] #main:not(.focus-left) .boardheader,body[data-profile="desktop"] #main:not(.focus-left) .stock{grid-template-columns:45px minmax(65px,1fr) 67px 65px 60px}body[data-profile="desktop"] #main:not(.focus-left) .boardheader>span:nth-child(6),body[data-profile="desktop"] #main:not(.focus-left) .stock>span:nth-child(6){display:none}}
+/* Separate phone/tablet UX works at any viewport width when Mobile is selected. */
+body[data-profile="mobile"] .wrap{max-width:560px;min-width:0;padding:12px 12px calc(100px + env(safe-area-inset-bottom,0px))}
+body[data-profile="mobile"] .top{margin-bottom:10px;align-items:center;gap:8px}
+body[data-profile="mobile"] .brand{gap:2px;flex:0 1 auto}
+body[data-profile="mobile"] .brand h1{font-size:clamp(21px,6.4vw,28px)}
+body[data-profile="mobile"] .tagline{display:none}
+body[data-profile="mobile"] .topright{gap:5px;justify-content:flex-end}
+body[data-profile="mobile"] .topright>.tag,body[data-profile="mobile"] #reset{display:none}
+body[data-profile="mobile"] .profile-picker{flex-direction:column;align-items:flex-end;gap:1px;font-size:9px}
+body[data-profile="mobile"] .profile-picker select{padding:7px 6px;min-height:36px;font-size:13px}
+body[data-profile="mobile"] .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:9px}
+body[data-profile="mobile"] .stat{display:none;padding:9px 10px}
+body[data-profile="mobile"] .statlabel{font-size:10px}
+body[data-profile="mobile"] .statvalue{font-size:clamp(17px,5.7vw,24px);margin-top:1px}
+body[data-profile="mobile"] .statnote{font-size:10px}
+body[data-profile="mobile"][data-tab="market"] .stat:nth-child(1),body[data-profile="mobile"][data-tab="market"] .stat:nth-child(4),body[data-profile="mobile"][data-tab="market"] .stat:nth-child(6),body[data-profile="mobile"][data-tab="market"] .stat:nth-child(2),
+body[data-profile="mobile"][data-tab="chart"] .stat:nth-child(1),body[data-profile="mobile"][data-tab="chart"] .stat:nth-child(6),
+body[data-profile="mobile"][data-tab="trade"] .stat:nth-child(1),body[data-profile="mobile"][data-tab="trade"] .stat:nth-child(2),
+body[data-profile="mobile"][data-tab="portfolio"] .stat{display:block}
+body[data-profile="mobile"] #main{display:flex!important;flex-direction:column;gap:9px;align-items:stretch}
+body[data-profile="mobile"] #main .left,body[data-profile="mobile"] #main .right{display:contents!important}
+body[data-profile="mobile"] #main .column-divider,body[data-profile="mobile"] #main .panelsizer{display:none!important}
+body[data-profile="mobile"] #main .panel{display:none;min-width:0;margin:0;height:auto!important}
+body[data-profile="mobile"] #main #clockpanel{display:block;order:-1}
+body[data-profile="mobile"][data-tab="market"] #main #exchangepanel{display:flex;order:1}
+body[data-profile="mobile"][data-tab="chart"] #main #chartpanel{display:flex;order:1}
+body[data-profile="mobile"][data-tab="trade"] #main #tradepanel{display:flex;order:1}
+body[data-profile="mobile"][data-tab="portfolio"] #main #holdingspanel,body[data-profile="mobile"][data-tab="portfolio"] #main #tapepanel{display:flex}
+body[data-profile="mobile"] #main #holdingspanel{order:1}
+body[data-profile="mobile"] #main #tapepanel{order:2}
+body[data-profile="mobile"] .panelhead{min-height:42px;padding:10px 11px}
+body[data-profile="mobile"] .panelhead .heading{font-size:11px}
+body[data-profile="mobile"] .panelhead .meta{font-size:9px}
+body[data-profile="mobile"] #clockpanel .panelhead{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+body[data-profile="mobile"] #clockpanel .clockbuttons{flex:1 1 auto;justify-content:flex-end;gap:5px}
+body[data-profile="mobile"] #clockpanel .clockbuttons .btn{min-height:43px;min-width:0;flex:1;padding:6px;font-size:11px}
+body[data-profile="mobile"] #clockpanel .clockbuttons #next10{flex:1.3}
+body[data-profile="mobile"] .clocksettings{padding:8px 10px;gap:7px}
+body[data-profile="mobile"] .clocksettings label{flex:1 1 140px;justify-content:space-between;font-size:10px}
+body[data-profile="mobile"] .clocksettings select{min-height:40px;min-width:85px;max-width:145px;font-size:16px}
+body[data-profile="mobile"] .clocksettings .meta{display:none}
+body[data-profile="mobile"] .boardheader,body[data-profile="mobile"] .stock{grid-template-columns:47px minmax(65px,1fr) 83px 67px;gap:5px;padding-left:10px;padding-right:10px}
+body[data-profile="mobile"] .boardheader>span:nth-child(n+5),body[data-profile="mobile"] .stock>span:nth-child(n+5){display:none}
+body[data-profile="mobile"] #exchangepanel .panelhead .meta{display:none}body[data-profile="mobile"] .boardheader{padding-top:9px;padding-bottom:8px}
+body[data-profile="mobile"] .stock{min-height:64px;font-size:12px}
+body[data-profile="mobile"] .ticker,body[data-profile="mobile"] .num,body[data-profile="mobile"] .sname{font-size:12px}
+body[data-profile="mobile"] .sname{font-weight:750}
+body[data-profile="mobile"] .sector{font-size:10px}
+body[data-profile="mobile"] .marketnote{font-size:10px;padding:11px}
+body[data-profile="mobile"] #chartpanel{min-height:0}
+body[data-profile="mobile"] #chartpanel .chartarea{min-height:0;padding:6px 5px}
+body[data-profile="mobile"] #chartpanel .chart{height:360px!important;height:clamp(260px,47svh,540px)!important;min-height:0;flex:none;touch-action:pan-y}
+body[data-profile="mobile"] .chartfoot{font-size:9px;flex-wrap:wrap;gap:5px}
+body[data-profile="mobile"] #chartpanel .panelhead{flex-wrap:wrap;gap:5px}body[data-profile="mobile"] #chartpanel .panelhead .meta{white-space:nowrap}body[data-profile="mobile"] .chartopts{gap:6px;flex:1 1 100%;justify-content:stretch}body[data-profile="mobile"] .chartopts .mini{flex:1}
+body[data-profile="mobile"] .chartopts .mini{font-size:10px;padding:7px 6px;min-height:36px}
+body[data-profile="mobile"] .legend{padding:8px;gap:7px}
+body[data-profile="mobile"] .legendgroup .legend-vis,body[data-profile="mobile"] .legendgroup .legend-focus{min-height:42px;font-size:12px;padding:6px 10px}
+body[data-profile="mobile"] .legendgroup .legend-focus{min-width:42px;font-size:17px}
+body[data-profile="mobile"] .legendnote{font-size:10px;width:100%;padding:3px 1px}
+body[data-profile="mobile"] .chartactions{padding:4px 10px 12px;gap:7px}
+body[data-profile="mobile"] .chartactions button{font-size:11px;min-height:39px;padding:7px 11px}
+body[data-profile="mobile"] .chartactions #wideleft,body[data-profile="mobile"] .chartactions #focusleft,body[data-profile="mobile"] .chartactions #resetlayout,body[data-profile="mobile"] .chartactions .split-readout,body[data-profile="mobile"] .chartactions .resizehelp{display:none}
+body[data-profile="mobile"] .tooltip{max-width:175px;max-height:240px;overflow:auto;font-size:11px}
+body[data-profile="mobile"] #tradepanel{min-height:0}
+body[data-profile="mobile"] #tradepanel .trade{overflow:visible;min-height:0;padding:14px}
+body[data-profile="mobile"] .mobile-stock-picker{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+body[data-profile="mobile"] .mobile-stock-picker label{font-size:11px;color:var(--muted)}
+body[data-profile="mobile"] .mobile-stock-picker select{font-size:16px;min-height:49px;width:100%}
+body[data-profile="mobile"] .side{min-height:49px;font-size:14px}
+body[data-profile="mobile"] .fieldrow label,body[data-profile="mobile"] .fillmax{font-size:12px}
+body[data-profile="mobile"] .fillmax{min-height:42px;padding:9px 16px}
+body[data-profile="mobile"] .qty{font-size:18px;min-height:54px}
+body[data-profile="mobile"] .lineitem{font-size:12px;padding:9px 0}
+body[data-profile="mobile"] .lineitem strong{font-size:13px}
+body[data-profile="mobile"] .execute{min-height:54px;font-size:14px;margin-top:14px}
+body[data-profile="mobile"] .toast{font-size:12px;min-height:18px}
+body[data-profile="mobile"] #holdingspanel,body[data-profile="mobile"] #tapepanel{min-height:0}
+body[data-profile="mobile"] #holdingspanel #holdings{overflow:visible}
+body[data-profile="mobile"] .holding{min-height:56px;padding:10px;font-size:12px}
+body[data-profile="mobile"] .activity{max-height:none;min-height:90px;padding:5px 11px}
+body[data-profile="mobile"] .event{font-size:11px;padding:8px 0}
+body[data-profile="mobile"] .mobile-reset{display:block;border:1px solid #6c4b4b;border-radius:5px;background:#342426;color:#ffaca9;font-size:11px;padding:11px;margin:12px;min-height:44px;cursor:pointer}
+body[data-profile="mobile"] .footer{font-size:9px;gap:8px;padding:5px 3px}
+body[data-profile="mobile"] .mobile-nav{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));position:fixed;z-index:50;bottom:0;left:50%;transform:translateX(-50%);width:min(100%,560px);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));gap:5px;background:#101a13f7;border-top:1px solid #426148;box-shadow:0 -8px 30px #0006;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+body[data-profile="mobile"] .mobile-nav button{border:1px solid transparent;border-radius:6px;background:transparent;color:var(--muted);min-height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;font-size:10px;font-weight:850;touch-action:manipulation}
+body[data-profile="mobile"] .mobile-nav button[aria-current="page"]{color:var(--mint);border-color:#415f47;background:#263c2c}
+body[data-profile="mobile"] .mobile-nav .nav-icon{font-size:23px;line-height:1}
+body[data-profile="mobile"].keyboard-open .mobile-nav{display:none}
+@media(max-width:360px){body[data-profile="mobile"] .wrap{padding:9px 7px calc(100px + env(safe-area-inset-bottom,0px))}body[data-profile="mobile"] #clockpanel .clockbuttons .btn{font-size:10px}body[data-profile="mobile"] .boardheader,body[data-profile="mobile"] .stock{grid-template-columns:43px minmax(50px,1fr) 77px 63px;gap:3px;padding-left:7px;padding-right:7px}}
+
+
+/* v0.3.4: independently stretchable top cards and chart-range controls */
+body[data-profile="desktop"] .stats{grid-template-columns:repeat(7,minmax(0,1fr));margin-bottom:0}
+.stats .stat{position:relative;min-height:73px;display:flex;flex-direction:column;justify-content:center;padding-right:14px}
+.stat-grip{position:absolute;right:-4px;top:4px;bottom:4px;width:11px;z-index:3;cursor:ew-resize;touch-action:none;border-radius:3px}
+.stat-grip::after{content:"";position:absolute;right:4px;top:30%;bottom:30%;width:2px;border-radius:5px;background:#496b50;opacity:.9}
+.stat-grip:hover,.stat-grip.dragging,.stat-grip:focus-visible{background:#43634a}
+.stat-grip:hover::after,.stat-grip.dragging::after{background:var(--mint)}
+.stats-height-grip{height:12px;margin:1px 0 7px;display:flex;align-items:center;justify-content:center;cursor:ns-resize;touch-action:none}
+.stats-height-grip span{display:block;height:3px;width:58px;border-radius:3px;background:#40614b}
+.stats-height-grip:hover span,.stats-height-grip.dragging span{background:var(--mint)}
+.trendstat .statvalue{font-size:clamp(13px,1.45vw,21px)}
+.range-picker{font-size:9px;color:var(--muted);display:inline-flex;align-items:center;gap:5px}
+.range-picker select{border:1px solid #49624e;border-radius:4px;background:#102017;color:var(--mint);padding:4px;font:inherit;font-size:10px;min-height:26px;cursor:pointer}
+.marketpulse{padding:7px 11px 6px;font-size:10px;letter-spacing:.02em;background:#1b3022;border-top:1px solid #304538;color:var(--muted)}
+#clockpanel{display:flex;flex-direction:column;min-height:85px}
+#clockpanel .panelsizer{margin-top:auto}
+#clockpanel:not(.sized) .panelsizer{height:10px;flex-basis:10px}
+body[data-profile="mobile"] .stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;margin-bottom:9px;min-height:0!important}
+body[data-profile="mobile"] .stat-grip,body[data-profile="mobile"] .stats-height-grip{display:none!important}
+body[data-profile="mobile"][data-tab="market"] .stat:nth-child(7),body[data-profile="mobile"][data-tab="chart"] .stat:nth-child(7){display:flex}
+body[data-profile="mobile"] .stat{min-height:0;padding-right:10px}
+body[data-profile="mobile"] .chartopts{flex-wrap:wrap}
+body[data-profile="mobile"] .range-picker{flex:1 0 100%;justify-content:flex-end}
+body[data-profile="mobile"] .range-picker select{min-width:80px;min-height:39px;font-size:15px}
+body[data-profile="mobile"] .chartopts #indexoverlay{flex:1}
+body[data-profile="mobile"] #marketstate{display:none}
+body[data-profile="mobile"] #clockpanel .panelsizer{display:none!important}
+@media(max-width:360px){body[data-profile="mobile"] .trendstat .statvalue{font-size:15px}}
+
+/* v0.4: movable, pinnable workspace and responsive save settings */
+.paneltools{display:flex;align-items:center;gap:5px;margin-left:auto;flex-shrink:0}
+.pinbtn,.draghandle{background:#17271b;color:var(--muted);border:1px solid #3f5b45;border-radius:4px;min-height:29px;font-size:10px;font-weight:850;padding:4px 8px;white-space:nowrap}
+.pinbtn[aria-pressed="true"]{color:#132719;background:var(--mint);border-color:var(--mint)}
+.draghandle{cursor:grab;display:flex;align-items:center;justify-content:center;font-size:19px;padding:0 9px;user-select:none;touch-action:pan-y}
+.draghandle:active{cursor:grabbing}
+.draghandle:focus-visible,.pinbtn:focus-visible{outline:2px solid var(--amber);outline-offset:1px}
+.panel.dragging-panel{opacity:.48;border-style:dashed}
+.panel.drop-before{box-shadow:0 -4px 0 var(--amber)}.panel.drop-after{box-shadow:0 4px 0 var(--amber)}
+#main .left.dock-target,#main .right.dock-target{outline:1px dashed var(--mint);outline-offset:2px;border-radius:6px;min-height:95px}
+body[data-profile="desktop"] #main .panel.is-pinned{position:sticky;z-index:12;box-shadow:0 7px 22px #0008, inset 0 2px 0 var(--mint);background:#1b2d21}
+body[data-profile="desktop"] .panelhead{flex-wrap:wrap}
+body[data-profile="desktop"] #chartpanel .chartopts{flex-wrap:wrap}
+body[data-profile="desktop"] #clockpanel .clock{gap:5px}
+body[data-profile="desktop"] #clockpanel .clockbuttons{flex-wrap:wrap}
+.keyhint{font-size:9px;opacity:.8}
+.cloud-chip{border-color:#527357;color:var(--mint)}
+.settings-open{padding:6px 9px;font-size:10px}
+.settings-dialog{color:var(--text);font:12px/1.55 ui-monospace,Consolas,'Liberation Mono',monospace;border:1px solid #507b54;border-radius:9px;background:#19261d;box-shadow:0 22px 90px #000b;width:min(700px,calc(100vw - 22px));max-height:min(90vh,850px);padding:0}
+.settings-dialog::backdrop{background:#020a06c9;backdrop-filter:blur(4px)}
+.settings-title{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:13px 17px;background:#233829;border-bottom:1px solid var(--line)}
+.settings-title h2{font-size:15px;color:var(--mint);letter-spacing:.06em;margin:0}
+.settings-scroll{padding:4px 18px 16px;overflow-y:auto;max-height:calc(90vh - 56px)}
+.settings-section{padding:14px 0 16px;border-bottom:1px solid var(--line)}.settings-section:last-child{border-bottom:0}
+.settings-section h3{margin:0;font-size:12px;color:var(--mint);letter-spacing:.04em}
+.settings-section p{color:var(--muted);margin:7px 0 11px;line-height:1.65}
+.settings-section p strong{color:var(--text)}
+.settings-actions{display:flex;flex-wrap:wrap;gap:7px;margin:7px 0}
+.settings-actions button{padding:9px 12px;min-height:38px}
+.settings-section .danger{border-color:#8a5554;color:#ffb1ab;background:#362626}
+.settings-section .danger:hover:not(:disabled){border-color:#ffb1ab}
+.cloud-status{border:1px solid #526c58;padding:10px;border-radius:5px;color:var(--amber);white-space:pre-wrap;background:#142318;margin-bottom:8px}
+.settings-note{font-size:10px!important}
+.shortcutgrid{display:grid;grid-template-columns:max-content 1fr;gap:7px 15px;margin:10px 0;color:var(--muted)}.shortcutgrid span:nth-child(odd){color:var(--amber);font-weight:900}
+#wipeText{min-height:38px;padding:9px;background:#101e14;color:var(--text);border:1px solid #8a5554;border-radius:4px;min-width:135px;max-width:100%}
+body[data-profile="mobile"] .paneltools,body[data-profile="mobile"] .keyhint{display:none!important}
+body[data-profile="mobile"] .topright .settings-open{min-height:35px;padding:7px;font-size:10px}
+body[data-profile="mobile"] .cloud-chip{display:none}
+@media(max-width:510px){.settings-scroll{padding:3px 12px 12px}.settings-title{padding:12px}.settings-actions button{flex:1 1 auto}.settings-title h2{font-size:13px}}
+
+
+/* v0.4.4: compact, independently sizeable workspace (kept separate for next cleanup pass). */
+body:not(.market-trends-enabled) .trendstat,body:not(.market-trends-enabled) .marketpulse{display:none!important}
+body[data-profile="desktop"] .stats{grid-template-columns:repeat(6,minmax(0,1fr));align-items:stretch}
+body[data-profile="desktop"] .stats>.stat{min-height:0;height:100%;padding:6px 9px;overflow:hidden;container-type:inline-size;justify-content:center}
+body[data-profile="desktop"] .stats>.stat .statlabel,body[data-profile="desktop"] .stats>.stat .statnote{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+body[data-profile="desktop"] .stats>.stat .statvalue{line-height:1.2;max-width:100%}
+body[data-profile="desktop"] .stats.stats-tight .statnote{display:none}
+body[data-profile="desktop"] .stats.stats-tight>.stat{padding-top:3px;padding-bottom:3px}
+body[data-profile="desktop"] .stat-grip{width:11px;right:0;z-index:4}
+body[data-profile="desktop"] .stat-grip::after{top:15%;bottom:15%;right:5px}
+@container (max-width: 125px){
+  .statvalue[data-compact]{font-size:0!important}
+  .statvalue[data-compact]::after{content:attr(data-compact);font-size:13px;letter-spacing:-.04em}
+  .statnote{display:none}
+}
+@container (max-width: 78px){
+  .statvalue[data-compact]::after{font-size:11px}
+  .statlabel{font-size:8px}
+}
+body[data-profile="desktop"] #main:not(.focus-left) .left>.panel,body[data-profile="desktop"] #main:not(.focus-left) .right>.panel{flex:0 0 auto;align-self:stretch}
+body[data-profile="desktop"] #main .panel.sizable{min-height:0;max-width:100%}
+body[data-profile="desktop"] #main #clockpanel .clocksettings{min-height:0;overflow:auto;flex:1 1 auto}
+body[data-profile="desktop"] #main #clockpanel .panelsizer{margin-top:0;flex:0 0 15px}
+body[data-profile="desktop"] #main #chartpanel .chartarea{min-height:0}
+body[data-profile="desktop"] #main #exchangepanel .boardlist,
+body[data-profile="desktop"] #main #tradepanel .trade,
+body[data-profile="desktop"] #main #holdingspanel #holdings,
+body[data-profile="desktop"] #main #tapepanel .activity{min-height:0;overflow-y:auto}
+body[data-profile="desktop"] #main #chartpanel .chartactions{flex:0 0 auto}
+body[data-profile="desktop"] #main .panel .panelsizer{min-height:14px;flex-shrink:0}
+
+
+/* Standalone iOS / Android app safe areas, fluid touch controls and reduced motion. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overscroll-behavior-y:none}
+body{min-height:100dvh}
+button,select,input{touch-action:manipulation}
+body[data-profile="mobile"] input,body[data-profile="mobile"] select,body[data-profile="mobile"] textarea{font-size:16px}
+body[data-profile="mobile"] .wrap{padding-top:max(12px,env(safe-area-inset-top,0px));padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px))}
+body[data-profile="mobile"] .mobile-nav{padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px))}
+body[data-profile="mobile"] .mobile-nav button{min-height:54px;-webkit-tap-highlight-color:transparent}
+body[data-profile="mobile"] .chart{touch-action:pan-y}
+.settings-dialog{max-height:calc(100dvh - 24px);max-height:calc(100dvh - max(24px,env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px)))}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+</style>
+</head>
+<body><div class="wrap">
+<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.4.4</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings">⚙ SAVES & SETTINGS</button><button class="reset" id="reset">↺ Reset market</button></div></header>
+<section class="stats" aria-label="Portfolio and exchange statistics">
+<div class="stat"><div class="statlabel">NET WORTH</div><div class="statvalue" id="networth">$10,000.00</div><div class="statnote" id="profit">Starting balance</div></div>
+<div class="stat"><div class="statlabel">CASH</div><div class="statvalue" id="cash">$10,000.00</div><div class="statnote">Buying power</div></div>
+<div class="stat"><div class="statlabel">POSITIONS VALUE</div><div class="statvalue" id="invested">$0.00</div><div class="statnote" id="sharecount">0 shares held</div></div>
+<div class="stat"><div class="statlabel">EXCHANGE INDEX</div><div class="statvalue" id="index">1,000.00</div><div class="statnote" id="indexchange">+0.00% today</div></div>
+<div class="stat"><div class="statlabel">TOTAL MARKET CAP</div><div class="statvalue" id="totalcap">$0</div><div class="statnote">Shares × current price</div></div>
+<div class="stat"><div class="statlabel">TRADING DAY</div><div class="statvalue" id="day">001</div><div class="statnote" id="regime"><span class="dot"></span>Normal market</div></div>
+<div class="stat trendstat"><div class="statlabel">MARKET TREND · 20D</div><div class="statvalue" id="trendvalue">→ SIDEWAYS</div><div class="statnote" id="trendnote">Rolling exchange index</div></div>
+</section><div class="stats-height-grip" id="statsHeightGrip" role="separator" tabindex="0" aria-label="Resize top statistics tiles height" aria-orientation="horizontal" title="Drag to resize top tile height; double-click to reset"><span></span></div>
+<div class="main" id="main">
+<div class="left">
+<section class="panel sizable" id="chartpanel" aria-label="Company chart"><div class="panelhead"><div><span class="heading">01 / MARKET CHART</span><span class="meta" id="chartmeta"> · 42 trading days</span></div><div class="chartopts"><label class="range-picker" for="chartrange">RANGE <select id="chartrange" aria-label="Graph time range"><option value="21">1M</option><option value="63">3M</option><option value="252">1Y</option><option value="520">MAX</option></select></label><button id="indexoverlay" class="mini" type="button" aria-pressed="true" title="Show or hide exchange trend on the graph">↗ INDEX</button><button id="allchart" class="mini" aria-pressed="true">ALL / %</button><button id="singlechart" class="mini" aria-pressed="false">SINGLE / $</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="chartpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="chartpanel" role="button" aria-label="Move chartpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div>
+<div class="chartarea" id="chartarea"><svg id="chart" class="chart" viewBox="0 0 850 270" role="img" aria-label="Historical performance of every listed company"></svg><div id="tooltip" class="tooltip" hidden></div><div class="chartfoot"><span id="chartstart">41 DAYS AGO</span><span id="charttype">RELATIVE PERFORMANCE · BASE = 100</span><span id="chartend">DAY 001</span></div></div><div id="legend" class="legend" aria-label="Choose visible and highlighted chart companies"></div><div class="chartactions"><span>CHART SERIES</span><button type="button" id="showall">SHOW ALL</button><button type="button" id="hideall">HIDE ALL</button><button type="button" id="clearfocus">CLEAR FOCUS</button><button type="button" id="wideleft" title="Make left column as wide as practical">WIDE LEFT</button><button type="button" id="focusleft" aria-pressed="false" title="Place trading panels below to give the left column the full width">FULL LEFT ↗</button><button type="button" id="resetlayout">RESET SIZES</button><span id="splitreadout" class="split-readout">LEFT 72%</span><span class="resizehelp">DRAG HANDLES · DOUBLE-CLICK TO RESET</span></div><div class="panelsizer" data-panel="chartpanel" role="separator" tabindex="0" aria-label="Resize chart panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading">02 / SIMULATED EXCHANGE</div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><div class="marketnote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional prices react to trends, sectors, and occasional news shocks.</div><div class="panelsizer" data-panel="exchangepanel" role="separator" tabindex="0" aria-label="Resize exchange panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="clockpanel" aria-label="Time controls"><div class="panelhead clock"><div><span class="heading">03 / MARKET CLOCK </span><span class="meta" id="clockstatus">· Next closing bell</span></div><div class="clockbuttons"><button class="btn primary" id="next">+1 DAY →</button><button class="btn" id="next10">+10 DAYS</button><button class="btn" id="auto" aria-pressed="false">▶ AUTO</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="clockpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="clockpanel" role="button" aria-label="Move clockpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="clocksettings"><label for="autostep">AUTO STEP <select id="autostep" aria-label="Days advanced per automatic tick"><option value="1">1 day</option><option value="2">2 days</option><option value="5">5 days</option><option value="10">10 days</option><option value="30">30 days</option><option value="100">100 days</option></select></label><label for="autospeed">EVERY <select id="autospeed" aria-label="Automatic tick interval"><option value="100">0.1 sec</option><option value="250">0.25 sec</option><option value="500">0.5 sec</option><option value="650">0.65 sec</option><option value="1000">1 sec</option><option value="2000">2 sec</option><option value="5000">5 sec</option></select></label><span id="autodetail" class="meta"></span><span class="meta keyhint">SPACE PLAY/PAUSE · + / − SPEED · [ / ] STEP</span></div><div class="panelsizer" data-panel="clockpanel" role="separator" tabindex="0" aria-label="Resize market clock height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+</div>
+<div id="columnDivider" class="column-divider" role="separator" tabindex="0" aria-orientation="vertical" aria-label="Resize left and right dashboard columns" aria-valuemin="28" aria-valuemax="92" aria-valuenow="72" title="Drag, double-click to reset, or use ← → Home End"><span>⋮</span></div>
+<div class="right">
+<section class="panel sizable" id="tradepanel" aria-label="Trade desk"><div class="panelhead"><span class="heading">04 / TRADE DESK</span><span class="meta">NO FEES · INSTANT FILLS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="tradepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="tradepanel" role="button" aria-label="Move tradepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="trade"><div class="mobile-stock-picker"><label for="mobilecompany">COMPANY</label><select id="mobilecompany" aria-label="Stock to trade"><option value="NEON">NEON · Neon Dynamics</option><option value="HARB">HARB · Harbor Industries</option><option value="MISO">MISO · Miso Retail</option><option value="VOLT">VOLT · Volt Energy</option><option value="AERO">AERO · Aero Works</option><option value="BYTE">BYTE · Byte Labs</option></select></div><div class="pair"><button class="side" id="buy" aria-pressed="true">BUY</button><button class="side" id="sell" aria-pressed="false">SELL</button></div><div class="fieldrow"><label for="qty">SHARES OF <strong id="orderticker">NEON</strong></label><button class="fillmax" id="max" type="button">MAX BUY</button></div><input class="qty" id="qty" type="number" min="1" step="1" value="1" inputmode="numeric" autocomplete="off"><div class="lineitem"><span>Current share price</span><strong id="unitprice">$46.20</strong></div><div class="lineitem"><span>Order total</span><strong id="ordercost">$46.20</strong></div><div class="lineitem"><span id="availablelabel">Buying power</span><strong id="available">$10,000.00</strong></div><div class="lineitem"><span id="caplabel">Available public float</span><strong id="floatavailable">0</strong></div><button class="execute" id="execute">BUY 1 SHARE</button><p class="toast" role="status" aria-live="polite" id="toast"></p></div><div class="panelsizer" data-panel="tradepanel" role="separator" tabindex="0" aria-label="Resize trade panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="holdingspanel" aria-label="Portfolio holdings"><div class="panelhead"><span class="heading">05 / HOLDINGS</span><span class="meta" id="positioncount">0 POSITIONS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="holdingspanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="holdingspanel" role="button" aria-label="Move holdingspanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div id="holdings"></div><button type="button" class="mobile-reset" id="mobileReset">↺ Reset the simulated market</button><div class="panelsizer" data-panel="holdingspanel" role="separator" tabindex="0" aria-label="Resize holdings panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="tapepanel" aria-label="Activity feed"><div class="panelhead"><span class="heading">06 / MARKET TAPE</span><span class="meta">LATEST FIRST</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="tapepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="tapepanel" role="button" aria-label="Move tapepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="activity" id="activity"></div><div class="panelsizer" data-panel="tapepanel" role="separator" tabindex="0" aria-label="Resize market tape panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+</div></div>
+<nav class="mobile-nav" id="mobilenav" aria-label="Mobile sections"><button type="button" data-tab="market" aria-current="page"><span class="nav-icon" aria-hidden="true">▤</span><span>MARKET</span></button><button type="button" data-tab="chart"><span class="nav-icon" aria-hidden="true">⌁</span><span>CHART</span></button><button type="button" data-tab="trade"><span class="nav-icon" aria-hidden="true">⇄</span><span>TRADE</span></button><button type="button" data-tab="portfolio"><span class="nav-icon" aria-hidden="true">▦</span><span>PORTFOLIO</span></button></nav>
+<footer class="footer"><span>◉ FICTIONAL COMPANIES · NO LIVE DATA · NO REAL MONEY</span><span id="saveStatus">BROWSER AUTOSAVE · OFFLINE · ZERO DEPENDENCIES</span></footer>
+</div>
+<dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle">
+ <div class="settings-title"><h2 id="settingsTitle">MARKETLAB / CONTROL ROOM</h2><button type="button" id="closeSettings" class="btn">✕ CLOSE</button></div>
+ <div class="settings-scroll">
+  <section class="settings-section"><h3>☁ BETA FOLDER CLOUD SAVE</h3>
+   <p>Choose a folder that your desktop cloud app syncs, such as a OneDrive, Google Drive, or Dropbox folder. MarketLab writes a JSON save there. <strong>This is folder sync, not a hosted account service.</strong> Local browser saves remain primary.</p>
+   <div id="cloudStatus" class="cloud-status" role="status" aria-live="polite">Not connected. Local save stays active.</div>
+   <div class="settings-actions"><button type="button" class="btn primary" id="connectCloud">CHOOSE SYNC FOLDER</button><button type="button" class="btn" id="disconnectCloud" disabled>DISCONNECT</button></div>
+   <div class="settings-actions"><button type="button" class="btn" id="syncCloud" disabled>↑ BACK UP LOCAL</button><button type="button" class="btn" id="restoreCloud" disabled>↓ RESTORE CLOUD</button><button type="button" class="btn danger" id="replaceCloud" disabled>REPLACE CLOUD…</button></div>
+   <p class="settings-note">First connection requires a manual choice. After successful sync, MarketLab checks for changes every 90 seconds while open. If another device changed the file, syncing stops until you decide what to keep. Every cloud overwrite creates a dated backup first. No automatic merging.</p>
+  </section>
+  <section class="settings-section"><h3>↗ PORTABLE SAVE</h3><p>Works on desktop, iOS, and Android, even if cloud-folder access is unsupported. Export a full save as JSON or import one with confirmation and a local backup.</p>
+   <div class="settings-actions"><button type="button" class="btn" id="exportSave">↓ EXPORT JSON</button><button type="button" class="btn" id="chooseImport">↑ IMPORT JSON</button><button type="button" class="btn" id="exportRestore" disabled>↓ LAST RECOVERY BACKUP</button><input id="importFile" type="file" accept=".json,application/json" hidden></div>
+  </section>
+  <section class="settings-section"><h3>⌨ DESKTOP SHORTCUTS</h3><div class="shortcutgrid"><span>SPACE</span><span>Play / pause simulated time</span><span>+ / −</span><span>Faster / slower automatic ticks</span><span>[ / ]</span><span>Fewer / more days per tick</span><span>.</span><span>Advance 1 day (Shift + . for 10)</span><span>SHIFT + ↑↓</span><span>Move focused panel up / down</span><span>SHIFT + ←→</span><span>Move focused panel between columns</span></div><p class="settings-note">Keyboard shortcuts are disabled while typing or using menus. On desktop, drag any ⠿ panel handle; pin with ♧ to keep it in view.</p></section>
+  <section class="settings-section wipe-section"><h3>⚠ FULL LOCAL RESET / WIPE</h3><p>Erases your current market, portfolio, chart settings, saved desktop panel arrangement, local recovery backup, and saved folder connection. <strong>It does not delete files already in your cloud folder.</strong> Type WIPE to enable the button.</p>
+   <div class="settings-actions"><input id="wipeText" type="text" autocomplete="off" spellcheck="false" placeholder="Type WIPE" aria-label="Type WIPE to confirm full local reset"><button type="button" class="btn danger" id="fullWipe" disabled>FULL LOCAL WIPE</button></div>
+  </section>
+ </div>
+</dialog>
+<script>
+(()=>{'use strict';
+const KEY='marketlab.tiny-exchange.v2',OLD_KEY='marketlab.tiny-exchange.v1';
+const START_CENTS=1000000,HISTORY=520,MAX_PRICE_CENTS=1000000,MAX_CASH_CENTS=1000000000000000,MAX_DAY=999999999;
+const COMPANIES=[
+{id:'NEON',name:'Neon Dynamics',sector:'Technology',color:'#9ef4a1',price:46.20,shares:6400000000,float:3200000000,volatility:.034,drift:.00065},
+{id:'HARB',name:'Harbor Industries',sector:'Industrials',color:'#e5bd7c',price:72.50,shares:550000000,float:330000000,volatility:.019,drift:.00045},
+{id:'MISO',name:'Miso Retail',sector:'Consumer',color:'#86cafa',price:28.75,shares:100000000,float:62000000,volatility:.028,drift:.00060},
+{id:'VOLT',name:'Volt Energy',sector:'Energy',color:'#e89acd',price:93.10,shares:1100000000,float:690000000,volatility:.040,drift:.00035},
+{id:'AERO',name:'Aero Works',sector:'Industrials',color:'#b0a4fa',price:145.40,shares:280000000,float:156000000,volatility:.025,drift:.00055},
+{id:'BYTE',name:'Byte Labs',sector:'Technology',color:'#ff997b',price:8.60,shares:90000000,float:54000000,volatility:.063,drift:.00090}
+];
+const $=id=>document.getElementById(id),company=id=>COMPANIES.find(c=>c.id===id);
+const FEATURE_FLAGS=Object.freeze({marketTrend:false});
+ const STEP_OPTIONS=[1,2,5,10,30,100],SPEED_OPTIONS=[100,250,500,650,1000,2000,5000];
+const PANEL_LIMITS={chartpanel:[285,2600],exchangepanel:[115,2400],clockpanel:[90,650],tradepanel:[145,2000],holdingspanel:[65,1800],tapepanel:[72,1800]};
+function defaultUI(){return{visible:COMPANIES.map(c=>c.id),highlight:[],autoStep:1,autoMs:650,leftPct:72,focusLeft:false,heights:{},profileMode:"auto",mobileTab:"market",chartRange:63,showIndex:true,topWidths:[1,1,1,1,1,1],statsHeight:0,dock:{left:["chartpanel","exchangepanel","clockpanel"],right:["tradepanel","holdingspanel","tapepanel"]},pinned:[]}}
+function sanitizeUI(raw){const u=defaultUI();if(!raw||typeof raw!=='object'||Array.isArray(raw))return u;
+if(Array.isArray(raw.visible))u.visible=[...new Set(raw.visible.filter(id=>typeof id==='string'&&company(id)))];
+if(Array.isArray(raw.highlight))u.highlight=[...new Set(raw.highlight.filter(id=>typeof id==='string'&&u.visible.includes(id)))];
+if(STEP_OPTIONS.includes(raw.autoStep))u.autoStep=raw.autoStep;
+if(SPEED_OPTIONS.includes(raw.autoMs))u.autoMs=raw.autoMs;
+if(typeof raw.leftPct==='number'&&Number.isFinite(raw.leftPct))u.leftPct=Math.max(28,Math.min(94,raw.leftPct));
+if(typeof raw.focusLeft==='boolean')u.focusLeft=raw.focusLeft;
+if(["auto","desktop","mobile"].includes(raw.profileMode))u.profileMode=raw.profileMode;
+if(["market","chart","trade","portfolio"].includes(raw.mobileTab))u.mobileTab=raw.mobileTab;
+if([21,63,252,520].includes(raw.chartRange))u.chartRange=raw.chartRange;
+if(typeof raw.showIndex==='boolean')u.showIndex=raw.showIndex;
+// Six visible tiles in v0.4.4; old seven-tile width preferences are migrated safely.
+ if(Array.isArray(raw.topWidths)&&[6,7].includes(raw.topWidths.length)&&raw.topWidths.every(v=>Number.isFinite(v)&&v>=.12&&v<=10))u.topWidths=raw.topWidths.slice(0,6);
+if(Number.isSafeInteger(raw.statsHeight)&&raw.statsHeight>=52&&raw.statsHeight<=240)u.statsHeight=raw.statsHeight>150?0:raw.statsHeight;
+if(raw.dock&&Array.isArray(raw.dock.left)&&Array.isArray(raw.dock.right)){
+ const combined=[...raw.dock.left,...raw.dock.right],ids=Object.keys(PANEL_LIMITS);
+ if(combined.length===ids.length&&new Set(combined).size===ids.length&&combined.every(id=>ids.includes(id)))u.dock={left:raw.dock.left.slice(),right:raw.dock.right.slice()};
+}
+if(Array.isArray(raw.pinned))u.pinned=[...new Set(raw.pinned.filter(id=>Object.hasOwn(PANEL_LIMITS,id)))];
+if(raw.heights&&typeof raw.heights==='object'&&!Array.isArray(raw.heights))for(const [id,[min,max]] of Object.entries(PANEL_LIMITS)){const v=raw.heights[id];if(Number.isFinite(v))u.heights[id]=Math.round(Math.max(min,Math.min(max,v)))}return u}
+
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
+const cents=n=>Math.round(n*100),usd=n=>n/100;
+const moneyFmt=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+const numFmt=new Intl.NumberFormat('en-US',{maximumFractionDigits:0});
+const money=n=>moneyFmt.format(n),amount=n=>money(usd(n)),integer=n=>numFmt.format(n);
+const compact=n=>{const a=Math.abs(n);for(const [v,t] of [[1e12,'T'],[1e9,'B'],[1e6,'M'],[1e3,'K']])if(a>=v)return '$'+(n/v).toFixed(a/v>=100?0:a/v>=10?1:2)+t;return money(n)};
+const compactShares=n=>{for(const [v,t] of [[1e9,'B'],[1e6,'M'],[1e3,'K']])if(n>=v)return (n/v).toFixed(n/v>=100?0:n/v>=10?1:2)+t;return integer(n)};
+const escape=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const safePrice=(n,min,max)=>typeof n==='number'&&Number.isFinite(n)&&Number.isSafeInteger(cents(n))&&cents(n)>=min&&cents(n)<=max&&Math.abs(n-usd(cents(n)))<1e-6;
+const changePct=(a,b)=>(a/b-1)*100, signed=n=>(n>=0?'+':'')+n.toFixed(2)+'%';
+const BASE_MARKET_CAP=COMPANIES.reduce((n,c)=>n+c.shares*c.price,0);
+let storageAvailable=true,loadNotice='';
+function random(s){s.seed=(Math.imul(s.seed,1664525)+1013904223)>>>0;return s.seed/4294967296}
+function clampMomentum(v,limit){return typeof v==='number'&&Number.isFinite(v)?clamp(v,-limit,limit):0}
+function bellNoise(s){return (random(s)+random(s)+random(s)+random(s)+random(s)+random(s)-3)*.57735026919}
+// Dollar prices trade in cents. Conventional rounding would make a $0.01 stock
+// permanently unable to rise: even a +33% daily move rounds back to one cent.
+// For distressed penny prices, round probabilistically using the saved market RNG.
+function marketRoundCents(raw,s){
+ if(raw>=25)return Math.round(raw);
+ const floor=Math.floor(raw);
+ return floor+(random(s)<raw-floor?1:0);
+}
+function preHistory(s,c,last){let price=cents(last),history=[usd(price)];for(let i=0;i<HISTORY-1;i++){price=clamp(Math.round(price*(1+(random(s)-.5)*c.volatility*1.85)),1,MAX_PRICE_CENTS);history.unshift(usd(price))}return history}
+function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{}};for(const c of COMPANIES)s.companies[c.id]={price:c.price,previous:c.price,history:preHistory(s,c,c.price),volume:0};s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
+function normalize(raw){
+if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==2||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295||!raw.companies||typeof raw.companies!=='object'||Array.isArray(raw.companies)||!raw.holdings||typeof raw.holdings!=='object'||Array.isArray(raw.holdings))return null;
+const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{}};
+for(const sector of new Set(COMPANIES.map(c=>c.sector)))s.sectorMomentum[sector]=clampMomentum(raw.sectorMomentum?.[sector],.014);
+for(const c of COMPANIES)s.stockMomentum[c.id]=clampMomentum(raw.stockMomentum?.[c.id],.023);
+for(const c of COMPANIES){const q=raw.companies[c.id],n=raw.holdings[c.id]??0;if(!q||typeof q!=='object'||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(n)||n<0||n>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price)||!Number.isSafeInteger(q.volume)||q.volume<0||q.volume>c.float)return null;
+s.companies[c.id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:q.volume};if(n)s.holdings[c.id]=n;}
+if(Array.isArray(raw.events))s.events=raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,14).map(e=>({day:e.day,text:e.text}));return s;
+}
+function migrateV1(raw){if(!raw||raw.version!==1||!raw.companies||!raw.holdings||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295)return null;const s=fresh();s.seed=raw.seed;s.day=raw.day;s.cash=usd(cents(raw.cash));s.selected=company(raw.selected)?raw.selected:'NEON';s.side=raw.side==='sell'?'sell':'buy';for(const id of ['NEON','HARB','MISO','VOLT']){const q=raw.companies[id],owned=raw.holdings[id]??0,c=company(id);if(!q||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(owned)||owned<0||owned>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price))return null;s.companies[id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:0};if(owned)s.holdings[id]=owned;}s.events=Array.isArray(raw.events)?raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,13):[];s.events.unshift({day:s.day,text:'MarketLab upgraded to v0.2. Two companies joined the exchange.'});return s}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw!==null){const val=normalize(JSON.parse(raw));if(val)return val;loadNotice='This save is invalid. Fresh market loaded. Your original save remains until the next action.';return fresh();}const legacy=localStorage.getItem(OLD_KEY);if(legacy!==null){const migrated=migrateV1(JSON.parse(legacy));if(migrated){loadNotice='Your v0.1 portfolio was imported into v0.2.';return migrated;}loadNotice='Older save was invalid. Started a new market.';}return fresh();}catch(e){if(e instanceof SyntaxError)loadNotice='Could not parse the saved game. A fresh market was loaded.';else{storageAvailable=false;loadNotice='Storage is unavailable. Your progress will not persist.'}return fresh()}}
+let state=load(),timer=null;
+const CLOUD_NAME='marketlab-cloud-save.json',CLOUD_META_KEY='marketlab.cloud-meta.v1',RESTORE_BACKUP_KEY='marketlab.restore-backup.v1';
+const cloud={folder:null,folderName:'',busy:false,allowAuto:false,revision:null,status:'Not connected. Local save stays active.',severity:'',lastSnapshot:'',lastSyncedAt:0,epoch:0};
+const MOBILE_BREAKPOINT='(max-width:760px)';
+let currentProfile='desktop';
+function preferredProfile(){return state.ui.profileMode==='auto'?((matchMedia(MOBILE_BREAKPOINT).matches||(matchMedia('(pointer: coarse)').matches&&innerWidth<=1100))?'mobile':'desktop'):state.ui.profileMode}
+function isMobileProfile(){return currentProfile==='mobile'}
+function syncProfile(){
+ const next=preferredProfile();currentProfile=next;
+ document.body.dataset.profile=next;document.body.dataset.tab=state.ui.mobileTab;
+ $('profilemode').value=state.ui.profileMode;
+ $('profiletag').textContent=next.toUpperCase()+' VIEW';
+ for(const b of $('mobilenav').querySelectorAll('[data-tab]')){
+  if(b.dataset.tab===state.ui.mobileTab)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current');
+ }
+}
+function setMobileTab(tab){if(!['market','chart','trade','portfolio'].includes(tab))return;
+ state.ui.mobileTab=tab;syncProfile();save();render();window.scrollTo({top:0,behavior:'instant'});
+}
+function setProfileMode(mode){if(!['auto','desktop','mobile'].includes(mode))return;
+ state.ui.profileMode=mode;syncProfile();save();render();
+}
+const quote=id=>state.companies[id],priceCents=id=>cents(quote(id).price),shares=id=>state.holdings[id]||0;
+const holdingsCents=()=>COMPANIES.reduce((n,c)=>n+shares(c.id)*priceCents(c.id),0);
+const worthCents=()=>cents(state.cash)+holdingsCents();
+const marketCap=c=>c.shares*quote(c.id).price;
+const marketCapPrevious=c=>c.shares*quote(c.id).previous;
+const totalCap=()=>COMPANIES.reduce((n,c)=>n+marketCap(c),0);
+const totalCapPrevious=()=>COMPANIES.reduce((n,c)=>n+marketCapPrevious(c),0);
+const dayChange=id=>changePct(quote(id).price,quote(id).previous);
+function indexHistory(limit=HISTORY){
+ const series=COMPANIES.map(c=>({weight:c.shares,history:quote(c.id).history}));
+ const n=Math.min(limit,...series.map(x=>x.history.length));
+ return Array.from({length:n},(_,i)=>series.reduce((sum,x)=>sum+x.weight*x.history[x.history.length-n+i],0)/BASE_MARKET_CAP*1000);
+}
+function trendSignal(){const h=indexHistory(21),span=Math.min(20,h.length-1),ret=span?changePct(h.at(-1),h.at(-1-span)):0;
+ return{pct:ret,span,kind:ret>2.3?'up':ret< -2.3?'down':'flat',h};}
+function notify(message){$('toast').textContent=message}
+function save(){if(storageAvailable){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{storageAvailable=false;notify('Saving failed. Progress may be lost after closing this window.')}}renderSaveStatus()}
+function renderSaveStatus(){$('saveStatus').textContent=storageAvailable?'BROWSER AUTOSAVE · OFFLINE · CLOUD OPTIONAL':'SAVE UNAVAILABLE · PROGRESS WILL NOT PERSIST';$('saveStatus').classList.toggle('neg',!storageAvailable);if($('cloudChip'))$('cloudChip').textContent=cloud.folder?'☁ CLOUD BETA':'☁ LOCAL ONLY'}
+function pushEvent(t){state.events.unshift({day:state.day,text:t});state.events=state.events.slice(0,14)}
+function valuationPressure(c,price,day){
+  const longRunYears=Math.min(day,252*30);
+  const fair=Math.max(.01,c.price*Math.exp(longRunYears*.00018));
+  const deviation=Math.log(Math.max(.01,price)/fair);
+  const excess=Math.max(0,Math.abs(deviation)-.44);
+  return clamp(-Math.sign(deviation)*excess*.0022,-.010,.010);
+ }
+ function tick(){
+ if(state.day>=MAX_DAY){stopAuto();notify('Maximum simulated day reached.');return}
+ if(state.regimeDays<=0){
+  const r=random(state);state.regime=r<.28?'bull':r<.54?'bear':r<.72?'volatile':'normal';
+  state.regimeDays=48+Math.floor(random(state)*105);
+  pushEvent(`Market cycle shifts to ${state.regime.toUpperCase()}.`);
+ }
+ state.regimeDays--;
+ const bias=state.regime==='bull'?.0019:state.regime==='bear'?-.0025:state.regime==='normal'?.00038:0;
+ const turbulence=state.regime==='volatile'?1.8:state.regime==='bear'?1.18:1;
+ // Persistent momentum creates trends, while random shocks keep prices unpredictable.
+ state.marketMomentum=clamp(state.marketMomentum*.92+bellNoise(state)*.0018+bias*.10,-.022,.022);
+ let macroEvent=0;
+ if(random(state)<.009){macroEvent=(random(state)<.60?-1:1)*(.043+random(state)*.094);pushEvent(macroEvent<0?'Broad market selloff hits the exchange.':'Unexpected market-wide rally lifts prices.');}
+ const marketMove=bias+state.marketMomentum+bellNoise(state)*.016*turbulence+macroEvent;
+ const sectors={};
+ for(const c of COMPANIES)if(!(c.sector in sectors)){
+  const momentum=clamp((state.sectorMomentum[c.sector]||0)*.93+bellNoise(state)*.0016,-.014,.014);
+  state.sectorMomentum[c.sector]=momentum;
+  sectors[c.sector]=momentum+bellNoise(state)*.010*turbulence;
+ }
+ let top=null,low=null;
+ for(const c of COMPANIES){
+  const q=quote(c.id),old=priceCents(c.id);q.previous=usd(old);
+  const companyMomentum=clamp((state.stockMomentum[c.id]||0)*.88+bellNoise(state)*.003,-.023,.023);
+  state.stockMomentum[c.id]=companyMomentum;
+  let eventMove=0;
+  if(random(state)<.012){
+   eventMove=(random(state)<.52?-1:1)*(.045+random(state)*.11);
+   pushEvent(`${c.id}: ${eventMove<0?'earnings miss / negative outlook':'breakout earnings / positive outlook'} drives sharp repricing.`);
+  }
+  const sectorWeight=c.sector==='Technology'?1.13:c.sector==='Energy'?.83:1;
+  const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.63*turbulence+eventMove+valuationPressure(c,q.price,state.day),-.33,.33);
+  q.price=usd(clamp(marketRoundCents(old*(1+step),state),1,MAX_PRICE_CENTS));
+  q.history.push(q.price);if(q.history.length>HISTORY)q.history.shift();
+  q.volume=clamp(Math.round(c.float*(.001+random(state)*.006)*(1+Math.abs(step)*13)),1,c.float);
+  const d=dayChange(c.id);
+  if(!top||d>top.d)top={id:c.id,d};if(!low||d<low.d)low={id:c.id,d};
+ }
+ state.day++;
+ // Tape includes context without generating unbounded saved events.
+ if(macroEvent===0)pushEvent(top.d>=0?`${top.id} led today's session (${signed(top.d)}).`:`Red session: ${low.id} closed ${signed(low.d)}.`);
+}
+function advance(days){const count=Math.min(days,MAX_DAY-state.day);if(count<=0)return;for(let i=0;i<count;i++)tick();save();renderMarketFrame();if(state.day===MAX_DAY)stopAuto()}
+function maxQty(){const c=company(state.selected),p=priceCents(c.id),owned=shares(c.id),cash=cents(state.cash);if(state.side==='sell')return Math.max(0,Math.min(owned,Math.floor((MAX_CASH_CENTS-cash)/p)));
+return Math.max(0,Math.min(Math.floor(cash/p),c.float-owned,Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
+function validateOrder(){const raw=$('qty').value.trim(),qty=/^\d+$/.test(raw)?Number(raw):NaN,id=state.selected,c=company(id),owned=shares(id),p=priceCents(id);
+if(!Number.isSafeInteger(qty)||qty<1)return{ok:false,qty,reason:'Enter a positive whole number of shares.'};
+const cost=qty*p;if(!Number.isSafeInteger(cost)||cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'This order exceeds the exchange trade limit.'};
+if(state.side==='buy'&&qty>c.float-owned)return{ok:false,qty,reason:'Not enough shares remain in the public float.'};
+if(state.side==='buy'&&cost>cents(state.cash))return{ok:false,qty,reason:'Not enough cash for that order.'};
+if(state.side==='sell'&&qty>owned)return{ok:false,qty,reason:'You do not own that many shares.'};
+if(state.side==='sell'&&cents(state.cash)+cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'Maximum cash balance reached.'};
+return{ok:true,qty,cost,reason:''}}
+function trade(){const o=validateOrder();if(!o.ok){notify(o.reason);renderTrade();return}
+const id=state.selected,old=shares(id),cash=cents(state.cash);if(state.side==='buy'){state.cash=usd(cash-o.cost);state.holdings[id]=old+o.qty}else{state.cash=usd(cash+o.cost);if(old===o.qty)delete state.holdings[id];else state.holdings[id]=old-o.qty}
+pushEvent(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} ${o.qty===1?'share':'shares'} @ ${amount(priceCents(id))}.`);notify(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} for ${amount(o.cost)}.`);save();render()}
+function setSide(side){state.side=side;save();renderTrade();notify(validateOrder().reason)}
+function select(id){if(!company(id))return;state.selected=id;save();render();notify(validateOrder().reason)}
+function setView(v){state.view=v==='single'?'single':'all';save();renderChart()}
+function stopAuto(){if(timer!==null){clearInterval(timer);timer=null}renderClock()}
+function startAuto(){if(state.day>=MAX_DAY)return notify('Maximum day reached.');if(timer!==null)clearInterval(timer);timer=setInterval(()=>advance(state.ui.autoStep),state.ui.autoMs);renderClock()}
+function toggleAuto(){if(timer!==null){stopAuto();return}startAuto()}
+function updateAutoSettings(){state.ui.autoStep=Number($('autostep').value);state.ui.autoMs=Number($('autospeed').value);save();if(timer!==null)startAuto();else renderClock()}
+function renderClock(){$('auto').textContent=timer!==null?'Ⅱ PAUSE':'▶ AUTO';$('auto').setAttribute('aria-pressed',String(timer!==null));$('auto').classList.toggle('active',timer!==null);for(const id of ['next','next10','auto'])$(id).disabled=state.day>=MAX_DAY;$('clockstatus').textContent='· '+(timer!==null?'Market running':'Advance simulated days');$('autostep').value=String(state.ui.autoStep);$('autospeed').value=String(state.ui.autoMs);$('autodetail').textContent=(timer!==null?'RUNNING · ':'SET · ')+state.ui.autoStep+'D / '+(state.ui.autoMs/1000)+'S'}
+function renderStats(){const w=worthCents(),held=holdingsCents(),gain=w-START_CENTS;
+$('networth').textContent=amount(w);$('cash').textContent=amount(cents(state.cash));$('invested').textContent=amount(held);$('sharecount').textContent=integer(COMPANIES.reduce((n,c)=>n+shares(c.id),0))+' shares held';$('day').textContent=String(state.day).padStart(3,'0');
+$('profit').textContent=signed(changePct(w,START_CENTS))+' · '+(gain>=0?'+':'−')+amount(Math.abs(gain));$('profit').className='statnote '+(gain>0?'pos':gain<0?'neg':'');
+const cap=totalCap(),prev=totalCapPrevious(),d=changePct(cap,prev);$('index').textContent=(cap/BASE_MARKET_CAP*1000).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});$('indexchange').textContent=signed(d)+' today';$('indexchange').className='statnote '+(d>0?'pos':d<0?'neg':'');$('totalcap').textContent=compact(cap);$('regime').textContent=state.regime.toUpperCase()+' MARKET';
+// Keep the trend algorithm for a future research unlock, but don't
+// calculate hidden trend values on every simulated day.
+if(FEATURE_FLAGS.marketTrend){
+ const trend=trendSignal(),word=trend.kind==='up'?'↗ UPTREND':trend.kind==='down'?'↘ DOWNTREND':'→ SIDEWAYS';
+ $('trendvalue').textContent=word;$('trendvalue').className='statvalue '+(trend.kind==='up'?'pos':trend.kind==='down'?'neg':'');
+ $('trendnote').textContent=signed(trend.pct)+' / '+trend.span+' days';
+ $('marketpulse').innerHTML='<span class="'+(trend.kind==='up'?'pos':trend.kind==='down'?'neg':'')+'">'+escape(word)+'</span> · '+signed(trend.pct)+' in '+trend.span+' sessions · '+state.regime.toUpperCase()+' cycle · '+state.regimeDays+' days to reassessment';
+ $('marketstate').textContent='6 STOCKS · '+word+' · '+state.regime.toUpperCase();
+}else $('marketstate').textContent='6 STOCKS · '+state.regime.toUpperCase()+' MARKET';
+ for(const [id,short] of [['networth',compact(usd(w))],['cash',compact(state.cash)],['invested',compact(usd(held))],['index',numFmt.format(cap/BASE_MARKET_CAP*1000)],['totalcap',compact(cap)],['day',String(state.day)]]){
+  const el=$(id);el.dataset.compact=short;el.title=el.textContent;
+ }
+}
+function renderStocks(){$('stocks').innerHTML=COMPANIES.map(c=>{const d=dayChange(c.id);return `<button type="button" class="stock" data-stock="${c.id}" aria-pressed="${state.selected===c.id}" title="${escape(c.name)} · ${integer(c.shares)} outstanding shares · ${integer(c.float)} public float"><span class="ticker">${c.id}</span><span><span class="sname" style="display:block">${escape(c.name)}</span><span class="sector">${escape(c.sector)} · ${compact(marketCap(c))} cap</span></span><span class="num strong">${amount(priceCents(c.id))}</span><span class="num ${d>0?'pos':d<0?'neg':''}">${signed(d)}</span><span class="num">${compact(marketCap(c))}</span><span class="num">${compactShares(c.float)}</span></button>`}).join('')}
+let lastLegendMarkup='',chartHoverFrame=0;
+function renderChart(){
+ if(chartHoverFrame){cancelAnimationFrame(chartHoverFrame);chartHoverFrame=0;}
+const isAll=state.view==='all',selected=company(state.selected),active=isAll?COMPANIES.filter(c=>state.ui.visible.includes(c.id)):[selected];
+const historyLength=quote(selected.id).history.length,n=Math.min(historyLength,state.ui.chartRange);
+$('chartrange').value=String(state.ui.chartRange);$('indexoverlay').setAttribute('aria-pressed',String(state.ui.showIndex));$('indexoverlay').disabled=!isAll;
+$('allchart').setAttribute('aria-pressed',String(isAll));$('singlechart').setAttribute('aria-pressed',String(!isAll));
+const focused=new Set(state.ui.highlight),useFocus=isAll&&focused.size>0;
+const data=active.map(c=>{const h=quote(c.id).history.slice(-n);return{c,values:isAll?h.map(v=>v/h[0]*100):h}});
+if(isAll&&state.ui.showIndex){const h=indexHistory(n);data.push({c:{id:'INDEX',name:'Simulated Exchange Index',color:'#d8eddf'},values:h.map(v=>v/h[0]*100),isIndex:true});}
+// Match SVG viewBox aspect ratio to the *rendered* chart. Otherwise SVG's
+// default preserveAspectRatio=meet centers a 270-unit plot in a tall panel.
+const chartBox=$('chart').getBoundingClientRect();
+const unit=chartBox.width>0?850/chartBox.width:1;
+const viewH=chartBox.width>0&&chartBox.height>0?chartBox.height*unit:270;
+$('chart').setAttribute('viewBox',`0 0 850 ${viewH.toFixed(3)}`);
+const left=12,right=758,
+      yt=16*unit,yb=Math.max(yt+1,viewH-20*unit);
+const px=i=>left+i*(right-left)/Math.max(1,n-1);
+let guides='',lines='',py=()=>0;
+if(data.length){const allValues=data.flatMap(x=>x.values),hi=Math.max(...allValues),lo=Math.min(...allValues),spread=Math.max(hi-lo,isAll?1:.05),top=hi+spread*.15,bot=Math.max(0,lo-spread*.15);
+py=v=>yb-(v-bot)/(top-bot)*(yb-yt);
+guides=[0,.25,.5,.75,1].map(f=>{const y=yt+(yb-yt)*f,val=top-(top-bot)*f;return `<line x1="${left}" y1="${y}" x2="768" y2="${y}" stroke="#314c3a" stroke-dasharray="3 5"/><text x="842" y="${y+4*unit}" fill="#9ab09e" font-size="${(11*unit).toFixed(2)}" text-anchor="end">${isAll?val.toFixed(1):money(val)}</text>`}).join('');
+const ordered=data.slice().sort((a,b)=>(focused.has(a.c.id)?1:0)-(focused.has(b.c.id)?1:0));
+lines=ordered.map(({c,values,isIndex})=>{const points=values.map((v,i)=>(i?'L':'M')+px(i).toFixed(2)+' '+py(v).toFixed(2)).join(' '),f=focused.has(c.id),op=isIndex?.92:useFocus?(f?1:.34):.96,w=isIndex?2.2:useFocus?(f?4.1:1.65):2.7;
+return `<path data-line="${c.id}" d="${points}" stroke="${c.color}" stroke-width="${w}" ${isIndex?'stroke-dasharray="7 5"':''} stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="${op}" vector-effect="non-scaling-stroke"/><circle cx="${px(values.length-1)}" cy="${py(values.at(-1))}" r="${isIndex?2:useFocus?(f?4.3:2):3.4}" fill="${c.color}" opacity="${op}"/>`}).join('');
+}else{guides=`<text x="425" y="${viewH/2}" fill="#9ab09e" text-anchor="middle" font-size="${14*unit}">NO COMPANIES SELECTED · CHOOSE A TICKER BELOW</text>`}
+$('chart').innerHTML=guides+lines+`<line id="crosshair" x1="0" y1="${yt}" x2="0" y2="${yb}" stroke="#d9ffdd" stroke-width="1" stroke-dasharray="4 3" visibility="hidden"/>`;
+$('chart').setAttribute('aria-label',isAll?`Relative performance chart for ${active.length} visible companies; ${focused.size} highlighted; ${state.ui.showIndex?'exchange index displayed':'exchange index hidden'}`:`${selected.name} daily closing price chart`);
+$('chartstart').textContent=(n-1)+' DAYS AGO';$('chartmeta').textContent=' · '+n+' trading sessions';$('charttype').textContent=isAll?active.length+' STOCKS · '+(state.ui.showIndex?'INDEX ON · ':'')+focused.size+' FOCUSED · BASE 100':'DAILY CLOSE · USD';$('chartend').textContent='DAY '+state.day;
+const nextLegendMarkup=COMPANIES.map(c=>{const visible=state.ui.visible.includes(c.id),highlight=state.ui.highlight.includes(c.id);return `<div class="legendgroup"><button type="button" class="legend-vis" data-visible="${c.id}" aria-pressed="${visible}" aria-label="${visible?'Hide':'Show'} ${escape(c.name)} on chart" title="${visible?'Hide':'Show'} ${escape(c.name)}"><span class="swatch" style="background:${c.color}"></span>${c.id}</button><button type="button" class="legend-focus" data-focus="${c.id}" aria-pressed="${highlight}" aria-label="${highlight?'Unhighlight':'Highlight'} ${escape(c.name)}" title="${highlight?'Unhighlight':'Highlight'} ${escape(c.name)}" ${!visible?'disabled':''}>★</button></div>`}).join('')+'<span class="legendnote">Ticker = show/hide · ★ = focus several</span>';
+if(nextLegendMarkup!==lastLegendMarkup){$('legend').innerHTML=nextLegendMarkup;lastLegendMarkup=nextLegendMarkup;}
+let lastHoverIndex=-1,pendingHoverX=0;
+const hoverAt=clientX=>{if(!data.length)return;const box=$('chart').getBoundingClientRect();if(!box.width)return;
+ const x=(clientX-box.left)/box.width*850,index=clamp(Math.round((x-left)/(right-left)*(n-1)),0,n-1);
+ if(index===lastHoverIndex)return;lastHoverIndex=index;
+ const p=px(index),crosshair=$('crosshair');if(!crosshair)return;
+ crosshair.setAttribute('x1',p);crosshair.setAttribute('x2',p);crosshair.setAttribute('visibility','visible');
+ const day=state.day-(n-1-index);
+ $('tooltip').innerHTML=`<strong>${day>0?'DAY '+day:'PRIOR '+(1-day)}</strong>`+data.map(({c,values})=>`<div><span style="color:${c.color}">${focused.has(c.id)?'★ ':''}${c.id}</span><span>${isAll?(values[index]-100>=0?'+':'')+(values[index]-100).toFixed(2)+'%':money(values[index])}</span></div>`).join('');
+ const t=$('tooltip');t.hidden=false;t.style.left=clamp((p/850)*box.width+10,0,Math.max(0,box.width-155))+'px';t.style.top='12px';
+};
+$('chart').onpointermove=e=>{pendingHoverX=e.clientX;if(chartHoverFrame)return;chartHoverFrame=requestAnimationFrame(()=>{chartHoverFrame=0;hoverAt(pendingHoverX)});};
+$('chart').onpointerdown=e=>{if(chartHoverFrame){cancelAnimationFrame(chartHoverFrame);chartHoverFrame=0;}hoverAt(e.clientX);};
+$('chart').onpointerup=e=>{if(isMobileProfile()&&e.pointerType==='touch')setTimeout(()=>{if(!document.hidden)$('tooltip').hidden=true},2300)};
+$('chart').onpointerleave=e=>{if(e.pointerType==='touch'&&isMobileProfile())return;if(chartHoverFrame){cancelAnimationFrame(chartHoverFrame);chartHoverFrame=0;}lastHoverIndex=-1;$('tooltip').hidden=true;$('crosshair').setAttribute('visibility','hidden')};$('tooltip').hidden=true}
+function showAllSeries(visible){state.ui.visible=visible?COMPANIES.map(c=>c.id):[];if(!visible)state.ui.highlight=[];save();renderChart()}
+function toggleSeries(id){if(!company(id))return;const u=state.ui;if(u.visible.includes(id)){u.visible=u.visible.filter(x=>x!==id);u.highlight=u.highlight.filter(x=>x!==id)}else u.visible.push(id);save();renderChart()}
+function toggleFocus(id){if(!company(id)||!state.ui.visible.includes(id))return;const h=state.ui.highlight;state.ui.highlight=h.includes(id)?h.filter(x=>x!==id):[...h,id];save();renderChart()}
+
+function renderTrade(){const id=state.selected,c=company(id),raw=$('qty').value.trim(),n=/^\d+$/.test(raw)?Number(raw):NaN,qty=Number.isSafeInteger(n)&&n>=1?n:null,o=validateOrder();$('buy').setAttribute('aria-pressed',String(state.side==='buy'));$('sell').setAttribute('aria-pressed',String(state.side==='sell'));$('orderticker').textContent=id;$('mobilecompany').value=id;$('unitprice').textContent=amount(priceCents(id));
+const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(cents(state.cash)):integer(shares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES')}
+function renderHoldings(){const owned=COMPANIES.filter(c=>shares(c.id)>0);$('positioncount').textContent=owned.length+' '+(owned.length===1?'POSITION':'POSITIONS');$('holdings').innerHTML=owned.length?owned.map(c=>`<button type="button" class="holding" data-holding="${c.id}" aria-label="Trade ${c.name}, ${integer(shares(c.id))} shares held"><strong>${c.id}</strong><span class="muted">${integer(shares(c.id))} shares</span><b>${amount(shares(c.id)*priceCents(c.id))}</b></button>`).join(''):'<div class="empty">No holdings. Pick a stock and buy shares.</div>'}
+function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class="event"><span class="eventday">D${String(e.day).padStart(3,'0')}</span><span>${escape(e.text)}</span></div>`).join('')}
+function render(){syncProfile();applyLayout();renderStats();renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();renderClock();renderSaveStatus()}
+// Market progress changes data, not panel geometry. Repaint only relevant
+// mobile views during fast playback; entering a tab still refreshes everything.
+function renderMarketFrame(){
+ renderStats();
+ if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();renderClock();return;}
+ switch(state.ui.mobileTab){
+  case 'market':renderStocks();renderClock();break;
+  case 'chart':renderChart();break;
+  case 'trade':renderTrade();break;
+  case 'portfolio':renderHoldings();renderEvents();break;
+ }
+}
+$('stocks').addEventListener('click',e=>{const b=e.target.closest('[data-stock]');if(b){select(b.dataset.stock);if(isMobileProfile())setMobileTab('trade')}});
+$('profilemode').addEventListener('change',e=>setProfileMode(e.target.value));
+$('mobilenav').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)setMobileTab(b.dataset.tab)});
+$('mobilecompany').addEventListener('change',e=>select(e.target.value));
+$('holdings').addEventListener('click',e=>{const b=e.target.closest('[data-holding]');if(b){select(b.dataset.holding);setSide('sell');if(isMobileProfile())setMobileTab('trade')}});
+$('mobileReset').addEventListener('click',()=>$('reset').click());
+let keyboardNavTimer=null;
+$('qty').addEventListener('focus',()=>{clearTimeout(keyboardNavTimer);if(isMobileProfile())document.body.classList.add('keyboard-open')});
+$('qty').addEventListener('blur',()=>{clearTimeout(keyboardNavTimer);keyboardNavTimer=setTimeout(()=>document.body.classList.remove('keyboard-open'),350)});
+$('chartrange').addEventListener('change',e=>{state.ui.chartRange=Number(e.target.value);save();renderChart()});
+$('indexoverlay').addEventListener('click',()=>{state.ui.showIndex=!state.ui.showIndex;save();renderChart()});
+$('legend').addEventListener('click',e=>{const v=e.target.closest('[data-visible]'),f=e.target.closest('[data-focus]');if(v)toggleSeries(v.dataset.visible);else if(f)toggleFocus(f.dataset.focus)});
+$('resetlayout').addEventListener('click',()=>{state.ui.leftPct=72;state.ui.focusLeft=false;state.ui.heights={};state.ui.topWidths=[1,1,1,1,1,1];state.ui.statsHeight=0;state.ui.dock=defaultUI().dock;state.ui.pinned=[];save();applyLayout()});$('wideleft').addEventListener('click',()=>{state.ui.focusLeft=false;state.ui.leftPct=92;applyLayout();save()});$('focusleft').addEventListener('click',()=>{state.ui.focusLeft=!state.ui.focusLeft;applyLayout();save()});$('showall').addEventListener('click',()=>showAllSeries(true));$('hideall').addEventListener('click',()=>showAllSeries(false));$('clearfocus').addEventListener('click',()=>{state.ui.highlight=[];save();renderChart()});
+$('autostep').addEventListener('change',updateAutoSettings);$('autospeed').addEventListener('change',updateAutoSettings);
+$('allchart').addEventListener('click',()=>setView('all'));$('singlechart').addEventListener('click',()=>setView('single'));
+$('buy').addEventListener('click',()=>setSide('buy'));$('sell').addEventListener('click',()=>setSide('sell'));
+$('max').addEventListener('click',()=>{$('qty').value=String(maxQty());renderTrade();notify(validateOrder().reason)});
+$('qty').addEventListener('input',()=>{renderTrade();notify(validateOrder().reason)});
+$('qty').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();trade()}});
+$('execute').addEventListener('click',trade);$('next').addEventListener('click',()=>advance(1));$('next10').addEventListener('click',()=>advance(10));$('auto').addEventListener('click',toggleAuto);
+$('reset').addEventListener('click',()=>{if(cloud.busy)return notify('Cloud operation in progress. Try reset after it completes.');if(window.confirm('Reset this simulated exchange and erase your portfolio? This cannot be undone.')){stopAuto();cloud.epoch++;state=fresh();$('qty').value='1';cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();save();render();cloudStatus('Market reset. Automatic cloud sync paused to protect the previous cloud save. Use RESTORE CLOUD or REPLACE CLOUD when ready.');notify('Fresh start. Your cloud backup was left untouched.')}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAuto()});window.addEventListener('pagehide',stopAuto);
+window.addEventListener('storage',e=>{if(e.key!==KEY)return;stopAuto();state=load();render();notify('Another tab updated your market. Latest save loaded.')});
+// Top dashboard tiles have independent neighbor-to-neighbor widths and a separate height.
+function applyStatsLayout(){
+ const el=document.querySelector('.stats');
+ const weights=state.ui.topWidths;
+ el.style.gridTemplateColumns=weights.map(w=>`minmax(0,${w.toFixed(4)}fr)`).join(' ');
+ el.style.height=state.ui.statsHeight?state.ui.statsHeight+'px':'';
+ el.classList.toggle('stats-tight',state.ui.statsHeight>0&&state.ui.statsHeight<70);
+}
+const statCards=[...document.querySelectorAll('.stats>.stat:not(.trendstat)')];
+statCards.forEach((card,i)=>{
+ if(i===statCards.length-1)return;
+ const handle=document.createElement('div');
+ handle.className='stat-grip';handle.tabIndex=0;handle.setAttribute('role','separator');
+ handle.setAttribute('aria-orientation','vertical');handle.setAttribute('aria-label',`Resize top tile ${i+1} and ${i+2}`);
+ handle.title='Drag for independent widths · double-click to reset';card.append(handle);
+ let pointer=null,startX=0,base=[0,0],baseW=[1,1];
+ function shift(delta){
+  const sum=base[0]+base[1],min=56;
+  if(sum<=min*2)return;
+  const a=clamp(base[0]+delta,min,sum-min),b=sum-a;
+  const totalWeight=baseW[0]+baseW[1];
+  state.ui.topWidths[i]=totalWeight*a/sum;
+  state.ui.topWidths[i+1]=totalWeight*b/sum;
+  applyStatsLayout();
+ }
+ handle.addEventListener('pointerdown',e=>{
+  if(e.button!==0||isMobileProfile())return;
+  e.preventDefault();const a=statCards[i].getBoundingClientRect(),b=statCards[i+1].getBoundingClientRect();
+  pointer=e.pointerId;startX=e.clientX;base=[a.width,b.width];baseW=[state.ui.topWidths[i],state.ui.topWidths[i+1]];
+  handle.classList.add('dragging');try{handle.setPointerCapture(e.pointerId)}catch{}
+ });
+ window.addEventListener('pointermove',e=>{if(pointer===e.pointerId)shift(e.clientX-startX)});
+ const end=e=>{if(pointer!==e.pointerId)return;pointer=null;handle.classList.remove('dragging');if(handle.hasPointerCapture(e.pointerId))handle.releasePointerCapture(e.pointerId);save()};
+ window.addEventListener('pointerup',end);window.addEventListener('pointercancel',end);
+ handle.addEventListener('keydown',e=>{
+  if(!['ArrowLeft','ArrowRight','Home'].includes(e.key)||isMobileProfile())return;e.preventDefault();
+  if(e.key==='Home'){state.ui.topWidths[i]=1;state.ui.topWidths[i+1]=1;applyStatsLayout()}
+  else{const a=statCards[i].getBoundingClientRect(),b=statCards[i+1].getBoundingClientRect();base=[a.width,b.width];baseW=[state.ui.topWidths[i],state.ui.topWidths[i+1]];shift((e.key==='ArrowRight'?1:-1)*(e.shiftKey?48:16))}save();
+ });
+ handle.addEventListener('dblclick',()=>{state.ui.topWidths[i]=1;state.ui.topWidths[i+1]=1;applyStatsLayout();save()});
+});
+const topHeightHandle=$('statsHeightGrip');let heightPointer=null,startTopY=0,startStatHeight=0;
+function changeStatsHeight(h){state.ui.statsHeight=clamp(Math.round(h),52,150);applyStatsLayout()}
+topHeightHandle.addEventListener('pointerdown',e=>{if(e.button!==0||isMobileProfile())return;e.preventDefault();heightPointer=e.pointerId;startTopY=e.clientY;startStatHeight=document.querySelector('.stats').getBoundingClientRect().height;topHeightHandle.classList.add('dragging');try{topHeightHandle.setPointerCapture(e.pointerId)}catch{}});
+window.addEventListener('pointermove',e=>{if(e.pointerId===heightPointer)changeStatsHeight(startStatHeight+e.clientY-startTopY)});
+const finishStatsHeight=e=>{if(e.pointerId!==heightPointer)return;heightPointer=null;topHeightHandle.classList.remove('dragging');if(topHeightHandle.hasPointerCapture(e.pointerId))topHeightHandle.releasePointerCapture(e.pointerId);save()};
+window.addEventListener('pointerup',finishStatsHeight);window.addEventListener('pointercancel',finishStatsHeight);
+topHeightHandle.addEventListener('keydown',e=>{if(!['ArrowUp','ArrowDown','Home'].includes(e.key))return;e.preventDefault();if(e.key==='Home')state.ui.statsHeight=0;else changeStatsHeight(document.querySelector('.stats').getBoundingClientRect().height+(e.key==='ArrowDown'?1:-1)*(e.shiftKey?40:16));applyStatsLayout();save()});
+topHeightHandle.addEventListener('dblclick',()=>{state.ui.statsHeight=0;applyStatsLayout();save()});
+// Flexible workspace. Dragging only updates UI preferences and never affects market prices.
+const DIVIDER_WIDTH=16;
+function columnBounds(){
+ const w=$('main').getBoundingClientRect().width;
+ const mobile=isMobileProfile();
+ const minLeft=Math.min(310,Math.max(0,w-DIVIDER_WIDTH-180));
+ const minRight=w>=1100?202:180;
+ const low=w>0?100*minLeft/w:28;
+ const high=w>0?100*Math.max(minLeft,w-minRight-DIVIDER_WIDTH)/w:94;
+ return {w,low:clamp(low,0,100),high:clamp(high,0,100),mobile};
+}
+function actualColumnPct(){const b=columnBounds();return b.mobile?100:clamp(state.ui.leftPct,b.low,b.high)}
+function applyLayout(){
+ applyDock();applyStatsLayout();
+ const main=$('main');main.classList.toggle('focus-left',state.ui.focusLeft&&!isMobileProfile());
+ const pct=actualColumnPct();main.style.setProperty('--left-width',pct+'%');
+ const b=columnBounds(),div=$('columnDivider');
+ div.setAttribute('aria-valuemin',String(Math.round(b.low)));
+ div.setAttribute('aria-valuemax',String(Math.round(b.high)));
+ div.setAttribute('aria-valuenow',String(Math.round(pct)));
+ $('splitreadout').textContent=state.ui.focusLeft?'FULL-WIDTH LEFT':'LEFT '+Math.round(pct)+'%';
+ $('focusleft').textContent=state.ui.focusLeft?'SPLIT VIEW ↙':'FULL LEFT ↗';
+ $('focusleft').setAttribute('aria-pressed',String(state.ui.focusLeft));
+ for(const id of Object.keys(PANEL_LIMITS)){
+  const p=$(id),h=isMobileProfile()?undefined:state.ui.heights[id];p.classList.toggle('sized',h!==undefined);
+   p.style.height=h===undefined?'':clamp(h,...PANEL_LIMITS[id])+'px';
+ }
+}
+function changeColumnAt(x){
+ const root=$('main').getBoundingClientRect(),b=columnBounds();if(b.mobile||b.w<=0)return;
+ state.ui.leftPct=Math.round(clamp((x-root.left)/b.w*100,b.low,b.high)*10)/10;
+ const pct=actualColumnPct();$('main').style.setProperty('--left-width',pct+'%');
+ $('columnDivider').setAttribute('aria-valuenow',String(Math.round(pct)));
+ $('splitreadout').textContent='LEFT '+Math.round(pct)+'%';
+}
+function changePanelHeight(id,h){
+  const [min,max]=PANEL_LIMITS[id],panel=$(id),header=panel.querySelector('.panelhead'),grip=panel.querySelector('.panelsizer');
+  const usableMin=Math.max(min,Math.ceil((header?.getBoundingClientRect().height||0)+(grip?.getBoundingClientRect().height||16)+18));
+  const v=clamp(Math.round(h),usableMin,max);
+ state.ui.heights[id]=v;$(id).style.height=v+'px';$(id).classList.add('sized');}
+const divider=$('columnDivider');let columnPointer=null;
+divider.addEventListener('pointerdown',e=>{if(e.button!==0||columnBounds().mobile||state.ui.focusLeft)return;
+ e.preventDefault();columnPointer=e.pointerId;divider.classList.add('dragging');
+ try{divider.setPointerCapture(e.pointerId)}catch{}changeColumnAt(e.clientX)});
+window.addEventListener('pointermove',e=>{if(e.pointerId===columnPointer)changeColumnAt(e.clientX)});
+function finishColumn(e){if(e.pointerId!==columnPointer)return;columnPointer=null;divider.classList.remove('dragging');
+ if(divider.hasPointerCapture(e.pointerId))divider.releasePointerCapture(e.pointerId);save()}
+window.addEventListener('pointerup',finishColumn);window.addEventListener('pointercancel',finishColumn);
+divider.addEventListener('keydown',e=>{
+ if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();
+ const b=columnBounds();const rect=$('main').getBoundingClientRect();
+ if(e.key==='Home')state.ui.leftPct=b.low;
+ else if(e.key==='End')state.ui.leftPct=b.high;
+ else{const delta=(e.shiftKey?80:20)*(e.key==='ArrowLeft'?-1:1);changeColumnAt(rect.left+b.w*actualColumnPct()/100+delta)}
+ applyLayout();save()});
+divider.addEventListener('dblclick',()=>{state.ui.leftPct=72;applyLayout();save()});
+for(const grip of document.querySelectorAll('.panelsizer')){
+ const id=grip.dataset.panel;let baseH=0,startY=0,dragPointer=null;
+ grip.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();baseH=$(id).getBoundingClientRect().height;startY=e.clientY;dragPointer=e.pointerId;grip.classList.add('dragging');try{grip.setPointerCapture(e.pointerId)}catch{}});
+ window.addEventListener('pointermove',e=>{if(e.pointerId===dragPointer)changePanelHeight(id,baseH+e.clientY-startY)});
+ const finish=e=>{if(e.pointerId!==dragPointer)return;dragPointer=null;grip.classList.remove('dragging');if(grip.hasPointerCapture(e.pointerId))grip.releasePointerCapture(e.pointerId);save()};
+ window.addEventListener('pointerup',finish);window.addEventListener('pointercancel',finish);
+ grip.addEventListener('keydown',e=>{if(!['ArrowUp','ArrowDown','Home'].includes(e.key))return;e.preventDefault();
+  if(e.key==='Home'){delete state.ui.heights[id];applyLayout()}else changePanelHeight(id,$(id).getBoundingClientRect().height+(e.key==='ArrowDown'?1:-1)*(e.shiftKey?80:24));save()});
+ grip.addEventListener('dblclick',()=>{delete state.ui.heights[id];applyLayout();save()});
+}
+// Redraw the geometry when either the chart height OR its width changes.
+// requestAnimationFrame coalesces rapid pointer-driven resizing into one redraw per frame.
+let chartResizeFrame=0;
+const chartResizeObserver=new ResizeObserver(()=>{
+ if(chartResizeFrame)return;
+ chartResizeFrame=requestAnimationFrame(()=>{chartResizeFrame=0;if(!isMobileProfile()||state.ui.mobileTab==='chart')renderChart()});
+});
+chartResizeObserver.observe($('chart'));
+window.addEventListener('resize',()=>{const before=currentProfile;syncProfile();applyLayout();if(before!==currentProfile)renderChart()});
+
+
+// v0.4 desktop workspace: draggable panels, accessible movement, and pin-to-scroll.
+const PANEL_IDS=Object.keys(PANEL_LIMITS);
+const dockRoot={left:document.querySelector('#main>.left'),right:document.querySelector('#main>.right')};
+let dragPanelId=null,dragAfter=null,stickyFrame=0;
+function applyDock(){
+ const dock=state.ui.dock;
+ for(const side of ['left','right']){
+  const order=[...dock[side].filter(id=>state.ui.pinned.includes(id)),...dock[side].filter(id=>!state.ui.pinned.includes(id))];
+  dock[side]=order;
+  for(let i=0;i<order.length;i++)if(dockRoot[side].children[i]!==$(order[i]))dockRoot[side].insertBefore($(order[i]),dockRoot[side].children[i]||null);
+ }
+ for(const id of PANEL_IDS){
+  const pinned=state.ui.pinned.includes(id);$(id).classList.toggle('is-pinned',pinned);
+  const btn=$(id).querySelector('.pinbtn');btn.setAttribute('aria-pressed',String(pinned));btn.textContent=pinned?'♠ PINNED':'♧ PIN';
+ }
+ scheduleSticky();
+}
+function scheduleSticky(){if(stickyFrame)return;stickyFrame=requestAnimationFrame(()=>{stickyFrame=0;updateSticky()})}
+function updateSticky(){
+ for(const side of ['left','right']){
+  let y=9,stackFull=false;
+  for(const p of dockRoot[side].querySelectorAll(':scope>.panel')){
+   if(!p.classList.contains('is-pinned')){p.style.position='';p.style.top='';p.style.zIndex='';continue}
+   const h=p.getBoundingClientRect().height;
+   // More pinned content than the viewport can hold? Keep its top-of-column placement,
+   // but allow the later panels to scroll normally instead of covering one another.
+   if(stackFull||y+h>innerHeight-18){stackFull=true;p.style.position='relative';p.style.top='';p.style.zIndex='';continue}
+   p.style.position='';p.style.top=y+'px';p.style.zIndex=String(Math.max(12,40-Math.floor(y/55)));
+   y+=h+9;
+  }
+ }
+}
+function persistDock(){
+ state.ui.dock={left:[...dockRoot.left.querySelectorAll(':scope>.panel')].map(p=>p.id),right:[...dockRoot.right.querySelectorAll(':scope>.panel')].map(p=>p.id)};save();applyDock();renderChart();
+}
+function pinPanel(id){
+ if(!PANEL_IDS.includes(id))return;
+ state.ui.pinned=state.ui.pinned.includes(id)?state.ui.pinned.filter(x=>x!==id):[...state.ui.pinned,id];
+ applyDock();save();
+}
+function movePanel(id,side,index){
+ if(!PANEL_IDS.includes(id)||!['left','right'].includes(side))return;
+ const next={left:state.ui.dock.left.filter(x=>x!==id),right:state.ui.dock.right.filter(x=>x!==id)};
+ next[side].splice(Math.min(Math.max(index,0),next[side].length),0,id);
+ state.ui.dock=next;applyDock();save();renderChart();
+}
+function keyboardMovePanel(id,key){
+ const cur=state.ui.dock.left.includes(id)?'left':'right',other=cur==='left'?'right':'left',items=state.ui.dock[cur];
+ if(key==='ArrowLeft'||key==='ArrowRight')movePanel(id,other,state.ui.dock[other].length);
+ else movePanel(id,cur,Math.max(0,Math.min(items.length-1,items.indexOf(id)+(key==='ArrowUp'?-1:1))));
+}
+function clearDragHighlights(){document.querySelectorAll('.drop-before,.drop-after,.dock-target,.dragging-panel').forEach(x=>x.classList.remove('drop-before','drop-after','dock-target','dragging-panel'))}
+for(const id of PANEL_IDS){
+ const p=$(id),pin=p.querySelector('.pinbtn'),handle=p.querySelector('.draghandle');
+ pin.addEventListener('click',()=>pinPanel(id));
+ handle.addEventListener('dragstart',e=>{if(isMobileProfile()){e.preventDefault();return}dragPanelId=id;p.classList.add('dragging-panel');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',id)});
+ handle.addEventListener('dragend',()=>{dragPanelId=null;clearDragHighlights()});
+ handle.addEventListener('keydown',e=>{if(e.shiftKey&&['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)&&!isMobileProfile()){e.preventDefault();keyboardMovePanel(id,e.key);handle.focus()}});
+ p.addEventListener('dragover',e=>{if(!dragPanelId||isMobileProfile()||id===dragPanelId)return;e.preventDefault();clearDragHighlights();const rect=p.getBoundingClientRect(),after=e.clientY>rect.top+rect.height/2;p.classList.add(after?'drop-after':'drop-before');e.dataTransfer.dropEffect='move'});
+ p.addEventListener('drop',e=>{if(!dragPanelId||id===dragPanelId)return;e.preventDefault();e.stopPropagation();const parent=p.parentElement,side=parent===dockRoot.left?'left':'right',targetIndex=state.ui.dock[side].indexOf(id),after=e.clientY>p.getBoundingClientRect().top+p.getBoundingClientRect().height/2;const sourceSide=state.ui.dock.left.includes(dragPanelId)?'left':'right',sourceIndex=state.ui.dock[sourceSide].indexOf(dragPanelId);let index=targetIndex+(after?1:0);if(sourceSide===side&&sourceIndex<index)index--;movePanel(dragPanelId,side,index);dragPanelId=null;clearDragHighlights()});
+}
+for(const side of ['left','right']){
+ const root=dockRoot[side];
+ root.addEventListener('dragover',e=>{if(!dragPanelId||isMobileProfile())return;if(e.target.closest('.panel'))return;e.preventDefault();root.classList.add('dock-target')});
+ root.addEventListener('drop',e=>{if(!dragPanelId||e.target.closest('.panel'))return;e.preventDefault();movePanel(dragPanelId,side,state.ui.dock[side].length);dragPanelId=null;clearDragHighlights()});
+}
+const dockSizer=new ResizeObserver(scheduleSticky);for(const id of PANEL_IDS)dockSizer.observe($(id));
+
+// Keyboard controls have no effect when using forms, menus or modal dialogs.
+function changeAutoRate(dir){const i=SPEED_OPTIONS.indexOf(state.ui.autoMs),next=Math.max(0,Math.min(SPEED_OPTIONS.length-1,i+dir));state.ui.autoMs=SPEED_OPTIONS[next];save();if(timer!==null)startAuto();else renderClock();notify('Auto interval: '+(state.ui.autoMs/1000)+' sec')}
+function changeAutoStep(dir){const i=STEP_OPTIONS.indexOf(state.ui.autoStep),next=Math.max(0,Math.min(STEP_OPTIONS.length-1,i+dir));state.ui.autoStep=STEP_OPTIONS[next];save();if(timer!==null)startAuto();else renderClock();notify('Auto step: '+state.ui.autoStep+' day(s)')}
+document.addEventListener('keydown',e=>{
+ if(isMobileProfile()||$('settingsDialog').open||e.ctrlKey||e.metaKey||e.altKey||e.defaultPrevented)return;
+ const target=e.target;if(target.closest('input,textarea,select,button,[contenteditable="true"],[role="separator"]'))return;
+ if(e.code==='Space'){e.preventDefault();toggleAuto()}
+ else if(['Equal','NumpadAdd'].includes(e.code)||e.key==='+'){e.preventDefault();changeAutoRate(-1)}
+ else if(['Minus','NumpadSubtract'].includes(e.code)||e.key==='-'){e.preventDefault();changeAutoRate(1)}
+ else if(e.code==='BracketLeft'){e.preventDefault();changeAutoStep(-1)}
+ else if(e.code==='BracketRight'){e.preventDefault();changeAutoStep(1)}
+ else if(e.code==='Period'){e.preventDefault();advance(e.shiftKey?10:1)}
+});
+
+// Beta cloud save: folder JSON, explicit first connection choice, rev checking, backups, no remote deletion.
+function cloudStatus(msg,severity=''){
+ cloud.status=msg;cloud.severity=severity;
+ $('cloudStatus').textContent=msg;$('cloudStatus').style.color=severity==='bad'?'var(--red)':severity==='good'?'var(--mint)':'var(--amber)';
+ const available=!!cloud.folder&&!cloud.busy;
+ $('connectCloud').disabled=cloud.busy;
+ $('disconnectCloud').disabled=!available;
+ $('syncCloud').disabled=!available;
+ $('restoreCloud').disabled=!available;
+ $('replaceCloud').disabled=!available;
+ $('cloudChip').textContent=available?'☁ BETA CONNECTED':'☁ LOCAL ONLY';
+ $('syncCloud').textContent=cloud.allowAuto?'↑ SYNC NOW':'↑ BACK UP LOCAL';
+}
+function localMeta(){try{return JSON.parse(localStorage.getItem(CLOUD_META_KEY)||'null')}catch{return null}}
+function saveMeta(revision){try{localStorage.setItem(CLOUD_META_KEY,JSON.stringify({revision,at:Date.now()}));return true}catch{return false}}
+function forgetMeta(){try{localStorage.removeItem(CLOUD_META_KEY)}catch{}}
+function randomRevision(){return typeof crypto!=='undefined'&&crypto.randomUUID?crypto.randomUUID():String(Date.now())+'-'+Math.floor(Math.random()*1e9)}
+function parseCloud(raw){
+ if(raw===null)return {present:false,revision:null,save:null};
+ try{
+  const data=JSON.parse(raw);
+  if(data?.format!=='marketlab-cloud-v1'||typeof data.revision!=='string'||data.revision.length<5||data.revision.length>100)return {present:true,invalid:true};
+  const normalized=normalize(data.state);if(!normalized)return {present:true,invalid:true};
+  return {present:true,revision:data.revision,save:normalized};
+ }catch{return {present:true,invalid:true}}
+}
+async function readRemote(){
+ try{const fh=await cloud.folder.getFileHandle(CLOUD_NAME);const file=await fh.getFile();if(file.size>2000000)throw Error('Cloud save is larger than 2 MB. Nothing changed.');return await file.text()}
+ catch(e){if(e.name==='NotFoundError')return null;throw e}
+}
+async function writeRemote(raw){const handle=await cloud.folder.getFileHandle(CLOUD_NAME,{create:true});const writable=await handle.createWritable();try{await writable.write(raw);await writable.close()}catch(e){try{await writable.abort()}catch{}throw e}}
+async function backupRemote(raw){
+ if(raw===null)return;
+ const stamp=new Date().toISOString().replace(/[:.]/g,'-');
+ const name='marketlab-backup-'+stamp+'-'+Math.floor(Math.random()*100000)+'.json';
+ const f=await cloud.folder.getFileHandle(name,{create:true});const w=await f.createWritable();await w.write(raw);await w.close();
+ const check=await (await f.getFile()).text();if(check!==raw)throw Error('Backup verification failed. Original cloud save not touched.');
+}
+function beginBusy(){if(cloud.busy||!cloud.folder)return false;cloud.busy=true;cloudStatus('Working with your sync folder…');return true}
+function endBusy(){cloud.busy=false;cloudStatus(cloud.status,cloud.severity)}
+async function inspectCloud(){
+ const raw=await readRemote(),info=parseCloud(raw),meta=localMeta();
+ if(info.invalid){cloud.allowAuto=false;cloud.revision=null;cloudStatus('The cloud file is invalid. Nothing was imported or overwritten. You may explicitly replace it (a backup will be created).','bad');return}
+ if(!info.present){cloud.allowAuto=false;cloud.revision=null;cloudStatus('Connected: '+cloud.folderName+'. No cloud save exists. Choose BACK UP LOCAL to create one.');return}
+ if(meta?.revision===info.revision){cloud.revision=info.revision;cloud.allowAuto=true;cloudStatus('Connected: '+cloud.folderName+'. Known cloud revision verified. Local autosave active; cloud sync checks every 90 seconds.','good');return}
+ cloud.allowAuto=false;cloud.revision=null;
+ cloudStatus('Connected: '+cloud.folderName+'. A cloud save exists, but differs from this browser’s known copy. Choose RESTORE CLOUD or REPLACE CLOUD. No automatic overwrite.','bad');
+}
+function openDB(){return new Promise((resolve,reject)=>{if(!('indexedDB' in window))return reject(Error('IndexedDB unavailable'));const req=indexedDB.open('marketlab-handle-cache-v1',1);req.onupgradeneeded=()=>req.result.createObjectStore('handles');req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)})}
+async function setCachedFolder(handle){try{const db=await openDB();await new Promise((res,rej)=>{const tx=db.transaction('handles','readwrite');tx.objectStore('handles').put(handle,'folder');tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});db.close()}catch{}}
+async function getCachedFolder(){try{const db=await openDB();const item=await new Promise((res,rej)=>{const tx=db.transaction('handles');const req=tx.objectStore('handles').get('folder');req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error)});db.close();return item}catch{return null}}
+async function clearCachedFolder(){try{const db=await openDB();await new Promise((res,rej)=>{const tx=db.transaction('handles','readwrite');tx.objectStore('handles').delete('folder');tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});db.close()}catch{}}
+async function connectFolder(){
+ if(cloud.busy)return;
+ if(!window.showDirectoryPicker){cloudStatus('Folder sync is not supported by this browser. Use EXPORT / IMPORT JSON instead (iOS and Android supported).','bad');return}
+ try{
+  let handle=cloud.folder;
+  if(!handle){handle=await window.showDirectoryPicker({mode:'readwrite'})}
+  else if(handle.requestPermission&&await handle.queryPermission({mode:'readwrite'})!=='granted'){
+   if(await handle.requestPermission({mode:'readwrite'})!=='granted')throw Error('Folder permission not granted');
+  }
+  cloud.folder=handle;cloud.folderName=handle.name||'chosen folder';cloud.epoch++;cloud.allowAuto=false;
+  await setCachedFolder(handle);await inspectCloud();renderSaveStatus();
+ }catch(e){if(e.name==='AbortError')return;cloudStatus('Could not connect: '+e.message,'bad')}
+}
+async function disconnectFolder(){cloud.epoch++;cloud.folder=null;cloud.folderName='';cloud.allowAuto=false;cloud.revision=null;forgetMeta();await clearCachedFolder();cloudStatus('Disconnected. Your local save and cloud files were not deleted.');renderSaveStatus()}
+async function syncFolder(replace=false,automatic=false){
+ if(!beginBusy())return false;
+ const epoch=cloud.epoch;
+ try{
+  const local=JSON.stringify(state),was=await readRemote(),remote=parseCloud(was);
+  if(epoch!==cloud.epoch)throw Error('Folder connection changed.');
+  if(remote.invalid&&!replace)throw Error('Invalid remote save. Use REPLACE CLOUD only after inspecting your backup.');
+  if(remote.present&&!replace&&(!cloud.allowAuto||remote.revision!==cloud.revision)){
+   cloud.allowAuto=false;throw Error('CONFLICT: Cloud save changed or was not yet linked. RESTORE or REPLACE explicitly.');
+  }
+  if(!remote.present&&!replace&&(automatic||cloud.revision!==null))throw Error('Cloud file was removed. Sync paused. Choose REPLACE CLOUD to recreate it explicitly.');
+  if(remote.present&&remote.save&&JSON.stringify(JSON.parse(was).state)===local&&cloud.allowAuto){cloud.lastSnapshot=local;cloudStatus('Already synced. No changes to upload.','good');return true}
+  const recheck=await readRemote();if(recheck!==was)throw Error('CONFLICT: Cloud changed during sync. Nothing was overwritten.');
+  // Safety first: copy and verify existing cloud file before touching it.
+  await backupRemote(was);
+  const revision=randomRevision(),out=JSON.stringify({format:'marketlab-cloud-v1',revision,updatedAt:new Date().toISOString(),state:JSON.parse(local)});
+  if(epoch!==cloud.epoch)throw Error('Folder connection changed.');
+  await writeRemote(out);
+  if(await readRemote()!==out)throw Error('Cloud write did not verify. Check your sync folder and its backups.');
+  cloud.revision=revision;cloud.lastSnapshot=local;cloud.lastSyncedAt=Date.now();cloud.allowAuto=saveMeta(revision);
+  cloudStatus(cloud.allowAuto?'Cloud backup verified. Autosync checks every 90 seconds.':'Cloud saved, but browser could not remember the sync checkpoint. Reconnect manually next time.',cloud.allowAuto?'good':'bad');
+  return true;
+ }catch(e){cloud.allowAuto=false;cloudStatus('Cloud sync stopped: '+e.message,'bad');return false}
+ finally{endBusy()}
+}
+async function replaceCloud(){
+ if(!cloud.folder||cloud.busy)return;
+ if(!window.confirm('REPLACE CLOUD? This will overwrite the existing cloud save with your LOCAL market. The previous cloud file will be backed up first. Continue?'))return;
+ await syncFolder(true,false);
+}
+function storeLocalRestoreBackup(){
+ try{localStorage.setItem(RESTORE_BACKUP_KEY,JSON.stringify({date:new Date().toISOString(),state}));updateRecoveryButton();return true}
+ catch{return false}
+}
+function updateRecoveryButton(){try{$('exportRestore').disabled=!localStorage.getItem(RESTORE_BACKUP_KEY)}catch{$('exportRestore').disabled=true}}
+function exportRecovery(){try{const entry=JSON.parse(localStorage.getItem(RESTORE_BACKUP_KEY));if(!normalize(entry?.state))throw Error('Invalid recovery data');downloadJson({format:'marketlab-export-v1',exportedAt:entry.date,state:entry.state},'marketlab-pre-restore-backup.json')}catch(e){cloudStatus('Recovery export failed: '+e.message,'bad')}}
+async function restoreFolder(){
+ if(!beginBusy())return;
+ const epoch=cloud.epoch;
+ try{
+  const raw=await readRemote(),remote=parseCloud(raw);
+  if(!remote.present||remote.invalid)throw Error('No valid cloud save found. Local state has not changed.');
+  if(!window.confirm('RESTORE CLOUD? Replace your current local market and layout with the cloud copy? A backup of the current local save will be kept in this browser.')){cloudStatus('Restore cancelled. Local progress unchanged.');return}
+  if(!storageAvailable)throw Error('Browser storage is unavailable. Restore cancelled to protect local progress.');
+  if(!storeLocalRestoreBackup())throw Error('Unable to back up current local save. Restore cancelled.');
+  if(raw!==await readRemote())throw Error('Cloud changed during restore. Try again.');
+  if(epoch!==cloud.epoch)throw Error('Folder connection changed.');
+  stopAuto();const old=state;state=remote.save;save();
+  if(!storageAvailable){state=old;throw Error('Local save failed. Your previous market remains in memory.');}
+  cloud.revision=remote.revision;cloud.lastSnapshot=JSON.stringify(state);cloud.allowAuto=saveMeta(remote.revision);
+  render();cloudStatus('Cloud save restored. Previous local state backed up in browser storage.','good');notify('Cloud restore complete.');
+ }catch(e){cloudStatus('Cloud restore stopped: '+e.message,'bad')}
+ finally{endBusy()}
+}
+// Never auto-request folder permissions on page load.
+async function tryReconnectCachedFolder(){
+ const before=cloud.epoch,handle=await getCachedFolder();if(before!==cloud.epoch||!handle||cloud.folder)return;
+ cloud.folder=handle;cloud.folderName=handle.name||'saved folder';cloud.epoch++;
+ try{
+  const permission=handle.queryPermission?await handle.queryPermission({mode:'readwrite'}):'prompt';
+  if(permission==='granted')await inspectCloud();
+  else{cloud.allowAuto=false;cloudStatus('Saved sync folder found. Click CHOOSE SYNC FOLDER to renew permission. Local data is safe.');}
+ }catch{cloud.allowAuto=false;cloudStatus('Folder permission needs attention. Click CHOOSE SYNC FOLDER to reconnect.');}
+}
+function downloadJson(data,filename){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
+function exportSave(){downloadJson({format:'marketlab-export-v1',exportedAt:new Date().toISOString(),state},'marketlab-export-day-'+state.day+'.json');cloudStatus('Local market exported as JSON.','good')}
+async function importSave(file){
+ if(!file)return;
+ try{
+  if(file.size>2000000)throw Error('File exceeds 2 MB.');
+  const raw=JSON.parse(await file.text()),parsed=normalize(raw?.format==='marketlab-export-v1'?raw.state:raw?.format==='marketlab-cloud-v1'?raw.state:raw);
+  if(!parsed)throw Error('Invalid or incompatible MarketLab save.');
+  if(!window.confirm('IMPORT SAVE? Replace the local portfolio and workspace? The current local data will be backed up first.'))return;
+  if(cloud.busy)throw Error('Cloud operation in progress. Retry import after it finishes.');
+  if(!storageAvailable||!storeLocalRestoreBackup())throw Error('Failed to back up current local save. Import cancelled.');
+  stopAuto();cloud.epoch++;const old=state;state=parsed;save();if(!storageAvailable){state=old;throw Error('Browser storage failed. Existing in-memory market retained.')}render();cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();cloudStatus('Imported JSON file. Cloud autosync paused until you explicitly RESTORE or REPLACE the cloud copy.','good');notify('Import complete.');
+ }catch(e){cloudStatus('Import failed: '+e.message,'bad')}
+ finally{$('importFile').value=''}
+}
+async function fullLocalWipe(){
+ if($('wipeText').value!=='WIPE'||cloud.busy)return;
+ stopAuto();cloud.epoch++;cloud.folder=null;cloud.allowAuto=false;cloud.revision=null;
+ const keys=[KEY,OLD_KEY,CLOUD_META_KEY,RESTORE_BACKUP_KEY];
+ try{for(const key of keys)localStorage.removeItem(key)}catch(e){cloudStatus('Wipe failed because browser storage was blocked. Your cloud file is untouched.','bad');return}
+ await clearCachedFolder();state=fresh();$('qty').value='1';$('wipeText').value='';$('fullWipe').disabled=true;
+ const freshRaw=JSON.stringify(state);
+ try{localStorage.setItem(KEY,freshRaw);storageAvailable=true}
+ catch{storageAvailable=false;cloudStatus('Wipe performed in memory but local storage is unavailable.','bad')}
+ render();updateRecoveryButton();cloudStatus('Full local reset complete. A fresh market has started. Existing cloud files were NOT deleted.','good');notify('Full local wipe complete.');$('settingsDialog').close();
+}
+$('openSettings').addEventListener('click',()=>{updateRecoveryButton();$('settingsDialog').showModal()});
+$('closeSettings').addEventListener('click',()=>$('settingsDialog').close());
+$('connectCloud').addEventListener('click',connectFolder);
+$('disconnectCloud').addEventListener('click',disconnectFolder);
+$('syncCloud').addEventListener('click',()=>syncFolder(false,false));
+$('restoreCloud').addEventListener('click',restoreFolder);
+$('replaceCloud').addEventListener('click',replaceCloud);
+$('exportSave').addEventListener('click',exportSave);
+$('exportRestore').addEventListener('click',exportRecovery);
+$('chooseImport').addEventListener('click',()=>$('importFile').click());
+$('importFile').addEventListener('change',e=>importSave(e.target.files?.[0]));
+$('wipeText').addEventListener('input',e=>$('fullWipe').disabled=e.target.value!=='WIPE');
+$('fullWipe').addEventListener('click',fullLocalWipe);
+setInterval(()=>{if(!document.hidden&&cloud.folder&&cloud.allowAuto&&!cloud.busy&&storageAvailable&&cloud.lastSnapshot!==JSON.stringify(state))syncFolder(false,true)},90000);
+cloudStatus('Not connected. Local save stays active.');
+tryReconnectCachedFolder();
+
+document.body.classList.toggle('market-trends-enabled',FEATURE_FLAGS.marketTrend);
+ render();if(loadNotice){notify(loadNotice);if(loadNotice.includes('imported'))save()}
+})();
+</script>
+
+<script>
+// PWA shell only: preserves the existing market engine and local save keys.
+(()=>{
+  if(!('serviceWorker' in navigator) || !/^https?:$/.test(location.protocol)) return;
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('./sw.js',{scope:'./'}).catch(()=>{});
+  });
+})();
+</script>
+</body></html>
