@@ -26,3 +26,5 @@ Trading progress is stored in each browser's local storage, **not** in GitHub an
 - Site is public. For private deployments use a different service/security configuration.
 - Initial publishing and actual phone installation have not been exercised through your GitHub account.
 MarketLabs deployment test
+
+<!-- ChatGPT GitHub read/write access verified on 2026-11-03. -->
