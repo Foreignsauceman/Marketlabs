@@ -1,4 +1,4 @@
-# MarketLab v0.4.4
+# MarketLab v0.4.5
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -24,7 +24,22 @@ Trading progress is stored in each browser's local storage, **not** in GitHub an
 - Static HTML/CSS/JS only; no build step, npm, or third-party dependencies.
 - PWA uses relative paths and can run from a GitHub Pages subpath.
 - Site is public. For private deployments use a different service/security configuration.
-- Initial publishing and actual phone installation have not been exercised through your GitHub account.
-MarketLabs deployment test
+- Browser and iPhone functionality should be verified manually after releases; smoke tests cover static source and assets, not interactive trading behavior.
 
-<!-- ChatGPT GitHub read/write access verified on 2026-11-03. -->
+## Development and release workflow
+
+1. Create a branch from `main`, edit the app, and open a pull request.
+2. GitHub Actions runs **MarketLab Smoke Tests / Verify static app and PWA** for every pull request and push to `main`. Run the same tests locally with `node --test scripts/smoke-test.mjs` (Node.js 22 or newer).
+3. After the checks pass and the changes are reviewed, merge the pull request. GitHub Pages deploys updates to the same website URL.
+4. For new releases, update the visible version in `index.html`, the README heading, and `CACHE` version in `sw.js`. Do not change local-save keys casually: that could reset or strand portfolios.
+5. Smoke tests verify JavaScript syntax, DOM references, local-save controls, PWA manifest, PNG dimensions, offline cache files, version alignment, and self-contained runtime dependencies. They do not replace manual trading, save import/export, or iPhone checks.
+
+### One-time `main` branch protection setup (repository owner)
+
+In GitHub go to **Settings > Rules > Rulesets > New branch ruleset**, create an active branch ruleset targeting `main` (or use **Settings > Branches > Add branch protection rule** if Rulesets is not available), then enable:
+
+- Require a pull request before merging.
+- Require status checks to pass before merging, selecting `Verify static app and PWA` after the first CI run completes.
+- Block force pushes and branch deletion (normally enabled by default for protected branches).
+
+On a personal repository, choose review requirements that do not lock out the sole maintainer. **This setup requires owner action in GitHub's settings**; repository content commits cannot apply protection rules themselves.

@@ -1,5 +1,5 @@
-/* MarketLab v0.4.4: independent offline app-shell cache. */
-const CACHE='marketlab-shell-v0.4.4';
+/* MarketLab v0.4.5: independent offline app-shell cache. */
+const CACHE='marketlab-shell-v0.4.5';
 const SHELL=['./','./index.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/maskable-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(SHELL)).then(()=>self.skipWaiting()));
