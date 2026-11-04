@@ -1,4 +1,4 @@
-# MarketLab v0.5.0
+# MarketLab v0.5.1
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -72,3 +72,14 @@ GitHub repository links usually redirect when the owner renames their account, b
 **Local portfolio safety:** Browser `localStorage`, service workers, and installed web-app data belong to a specific site origin. The old and new `*.github.io` subdomains do not share local data. Before abandoning or deleting an existing Home Screen installation, launch it and export a JSON save if it still opens. Then visit the new Pages URL and import that backup under **Saves & Settings**. If the old app no longer opens, do not uninstall it until recovery options are reviewed. Repository content and GitHub Pages redeployment cannot migrate browser storage across origins.
 
 If you set a custom Pages domain later, override the CI URL with `MARKETLAB_URL` to test the custom-domain origin instead.
+
+## v0.5.1 mobile screen-space refinement
+
+- Mobile Explore defaults to a compact net-worth card. Full cash and invested summaries stay on the Portfolio tab.
+- Charts devote the screen to the plot. Toggle **Chart settings & series** to access the index overlay, chart modes, visibility, and focus controls.
+- Trade shows the cash balance and order ticket up front. Toggle **Buying power & order details** for remaining float and purchasing power.
+- Market time controls open from the **⋯** button beside PLAY. Market explanations and Portfolio activity can be revealed on demand.
+- Settings groups now collapse independently on phones. **Portable Save** is open by default, while cloud sync, desktop shortcuts, and full wipe are tucked away.
+- All disclosure buttons expose their state with `aria-expanded`; mobile controls are designed for touch and the desktop workspace remains fully expanded.
+- The market engine, existing save key `marketlab.tiny-exchange.v2`, and trading and sync logic are unchanged. Disclosure state is temporary UI-only state, not added to save JSON.
+- Automated Chromium smoke tests check disclosure behaviors, the four mobile tabs, no horizontal overflow, stock buy/sell, and narrow phone viewport sizes.
