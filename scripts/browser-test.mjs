@@ -29,11 +29,63 @@ const probe = String.raw`
       assert(document.querySelector('.stats>.stat').getBoundingClientRect().width > window.innerWidth * 0.70, 'Hero card is not full width');
       assert(document.documentElement.scrollWidth <= window.innerWidth + 3, 'Mobile layout scrolls sideways');
       const nav = $('mobilenav');
+      const shown = id => $(id).getClientRects().length > 0;
+      const overflowFree = name => assert(document.documentElement.scrollWidth <= window.innerWidth + 3,
+        name + ' creates horizontal overflow');
       assert(getComputedStyle(nav).position === 'fixed', 'Mobile navigation is not fixed');
+      assert(!shown('clockpanel'), 'Advanced market clock should start collapsed');
+      assert(!shown('marketNote'), 'Market explanation should start collapsed');
+      $('mobileClockToggle').click();
+      assert(shown('clockpanel') && $('mobileClockToggle').getAttribute('aria-expanded') === 'true',
+        'Expanding market clock failed');
+      $('mobileClockToggle').click();
+      assert(!shown('clockpanel') && $('mobileClockToggle').getAttribute('aria-expanded') === 'false',
+        'Collapsing market clock failed');
+      $('marketInfoToggle').click();
+      assert(shown('marketNote'), 'Expanding market explanation failed');
+      $('marketInfoToggle').click();
+      assert(!shown('marketNote'), 'Collapsing market explanation failed');
+      overflowFree('Explore');
       nav.querySelector('[data-tab="portfolio"]').click();
       assert(document.body.dataset.tab === 'portfolio', 'Portfolio navigation failed');
+      assert(shown('networth') && shown('invested'), 'Portfolio balances are missing');
+      assert(!shown('tapepanel'), 'Activity feed should start collapsed');
+      $('portfolioActivityToggle').click();
+      assert(shown('tapepanel'), 'Expanding activity feed failed');
+      $('portfolioActivityToggle').click();
+      assert(!shown('tapepanel'), 'Collapsing activity feed failed');
+      overflowFree('Portfolio');
       nav.querySelector('[data-tab="chart"]').click();
       assert(document.body.dataset.tab === 'chart', 'Chart navigation failed');
+      assert(!shown('chartExtraBody') && !shown('indexoverlay'), 'Extra chart controls should be collapsed');
+      assert(getComputedStyle(document.querySelector('.stats')).display === 'none',
+        'Portfolio hero should not cover chart screen');
+      $('chartExtraToggle').click();
+      assert(shown('chartExtraBody') && shown('indexoverlay'), 'Expanding chart tools failed');
+      $('singlechart').click();
+      assert($('singlechart').getAttribute('aria-pressed') === 'true', 'Expanded chart mode control failed');
+      $('allchart').click();
+      $('chartExtraToggle').click();
+      assert(!shown('chartExtraBody'), 'Collapsing chart tools failed');
+      overflowFree('Charts');
+      nav.querySelector('[data-tab="trade"]').click();
+      assert(!shown('networth') && shown('cash'), 'Trade screen should show cash, not the large net-worth hero');
+      assert(!shown('tradeMoreBody'), 'Extra trade details should start collapsed');
+      $('tradeMoreToggle').click();
+      assert(shown('tradeMoreBody'), 'Expanding trade details failed');
+      $('tradeMoreToggle').click();
+      assert(!shown('tradeMoreBody'), 'Collapsing trade details failed');
+      overflowFree('Trade');
+      $('openSettings').click();
+      assert($('settingsDialog').open, 'Settings dialog did not open');
+      const sections = [...document.querySelectorAll('.settings-accordion')];
+      assert(sections.length === 4, 'Expected four settings disclosure groups');
+      assert(sections.filter(x => x.open).length === 1 &&
+             sections.some(x => x.open && x.dataset.mobileDefault === 'open'),
+        'Settings sections should default to Portable Save only');
+      sections[0].querySelector('summary').click();
+      assert(sections[0].open, 'Settings disclosure cannot be expanded');
+      $('closeSettings').click();
       nav.querySelector('[data-tab="market"]').click();
       assert(document.body.dataset.tab === 'market', 'Watchlist navigation failed');
     } else {
@@ -95,7 +147,7 @@ test('headless browser renders, buys, sells, and advances on desktop and mobile'
     writeFileSync(local, html.replace('</body>', probe + '</body>'));
     const url = pathToFileURL(local).href;
     const chrome = findChrome();
-    for (const [label, width, height] of [['desktop', 1280, 850], ['mobile', 390, 844]]) {
+    for (const [label, width, height] of [['desktop', 1280, 850], ['mobile-compact', 360, 740], ['mobile', 390, 844], ['mobile-large', 430, 932]]) {
       const command = spawnSync(chrome, [
         '--headless=new', '--no-sandbox', '--disable-gpu',
         '--disable-dev-shm-usage', '--disable-background-networking',
