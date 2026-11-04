@@ -1030,6 +1030,46 @@ body[data-profile="mobile"] .company-brief>summary{min-height:49px}
  body[data-profile="mobile"] .company-brief-metric strong{font-size:12px}
 }
 
+
+
+/* v0.6.3.1: compact, low-allocation sector rotation dashboard. */
+.sector-rotation{border-top:1px solid #35514a;background:#142624;color:#d7ebdc}
+.sector-rotation>summary{display:flex;align-items:center;gap:10px;min-height:47px;
+ padding:10px 13px;list-style:none;cursor:pointer;font:780 11px/1.3 system-ui,sans-serif}
+.sector-rotation>summary::-webkit-details-marker{display:none}
+.sector-heading{white-space:nowrap;color:#b1f1c7}
+.sector-brief{flex:1;min-width:0;white-space:nowrap;overflow:hidden;
+ text-overflow:ellipsis;text-align:right;color:#a8bcac;font-weight:650;font-size:10px}
+.sector-caret{font-size:19px;color:#b0d3b7}
+.sector-rotation[open] .sector-caret{transform:rotate(180deg)}
+.sector-inner{padding:1px 12px 13px}
+.sector-notice{font:560 10px/1.45 system-ui,sans-serif;color:#9cbaac;margin:3px 0 11px}
+.sector-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.sector-card{min-width:0;padding:10px 9px;border:1px solid #35544c;
+ border-radius:9px;background:#1b3331}
+.sector-card-top{display:flex;align-items:center;justify-content:space-between;
+ gap:5px;font-size:11px}
+.sector-card-top strong{color:#e2fae6;overflow:hidden;text-overflow:ellipsis}
+.sector-card-top b{font-size:11px;white-space:nowrap}
+.sector-card-top b.pos{color:#84e5b1}.sector-card-top b.neg{color:#fa9f9a}
+.sector-phase{font:780 9px/1.3 system-ui,sans-serif;color:#a9bbac;margin-top:9px}
+.sector-phase.sector-up{color:#8feabb}.sector-phase.sector-down{color:#ffc3a1}
+.sector-card small{display:block;margin-top:5px;color:#8ba59b;
+ font:560 9px/1.35 system-ui,sans-serif}
+.sector-factors{margin:10px 0 0;padding:8px 9px;background:#1a332f;
+ border:1px solid #35534c;border-radius:8px;color:#afd2bd;
+ font:690 10px/1.5 system-ui,sans-serif}
+body[data-profile="mobile"] .sector-rotation{margin:0 11px 11px;border:1px solid #35544c;border-radius:13px;overflow:hidden}
+body[data-profile="mobile"] .sector-rotation>summary{min-height:49px}
+body[data-profile="mobile"] .sector-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+body[data-profile="mobile"] .sector-card{padding:10px 9px}
+@media(min-width:601px) and (max-width:1000px){
+ .sector-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:360px){
+ body[data-profile="mobile"] .sector-brief{max-width:120px;font-size:9px}
+}
+
 </style>
 </head>
 <body><div class="wrap">
