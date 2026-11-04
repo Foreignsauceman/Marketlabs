@@ -26,6 +26,8 @@ jobs:
         run: node --test scripts/smoke-test.mjs scripts/engine-test.mjs
       - name: Run desktop and mobile browser smoke tests
         run: node --test scripts/browser-test.mjs
+      - name: Verify multi-tab writer locks and save conflict handling
+        run: node --test scripts/multitab-test.mjs
       - name: Check live-site verification script syntax
         run: node --check scripts/live-deployment-check.mjs
 
