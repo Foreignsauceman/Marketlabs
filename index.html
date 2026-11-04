@@ -1149,8 +1149,27 @@ pushEvent(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} ${o.qty
 function setSide(side){state.side=side;save();renderTrade();notify(validateOrder().reason)}
 function select(id){if(!company(id))return;state.selected=id;save();render();notify(validateOrder().reason)}
 function setView(v){state.view=v==='single'?'single':'all';save();renderChart()}
-function stopAuto(){if(timer!==null){clearInterval(timer);timer=null}renderClock()}
-function startAuto(){if(!requireEditor())return;if(state.day>=MAX_DAY)return notify('Maximum day reached.');if(timer!==null)clearInterval(timer);timer=setInterval(()=>advance(state.ui.autoStep),state.ui.autoMs);renderClock()}
+function stopAuto(){
+ if(timer!==null){cancelAnimationFrame(timer);timer=null}
+ renderClock();
+}
+function startAuto(){
+ if(!requireEditor())return;
+ if(state.day>=MAX_DAY)return notify('Maximum day reached.');
+ if(timer!==null)cancelAnimationFrame(timer);
+ let next=performance.now()+state.ui.autoMs;
+ const frame=now=>{
+  if(timer===null)return;
+  if(document.hidden){stopAuto();return}
+  if(now>=next){
+   next=now+state.ui.autoMs; // No burst of catch-up ticks after a slow/hidden frame.
+   advance(state.ui.autoStep);
+  }
+  if(timer!==null)timer=requestAnimationFrame(frame);
+ };
+ timer=requestAnimationFrame(frame);
+ renderClock();
+}
 function toggleAuto(){if(timer!==null){stopAuto();return}startAuto()}
 function updateAutoSettings(){state.ui.autoStep=Number($('autostep').value);state.ui.autoMs=Number($('autospeed').value);save();if(timer!==null)startAuto();else renderClock()}
 function renderClock(){$('mobileMarketDay').textContent='DAY '+state.day.toLocaleString('en-US');$('mobileMarketMood').textContent=state.regime.toUpperCase()+' MARKET';$('mobileAuto').textContent=timer!==null?'Ⅱ PAUSE':'▶ PLAY';$('mobileAuto').setAttribute('aria-pressed',String(timer!==null));$('mobileAuto').disabled=state.day>=MAX_DAY;$('mobileAdvance').disabled=state.day>=MAX_DAY;$('auto').textContent=timer!==null?'Ⅱ PAUSE':'▶ AUTO';$('auto').setAttribute('aria-pressed',String(timer!==null));$('auto').classList.toggle('active',timer!==null);for(const id of ['next','next10','auto'])$(id).disabled=state.day>=MAX_DAY;$('clockstatus').textContent='· '+(timer!==null?'Market running':'Advance simulated days');$('autostep').value=String(state.ui.autoStep);$('autospeed').value=String(state.ui.autoMs);$('autodetail').textContent=(timer!==null?'RUNNING · ':'SET · ')+state.ui.autoStep+'D / '+(state.ui.autoMs/1000)+'S'}
@@ -1209,6 +1228,33 @@ function renderStocks(){
   if(row.spark.getAttribute('stroke')!==color)row.spark.setAttribute('stroke',color);
  }
 }
+// A pixel-limited min/max envelope preserves spikes while reducing SVG work.
+// Only plotted geometry is simplified. Trading, history and hover remain exact.
+function plotChartPath(values,px,py,width){
+ const count=values.length;
+ if(!count)return '';
+ const pointLimit=Math.max(85,Math.ceil(width*.75));
+ const point=i=>(i?'L':'M')+px(i).toFixed(2)+' '+py(values[i]).toFixed(2);
+ if(count<=pointLimit)return values.map((_,i)=>point(i)).join(' ');
+ const bucketSize=Math.ceil((count-2)/Math.max(1,Math.floor((pointLimit-2)/2)));
+ let path=point(0);
+ for(let start=1;start<count-1;start+=bucketSize){
+  const end=Math.min(count-1,start+bucketSize);
+  let low=start,high=start;
+  for(let i=start+1;i<end;i++){
+   if(values[i]<values[low])low=i;
+   if(values[i]>values[high])high=i;
+  }
+  // Chronological ordering preserves the shape of up/down extrema.
+  if(low===high)path+=' L'+px(low).toFixed(2)+' '+py(values[low]).toFixed(2);
+  else{
+   const first=Math.min(low,high),second=Math.max(low,high);
+   path+=' L'+px(first).toFixed(2)+' '+py(values[first]).toFixed(2);
+   path+=' L'+px(second).toFixed(2)+' '+py(values[second]).toFixed(2);
+  }
+ }
+ return path+' L'+px(count-1).toFixed(2)+' '+py(values[count-1]).toFixed(2);
+}
 let lastLegendMarkup='',chartHoverFrame=0;
 function renderChart(){
  if(chartHoverFrame){cancelAnimationFrame(chartHoverFrame);chartHoverFrame=0;}
@@ -1237,7 +1283,7 @@ const spread=Math.max(hi-lo,isAll?1:.05),top=hi+spread*.15,bot=Math.max(0,lo-spr
 py=v=>yb-(v-bot)/(top-bot)*(yb-yt);
 guides=[0,.25,.5,.75,1].map(f=>{const y=yt+(yb-yt)*f,val=top-(top-bot)*f;return `<line x1="${left}" y1="${y}" x2="768" y2="${y}" stroke="#314c3a" stroke-dasharray="3 5"/><text x="842" y="${y+4*unit}" fill="#9ab09e" font-size="${(11*unit).toFixed(2)}" text-anchor="end">${isAll?val.toFixed(1):money(val)}</text>`}).join('');
 const ordered=data.slice().sort((a,b)=>(focused.has(a.c.id)?1:0)-(focused.has(b.c.id)?1:0));
-lines=ordered.map(({c,values,isIndex})=>{const points=values.map((v,i)=>(i?'L':'M')+px(i).toFixed(2)+' '+py(v).toFixed(2)).join(' '),f=focused.has(c.id),op=isIndex?.92:useFocus?(f?1:.34):.96,w=isIndex?2.2:useFocus?(f?4.1:1.65):2.7;
+lines=ordered.map(({c,values,isIndex})=>{const points=plotChartPath(values,px,py,chartBox.width),f=focused.has(c.id),op=isIndex?.92:useFocus?(f?1:.34):.96,w=isIndex?2.2:useFocus?(f?4.1:1.65):2.7;
 return `<path data-line="${c.id}" d="${points}" stroke="${c.color}" stroke-width="${w}" ${isIndex?'stroke-dasharray="7 5"':''} stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="${op}" vector-effect="non-scaling-stroke"/><circle cx="${px(values.length-1)}" cy="${py(values.at(-1))}" r="${isIndex?2:useFocus?(f?4.3:2):3.4}" fill="${c.color}" opacity="${op}"/>`}).join('');
 }else{guides=`<text x="425" y="${viewH/2}" fill="#9ab09e" text-anchor="middle" font-size="${14*unit}">NO COMPANIES SELECTED · CHOOSE A TICKER BELOW</text>`}
 $('chart').innerHTML=guides+lines+`<line id="crosshair" x1="0" y1="${yt}" x2="0" y2="${yb}" stroke="#d9ffdd" stroke-width="1" stroke-dasharray="4 3" visibility="hidden"/>`;
