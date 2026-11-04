@@ -11,7 +11,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
-<title>MARKETLAB | The Simulated Exchange v0.4.6</title>
+<title>MARKETLAB | The Simulated Exchange v0.5.0</title>
 <style>
 :root{--bg:#101713;--panel:#1a251e;--panel2:#213026;--line:#33483a;--mint:#aaf6ad;--green:#81e4a0;--red:#ff9d9a;--amber:#ffd18a;--text:#e3eee2;--muted:#9ab09e;--c1:#9ef4a1;--c2:#e5bd7c;--c3:#86cafa;--c4:#e89acd;--c5:#b0a4fa;--c6:#ff997b}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 75% -15%,#25392a 0,transparent 37%),var(--bg);color:var(--text);font:12px/1.45 ui-monospace,Consolas,'Liberation Mono',monospace}button,input{font:inherit}button{cursor:pointer;transition:background .12s,border .12s}button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}button:disabled{opacity:.40;cursor:not-allowed}.wrap{max-width:none;margin:auto;padding:14px 18px 20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}.brand h1{font-size:27px;letter-spacing:-.08em;line-height:1;margin:0;font-weight:950}.brand em{color:var(--mint);font-style:normal}.tagline{color:var(--muted);font-size:10px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.tag{border:1px solid var(--line);padding:3px 7px;border-radius:3px;color:var(--muted);white-space:nowrap;font-size:10px}.reset{border:0;background:none;color:var(--muted);font-size:10px;text-decoration:underline;text-underline-offset:3px}.reset:hover{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:9px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:9px 11px;min-width:0}.statlabel,.minor{color:var(--muted);font-size:10px;letter-spacing:.025em}.statvalue{font-size:clamp(15px,1.7vw,22px);font-weight:850;letter-spacing:-.05em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.statnote{color:var(--muted);font-size:10px;min-height:13px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;overflow:hidden}.panelhead{padding:8px 11px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:37px}.heading{color:var(--mint);font-weight:850;letter-spacing:.08em;font-size:10px}.meta{color:var(--muted);font-size:10px}.main{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(300px,.92fr);gap:9px}.left,.right{display:grid;align-content:start;gap:9px;min-width:0}.clock{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.clock p{margin:0}.clockbuttons{display:flex;gap:6px}.btn{border:1px solid #526957;background:#293c2e;border-radius:4px;color:var(--text);font-weight:800;padding:6px 10px;font-size:11px}.btn:hover{border-color:var(--mint)}.btn.primary{background:var(--amber);color:#2d2210;border-color:var(--amber)}.btn.active{color:var(--mint);border-color:var(--mint)}.chartopts{display:flex;gap:5px}.mini{border:1px solid var(--line);border-radius:3px;padding:4px 7px;background:#18231b;color:var(--muted);font-size:10px;font-weight:850}.mini[aria-pressed="true"]{color:#102118;background:var(--mint);border-color:var(--mint)}.chartarea{padding:4px 10px 6px;position:relative}.chart{width:100%;height:auto;display:block;aspect-ratio:850/270;min-height:178px;touch-action:pan-y}.chartfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:9px;padding:0 5px 3px}.legend{display:flex;flex-wrap:wrap;gap:4px 7px;padding:3px 10px 9px}.legend button{border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;padding:4px 6px;border-radius:3px;font-weight:800}.legend button:hover,.legend button[aria-pressed="true"]{background:#2d4232;color:var(--text);border-color:#486451}.swatch{width:13px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px;border-radius:2px}.tooltip{pointer-events:none;position:absolute;z-index:2;min-width:125px;max-width:205px;background:#0c1810f5;border:1px solid #54745b;padding:7px 9px;box-shadow:0 8px 24px #0008;border-radius:4px;font-size:10px}.tooltip[hidden]{display:none}.tooltip div{display:flex;justify-content:space-between;gap:15px}.boardheader,.stock{display:grid;grid-template-columns:55px minmax(100px,1.25fr) 78px 78px 66px 82px;align-items:center;gap:8px}.boardheader{color:var(--muted);padding:7px 11px 5px;font-size:9px}.boardheader>span:nth-child(n+3){text-align:right}.stock{width:100%;text-align:left;background:transparent;color:var(--text);border:0;border-top:1px solid #304135;padding:8px 11px;font-size:11px}.stock:hover{background:#26372b}.stock[aria-pressed="true"]{background:#2a3f30;box-shadow:inset 3px 0 var(--mint)}.ticker{font-weight:900;color:var(--mint)}.sname{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector{font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.num{text-align:right;white-space:nowrap;font-size:11px}.num.strong{font-weight:850}.trade{padding:10px 11px 12px}.pair{display:flex;gap:6px}.pair button{flex:1}.side{padding:7px 9px;border:1px solid var(--line);border-radius:4px;background:#122017;color:var(--muted);font-weight:850;letter-spacing:.1em}.side[aria-pressed="true"]{color:#0f2118;background:var(--mint);border-color:var(--mint)}.fieldrow{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:10px 0 5px}.fieldrow label{color:var(--muted);font-size:10px}.fillmax{color:var(--amber);background:#2d3124;border:1px solid #77714e;border-radius:3px;padding:3px 10px;font-size:10px;font-weight:900}.fillmax:disabled{opacity:.4}.qty{width:100%;border:1px solid var(--line);background:#111c15;color:var(--text);border-radius:4px;padding:7px 9px;font-size:15px;font-weight:800}.lineitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;color:var(--muted);border-bottom:1px dashed #324837;font-size:11px}.lineitem strong{font-size:11px;color:var(--text)}.execute{width:100%;border:0;border-radius:4px;background:var(--mint);color:#0d2314;padding:9px;margin-top:10px;font-size:11px;font-weight:950;letter-spacing:.03em}.execute:hover:not(:disabled){background:#d1ffcc}.toast{color:var(--amber);font-size:10px;min-height:15px;margin:6px 0 0}.holding{display:grid;grid-template-columns:51px 1fr auto;gap:5px;align-items:center;padding:7px 11px;border-bottom:1px solid #304135;font-size:11px}.holding:last-child{border-bottom:0}.holding strong{color:var(--mint)}.holding .muted{color:var(--muted)}.empty{color:var(--muted);padding:11px;font-size:10px}.activity{padding:2px 11px 7px;min-height:65px;max-height:147px;overflow:auto}.event{display:grid;grid-template-columns:auto 1fr;gap:10px;border-bottom:1px dashed #324635;padding:6px 0;font-size:10px;color:var(--muted)}.event:last-child{border-bottom:0}.eventday{color:var(--green)}.marketnote{color:var(--muted);font-size:9px;padding:0 10px 8px}.footer{color:var(--muted);font-size:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-top:10px}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px;vertical-align:middle}
@@ -307,10 +307,365 @@ body[data-profile="mobile"] .mobile-nav button{min-height:54px;-webkit-tap-highl
 body[data-profile="mobile"] .chart{touch-action:pan-y}
 .settings-dialog{max-height:calc(100dvh - 24px);max-height:calc(100dvh - max(24px,env(safe-area-inset-top,0px) + env(safe-area-inset-bottom,0px)))}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+
+
+/* v0.5.0 | Mobile-first portfolio interface. Desktop remains unchanged. */
+.mobile-session,.mobile-page-heading,.mobile-quick-qty,.mobile-heading,.stock-spark{display:none}
+.desktop-heading{display:inline}
+body[data-profile="mobile"]{
+ --bg:#0b1219;--panel:#14202a;--panel2:#1b2b34;--line:#293e47;
+ --mint:#a4f6cf;--green:#8cf0b9;--red:#ff9d9b;--amber:#f6d7a2;
+ --text:#eef5f2;--muted:#9fb3b7;
+ background:radial-gradient(ellipse 85% 280px at 50% 0%,#163d39 0%,transparent 90%),#0b1219;
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+ font-size:14px;line-height:1.45;
+}
+body[data-profile="mobile"] .wrap{
+ max-width:640px;
+ padding:calc(12px + env(safe-area-inset-top,0px)) max(15px,env(safe-area-inset-left,0px)) calc(116px + env(safe-area-inset-bottom,0px)) max(15px,env(safe-area-inset-right,0px));
+}
+body[data-profile="mobile"] .top{
+ margin-bottom:17px;min-height:46px;align-items:center;
+}
+body[data-profile="mobile"] .brand h1{font-family:inherit;font-size:27px;letter-spacing:-.075em;line-height:1.1;font-weight:900}
+body[data-profile="mobile"] .brand h1 em{color:var(--mint)}
+body[data-profile="mobile"] .brand h1::before{
+ content:"↗";display:inline-grid;place-items:center;width:34px;height:34px;
+ margin-right:8px;border-radius:11px;background:linear-gradient(145deg,#b5f5d6,#69c99a);
+ color:#10271e;font-size:26px;font-weight:750;letter-spacing:0;vertical-align:1px;
+}
+body[data-profile="mobile"] .topright{gap:7px;flex-wrap:nowrap;align-items:center}
+body[data-profile="mobile"] .profile-picker{display:flex;flex-direction:row;align-items:center}
+body[data-profile="mobile"] .profile-picker>span{display:none}
+body[data-profile="mobile"] .profile-picker select{
+ min-height:44px;width:79px;padding:0 6px;border-radius:13px;
+ border:1px solid #304951;background:#15242c;color:#abc5bd;
+ font-size:12px;font-weight:760;
+}
+body[data-profile="mobile"] .topright #openSettings{
+ width:44px;height:44px;min-height:44px;padding:0;display:grid;place-items:center;
+ border-radius:13px;background:#182933;border:1px solid #304951;
+}
+body[data-profile="mobile"] .topright #openSettings .settings-label{display:none}
+body[data-profile="mobile"] .topright #openSettings .settings-icon{font-size:23px;line-height:1;color:var(--mint)}
+body[data-profile="mobile"] .stats{
+ display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ gap:10px;margin:0 0 13px!important;min-height:0!important;
+}
+body[data-profile="mobile"] .stats>.stat{display:none!important;position:relative;overflow:hidden}
+body[data-profile="mobile"] .stats>.stat:nth-child(1),
+body[data-profile="mobile"] .stats>.stat:nth-child(2),
+body[data-profile="mobile"] .stats>.stat:nth-child(3){display:flex!important}
+body[data-profile="mobile"] .stats>.stat:nth-child(1){
+ grid-column:1/-1;min-height:176px;padding:21px 22px;
+ border:1px solid #3f6a61;border-radius:22px;
+ background:radial-gradient(circle at 88% 15%,#287456 0%,transparent 56%),linear-gradient(130deg,#173b36,#15362f 48%,#10272d);
+ box-shadow:0 10px 35px #0003;
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(1)::before{
+ content:"";position:absolute;width:200px;height:200px;right:-73px;top:-95px;
+ border:1px solid #ffffff20;border-radius:50%;box-shadow:0 0 0 25px #ffffff06,0 0 0 50px #ffffff05;
+ pointer-events:none;
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(1)::after{
+ content:"SIMULATED PORTFOLIO";position:absolute;bottom:20px;right:20px;
+ color:#b4eacfad;font-size:9px;font-weight:800;letter-spacing:.11em;
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(1) .statlabel{
+ color:#b9e6d0;font-size:12px;font-weight:770;letter-spacing:.09em;
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(1) .statvalue{
+ color:#f8fff9;font-size:clamp(34px,10vw,48px);font-weight:820;
+ line-height:1.12;letter-spacing:-.065em;margin:10px 0 11px;overflow:visible;
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(1) #profit{
+ color:#bcebd1;display:inline-flex;align-items:center;align-self:flex-start;
+ border:1px solid #9cddbd61;border-radius:99px;background:#123e30a8;
+ padding:6px 10px;font-size:12px;font-weight:780;line-height:1.2;
+ min-height:0;max-width:100%;white-space:normal;
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(1) #profit.neg{
+ color:#ffc2be!important;background:#5a2d2cbd;border-color:#f9999380;
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(2),
+body[data-profile="mobile"] .stats>.stat:nth-child(3){
+ min-height:104px;padding:15px 15px 13px;border-radius:17px;
+ border:1px solid #28404b;background:linear-gradient(155deg,#1a303b,#15242e);
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(n+2) .statlabel{
+ color:#adc0c1;font-size:11px;font-weight:770;letter-spacing:.065em;
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(n+2) .statvalue{
+ color:var(--text);font-size:clamp(19px,5.4vw,26px);font-weight:800;
+ line-height:1.15;letter-spacing:-.055em;margin:5px 0 4px;
+}
+body[data-profile="mobile"] .stats>.stat:nth-child(n+2) .statnote{font-size:11px;color:#8da7ab}
+body[data-profile="mobile"] .mobile-session{
+ display:flex;align-items:center;justify-content:space-between;gap:9px;
+ margin-bottom:18px;padding:9px 10px 9px 13px;border:1px solid #273d48;
+ background:#121f28;border-radius:16px;
+}
+body[data-profile="mobile"] .session-info{display:flex;align-items:center;gap:9px;min-width:0}
+body[data-profile="mobile"] .session-info>span:last-child{display:flex;flex-direction:column;gap:2px}
+body[data-profile="mobile"] .session-info strong{color:#f1f6f2;font-size:12px;font-weight:850;white-space:nowrap}
+body[data-profile="mobile"] .session-info small{color:#92aaa9;font-size:9px;letter-spacing:.035em;white-space:nowrap}
+body[data-profile="mobile"] .session-pulse{
+ width:9px;height:9px;border-radius:50%;flex-shrink:0;background:#89ecb0;
+ box-shadow:0 0 0 4px #6bdb9e1c;
+}
+body[data-profile="mobile"] .session-actions{display:flex;gap:6px;align-items:center}
+body[data-profile="mobile"] .session-actions button{
+ min-height:40px;min-width:66px;border:1px solid #406054;border-radius:12px;
+ padding:7px 10px;font-size:11px;font-weight:850;white-space:nowrap;color:#c9efd9;background:#213931;
+}
+body[data-profile="mobile"] .session-actions .session-next{
+ color:#11251d;background:var(--mint);border-color:var(--mint);
+}
+body[data-profile="mobile"] .session-actions .session-auto[aria-pressed="true"]{
+ color:#161d19;background:#f6d7a2;border-color:#f6d7a2;
+}
+body[data-profile="mobile"] .mobile-page-heading{
+ display:flex;align-items:end;justify-content:space-between;gap:12px;margin:0 3px 11px;
+}
+body[data-profile="mobile"] .mobile-page-eyebrow{
+ color:#79aaa2;font-size:9px;font-weight:850;letter-spacing:.15em;
+}
+body[data-profile="mobile"] .mobile-page-heading h2{
+ margin:3px 0 0;font-size:25px;line-height:1.2;letter-spacing:-.045em;font-weight:870;
+}
+body[data-profile="mobile"] #mobileScreenHint{
+ font-size:11px;color:#9db3b5;text-align:right;padding-bottom:3px;
+}
+body[data-profile="mobile"] #main{gap:12px}
+body[data-profile="mobile"] #main .panel{
+ border:1px solid #29404b;border-radius:20px;overflow:hidden;
+ background:linear-gradient(158deg,#172631,#121d27);box-shadow:0 7px 25px #0002;
+}
+body[data-profile="mobile"] #main .panelhead{
+ border-color:#29404b;padding:15px 15px 13px;min-height:50px;gap:8px;
+}
+body[data-profile="mobile"] #main .heading{font:800 15px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;letter-spacing:-.015em;color:#e9f5ed}
+body[data-profile="mobile"] .mobile-heading{display:inline}
+body[data-profile="mobile"] .desktop-heading{display:none}
+body[data-profile="mobile"] #main .panelhead .meta{color:#93adaa;font-size:10px}
+body[data-profile="mobile"] #main #clockpanel{display:none;order:3}
+body[data-profile="mobile"][data-tab="market"] #main #clockpanel{display:flex;order:2}
+body[data-profile="mobile"] #main #exchangepanel{display:none}
+body[data-profile="mobile"][data-tab="market"] #main #exchangepanel{display:flex;order:1}
+body[data-profile="mobile"] #main #exchangepanel .panelhead{border-bottom:0;padding-bottom:8px}
+body[data-profile="mobile"] .boardheader{display:none!important}
+body[data-profile="mobile"] #stocks{
+ display:grid;gap:9px;padding:4px 11px 13px;
+}
+body[data-profile="mobile"] #main .stock{
+ display:grid;grid-template-columns:minmax(0,1fr) 73px auto;
+ grid-template-rows:minmax(20px,auto) minmax(24px,auto);
+ column-gap:8px;row-gap:3px;align-items:center;min-height:87px;
+ padding:13px 13px;text-align:left;width:100%;
+ border:1px solid #304651;border-radius:15px;
+ background:linear-gradient(110deg,#1b2e37,#16242e);
+ box-shadow:none;transition:background .15s,border-color .15s;
+}
+body[data-profile="mobile"] #main .stock:active{background:#223c43}
+body[data-profile="mobile"] #main .stock[aria-pressed="true"]{
+ background:linear-gradient(115deg,#21433e,#1b3036);
+ border-color:#6fcfa8;box-shadow:inset 3px 0 #a4f6cf;
+}
+body[data-profile="mobile"] .stock>.ticker{grid-column:1;grid-row:1;justify-self:start;font-size:16px;font-weight:860;color:#d8ffe9;letter-spacing:.005em}
+body[data-profile="mobile"] .stock>span:nth-child(2){grid-column:1;grid-row:2;min-width:0;align-self:start}
+body[data-profile="mobile"] .stock .sname{font-size:11px;color:#b2c8c6;font-weight:680;white-space:nowrap}
+body[data-profile="mobile"] .stock .sector{font-size:10px;color:#799fa2;white-space:nowrap}
+body[data-profile="mobile"] .stock>span:nth-child(3){grid-column:3;grid-row:1;font-size:15px;font-weight:850;text-align:right;color:#f1f9f3}
+body[data-profile="mobile"] .stock>span:nth-child(4){
+ display:inline-flex;align-items:center;justify-self:end;
+ grid-column:3;grid-row:2;min-width:58px;min-height:26px;
+ padding:3px 7px;border-radius:7px;font-size:11px;font-weight:800;
+ background:#234a3d;color:#9ef5c3!important;
+}
+body[data-profile="mobile"] .stock>span:nth-child(4).neg{background:#492e34;color:#ffb7b1!important}
+body[data-profile="mobile"] .stock>span:nth-child(5),body[data-profile="mobile"] .stock>span:nth-child(6){display:none!important}
+body[data-profile="mobile"] .stock .stock-spark{
+ display:block!important;grid-column:2;grid-row:1/3;width:73px;height:36px;align-self:center;
+}
+body[data-profile="mobile"] .stock .stock-spark svg{width:100%;height:100%;display:block;overflow:visible}
+body[data-profile="mobile"] #exchangepanel .marketnote{
+ border-top:1px solid #273d45;padding:11px 15px 14px;font-size:10px;line-height:1.55;color:#91a8ac;
+}
+body[data-profile="mobile"] #clockpanel .panelhead{
+ display:flex;flex-wrap:wrap;align-items:center;gap:11px;border-bottom:0;padding:14px 14px 7px;
+}
+body[data-profile="mobile"] #clockpanel .clockbuttons{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%;flex:1 0 100%;
+}
+body[data-profile="mobile"] #clockpanel .clockbuttons .btn{
+ min-height:44px;font:800 12px/1.2 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+ border-radius:11px;background:#21343e;color:#deede7;border:1px solid #3a5057;
+}
+body[data-profile="mobile"] #clockpanel .clockbuttons #next{
+ background:#b1f1d1;color:#123025;border-color:#b1f1d1;
+}
+body[data-profile="mobile"] #clockpanel .clocksettings{padding:6px 14px 15px;gap:10px}
+body[data-profile="mobile"] #clockpanel .clocksettings label{font-size:11px;font-weight:650;color:#9cb5b2}
+body[data-profile="mobile"] #clockpanel .clocksettings select{
+ background:#111e28;border:1px solid #34505a;color:#edfaf1;border-radius:10px;min-height:44px;
+}
+body[data-profile="mobile"] #chartpanel .panelhead{align-items:center}
+body[data-profile="mobile"] #chartpanel .chartopts{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%;flex:1 0 100%;
+}
+body[data-profile="mobile"] #chartpanel .range-picker{
+ grid-column:1/-1;display:flex;justify-content:space-between;font-size:11px;font-weight:800;
+ letter-spacing:.08em;margin:4px 0;
+}
+body[data-profile="mobile"] #chartpanel .range-picker select{
+ flex:0 0 110px;background:#101f29;border:1px solid #35545c;color:#d0ffe5;
+ border-radius:10px;font-size:14px;
+}
+body[data-profile="mobile"] #chartpanel .chartopts .mini{
+ min-width:0;min-height:43px;padding:7px 4px;font-size:11px;font-weight:800;border-radius:10px;
+ color:#b5c8c6;background:#1a3038;border:1px solid #35505a;
+}
+body[data-profile="mobile"] #chartpanel .chartopts .mini[aria-pressed="true"]{
+ color:#11281e;background:#a4f6cf;border-color:#a4f6cf;
+}
+body[data-profile="mobile"] #chartpanel .chartarea{padding:9px 8px 6px}
+body[data-profile="mobile"] #chartpanel .chart{
+ height:clamp(275px,43svh,460px)!important;min-height:275px!important;
+ background:linear-gradient(180deg,#172a34,#101d28);border:1px solid #2a414b;
+ border-radius:13px;
+}
+body[data-profile="mobile"] #chartpanel .chartfoot{font-size:10px;gap:6px;padding:7px 6px 2px;color:#94afb1}
+body[data-profile="mobile"] .legend{padding:10px 12px;gap:8px}
+body[data-profile="mobile"] .legendgroup .legend-vis,
+body[data-profile="mobile"] .legendgroup .legend-focus{
+ border-radius:9px;background:#1c3039;border:1px solid #314850;
+ min-height:43px;color:#c5d9d4;
+}
+body[data-profile="mobile"] .legendgroup .legend-vis[aria-pressed="true"],
+body[data-profile="mobile"] .legendgroup .legend-focus[aria-pressed="true"]{
+ background:#2b4c41;border-color:#71bd99;color:#edfff5;
+}
+body[data-profile="mobile"] .chartactions{padding:5px 12px 14px}
+body[data-profile="mobile"] .chartactions button{
+ border:1px solid #34525b;background:#20333d;color:#bdd7cd;border-radius:10px;
+}
+body[data-profile="mobile"] #tradepanel .trade{padding:16px}
+body[data-profile="mobile"] .mobile-stock-picker{gap:7px;margin-bottom:16px}
+body[data-profile="mobile"] .mobile-stock-picker label,
+body[data-profile="mobile"] .fieldrow label{
+ font-size:11px;font-weight:800;color:#a7c0bf;letter-spacing:.045em;
+}
+body[data-profile="mobile"] .mobile-stock-picker select{
+ color:#eef9f3;background:#101e29;border:1px solid #3b5860;
+ border-radius:13px;min-height:54px;font-weight:750;padding:0 12px;
+}
+body[data-profile="mobile"] .pair{
+ padding:5px;background:#101d27;border-radius:15px;gap:5px;
+ border:1px solid #304550;
+}
+body[data-profile="mobile"] .side{
+ background:transparent;border:1px solid transparent;color:#98b3b2;
+ border-radius:11px;min-height:49px;font-size:14px;letter-spacing:.02em;
+}
+body[data-profile="mobile"] #buy[aria-pressed="true"]{
+ color:#103122;background:#adf4cf;border-color:#adf4cf;
+ box-shadow:0 3px 13px #54b78330;
+}
+body[data-profile="mobile"] #sell[aria-pressed="true"]{
+ color:#341f21;background:#ffc0bb;border-color:#ffc0bb;
+}
+body[data-profile="mobile"] .fieldrow{margin:19px 0 8px}
+body[data-profile="mobile"] .fillmax{
+ min-height:37px;border-radius:10px;border:1px solid #58685e;
+ color:#e6e0b1;background:#263630;font-size:12px;
+}
+body[data-profile="mobile"] .qty{
+ border:1px solid #41606a;background:#0e1c27;border-radius:13px;
+ min-height:65px;padding:12px 16px;color:#f2fff7;font-size:27px;font-weight:780;
+ box-shadow:inset 0 2px 6px #0002;
+}
+body[data-profile="mobile"] .mobile-quick-qty{
+ display:grid;grid-template-columns:1fr repeat(3,auto);align-items:center;gap:7px;
+ margin:10px 0 15px;
+}
+body[data-profile="mobile"] .mobile-quick-qty>span{color:#8aa4a7;font-size:10px;font-weight:830;letter-spacing:.06em}
+body[data-profile="mobile"] .mobile-quick-qty button{
+ border-radius:9px;border:1px solid #39535a;background:#21323c;color:#bbd9cb;
+ padding:9px 12px;min-height:40px;font-size:12px;font-weight:830;
+}
+body[data-profile="mobile"] .lineitem{padding:10px 0;border-bottom:1px solid #2e444d;color:#a5babd;font-size:12px}
+body[data-profile="mobile"] .lineitem strong{font-size:13px;color:#eef8f3}
+body[data-profile="mobile"] .lineitem:nth-last-of-type(4) strong{color:#c5f8da}
+body[data-profile="mobile"] .execute{
+ margin-top:19px;min-height:58px;border-radius:14px;background:#a4f6cf;color:#10291d;
+ font-size:15px;letter-spacing:.015em;box-shadow:0 8px 22px #6bc29a28;
+}
+body[data-profile="mobile"] .execute:disabled{box-shadow:none}
+body[data-profile="mobile"] .toast{font-size:12px;line-height:1.45;min-height:17px;margin-top:11px}
+body[data-profile="mobile"] #holdingspanel .holding{
+ display:grid;grid-template-columns:60px minmax(0,1fr) auto;
+ gap:10px;min-height:79px;margin:0 11px;padding:13px 7px;
+ border-bottom:1px solid #2c444d;border-radius:0;
+ color:#e6f4ed;text-align:left;
+}
+body[data-profile="mobile"] #holdingspanel .holding strong{
+ background:#25483f;border-radius:9px;color:#bcf5d9;
+ padding:10px 5px;text-align:center;font-size:12px;
+}
+body[data-profile="mobile"] #holdingspanel .holding .muted{font-size:12px;line-height:1.3;color:#9bb8b6}
+body[data-profile="mobile"] #holdingspanel .holding b{font-size:14px;letter-spacing:-.01em}
+body[data-profile="mobile"] #holdingspanel .empty{padding:22px 15px;font-size:13px;line-height:1.6}
+body[data-profile="mobile"] #tapepanel .activity{padding:5px 15px 13px}
+body[data-profile="mobile"] #tapepanel .event{font-size:12px;padding:12px 0;border-bottom:1px solid #2c414a;align-items:start}
+body[data-profile="mobile"] #tapepanel .eventday{font-weight:850}
+body[data-profile="mobile"] #holdingspanel .mobile-reset{
+ border-radius:11px;min-height:45px;font-size:11px;margin:12px;
+ background:#2c232a;color:#ffc2bf;
+}
+body[data-profile="mobile"] .footer{margin-top:15px;padding:0 3px;color:#7c9c9e;font-size:10px}
+body[data-profile="mobile"] .footer>span:first-child{display:none}
+body[data-profile="mobile"] .mobile-nav{
+ width:min(100%,640px);grid-template-columns:repeat(4,minmax(0,1fr));
+ bottom:0;left:50%;transform:translateX(-50%);
+ gap:3px;padding:8px max(11px,env(safe-area-inset-left,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(11px,env(safe-area-inset-right,0px));
+ border:1px solid #34505a;border-bottom:0;border-radius:23px 23px 0 0;
+ background:#101e29f8;box-shadow:0 -9px 35px #020a14a0;
+ backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+}
+body[data-profile="mobile"] .mobile-nav button{
+ min-height:60px;border:0;border-radius:15px;background:transparent;color:#93adb0;
+ gap:5px;font-size:11px;font-weight:780;letter-spacing:0;
+}
+body[data-profile="mobile"] .mobile-nav .nav-icon{height:24px;width:24px;display:grid;place-items:center}
+body[data-profile="mobile"] .mobile-nav .nav-icon svg{width:23px;height:23px;display:block}
+body[data-profile="mobile"] .mobile-nav button[aria-current="page"]{
+ color:#abf2d0;border:0;background:#203a39;
+}
+body[data-profile="mobile"] .mobile-nav button[data-tab="trade"] .nav-icon{
+ color:#0e2d23;background:#a4f6cf;border-radius:10px;
+ height:29px;width:32px;
+}
+body[data-profile="mobile"] .mobile-nav button[data-tab="trade"] .nav-icon svg{width:20px;height:20px}
+body[data-profile="mobile"] .mobile-nav button[data-tab="trade"][aria-current="page"]{background:#25463f;color:#dbffeb}
+body[data-profile="mobile"].keyboard-open .mobile-nav{display:none}
+body[data-profile="mobile"] .settings-dialog{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+@media(max-width:370px){
+ body[data-profile="mobile"] .stats>.stat:nth-child(1){min-height:164px;padding:18px}
+ body[data-profile="mobile"] .stats>.stat:nth-child(1) .statvalue{font-size:34px}
+ body[data-profile="mobile"] #main .stock{grid-template-columns:minmax(0,1fr) 57px auto;padding:11px 9px;column-gap:6px}
+ body[data-profile="mobile"] .stock .stock-spark{width:57px}
+ body[data-profile="mobile"] .session-actions button{min-width:56px;padding:6px 7px;font-size:10px}
+ body[data-profile="mobile"] .session-info small{font-size:8px}
+ body[data-profile="mobile"] .topright .profile-picker select{width:69px}
+}
+@media(prefers-reduced-motion:reduce){
+ body[data-profile="mobile"] .stock,body[data-profile="mobile"] .mobile-nav button{transition:none}
+}
+
 </style>
 </head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.4.6</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings">⚙ SAVES & SETTINGS</button><button class="reset" id="reset">↺ Reset market</button></div></header>
+<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.5.0</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
 <section class="stats" aria-label="Portfolio and exchange statistics">
 <div class="stat"><div class="statlabel">NET WORTH</div><div class="statvalue" id="networth">$10,000.00</div><div class="statnote" id="profit">Starting balance</div></div>
 <div class="stat"><div class="statlabel">CASH</div><div class="statvalue" id="cash">$10,000.00</div><div class="statnote">Buying power</div></div>
@@ -320,20 +675,30 @@ body[data-profile="mobile"] .chart{touch-action:pan-y}
 <div class="stat"><div class="statlabel">TRADING DAY</div><div class="statvalue" id="day">001</div><div class="statnote" id="regime"><span class="dot"></span>Normal market</div></div>
 <div class="stat trendstat"><div class="statlabel">MARKET TREND · 20D</div><div class="statvalue" id="trendvalue">→ SIDEWAYS</div><div class="statnote" id="trendnote">Rolling exchange index</div></div>
 </section><div class="stats-height-grip" id="statsHeightGrip" role="separator" tabindex="0" aria-label="Resize top statistics tiles height" aria-orientation="horizontal" title="Drag to resize top tile height; double-click to reset"><span></span></div>
+<div class="mobile-session" aria-label="Simulated market controls">
+  <div class="session-info"><span class="session-pulse" aria-hidden="true"></span><span><strong id="mobileMarketDay">DAY 1</strong><small id="mobileMarketMood">NORMAL MARKET</small></span></div>
+  <div class="session-actions"><button type="button" id="mobileAdvance" class="session-next" aria-label="Advance market one day">+1 DAY</button><button type="button" id="mobileAuto" class="session-auto" aria-pressed="false" aria-label="Play or pause automatic market simulation">▶ PLAY</button></div>
+</div>
+<div class="mobile-page-heading"><div><span class="mobile-page-eyebrow">THE SIMULATED EXCHANGE</span><h2 id="mobileScreenTitle">Explore</h2></div><span id="mobileScreenHint">Six stocks to discover</span></div>
 <div class="main" id="main">
 <div class="left">
-<section class="panel sizable" id="chartpanel" aria-label="Company chart"><div class="panelhead"><div><span class="heading">01 / MARKET CHART</span><span class="meta" id="chartmeta"> · 42 trading days</span></div><div class="chartopts"><label class="range-picker" for="chartrange">RANGE <select id="chartrange" aria-label="Graph time range"><option value="21">1M</option><option value="63">3M</option><option value="252">1Y</option><option value="520">MAX</option></select></label><button id="indexoverlay" class="mini" type="button" aria-pressed="true" title="Show or hide exchange trend on the graph">↗ INDEX</button><button id="allchart" class="mini" aria-pressed="true">ALL / %</button><button id="singlechart" class="mini" aria-pressed="false">SINGLE / $</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="chartpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="chartpanel" role="button" aria-label="Move chartpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div>
+<section class="panel sizable" id="chartpanel" aria-label="Company chart"><div class="panelhead"><div><span class="heading"><span class="desktop-heading">01 / MARKET CHART</span><span class="mobile-heading">Chart overview</span></span><span class="meta" id="chartmeta"> · 42 trading days</span></div><div class="chartopts"><label class="range-picker" for="chartrange">RANGE <select id="chartrange" aria-label="Graph time range"><option value="21">1M</option><option value="63">3M</option><option value="252">1Y</option><option value="520">MAX</option></select></label><button id="indexoverlay" class="mini" type="button" aria-pressed="true" title="Show or hide exchange trend on the graph">↗ INDEX</button><button id="allchart" class="mini" aria-pressed="true">ALL / %</button><button id="singlechart" class="mini" aria-pressed="false">SINGLE / $</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="chartpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="chartpanel" role="button" aria-label="Move chartpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div>
 <div class="chartarea" id="chartarea"><svg id="chart" class="chart" viewBox="0 0 850 270" role="img" aria-label="Historical performance of every listed company"></svg><div id="tooltip" class="tooltip" hidden></div><div class="chartfoot"><span id="chartstart">41 DAYS AGO</span><span id="charttype">RELATIVE PERFORMANCE · BASE = 100</span><span id="chartend">DAY 001</span></div></div><div id="legend" class="legend" aria-label="Choose visible and highlighted chart companies"></div><div class="chartactions"><span>CHART SERIES</span><button type="button" id="showall">SHOW ALL</button><button type="button" id="hideall">HIDE ALL</button><button type="button" id="clearfocus">CLEAR FOCUS</button><button type="button" id="wideleft" title="Make left column as wide as practical">WIDE LEFT</button><button type="button" id="focusleft" aria-pressed="false" title="Place trading panels below to give the left column the full width">FULL LEFT ↗</button><button type="button" id="resetlayout">RESET SIZES</button><span id="splitreadout" class="split-readout">LEFT 72%</span><span class="resizehelp">DRAG HANDLES · DOUBLE-CLICK TO RESET</span></div><div class="panelsizer" data-panel="chartpanel" role="separator" tabindex="0" aria-label="Resize chart panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
-<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading">02 / SIMULATED EXCHANGE</div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><div class="marketnote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional prices react to trends, sectors, and occasional news shocks.</div><div class="panelsizer" data-panel="exchangepanel" role="separator" tabindex="0" aria-label="Resize exchange panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
-<section class="panel sizable" id="clockpanel" aria-label="Time controls"><div class="panelhead clock"><div><span class="heading">03 / MARKET CLOCK </span><span class="meta" id="clockstatus">· Next closing bell</span></div><div class="clockbuttons"><button class="btn primary" id="next">+1 DAY →</button><button class="btn" id="next10">+10 DAYS</button><button class="btn" id="auto" aria-pressed="false">▶ AUTO</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="clockpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="clockpanel" role="button" aria-label="Move clockpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="clocksettings"><label for="autostep">AUTO STEP <select id="autostep" aria-label="Days advanced per automatic tick"><option value="1">1 day</option><option value="2">2 days</option><option value="5">5 days</option><option value="10">10 days</option><option value="30">30 days</option><option value="100">100 days</option></select></label><label for="autospeed">EVERY <select id="autospeed" aria-label="Automatic tick interval"><option value="100">0.1 sec</option><option value="250">0.25 sec</option><option value="500">0.5 sec</option><option value="650">0.65 sec</option><option value="1000">1 sec</option><option value="2000">2 sec</option><option value="5000">5 sec</option></select></label><span id="autodetail" class="meta"></span><span class="meta keyhint">SPACE PLAY/PAUSE · + / − SPEED · [ / ] STEP</span></div><div class="panelsizer" data-panel="clockpanel" role="separator" tabindex="0" aria-label="Resize market clock height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading"><span class="desktop-heading">02 / SIMULATED EXCHANGE</span><span class="mobile-heading">Explore stocks</span></div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><div class="marketnote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional prices react to trends, sectors, and occasional news shocks.</div><div class="panelsizer" data-panel="exchangepanel" role="separator" tabindex="0" aria-label="Resize exchange panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="clockpanel" aria-label="Time controls"><div class="panelhead clock"><div><span class="heading"><span class="desktop-heading">03 / MARKET CLOCK </span><span class="mobile-heading">Market controls</span></span><span class="meta" id="clockstatus">· Next closing bell</span></div><div class="clockbuttons"><button class="btn primary" id="next">+1 DAY →</button><button class="btn" id="next10">+10 DAYS</button><button class="btn" id="auto" aria-pressed="false">▶ AUTO</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="clockpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="clockpanel" role="button" aria-label="Move clockpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="clocksettings"><label for="autostep">AUTO STEP <select id="autostep" aria-label="Days advanced per automatic tick"><option value="1">1 day</option><option value="2">2 days</option><option value="5">5 days</option><option value="10">10 days</option><option value="30">30 days</option><option value="100">100 days</option></select></label><label for="autospeed">EVERY <select id="autospeed" aria-label="Automatic tick interval"><option value="100">0.1 sec</option><option value="250">0.25 sec</option><option value="500">0.5 sec</option><option value="650">0.65 sec</option><option value="1000">1 sec</option><option value="2000">2 sec</option><option value="5000">5 sec</option></select></label><span id="autodetail" class="meta"></span><span class="meta keyhint">SPACE PLAY/PAUSE · + / − SPEED · [ / ] STEP</span></div><div class="panelsizer" data-panel="clockpanel" role="separator" tabindex="0" aria-label="Resize market clock height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
 </div>
 <div id="columnDivider" class="column-divider" role="separator" tabindex="0" aria-orientation="vertical" aria-label="Resize left and right dashboard columns" aria-valuemin="28" aria-valuemax="92" aria-valuenow="72" title="Drag, double-click to reset, or use ← → Home End"><span>⋮</span></div>
 <div class="right">
-<section class="panel sizable" id="tradepanel" aria-label="Trade desk"><div class="panelhead"><span class="heading">04 / TRADE DESK</span><span class="meta">NO FEES · INSTANT FILLS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="tradepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="tradepanel" role="button" aria-label="Move tradepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="trade"><div class="mobile-stock-picker"><label for="mobilecompany">COMPANY</label><select id="mobilecompany" aria-label="Stock to trade"><option value="NEON">NEON · Neon Dynamics</option><option value="HARB">HARB · Harbor Industries</option><option value="MISO">MISO · Miso Retail</option><option value="VOLT">VOLT · Volt Energy</option><option value="AERO">AERO · Aero Works</option><option value="BYTE">BYTE · Byte Labs</option></select></div><div class="pair"><button class="side" id="buy" aria-pressed="true">BUY</button><button class="side" id="sell" aria-pressed="false">SELL</button></div><div class="fieldrow"><label for="qty">SHARES OF <strong id="orderticker">NEON</strong></label><button class="fillmax" id="max" type="button">MAX BUY</button></div><input class="qty" id="qty" type="number" min="1" step="1" value="1" inputmode="numeric" autocomplete="off"><div class="lineitem"><span>Current share price</span><strong id="unitprice">$46.20</strong></div><div class="lineitem"><span>Order total</span><strong id="ordercost">$46.20</strong></div><div class="lineitem"><span id="availablelabel">Buying power</span><strong id="available">$10,000.00</strong></div><div class="lineitem"><span id="caplabel">Available public float</span><strong id="floatavailable">0</strong></div><button class="execute" id="execute">BUY 1 SHARE</button><p class="toast" role="status" aria-live="polite" id="toast"></p></div><div class="panelsizer" data-panel="tradepanel" role="separator" tabindex="0" aria-label="Resize trade panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
-<section class="panel sizable" id="holdingspanel" aria-label="Portfolio holdings"><div class="panelhead"><span class="heading">05 / HOLDINGS</span><span class="meta" id="positioncount">0 POSITIONS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="holdingspanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="holdingspanel" role="button" aria-label="Move holdingspanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div id="holdings"></div><button type="button" class="mobile-reset" id="mobileReset">↺ Reset the simulated market</button><div class="panelsizer" data-panel="holdingspanel" role="separator" tabindex="0" aria-label="Resize holdings panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
-<section class="panel sizable" id="tapepanel" aria-label="Activity feed"><div class="panelhead"><span class="heading">06 / MARKET TAPE</span><span class="meta">LATEST FIRST</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="tapepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="tapepanel" role="button" aria-label="Move tapepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="activity" id="activity"></div><div class="panelsizer" data-panel="tapepanel" role="separator" tabindex="0" aria-label="Resize market tape panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="tradepanel" aria-label="Trade desk"><div class="panelhead"><span class="heading"><span class="desktop-heading">04 / TRADE DESK</span><span class="mobile-heading">Trade ticket</span></span><span class="meta">NO FEES · INSTANT FILLS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="tradepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="tradepanel" role="button" aria-label="Move tradepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="trade"><div class="mobile-stock-picker"><label for="mobilecompany">COMPANY</label><select id="mobilecompany" aria-label="Stock to trade"><option value="NEON">NEON · Neon Dynamics</option><option value="HARB">HARB · Harbor Industries</option><option value="MISO">MISO · Miso Retail</option><option value="VOLT">VOLT · Volt Energy</option><option value="AERO">AERO · Aero Works</option><option value="BYTE">BYTE · Byte Labs</option></select></div><div class="pair"><button class="side" id="buy" aria-pressed="true">BUY</button><button class="side" id="sell" aria-pressed="false">SELL</button></div><div class="fieldrow"><label for="qty">SHARES OF <strong id="orderticker">NEON</strong></label><button class="fillmax" id="max" type="button">MAX BUY</button></div><input class="qty" id="qty" type="number" min="1" step="1" value="1" inputmode="numeric" autocomplete="off"><div class="mobile-quick-qty" id="mobileQtyPresets" aria-label="Quick order quantities"><span>QUICK FILL</span><button type="button" data-qty-pct="25">25%</button><button type="button" data-qty-pct="50">50%</button><button type="button" data-qty-pct="100">MAX</button></div><div class="lineitem"><span>Current share price</span><strong id="unitprice">$46.20</strong></div><div class="lineitem"><span>Order total</span><strong id="ordercost">$46.20</strong></div><div class="lineitem"><span id="availablelabel">Buying power</span><strong id="available">$10,000.00</strong></div><div class="lineitem"><span id="caplabel">Available public float</span><strong id="floatavailable">0</strong></div><button class="execute" id="execute">BUY 1 SHARE</button><p class="toast" role="status" aria-live="polite" id="toast"></p></div><div class="panelsizer" data-panel="tradepanel" role="separator" tabindex="0" aria-label="Resize trade panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="holdingspanel" aria-label="Portfolio holdings"><div class="panelhead"><span class="heading"><span class="desktop-heading">05 / HOLDINGS</span><span class="mobile-heading">Your positions</span></span><span class="meta" id="positioncount">0 POSITIONS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="holdingspanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="holdingspanel" role="button" aria-label="Move holdingspanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div id="holdings"></div><button type="button" class="mobile-reset" id="mobileReset">↺ Reset the simulated market</button><div class="panelsizer" data-panel="holdingspanel" role="separator" tabindex="0" aria-label="Resize holdings panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="tapepanel" aria-label="Activity feed"><div class="panelhead"><span class="heading"><span class="desktop-heading">06 / MARKET TAPE</span><span class="mobile-heading">Recent activity</span></span><span class="meta">LATEST FIRST</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="tapepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="tapepanel" role="button" aria-label="Move tapepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="activity" id="activity"></div><div class="panelsizer" data-panel="tapepanel" role="separator" tabindex="0" aria-label="Resize market tape panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
 </div></div>
-<nav class="mobile-nav" id="mobilenav" aria-label="Mobile sections"><button type="button" data-tab="market" aria-current="page"><span class="nav-icon" aria-hidden="true">▤</span><span>MARKET</span></button><button type="button" data-tab="chart"><span class="nav-icon" aria-hidden="true">⌁</span><span>CHART</span></button><button type="button" data-tab="trade"><span class="nav-icon" aria-hidden="true">⇄</span><span>TRADE</span></button><button type="button" data-tab="portfolio"><span class="nav-icon" aria-hidden="true">▦</span><span>PORTFOLIO</span></button></nav>
+<nav class="mobile-nav" id="mobilenav" aria-label="Mobile sections">
+<button type="button" data-tab="market" aria-current="page"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V10M10 19V5M16 19v-9M22 19V8"/><path d="M2 19h20"/></svg></span><span>Explore</span></button>
+<button type="button" data-tab="chart"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 3 8-9"/><path d="M15 5h6v6"/></svg></span><span>Charts</span></button>
+<button type="button" data-tab="trade"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M15 3l5 4-5 4M20 17H4m5-4-5 4 5 4"/></svg></span><span>Trade</span></button>
+<button type="button" data-tab="portfolio"><span class="nav-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 10h18M7 6V4h10v2M16 15h2"/></svg></span><span>Portfolio</span></button>
+</nav></nav>
 <footer class="footer"><span>◉ FICTIONAL COMPANIES · NO LIVE DATA · NO REAL MONEY</span><span id="saveStatus">BROWSER AUTOSAVE · OFFLINE · ZERO DEPENDENCIES</span></footer>
 </div>
 <dialog id="settingsDialog" class="settings-dialog" aria-labelledby="settingsTitle">
@@ -439,6 +804,9 @@ function isMobileProfile(){return currentProfile==='mobile'}
 function syncProfile(){
  const next=preferredProfile();currentProfile=next;
  document.body.dataset.profile=next;document.body.dataset.tab=state.ui.mobileTab;
+ const screenInfo={market:['Explore','6 companies'],chart:['Charts','Market performance'],trade:['Trade','Paper money · Instant fills'],portfolio:['Portfolio','Your market holdings']};
+ const screen=screenInfo[state.ui.mobileTab]||screenInfo.market;
+ $('mobileScreenTitle').textContent=screen[0];$('mobileScreenHint').textContent=screen[1];
  $('profilemode').value=state.ui.profileMode;
  $('profiletag').textContent=next.toUpperCase()+' VIEW';
  for(const b of $('mobilenav').querySelectorAll('[data-tab]')){
@@ -541,7 +909,7 @@ function stopAuto(){if(timer!==null){clearInterval(timer);timer=null}renderClock
 function startAuto(){if(state.day>=MAX_DAY)return notify('Maximum day reached.');if(timer!==null)clearInterval(timer);timer=setInterval(()=>advance(state.ui.autoStep),state.ui.autoMs);renderClock()}
 function toggleAuto(){if(timer!==null){stopAuto();return}startAuto()}
 function updateAutoSettings(){state.ui.autoStep=Number($('autostep').value);state.ui.autoMs=Number($('autospeed').value);save();if(timer!==null)startAuto();else renderClock()}
-function renderClock(){$('auto').textContent=timer!==null?'Ⅱ PAUSE':'▶ AUTO';$('auto').setAttribute('aria-pressed',String(timer!==null));$('auto').classList.toggle('active',timer!==null);for(const id of ['next','next10','auto'])$(id).disabled=state.day>=MAX_DAY;$('clockstatus').textContent='· '+(timer!==null?'Market running':'Advance simulated days');$('autostep').value=String(state.ui.autoStep);$('autospeed').value=String(state.ui.autoMs);$('autodetail').textContent=(timer!==null?'RUNNING · ':'SET · ')+state.ui.autoStep+'D / '+(state.ui.autoMs/1000)+'S'}
+function renderClock(){$('mobileMarketDay').textContent='DAY '+state.day.toLocaleString('en-US');$('mobileMarketMood').textContent=state.regime.toUpperCase()+' MARKET';$('mobileAuto').textContent=timer!==null?'Ⅱ PAUSE':'▶ PLAY';$('mobileAuto').setAttribute('aria-pressed',String(timer!==null));$('mobileAuto').disabled=state.day>=MAX_DAY;$('mobileAdvance').disabled=state.day>=MAX_DAY;$('auto').textContent=timer!==null?'Ⅱ PAUSE':'▶ AUTO';$('auto').setAttribute('aria-pressed',String(timer!==null));$('auto').classList.toggle('active',timer!==null);for(const id of ['next','next10','auto'])$(id).disabled=state.day>=MAX_DAY;$('clockstatus').textContent='· '+(timer!==null?'Market running':'Advance simulated days');$('autostep').value=String(state.ui.autoStep);$('autospeed').value=String(state.ui.autoMs);$('autodetail').textContent=(timer!==null?'RUNNING · ':'SET · ')+state.ui.autoStep+'D / '+(state.ui.autoMs/1000)+'S'}
 function renderStats(){const w=worthCents(),held=holdingsCents(),gain=w-START_CENTS;
 $('networth').textContent=amount(w);$('cash').textContent=amount(cents(state.cash));$('invested').textContent=amount(held);$('sharecount').textContent=integer(COMPANIES.reduce((n,c)=>n+shares(c.id),0))+' shares held';$('day').textContent=String(state.day).padStart(3,'0');
 $('profit').textContent=signed(changePct(w,START_CENTS))+' · '+(gain>=0?'+':'−')+amount(Math.abs(gain));$('profit').className='statnote '+(gain>0?'pos':gain<0?'neg':'');
@@ -559,7 +927,14 @@ if(FEATURE_FLAGS.marketTrend){
   const el=$(id);el.dataset.compact=short;el.title=el.textContent;
  }
 }
-function renderStocks(){$('stocks').innerHTML=COMPANIES.map(c=>{const d=dayChange(c.id);return `<button type="button" class="stock" data-stock="${c.id}" aria-pressed="${state.selected===c.id}" title="${escape(c.name)} · ${integer(c.shares)} outstanding shares · ${integer(c.float)} public float"><span class="ticker">${c.id}</span><span><span class="sname" style="display:block">${escape(c.name)}</span><span class="sector">${escape(c.sector)} · ${compact(marketCap(c))} cap</span></span><span class="num strong">${amount(priceCents(c.id))}</span><span class="num ${d>0?'pos':d<0?'neg':''}">${signed(d)}</span><span class="num">${compact(marketCap(c))}</span><span class="num">${compactShares(c.float)}</span></button>`}).join('')}
+function sparklinePath(id){
+ const hist=quote(id).history,n=Math.min(24,hist.length),start=hist.length-n;
+ let min=Infinity,max=-Infinity;
+ for(let i=start;i<hist.length;i++){if(hist[i]<min)min=hist[i];if(hist[i]>max)max=hist[i]}
+ const spread=Math.max(max-min,.01);
+ return hist.slice(start).map((p,i)=>(i?'L':'M')+(2+i*88/Math.max(1,n-1)).toFixed(1)+' '+(30-(p-min)/spread*26).toFixed(1)).join(' ');
+}
+function renderStocks(){$('stocks').innerHTML=COMPANIES.map(c=>{const d=dayChange(c.id);return `<button type="button" class="stock" data-stock="${c.id}" aria-pressed="${state.selected===c.id}" title="${escape(c.name)} · ${integer(c.shares)} outstanding shares · ${integer(c.float)} public float"><span class="ticker">${c.id}</span><span><span class="sname" style="display:block">${escape(c.name)}</span><span class="sector">${escape(c.sector)} · ${compact(marketCap(c))} cap</span></span><span class="num strong">${amount(priceCents(c.id))}</span><span class="num ${d>0?'pos':d<0?'neg':''}">${signed(d)}</span><span class="num">${compact(marketCap(c))}</span><span class="num">${compactShares(c.float)}</span><span class="stock-spark" aria-hidden="true"><svg viewBox="0 0 92 34" preserveAspectRatio="none"><path d="${sparklinePath(c.id)}" stroke="${d>=0?'#75e6b2':'#ff9d9a'}" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>`}).join('')}
 let lastLegendMarkup='',chartHoverFrame=0;
 function renderChart(){
  if(chartHoverFrame){cancelAnimationFrame(chartHoverFrame);chartHoverFrame=0;}
@@ -615,6 +990,7 @@ function toggleSeries(id){if(!company(id))return;const u=state.ui;if(u.visible.i
 function toggleFocus(id){if(!company(id)||!state.ui.visible.includes(id))return;const h=state.ui.highlight;state.ui.highlight=h.includes(id)?h.filter(x=>x!==id):[...h,id];save();renderChart()}
 
 function renderTrade(){const id=state.selected,c=company(id),raw=$('qty').value.trim(),n=/^\d+$/.test(raw)?Number(raw):NaN,qty=Number.isSafeInteger(n)&&n>=1?n:null,o=validateOrder();$('buy').setAttribute('aria-pressed',String(state.side==='buy'));$('sell').setAttribute('aria-pressed',String(state.side==='sell'));$('orderticker').textContent=id;$('mobilecompany').value=id;$('unitprice').textContent=amount(priceCents(id));
+for(const b of $('mobileQtyPresets').querySelectorAll('[data-qty-pct]'))b.disabled=maxQty()<1;
 const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(cents(state.cash)):integer(shares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES')}
 function renderHoldings(){const owned=COMPANIES.filter(c=>shares(c.id)>0);$('positioncount').textContent=owned.length+' '+(owned.length===1?'POSITION':'POSITIONS');$('holdings').innerHTML=owned.length?owned.map(c=>`<button type="button" class="holding" data-holding="${c.id}" aria-label="Trade ${c.name}, ${integer(shares(c.id))} shares held"><strong>${c.id}</strong><span class="muted">${integer(shares(c.id))} shares</span><b>${amount(shares(c.id)*priceCents(c.id))}</b></button>`).join(''):'<div class="empty">No holdings. Pick a stock and buy shares.</div>'}
 function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class="event"><span class="eventday">D${String(e.day).padStart(3,'0')}</span><span>${escape(e.text)}</span></div>`).join('')}
@@ -623,7 +999,9 @@ function render(){syncProfile();applyLayout();renderStats();renderStocks();rende
 // mobile views during fast playback; entering a tab still refreshes everything.
 function renderMarketFrame(){
  renderStats();
- if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();renderClock();return;}
+ // Market time is visible in the mobile quickbar on every tab.
+ renderClock();
+ if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();return;}
  switch(state.ui.mobileTab){
   case 'market':renderStocks();renderClock();break;
   case 'chart':renderChart();break;
@@ -640,6 +1018,8 @@ $('stocks').addEventListener('click',e=>{
 });
 $('profilemode').addEventListener('change',e=>setProfileMode(e.target.value));
 $('mobilenav').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)setMobileTab(b.dataset.tab)});
+$('mobileAdvance').addEventListener('click',()=>advance(1));
+$('mobileAuto').addEventListener('click',toggleAuto);
 $('mobilecompany').addEventListener('change',e=>select(e.target.value));
 $('holdings').addEventListener('click',e=>{
  const b=e.target.closest('[data-holding]');if(!b||!company(b.dataset.holding))return;
@@ -660,6 +1040,7 @@ $('autostep').addEventListener('change',updateAutoSettings);$('autospeed').addEv
 $('allchart').addEventListener('click',()=>setView('all'));$('singlechart').addEventListener('click',()=>setView('single'));
 $('buy').addEventListener('click',()=>setSide('buy'));$('sell').addEventListener('click',()=>setSide('sell'));
 $('max').addEventListener('click',()=>{$('qty').value=String(maxQty());renderTrade();notify(validateOrder().reason)});
+$('mobileQtyPresets').addEventListener('click',e=>{const b=e.target.closest('[data-qty-pct]');if(!b)return;const available=maxQty();if(available<1)return;const pct=Number(b.dataset.qtyPct);$('qty').value=String(Math.max(1,Math.floor(available*pct/100)));renderTrade();notify(validateOrder().reason);});
 $('qty').addEventListener('input',()=>{renderTrade();notify(validateOrder().reason)});
 $('qty').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();trade()}});
 $('execute').addEventListener('click',trade);$('next').addEventListener('click',()=>advance(1));$('next10').addEventListener('click',()=>advance(10));$('auto').addEventListener('click',toggleAuto);
