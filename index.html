@@ -11,7 +11,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
-<title>MARKETLAB | The Simulated Exchange v0.6.0</title>
+<title>MARKETLAB | The Simulated Exchange v0.6.1</title>
 <style>
 :root{--bg:#101713;--panel:#1a251e;--panel2:#213026;--line:#33483a;--mint:#aaf6ad;--green:#81e4a0;--red:#ff9d9a;--amber:#ffd18a;--text:#e3eee2;--muted:#9ab09e;--c1:#9ef4a1;--c2:#e5bd7c;--c3:#86cafa;--c4:#e89acd;--c5:#b0a4fa;--c6:#ff997b}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 75% -15%,#25392a 0,transparent 37%),var(--bg);color:var(--text);font:12px/1.45 ui-monospace,Consolas,'Liberation Mono',monospace}button,input{font:inherit}button{cursor:pointer;transition:background .12s,border .12s}button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}button:disabled{opacity:.40;cursor:not-allowed}.wrap{max-width:none;margin:auto;padding:14px 18px 20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}.brand h1{font-size:27px;letter-spacing:-.08em;line-height:1;margin:0;font-weight:950}.brand em{color:var(--mint);font-style:normal}.tagline{color:var(--muted);font-size:10px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.tag{border:1px solid var(--line);padding:3px 7px;border-radius:3px;color:var(--muted);white-space:nowrap;font-size:10px}.reset{border:0;background:none;color:var(--muted);font-size:10px;text-decoration:underline;text-underline-offset:3px}.reset:hover{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:9px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:9px 11px;min-width:0}.statlabel,.minor{color:var(--muted);font-size:10px;letter-spacing:.025em}.statvalue{font-size:clamp(15px,1.7vw,22px);font-weight:850;letter-spacing:-.05em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.statnote{color:var(--muted);font-size:10px;min-height:13px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;overflow:hidden}.panelhead{padding:8px 11px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:37px}.heading{color:var(--mint);font-weight:850;letter-spacing:.08em;font-size:10px}.meta{color:var(--muted);font-size:10px}.main{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(300px,.92fr);gap:9px}.left,.right{display:grid;align-content:start;gap:9px;min-width:0}.clock{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.clock p{margin:0}.clockbuttons{display:flex;gap:6px}.btn{border:1px solid #526957;background:#293c2e;border-radius:4px;color:var(--text);font-weight:800;padding:6px 10px;font-size:11px}.btn:hover{border-color:var(--mint)}.btn.primary{background:var(--amber);color:#2d2210;border-color:var(--amber)}.btn.active{color:var(--mint);border-color:var(--mint)}.chartopts{display:flex;gap:5px}.mini{border:1px solid var(--line);border-radius:3px;padding:4px 7px;background:#18231b;color:var(--muted);font-size:10px;font-weight:850}.mini[aria-pressed="true"]{color:#102118;background:var(--mint);border-color:var(--mint)}.chartarea{padding:4px 10px 6px;position:relative}.chart{width:100%;height:auto;display:block;aspect-ratio:850/270;min-height:178px;touch-action:pan-y}.chartfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:9px;padding:0 5px 3px}.legend{display:flex;flex-wrap:wrap;gap:4px 7px;padding:3px 10px 9px}.legend button{border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;padding:4px 6px;border-radius:3px;font-weight:800}.legend button:hover,.legend button[aria-pressed="true"]{background:#2d4232;color:var(--text);border-color:#486451}.swatch{width:13px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px;border-radius:2px}.tooltip{pointer-events:none;position:absolute;z-index:2;min-width:125px;max-width:205px;background:#0c1810f5;border:1px solid #54745b;padding:7px 9px;box-shadow:0 8px 24px #0008;border-radius:4px;font-size:10px}.tooltip[hidden]{display:none}.tooltip div{display:flex;justify-content:space-between;gap:15px}.boardheader,.stock{display:grid;grid-template-columns:55px minmax(100px,1.25fr) 78px 78px 66px 82px;align-items:center;gap:8px}.boardheader{color:var(--muted);padding:7px 11px 5px;font-size:9px}.boardheader>span:nth-child(n+3){text-align:right}.stock{width:100%;text-align:left;background:transparent;color:var(--text);border:0;border-top:1px solid #304135;padding:8px 11px;font-size:11px}.stock:hover{background:#26372b}.stock[aria-pressed="true"]{background:#2a3f30;box-shadow:inset 3px 0 var(--mint)}.ticker{font-weight:900;color:var(--mint)}.sname{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector{font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.num{text-align:right;white-space:nowrap;font-size:11px}.num.strong{font-weight:850}.trade{padding:10px 11px 12px}.pair{display:flex;gap:6px}.pair button{flex:1}.side{padding:7px 9px;border:1px solid var(--line);border-radius:4px;background:#122017;color:var(--muted);font-weight:850;letter-spacing:.1em}.side[aria-pressed="true"]{color:#0f2118;background:var(--mint);border-color:var(--mint)}.fieldrow{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:10px 0 5px}.fieldrow label{color:var(--muted);font-size:10px}.fillmax{color:var(--amber);background:#2d3124;border:1px solid #77714e;border-radius:3px;padding:3px 10px;font-size:10px;font-weight:900}.fillmax:disabled{opacity:.4}.qty{width:100%;border:1px solid var(--line);background:#111c15;color:var(--text);border-radius:4px;padding:7px 9px;font-size:15px;font-weight:800}.lineitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;color:var(--muted);border-bottom:1px dashed #324837;font-size:11px}.lineitem strong{font-size:11px;color:var(--text)}.execute{width:100%;border:0;border-radius:4px;background:var(--mint);color:#0d2314;padding:9px;margin-top:10px;font-size:11px;font-weight:950;letter-spacing:.03em}.execute:hover:not(:disabled){background:#d1ffcc}.toast{color:var(--amber);font-size:10px;min-height:15px;margin:6px 0 0}.holding{display:grid;grid-template-columns:51px 1fr auto;gap:5px;align-items:center;padding:7px 11px;border-bottom:1px solid #304135;font-size:11px}.holding:last-child{border-bottom:0}.holding strong{color:var(--mint)}.holding .muted{color:var(--muted)}.empty{color:var(--muted);padding:11px;font-size:10px}.activity{padding:2px 11px 7px;min-height:65px;max-height:147px;overflow:auto}.event{display:grid;grid-template-columns:auto 1fr;gap:10px;border-bottom:1px dashed #324635;padding:6px 0;font-size:10px;color:var(--muted)}.event:last-child{border-bottom:0}.eventday{color:var(--green)}.marketnote{color:var(--muted);font-size:9px;padding:0 10px 8px}.footer{color:var(--muted);font-size:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-top:10px}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px;vertical-align:middle}
@@ -862,7 +862,7 @@ body[data-profile="mobile"] .perf-hud{right:12px;bottom:calc(83px + env(safe-are
 </style>
 </head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.6.0</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
+<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.6.1</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
 <section id="sessionNotice" class="session-notice" role="status" aria-live="polite" hidden>
  <div class="session-notice-text"><strong id="sessionHeading">Another tab is editing</strong><span id="sessionDescription">This tab is view-only to protect your portfolio.</span></div>
  <button type="button" id="sessionRetry" class="btn">CHECK AGAIN</button>
@@ -981,6 +981,7 @@ if(raw.heights&&typeof raw.heights==='object'&&!Array.isArray(raw.heights))for(c
 
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const cents=n=>Math.round(n*100),usd=n=>n/100;
+const priceCentsFromQuote=q=>cents(q.price);
 const moneyFmt=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
 const numFmt=new Intl.NumberFormat('en-US',{maximumFractionDigits:0});
 const money=n=>moneyFmt.format(n),amount=n=>money(usd(n)),integer=n=>numFmt.format(n);
@@ -1016,15 +1017,73 @@ function normalizeEconomy(raw,day){
  return{rate:raw.rate,inflation:raw.inflation,growth:raw.growth,unemployment:raw.unemployment,
   confidence:raw.confidence,lastReportDay:raw.lastReportDay,policyDirection:raw.policyDirection};
 }
-function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{},economy:freshEconomy()};for(const c of COMPANIES)s.companies[c.id]={price:c.price,previous:c.price,history:preHistory(s,c,c.price),volume:0};s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
+function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{},economy:freshEconomy()};for(const c of COMPANIES)s.companies[c.id]={price:c.price,previous:c.price,history:preHistory(s,c,c.price),volume:0};s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
 function normalize(raw){
 if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==2||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295||!raw.companies||typeof raw.companies!=='object'||Array.isArray(raw.companies)||!raw.holdings||typeof raw.holdings!=='object'||Array.isArray(raw.holdings))return null;
 const economy=normalizeEconomy(raw.economy,raw.day);if(!economy)return null;
-const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{},economy};
+const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{},economy};
 for(const sector of new Set(COMPANIES.map(c=>c.sector)))s.sectorMomentum[sector]=clampMomentum(raw.sectorMomentum?.[sector],.014);
 for(const c of COMPANIES)s.stockMomentum[c.id]=clampMomentum(raw.stockMomentum?.[c.id],.023);
 for(const c of COMPANIES){const q=raw.companies[c.id],n=raw.holdings[c.id]??0;if(!q||typeof q!=='object'||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(n)||n<0||n>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price)||!Number.isSafeInteger(q.volume)||q.volume<0||q.volume>c.float)return null;
 s.companies[c.id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:q.volume};if(n)s.holdings[c.id]=n;}
+
+// Cost basis is the total cost in integer cents (weighted-average method).
+// Legacy holdings have no historical trade cost recorded. Mark them as estimated
+// and baseline to the current price rather than inventing an entry price.
+if(raw.realizedPnLCents!==undefined){
+ if(!Number.isSafeInteger(raw.realizedPnLCents)||Math.abs(raw.realizedPnLCents)>MAX_CASH_CENTS)return null;
+ s.realizedPnLCents=raw.realizedPnLCents;
+}
+if(raw.optionRealizedCents!==undefined){
+ if(!Number.isSafeInteger(raw.optionRealizedCents)||Math.abs(raw.optionRealizedCents)>MAX_CASH_CENTS)return null;
+ s.optionRealizedCents=raw.optionRealizedCents;
+}
+if(raw.positionCostCents!==undefined&&(!raw.positionCostCents||typeof raw.positionCostCents!=='object'||Array.isArray(raw.positionCostCents)))return null;
+if(raw.estimatedBasis!==undefined&&(!raw.estimatedBasis||typeof raw.estimatedBasis!=='object'||Array.isArray(raw.estimatedBasis)))return null;
+for(const c of COMPANIES){
+ const owned=s.holdings[c.id],basis=raw.positionCostCents?.[c.id];
+ if(!owned){
+  if(basis!==undefined&&basis!==0)return null;
+  continue;
+ }
+ if(basis===undefined){
+  s.positionCostCents[c.id]=owned*priceCentsFromQuote(s.companies[c.id]);
+  if(!Number.isSafeInteger(s.positionCostCents[c.id]))return null;
+  s.estimatedBasis[c.id]=true;
+ }else{
+  if(!Number.isSafeInteger(basis)||basis<0||basis>Number.MAX_SAFE_INTEGER)return null;
+  s.positionCostCents[c.id]=basis;
+  if(raw.estimatedBasis?.[c.id]===true)s.estimatedBasis[c.id]=true;
+ }
+}
+if(raw.options!==undefined){
+ if(!Array.isArray(raw.options)||raw.options.length>30)return null;
+ for(const o of raw.options){
+  if(!o||typeof o!=='object'||!Number.isSafeInteger(o.id)||o.id<1||
+   !company(o.ticker)||!['call','put'].includes(o.type)||!['long','short'].includes(o.side)||
+   (o.side==='short'&&o.type==='call'&&s.holdings[o.ticker]===undefined)||
+   !Number.isSafeInteger(o.qty)||o.qty<1||o.qty>10||
+   !Number.isSafeInteger(o.strike)||o.strike<1||o.strike>MAX_PRICE_CENTS||
+   !Number.isSafeInteger(o.expiryDay)||o.expiryDay<=s.day||o.expiryDay>MAX_DAY||
+   !Number.isSafeInteger(o.openedDay)||o.openedDay<1||o.openedDay>s.day||
+   !Number.isSafeInteger(o.entryPremiumCents)||o.entryPremiumCents<1||o.entryPremiumCents>MAX_PRICE_CENTS||
+   s.options.some(old=>old.id===o.id))return null;
+  s.options.push({id:o.id,ticker:o.ticker,type:o.type,side:o.side,
+   qty:o.qty,strike:o.strike,expiryDay:o.expiryDay,openedDay:o.openedDay,
+   entryPremiumCents:o.entryPremiumCents});
+ }
+}
+const lastOptionId=s.options.reduce((n,o)=>Math.max(n,o.id),0);
+if(raw.nextOptionId!==undefined&&(!Number.isSafeInteger(raw.nextOptionId)||raw.nextOptionId<=lastOptionId||raw.nextOptionId>1000000000))return null;
+s.nextOptionId=raw.nextOptionId??lastOptionId+1;
+for(const c of COMPANIES){
+ const lockedShares=s.options.filter(o=>o.side==='short'&&o.type==='call'&&o.ticker===c.id)
+  .reduce((n,o)=>n+o.qty*100,0);
+ if(lockedShares>(s.holdings[c.id]||0))return null;
+}
+const lockedCash=s.options.filter(o=>o.side==='short'&&o.type==='put')
+ .reduce((n,o)=>n+o.strike*o.qty*100,0);
+if(!Number.isSafeInteger(lockedCash)||lockedCash>cents(s.cash))return null;
 if(Array.isArray(raw.events))s.events=raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,14).map(e=>({day:e.day,text:e.text}));return s;
 }
 function migrateV1(raw){if(!raw||raw.version!==1||!raw.companies||!raw.holdings||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295)return null;const s=fresh();s.seed=raw.seed;s.day=raw.day;s.cash=usd(cents(raw.cash));s.selected=company(raw.selected)?raw.selected:'NEON';s.side=raw.side==='sell'?'sell':'buy';for(const id of ['NEON','HARB','MISO','VOLT']){const q=raw.companies[id],owned=raw.holdings[id]??0,c=company(id);if(!q||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(owned)||owned<0||owned>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price))return null;s.companies[id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:0};if(owned)s.holdings[id]=owned;}s.events=Array.isArray(raw.events)?raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,13):[];s.events.unshift({day:s.day,text:'MarketLab upgraded to v0.2. Two companies joined the exchange.'});return s}
