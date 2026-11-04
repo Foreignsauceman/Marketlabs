@@ -1298,18 +1298,25 @@ for(const c of COMPANIES){
 if(raw.options!==undefined){
  if(!Array.isArray(raw.options)||raw.options.length>30)return null;
  for(const o of raw.options){
+  const deliverable=o?.contractShares??100,exercise=o?.exerciseCents??o?.strike*100,
+    entryValue=o?.entryValueCents??o?.entryPremiumCents*100;
   if(!o||typeof o!=='object'||!Number.isSafeInteger(o.id)||o.id<1||
    !company(o.ticker)||!['call','put'].includes(o.type)||!['long','short'].includes(o.side)||
    (o.side==='short'&&o.type==='call'&&s.holdings[o.ticker]===undefined)||
    !Number.isSafeInteger(o.qty)||o.qty<1||o.qty>10||
    !Number.isSafeInteger(o.strike)||o.strike<1||o.strike>MAX_PRICE_CENTS||
+   !Number.isSafeInteger(deliverable)||deliverable<1||deliverable>3200||
+   !Number.isSafeInteger(exercise)||exercise<1||exercise>MAX_PRICE_CENTS*3200||
+   Math.abs(o.strike-Math.round(exercise/deliverable))>1||
+   !Number.isSafeInteger(entryValue)||entryValue<1||entryValue>MAX_PRICE_CENTS*100||
    !Number.isSafeInteger(o.expiryDay)||o.expiryDay<=s.day||o.expiryDay>MAX_DAY||
    !Number.isSafeInteger(o.openedDay)||o.openedDay<1||o.openedDay>s.day||
    !Number.isSafeInteger(o.entryPremiumCents)||o.entryPremiumCents<1||o.entryPremiumCents>MAX_PRICE_CENTS||
    s.options.some(old=>old.id===o.id))return null;
   s.options.push({id:o.id,ticker:o.ticker,type:o.type,side:o.side,
    qty:o.qty,strike:o.strike,expiryDay:o.expiryDay,openedDay:o.openedDay,
-   entryPremiumCents:o.entryPremiumCents});
+   entryPremiumCents:o.entryPremiumCents,contractShares:deliverable,
+   exerciseCents:exercise,entryValueCents:entryValue});
  }
 }
 const lastOptionId=s.options.reduce((n,o)=>Math.max(n,o.id),0);
@@ -1317,14 +1324,14 @@ if(raw.nextOptionId!==undefined&&(!Number.isSafeInteger(raw.nextOptionId)||raw.n
 s.nextOptionId=raw.nextOptionId??lastOptionId+1;
 for(const c of COMPANIES){
  const lockedShares=s.options.filter(o=>o.side==='short'&&o.type==='call'&&o.ticker===c.id)
-  .reduce((n,o)=>n+o.qty*100,0);
+  .reduce((n,o)=>n+o.qty*o.contractShares,0);
  if(lockedShares>(s.holdings[c.id]||0))return null;
  const committedPuts=s.options.filter(o=>o.side==='short'&&o.type==='put'&&o.ticker===c.id)
-  .reduce((n,o)=>n+o.qty*100,0);
+  .reduce((n,o)=>n+o.qty*o.contractShares,0);
  if(committedPuts+(s.holdings[c.id]||0)>s.companies[c.id].publicFloat)return null;
 }
 const lockedCash=s.options.filter(o=>o.side==='short'&&o.type==='put')
- .reduce((n,o)=>n+o.strike*o.qty*100,0);
+ .reduce((n,o)=>n+o.strike*o.qty*o.contractShares,0);
 if(!Number.isSafeInteger(lockedCash)||lockedCash>cents(s.cash))return null;
 if(Array.isArray(raw.events))s.events=raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,14).map(e=>({day:e.day,text:e.text}));return s;
 }
