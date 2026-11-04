@@ -1078,6 +1078,13 @@ body[data-profile="mobile"] .company-brief>summary{min-height:49px}
   </div>
   <p class="economy-foot" id="economyNext">Next report: Day 21</p>
  </div>
+</details><details id="sectorRotation" class="sector-rotation">
+ <summary><span class="sector-heading">◫ SECTOR ROTATION</span><span id="sectorLeader" class="sector-brief">7 sectors · independent cycles</span><span class="sector-caret" aria-hidden="true">⌄</span></summary>
+ <div class="sector-inner">
+  <p class="sector-notice">FICTIONAL MARKET · Industry trends last several trading weeks or months. A sector can rise while the wider exchange falls, or the reverse.</p>
+  <div class="sector-cards" id="sectorRows"></div>
+  <div class="sector-factors" id="sectorFactors">Commodity index 100 · Yield curve +1.10% · Care demand 100 · Power demand 100</div>
+ </div>
 </details></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><div class="panelsizer" data-panel="exchangepanel" role="separator" tabindex="0" aria-label="Resize exchange panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
 <section class="panel sizable" id="clockpanel" aria-label="Time controls"><div class="panelhead clock"><div><span class="heading"><span class="desktop-heading">03 / MARKET CLOCK </span><span class="mobile-heading">Market controls</span></span><span class="meta" id="clockstatus">· Next closing bell</span></div><div class="clockbuttons"><button class="btn primary" id="next">+1 DAY →</button><button class="btn" id="next10">+10 DAYS</button><button class="btn" id="auto" aria-pressed="false">▶ AUTO</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="clockpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="clockpanel" role="button" aria-label="Move clockpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="clocksettings"><label for="autostep">AUTO STEP <select id="autostep" aria-label="Days advanced per automatic tick"><option value="1">1 day</option><option value="2">2 days</option><option value="5">5 days</option><option value="10">10 days</option><option value="30">30 days</option><option value="100">100 days</option></select></label><label for="autospeed">EVERY <select id="autospeed" aria-label="Automatic tick interval"><option value="100">0.1 sec</option><option value="250">0.25 sec</option><option value="500">0.5 sec</option><option value="650">0.65 sec</option><option value="1000">1 sec</option><option value="2000">2 sec</option><option value="5000">5 sec</option></select></label><span id="autodetail" class="meta"></span><span class="meta keyhint">SPACE PLAY/PAUSE · + / − SPEED · [ / ] STEP</span></div><div class="panelsizer" data-panel="clockpanel" role="separator" tabindex="0" aria-label="Resize market clock height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
 </div>
@@ -2195,6 +2202,44 @@ function renderCompanyBrief(){
   ' · Model value is a rough earnings estimate, not a price target.'+action;
  if($('briefNarrative').textContent!==narrative)$('briefNarrative').textContent=narrative;
 }
+// Reuse sector cards across frames. Indicators describe modeled tailwinds,
+// not predictions; daily returns remain independently volatile.
+const sectorRows=[];
+function renderSectorRotation(){
+ const host=$('sectorRows');
+ if(sectorRows.length!==SECTORS.length||sectorRows.some(r=>r.node.parentElement!==host)){
+  host.innerHTML=SECTORS.map(sector=>'<div class="sector-card" data-sector="'+escape(sector)+'">'+
+   '<div class="sector-card-top"><strong>'+escape(sector)+'</strong><b class="sector-change">+0.00%</b></div>'+
+   '<div class="sector-phase">NEUTRAL</div><small>'+escape(SECTOR_DRIVERS[sector])+'</small></div>').join('');
+  sectorRows.length=0;
+  for(const node of host.children)sectorRows.push({
+   node,name:node.dataset.sector,change:node.querySelector('.sector-change'),
+   phase:node.querySelector('.sector-phase')
+  });
+ }
+ let best=null,worst=null;
+ for(const row of sectorRows){
+  const companies=COMPANIES.filter(c=>c.sector===row.name);
+  const pct=companies.reduce((n,c)=>n+dayChange(c.id),0)/companies.length;
+  const cycle=state.sectorCycles[row.name];
+  const stage=cycle.phase>0?'TAILWIND':cycle.phase<0?'HEADWIND':'NEUTRAL';
+  const phrase=stage+' · '+cycle.daysLeft+' days to review';
+  setRowText(row.phase,phrase);
+  setRowText(row.change,signed(pct));
+  const css='sector-change'+(pct>0?' pos':pct<0?' neg':'');
+  if(row.change.className!==css)row.change.className=css;
+  const pcss='sector-phase'+(cycle.phase>0?' sector-up':cycle.phase<0?' sector-down':'');
+  if(row.phase.className!==pcss)row.phase.className=pcss;
+  if(!best||pct>best.pct)best={sector:row.name,pct};
+  if(!worst||pct<worst.pct)worst={sector:row.name,pct};
+ }
+ setRowText($('sectorLeader'),'LEADS: '+best.sector+' · LAGS: '+worst.sector);
+ const e=state.economy;
+ setRowText($('sectorFactors'),'COMMODITY '+e.commodityIndex.toFixed(1)+
+  ' · YIELD CURVE '+signed(e.yieldCurve)+
+  ' · CARE DEMAND '+e.careDemand.toFixed(1)+
+  ' · POWER DEMAND '+e.gridDemand.toFixed(1));
+}
 function renderEconomy(){
  const e=state.economy,rate=e.rate.toFixed(2)+'%',inflation=e.inflation.toFixed(2)+'%';
  const values={
@@ -2436,7 +2481,7 @@ function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class=
 // Hidden panels are refreshed when opened. Desktop retains its full workspace.
 let firstPanelRender=true;
 function render(){
- syncProfile();applyLayout();renderStats();renderEconomy();renderCompanyBrief();
+ syncProfile();applyLayout();renderStats();renderEconomy();renderCompanyBrief();renderSectorRotation();
  if(firstPanelRender||!isMobileProfile()){
   renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();
   firstPanelRender=false;
@@ -2453,7 +2498,7 @@ function render(){
 // Market progress changes data, not panel geometry. Repaint only relevant
 // mobile views during fast playback; entering a tab still refreshes everything.
 function renderMarketFrame(){
- renderStats();renderEconomy();renderCompanyBrief();
+ renderStats();renderEconomy();renderCompanyBrief();renderSectorRotation();
  // Market time is visible in the mobile quickbar on every tab.
  renderClock();
  if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();return;}
