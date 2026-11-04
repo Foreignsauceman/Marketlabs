@@ -1,4 +1,4 @@
-# MarketLab v0.6.3
+# MarketLab v0.6.3.1
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -122,3 +122,25 @@ The **Frame & Render Profiler** in Settings is opt-in and local-only. Start it, 
 - **Old portfolio migration:** The save key `marketlab.tiny-exchange.v2`, existing holdings/cost basis/cash/options, history and RNG seed are preserved. A portfolio from an earlier version receives initial fundamentals anchored to **its current saved prices** and initial outstanding share counts. There are no retroactive splits and no surprise reset to Day 1 quotes. Legacy options receive 100-share deliverables until they experience a corporate action.
 - Run a JSON export **before upgrading**, because both simulation and contract accounting have changed. Reimport only if a recovery is needed. Do not use an older tab to overwrite a save that has already upgraded.
 - Tests cover 2-for-1/4-for-1 splits, reverse splits with cash-in-lieu, options adjustments, strike collateral, price/cap/holdings invariants, quarterly reports, 23,365-day save migration, responsive UI, deterministic simulation, multi-tab safety and production GitHub Pages deployment.
+
+## v0.6.3.1: sector rotation / three new industries
+
+### Nine stocks across seven industries
+- **Finance:** FINA / Meridian Financial, driven by yield curve profitability, loan credit spreads, unemployment and interest-rate cycles.
+- **Healthcare:** MEDI / Morrow Health, with less broad-market beta, independent care-demand factors and occasional clinical news.
+- **Utilities:** GRID / Northstar Utilities, emphasizing electricity demand, financing costs and defensive behavior during weak economic regimes.
+- The original Technology, Industrials, Consumer and Energy sectors remain. **Energy now responds to an independent commodity-price index**, allowing occasional divergence from broad market conditions even when inflation is quiet.
+- Industry-specific quarterly corporate news, revenue outlook and earnings catalysts are integrated with the operating model, not arbitrary price labels.
+
+### Distinct multi-month sector behavior
+- Every sector follows its own **headwind, neutral, or tailwind cycle** lasting ~42–127 simulated sessions. Cycle transitions are weighted by the prevailing economy but do not deterministically follow the broad market. Sector-specific events create occasional sharper, rarer industry-wide moves.
+- Economic reports every 21 sessions evolve four new macro drivers: **commodity index**, **yield-curve spread**, **medical demand index**, and **electricity demand index**. Each has independent bounded shocks and mean reversion. Rates, factory PMI, inflation, confidence and credit spreads remain important.
+- A collapsed **Sector Rotation** disclosure inside the scrollable Exchange lists all seven industries, daily average share-price return, cycle direction and simulated drivers. It keeps stock rows visible when desktop panels are resized and uses a responsive two-column mobile grid.
+- Industry-specific sensitivity and broad-market beta mean an Energy bull trend can occur during a weak wider exchange, and Finance/Utilities may react in opposite directions to interest-rate changes. These figures are deliberately stylized fictional market dynamics, not market forecasts.
+
+### Migration, polish and testing
+- Existing save key and format remain `marketlab.tiny-exchange.v2`. A six-stock portfolio imports without any changes to its existing quotes, holdings, cost basis, options or market RNG seed. Three new companies are added via a deterministic separate seed, so **migration never consumes a saved market RNG draw**.
+- Players who showed the entire original six-stock watchlist automatically see the three listings; customized watchlists remain customized.
+- Sector cycles and additional economic indicators load with safe defaults from old saves and round-trip through JSON backup. New companies are available for stock and options trading.
+- The static/browser/live-site version check now accepts four-segment releases, and the exported frame-profiling JSON identifies the actual current app version.
+- Full engine, migration, multi-tab, responsive chart/market/trade, performance and live-site smoke checks are required. A JSON backup before upgrading is recommended; imports are not needed unless recovering a portfolio.
