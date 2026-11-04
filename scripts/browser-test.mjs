@@ -126,6 +126,43 @@ const probe = String.raw`
     assert(positionCard.textContent.includes('AVG BUY') && positionCard.textContent.includes('UNREALIZED P&L'),
       'Position card lacks average acquisition cost or unrealized profit');
     assert(positionCard.textContent.includes('$72.50'), 'New stock position has incorrect average purchase price');
+    // Regression: v0.6.1 could allocate 0px to actual positions when its P&L
+    // tiles and the empty options section occupied a resized desktop panel.
+    const positionBody = $('holdingsBody');
+    assert(positionBody.firstElementChild === $('holdings'),
+      'Stock positions must appear before secondary analytics');
+    assert($('portfolioSummary').open === false,
+      'P&L details should start collapsed to prioritize holdings');
+    assert($('portfolioOptions').hidden,
+      'The empty options section should be hidden');
+    assert(positionCard.getClientRects().length > 0,
+      'Stock position should be visibly rendered');
+    if (document.body.dataset.profile === 'desktop') {
+      const panel = $('holdingspanel');
+      const originalHeight = panel.style.height;
+      panel.style.height = '210px';
+      void panel.offsetHeight;
+      const viewport = positionBody.getBoundingClientRect();
+      const card = positionCard.getBoundingClientRect();
+      assert(positionBody.clientHeight > 65,
+        'Resizing Holdings leaves no viewport for the actual positions');
+      assert(card.top >= viewport.top - 2 && card.top < viewport.bottom - 22,
+        'Position card is hidden by P&L summary in a compact Holdings panel');
+      assert(positionBody.scrollHeight > positionBody.clientHeight + 8,
+        'Resized Holdings should scroll its content, not hide the stock card');
+      positionBody.scrollTop = positionBody.scrollHeight;
+      assert(positionBody.scrollTop > 0,
+        'Compact Holdings cannot scroll down to secondary information');
+      positionBody.scrollTop = 0;
+      panel.style.height = originalHeight;
+    } else {
+      assert(getComputedStyle(positionBody).overflowY === 'visible',
+        'Mobile Portfolio should expand instead of hiding positions in a scroll box');
+    }
+    $('portfolioSummary').open = true;
+    assert($('realizedTotal').textContent.includes('$0.00'),
+      'Expandable realized P&L summary is missing');
+    $('portfolioSummary').open = false;
     assert(Math.abs(cash() - (before - 72.5)) < 0.001, 'Buy cash ledger is incorrect');
     $('sell').click();
     $('qty').value = '1';
@@ -147,9 +184,11 @@ const probe = String.raw`
       'Buying a simulated call did not create an option contract');
     assert($('optionsPortfolio').querySelectorAll('.option-position-row').length===1,
       'Open options missing from Portfolio');
+    assert(!$('portfolioOptions').hidden, 'Open option positions should reveal the options section');
     $('optionPositions').querySelector('[data-option-close]').click();
     assert($('optionPositions').querySelectorAll('.option-position-row').length===0,
       'Sell to close did not settle a long option');
+    assert($('portfolioOptions').hidden, 'Empty options section should collapse again after closing');
     assert(Math.abs(cash()-before)<.001,'Closing an unchanged-price option lost cash');
     $('optionsBeta').open=false;
     $('next').click();
