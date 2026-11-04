@@ -22,4 +22,4 @@ jobs:
         with:
           node-version: '22'
       - name: Run MarketLab smoke tests
-        run: node --test scripts/smoke-test.mjs
+        run: node --test scripts/smoke-test.mjs scripts/engine-test.mjs
