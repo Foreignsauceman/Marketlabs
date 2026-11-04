@@ -1326,7 +1326,7 @@ function render(){
   switch(state.ui.mobileTab){
    case 'market':renderStocks();break;
    case 'chart':renderChart();break;
-   case 'trade':renderTrade();break;
+   case 'trade':renderTrade();renderHoldings();break;
    case 'portfolio':renderHoldings();renderEvents();break;
   }
  }
