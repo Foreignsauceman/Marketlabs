@@ -1091,7 +1091,7 @@ body[data-profile="mobile"] .sector-card{padding:10px 9px}
   <div class="session-info"><span class="session-pulse" aria-hidden="true"></span><span><strong id="mobileMarketDay">DAY 1</strong><small id="mobileMarketMood">NORMAL MARKET</small></span></div>
   <div class="session-actions"><button type="button" id="mobileAdvance" class="session-next" aria-label="Advance market one day">+1 DAY</button><button type="button" id="mobileAuto" class="session-auto" aria-pressed="false" aria-label="Play or pause automatic market simulation">▶ PLAY</button><button type="button" id="mobileClockToggle" class="session-disclosure" aria-expanded="false" aria-controls="clockpanel" aria-label="Expand market timing controls" title="More market controls">⋯</button></div>
 </div>
-<div class="mobile-page-heading"><div><span class="mobile-page-eyebrow">THE SIMULATED EXCHANGE</span><h2 id="mobileScreenTitle">Explore</h2></div><span id="mobileScreenHint">Six stocks to discover</span></div>
+<div class="mobile-page-heading"><div><span class="mobile-page-eyebrow">THE SIMULATED EXCHANGE</span><h2 id="mobileScreenTitle">Explore</h2></div><span id="mobileScreenHint">Nine stocks across seven sectors</span></div>
 <div class="main" id="main">
 <div class="left">
 <section class="panel sizable" id="chartpanel" aria-label="Company chart"><div class="panelhead"><div><span class="heading"><span class="desktop-heading">01 / MARKET CHART</span><span class="mobile-heading">Chart overview</span></span><span class="meta" id="chartmeta"> · 42 trading days</span></div><div class="chartopts"><label class="range-picker" for="chartrange">RANGE <select id="chartrange" aria-label="Graph time range"><option value="21">1M</option><option value="63">3M</option><option value="252">1Y</option><option value="520">MAX</option></select></label><button id="indexoverlay" class="mini" type="button" aria-pressed="true" title="Show or hide exchange trend on the graph">↗ INDEX</button><button id="allchart" class="mini" aria-pressed="true">ALL / %</button><button id="singlechart" class="mini" aria-pressed="false">SINGLE / $</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="chartpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="chartpanel" role="button" aria-label="Move chartpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div>
@@ -1102,7 +1102,7 @@ body[data-profile="mobile"] .sector-card{padding:10px 9px}
   <div id="briefMetrics" class="company-brief-grid"></div>
   <p id="briefNarrative" class="company-brief-narrative">Fictional operating results.</p>
  </div>
-</details><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional stocks react to rates, confidence, factory activity, earnings surprises, and rare market shocks. Ordinary trading days are calmer; sharp moves remain possible.</div><details id="economyPanel" class="economy-panel">
+</details><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional firms respond to earnings, rates, credit, commodity prices, medical demand, power use, and independent sector cycles. Surprising news can still cause large price swings.</div><details id="economyPanel" class="economy-panel">
  <summary><span class="economy-heading"><span class="economy-signal" aria-hidden="true">◈</span> ECONOMY PULSE</span><span class="economy-brief" id="economyBrief">Macro indicators · simulated</span><span class="economy-caret" aria-hidden="true">⌄</span></summary>
  <div class="economy-inner">
   <p class="economy-description">FICTIONAL ECONOMY · Reports update every 21 trading days. Rates, wages, credit spreads, manufacturing, inflation and growth influence sectors. Policy decisions lag changes in the economy.</p>
@@ -1205,6 +1205,7 @@ const COMPANIES=[
 ];
 const NEW_LISTINGS=new Set(['FINA','MEDI','GRID']);
 const SECTORS=[...new Set(COMPANIES.map(c=>c.sector))];
+const SECTOR_MEMBERS=Object.fromEntries(SECTORS.map(sector=>[sector,COMPANIES.filter(c=>c.sector===sector)]));
 const $=id=>document.getElementById(id),company=id=>COMPANIES.find(c=>c.id===id);
 const FEATURE_FLAGS=Object.freeze({marketTrend:false});
  const STEP_OPTIONS=[1,2,5,10,30,100],SPEED_OPTIONS=[100,250,500,650,1000,2000,5000];
@@ -1476,7 +1477,7 @@ function syncProfile(){
   else if(!settingsMobileSeeded)fold.open=fold.dataset.mobileDefault==='open';
  }
  if(next==='mobile')settingsMobileSeeded=true;
- const screenInfo={market:['Explore','6 companies'],chart:['Charts','Market performance'],trade:['Trade','Paper money · Instant fills'],portfolio:['Portfolio','Your market holdings']};
+ const screenInfo={market:['Explore',COMPANIES.length+' companies · '+SECTORS.length+' sectors'],chart:['Charts','Market performance'],trade:['Trade','Paper money · Instant fills'],portfolio:['Portfolio','Your market holdings']};
  const screen=screenInfo[state.ui.mobileTab]||screenInfo.market;
  $('mobileScreenTitle').textContent=screen[0];$('mobileScreenHint').textContent=screen[1];
  $('profilemode').value=state.ui.profileMode;
@@ -1701,7 +1702,7 @@ function exportFrameDiagnostics(){
  if(!framePerf.deltas.length)return;
  showFrameSummary();
  const report={
-  format:'marketlab-frame-diagnostics-v1',appVersion:'v0.6.0',
+  format:'marketlab-frame-diagnostics-v1',appVersion:'v0.6.3.1',
   capturedAt:new Date().toISOString(),active:framePerf.active,
   measurement:'requestAnimationFrame callback intervals (before paint); not GPU FPS or scanout',
   browser:navigator.userAgent,screen:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},
@@ -1875,7 +1876,7 @@ const SECTOR_DRIVERS={
  Finance:'Yield curve · credit conditions',Healthcare:'Medical demand · defensive spending',
  Utilities:'Electricity demand · borrowing costs'
 };
-// The earnings cycle is company-specific. Reports are staggered so all six
+// The earnings cycle is company-specific. Reports are staggered so all nine
 // businesses do not announce on the same day. This is simulated financial data.
 function fundamentalFairPrice(c){
  const q=quote(c.id),f=q.fundamentals;
@@ -2259,7 +2260,7 @@ function renderSectorRotation(){
  }
  let best=null,worst=null;
  for(const row of sectorRows){
-  const companies=COMPANIES.filter(c=>c.sector===row.name);
+  const companies=SECTOR_MEMBERS[row.name];
   const pct=companies.reduce((n,c)=>n+dayChange(c.id),0)/companies.length;
   const cycle=state.sectorCycles[row.name];
   const stage=cycle.phase>0?'TAILWIND':cycle.phase<0?'HEADWIND':'NEUTRAL';
@@ -2320,7 +2321,7 @@ function sparklinePath(id){
  const spread=Math.max(max-min,.01);
  return hist.slice(start).map((p,i)=>(i?'L':'M')+(2+i*88/Math.max(1,n-1)).toFixed(1)+' '+(30-(p-min)/spread*26).toFixed(1)).join(' ');
 }
-// Update the six existing watchlist rows in place, instead of replacing their
+// Update persistent watchlist rows in place, instead of replacing their
 // entire DOM (and losing focus/scroll position) on each simulated market day.
 const stockRows=[];
 function setRowText(node,text){if(node.textContent!==text)node.textContent=text}
