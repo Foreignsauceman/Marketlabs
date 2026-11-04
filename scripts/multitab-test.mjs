@@ -18,7 +18,16 @@ const probe=String.raw`<!doctype html><html lang="en"><head><meta charset="utf-8
  const wait=async(fn,name,limit=11500)=>{
   const start=Date.now();
   while(Date.now()-start<limit){try{if(fn())return}catch{}await sleep(85)}
-  throw Error(name+' timed out');
+  const statuses=[...document.querySelectorAll('iframe')].map(frame=>{
+   try{
+    const doc=frame.contentDocument;
+    return (doc?.getElementById('sessionHeading')?.textContent||'no-heading')+
+     '/hidden='+String(doc?.getElementById('sessionNotice')?.hidden)+
+     '/day='+String(doc?.getElementById('day')?.textContent)+
+     '/nextDisabled='+String(doc?.getElementById('next')?.disabled);
+   }catch(e){return 'frame-error:'+e.message}
+  }).join('|');
+  throw Error(name+' timed out; '+statuses);
  };
  const open=()=>new Promise((resolve,reject)=>{
   const iframe=document.createElement('iframe');iframe.src='/index.html';
