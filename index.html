@@ -11,7 +11,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
-<title>MARKETLAB | The Simulated Exchange v0.6.2</title>
+<title>MARKETLAB | The Simulated Exchange v0.6.3</title>
 <style>
 :root{--bg:#101713;--panel:#1a251e;--panel2:#213026;--line:#33483a;--mint:#aaf6ad;--green:#81e4a0;--red:#ff9d9a;--amber:#ffd18a;--text:#e3eee2;--muted:#9ab09e;--c1:#9ef4a1;--c2:#e5bd7c;--c3:#86cafa;--c4:#e89acd;--c5:#b0a4fa;--c6:#ff997b}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 75% -15%,#25392a 0,transparent 37%),var(--bg);color:var(--text);font:12px/1.45 ui-monospace,Consolas,'Liberation Mono',monospace}button,input{font:inherit}button{cursor:pointer;transition:background .12s,border .12s}button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}button:disabled{opacity:.40;cursor:not-allowed}.wrap{max-width:none;margin:auto;padding:14px 18px 20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}.brand h1{font-size:27px;letter-spacing:-.08em;line-height:1;margin:0;font-weight:950}.brand em{color:var(--mint);font-style:normal}.tagline{color:var(--muted);font-size:10px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.tag{border:1px solid var(--line);padding:3px 7px;border-radius:3px;color:var(--muted);white-space:nowrap;font-size:10px}.reset{border:0;background:none;color:var(--muted);font-size:10px;text-decoration:underline;text-underline-offset:3px}.reset:hover{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:9px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:9px 11px;min-width:0}.statlabel,.minor{color:var(--muted);font-size:10px;letter-spacing:.025em}.statvalue{font-size:clamp(15px,1.7vw,22px);font-weight:850;letter-spacing:-.05em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.statnote{color:var(--muted);font-size:10px;min-height:13px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;overflow:hidden}.panelhead{padding:8px 11px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:37px}.heading{color:var(--mint);font-weight:850;letter-spacing:.08em;font-size:10px}.meta{color:var(--muted);font-size:10px}.main{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(300px,.92fr);gap:9px}.left,.right{display:grid;align-content:start;gap:9px;min-width:0}.clock{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.clock p{margin:0}.clockbuttons{display:flex;gap:6px}.btn{border:1px solid #526957;background:#293c2e;border-radius:4px;color:var(--text);font-weight:800;padding:6px 10px;font-size:11px}.btn:hover{border-color:var(--mint)}.btn.primary{background:var(--amber);color:#2d2210;border-color:var(--amber)}.btn.active{color:var(--mint);border-color:var(--mint)}.chartopts{display:flex;gap:5px}.mini{border:1px solid var(--line);border-radius:3px;padding:4px 7px;background:#18231b;color:var(--muted);font-size:10px;font-weight:850}.mini[aria-pressed="true"]{color:#102118;background:var(--mint);border-color:var(--mint)}.chartarea{padding:4px 10px 6px;position:relative}.chart{width:100%;height:auto;display:block;aspect-ratio:850/270;min-height:178px;touch-action:pan-y}.chartfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:9px;padding:0 5px 3px}.legend{display:flex;flex-wrap:wrap;gap:4px 7px;padding:3px 10px 9px}.legend button{border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;padding:4px 6px;border-radius:3px;font-weight:800}.legend button:hover,.legend button[aria-pressed="true"]{background:#2d4232;color:var(--text);border-color:#486451}.swatch{width:13px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px;border-radius:2px}.tooltip{pointer-events:none;position:absolute;z-index:2;min-width:125px;max-width:205px;background:#0c1810f5;border:1px solid #54745b;padding:7px 9px;box-shadow:0 8px 24px #0008;border-radius:4px;font-size:10px}.tooltip[hidden]{display:none}.tooltip div{display:flex;justify-content:space-between;gap:15px}.boardheader,.stock{display:grid;grid-template-columns:55px minmax(100px,1.25fr) 78px 78px 66px 82px;align-items:center;gap:8px}.boardheader{color:var(--muted);padding:7px 11px 5px;font-size:9px}.boardheader>span:nth-child(n+3){text-align:right}.stock{width:100%;text-align:left;background:transparent;color:var(--text);border:0;border-top:1px solid #304135;padding:8px 11px;font-size:11px}.stock:hover{background:#26372b}.stock[aria-pressed="true"]{background:#2a3f30;box-shadow:inset 3px 0 var(--mint)}.ticker{font-weight:900;color:var(--mint)}.sname{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector{font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.num{text-align:right;white-space:nowrap;font-size:11px}.num.strong{font-weight:850}.trade{padding:10px 11px 12px}.pair{display:flex;gap:6px}.pair button{flex:1}.side{padding:7px 9px;border:1px solid var(--line);border-radius:4px;background:#122017;color:var(--muted);font-weight:850;letter-spacing:.1em}.side[aria-pressed="true"]{color:#0f2118;background:var(--mint);border-color:var(--mint)}.fieldrow{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:10px 0 5px}.fieldrow label{color:var(--muted);font-size:10px}.fillmax{color:var(--amber);background:#2d3124;border:1px solid #77714e;border-radius:3px;padding:3px 10px;font-size:10px;font-weight:900}.fillmax:disabled{opacity:.4}.qty{width:100%;border:1px solid var(--line);background:#111c15;color:var(--text);border-radius:4px;padding:7px 9px;font-size:15px;font-weight:800}.lineitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;color:var(--muted);border-bottom:1px dashed #324837;font-size:11px}.lineitem strong{font-size:11px;color:var(--text)}.execute{width:100%;border:0;border-radius:4px;background:var(--mint);color:#0d2314;padding:9px;margin-top:10px;font-size:11px;font-weight:950;letter-spacing:.03em}.execute:hover:not(:disabled){background:#d1ffcc}.toast{color:var(--amber);font-size:10px;min-height:15px;margin:6px 0 0}.holding{display:grid;grid-template-columns:51px 1fr auto;gap:5px;align-items:center;padding:7px 11px;border-bottom:1px solid #304135;font-size:11px}.holding:last-child{border-bottom:0}.holding strong{color:var(--mint)}.holding .muted{color:var(--muted)}.empty{color:var(--muted);padding:11px;font-size:10px}.activity{padding:2px 11px 7px;min-height:65px;max-height:147px;overflow:auto}.event{display:grid;grid-template-columns:auto 1fr;gap:10px;border-bottom:1px dashed #324635;padding:6px 0;font-size:10px;color:var(--muted)}.event:last-child{border-bottom:0}.eventday{color:var(--green)}.marketnote{color:var(--muted);font-size:9px;padding:0 10px 8px}.footer{color:var(--muted);font-size:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-top:10px}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px;vertical-align:middle}
@@ -999,10 +999,41 @@ body[data-profile="mobile"] #holdingspanel .portfolio-summary>summary{min-height
  #holdingspanel .portfolio-summary .portfolio-caret{transition:none}
 }
 
+
+
+/* v0.6.3: compact company fundamentals, hidden until the player requests them */
+.company-brief{margin:5px 10px 10px;border:1px solid #34564c;
+ border-radius:12px;overflow:hidden;background:#162a29}
+.company-brief>summary{display:flex;align-items:center;gap:9px;min-height:46px;
+ padding:9px 13px;list-style:none;cursor:pointer;color:#b7dfca;
+ font:800 11px/1.3 system-ui,sans-serif}
+.company-brief>summary::-webkit-details-marker{display:none}
+.company-brief>summary strong{margin-left:auto;color:#d7fbe1;font-size:10px;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.company-brief>summary .brief-caret{font-size:19px;line-height:1}
+.company-brief[open]>summary{border-bottom:1px solid #35564e}
+.company-brief[open]>summary .brief-caret{transform:rotate(180deg)}
+.company-brief-inner{padding:11px 12px}
+.company-brief-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.company-brief-metric{display:flex;flex-direction:column;gap:6px;padding:10px;
+ border:1px solid #35514a;border-radius:9px;background:#1c3433;min-width:0}
+.company-brief-metric small{font:760 9px/1.25 system-ui,sans-serif;
+ letter-spacing:.02em;color:#a5c3b4}
+.company-brief-metric strong{font:760 13px/1.2 system-ui,sans-serif;color:#edfff0;
+ overflow:hidden;text-overflow:ellipsis}
+.company-brief-narrative{margin:11px 0 0;color:#a5c6b9;
+ font:550 11px/1.5 system-ui,sans-serif}
+body[data-profile="mobile"] .company-brief{margin:0 11px 11px;border-radius:13px}
+body[data-profile="mobile"] .company-brief-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+body[data-profile="mobile"] .company-brief>summary{min-height:49px}
+@media(max-width:420px){
+ body[data-profile="mobile"] .company-brief-metric strong{font-size:12px}
+}
+
 </style>
 </head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.6.2</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
+<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.6.3</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
 <section id="sessionNotice" class="session-notice" role="status" aria-live="polite" hidden>
  <div class="session-notice-text"><strong id="sessionHeading">Another tab is editing</strong><span id="sessionDescription">This tab is view-only to protect your portfolio.</span></div>
  <button type="button" id="sessionRetry" class="btn">CHECK AGAIN</button>
@@ -1025,7 +1056,13 @@ body[data-profile="mobile"] #holdingspanel .portfolio-summary>summary{min-height
 <div class="left">
 <section class="panel sizable" id="chartpanel" aria-label="Company chart"><div class="panelhead"><div><span class="heading"><span class="desktop-heading">01 / MARKET CHART</span><span class="mobile-heading">Chart overview</span></span><span class="meta" id="chartmeta"> · 42 trading days</span></div><div class="chartopts"><label class="range-picker" for="chartrange">RANGE <select id="chartrange" aria-label="Graph time range"><option value="21">1M</option><option value="63">3M</option><option value="252">1Y</option><option value="520">MAX</option></select></label><button id="indexoverlay" class="mini" type="button" aria-pressed="true" title="Show or hide exchange trend on the graph">↗ INDEX</button><button id="allchart" class="mini" aria-pressed="true">ALL / %</button><button id="singlechart" class="mini" aria-pressed="false">SINGLE / $</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="chartpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="chartpanel" role="button" aria-label="Move chartpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div>
 <div class="chartarea" id="chartarea"><svg id="chart" class="chart" viewBox="0 0 850 270" role="img" aria-label="Historical performance of every listed company"></svg><div id="tooltip" class="tooltip" hidden></div><div class="chartfoot"><span id="chartstart">41 DAYS AGO</span><span id="charttype">RELATIVE PERFORMANCE · BASE = 100</span><span id="chartend">DAY 001</span></div></div><button type="button" id="chartExtraToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="chartExtraBody"><span>Chart settings &amp; series</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div id="chartExtraBody" class="chart-extra-body"><div id="legend" class="legend" aria-label="Choose visible and highlighted chart companies"></div><div class="chartactions"><span>CHART SERIES</span><button type="button" id="showall">SHOW ALL</button><button type="button" id="hideall">HIDE ALL</button><button type="button" id="clearfocus">CLEAR FOCUS</button><button type="button" id="wideleft" title="Make left column as wide as practical">WIDE LEFT</button><button type="button" id="focusleft" aria-pressed="false" title="Place trading panels below to give the left column the full width">FULL LEFT ↗</button><button type="button" id="resetlayout">RESET SIZES</button><span id="splitreadout" class="split-readout">LEFT 72%</span><span class="resizehelp">DRAG HANDLES · DOUBLE-CLICK TO RESET</span></div></div><div class="panelsizer" data-panel="chartpanel" role="separator" tabindex="0" aria-label="Resize chart panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
-<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading"><span class="desktop-heading">02 / SIMULATED EXCHANGE</span><span class="mobile-heading">Explore stocks</span></div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional stocks react to rates, confidence, factory activity, earnings surprises, and rare market shocks. Ordinary trading days are calmer; sharp moves remain possible.</div><details id="economyPanel" class="economy-panel">
+<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading"><span class="desktop-heading">02 / SIMULATED EXCHANGE</span><span class="mobile-heading">Explore stocks</span></div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div><details class="company-brief" id="companyBrief">
+ <summary><span>▦ COMPANY BRIEFING</span><strong id="briefTitle">NEON · STABLE</strong><span aria-hidden="true" class="brief-caret">⌄</span></summary>
+ <div class="company-brief-inner">
+  <div id="briefMetrics" class="company-brief-grid"></div>
+  <p id="briefNarrative" class="company-brief-narrative">Fictional operating results.</p>
+ </div>
+</details><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional stocks react to rates, confidence, factory activity, earnings surprises, and rare market shocks. Ordinary trading days are calmer; sharp moves remain possible.</div><details id="economyPanel" class="economy-panel">
  <summary><span class="economy-heading"><span class="economy-signal" aria-hidden="true">◈</span> ECONOMY PULSE</span><span class="economy-brief" id="economyBrief">Macro indicators · simulated</span><span class="economy-caret" aria-hidden="true">⌄</span></summary>
  <div class="economy-inner">
   <p class="economy-description">FICTIONAL ECONOMY · Reports update every 21 trading days. Rates, wages, credit spreads, manufacturing, inflation and growth influence sectors. Policy decisions lag changes in the economy.</p>
@@ -1041,7 +1078,7 @@ body[data-profile="mobile"] #holdingspanel .portfolio-summary>summary{min-height
   </div>
   <p class="economy-foot" id="economyNext">Next report: Day 21</p>
  </div>
-</details><div class="panelsizer" data-panel="exchangepanel" role="separator" tabindex="0" aria-label="Resize exchange panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+</details></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><div class="panelsizer" data-panel="exchangepanel" role="separator" tabindex="0" aria-label="Resize exchange panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
 <section class="panel sizable" id="clockpanel" aria-label="Time controls"><div class="panelhead clock"><div><span class="heading"><span class="desktop-heading">03 / MARKET CLOCK </span><span class="mobile-heading">Market controls</span></span><span class="meta" id="clockstatus">· Next closing bell</span></div><div class="clockbuttons"><button class="btn primary" id="next">+1 DAY →</button><button class="btn" id="next10">+10 DAYS</button><button class="btn" id="auto" aria-pressed="false">▶ AUTO</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="clockpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="clockpanel" role="button" aria-label="Move clockpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="clocksettings"><label for="autostep">AUTO STEP <select id="autostep" aria-label="Days advanced per automatic tick"><option value="1">1 day</option><option value="2">2 days</option><option value="5">5 days</option><option value="10">10 days</option><option value="30">30 days</option><option value="100">100 days</option></select></label><label for="autospeed">EVERY <select id="autospeed" aria-label="Automatic tick interval"><option value="100">0.1 sec</option><option value="250">0.25 sec</option><option value="500">0.5 sec</option><option value="650">0.65 sec</option><option value="1000">1 sec</option><option value="2000">2 sec</option><option value="5000">5 sec</option></select></label><span id="autodetail" class="meta"></span><span class="meta keyhint">SPACE PLAY/PAUSE · + / − SPEED · [ / ] STEP</span></div><div class="panelsizer" data-panel="clockpanel" role="separator" tabindex="0" aria-label="Resize market clock height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
 </div>
 <div id="columnDivider" class="column-divider" role="separator" tabindex="0" aria-orientation="vertical" aria-label="Resize left and right dashboard columns" aria-valuemin="28" aria-valuemax="92" aria-valuenow="72" title="Drag, double-click to reset, or use ← → Home End"><span>⋮</span></div>
@@ -1188,15 +1225,83 @@ function normalizeEconomy(raw,day){
  return{rate:raw.rate,inflation:raw.inflation,growth:raw.growth,unemployment:raw.unemployment,
   confidence:raw.confidence,...extra,lastReportDay:raw.lastReportDay,policyDirection:raw.policyDirection};
 }
-function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{},economy:freshEconomy()};for(const c of COMPANIES)s.companies[c.id]={price:c.price,previous:c.price,history:preHistory(s,c,c.price),volume:0};s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
+
+// A sector-specific income statement underpins each fictional business.
+// Legacy saves are anchored to the price and share count they already own.
+const FUNDAMENTAL_PE={Technology:26,Industrials:19,Consumer:21,Energy:15};
+const FUNDAMENTAL_MARGIN={Technology:.22,Industrials:.13,Consumer:.105,Energy:.115};
+const MAX_COMPANY_SHARES=10000000000000,MAX_FUNDAMENTAL_VALUE=1000000000000000;
+function makeFundamentals(c,price,issued){
+ const cap=price*issued,margin=FUNDAMENTAL_MARGIN[c.sector],multiple=FUNDAMENTAL_PE[c.sector];
+ return{
+  revenue:Math.round(cap/(margin*multiple)),margin,
+  cash:Math.round(cap*.08),debt:Math.round(cap*.12),
+  guidance:.045,lastEarningsDay:0,quarterCount:0,lastSurprise:0,status:'stable'
+ };
+}
+function normalizeFundamentals(raw,c,price,issued,day){
+ if(raw===undefined)return makeFundamentals(c,price,issued);
+ if(!raw||typeof raw!=='object'||Array.isArray(raw))return null;
+ for(const k of ['revenue','cash','debt'])if(!Number.isSafeInteger(raw[k])||raw[k]<0||raw[k]>MAX_FUNDAMENTAL_VALUE)return null;
+ for(const [k,a,b] of [['margin',-.2,.6],['guidance',-.3,.45],['lastSurprise',-.3,.3]]){
+  if(typeof raw[k]!=='number'||!Number.isFinite(raw[k])||raw[k]<a||raw[k]>b)return null;
+ }
+ if(!Number.isSafeInteger(raw.lastEarningsDay)||raw.lastEarningsDay<0||raw.lastEarningsDay>day||
+  !Number.isSafeInteger(raw.quarterCount)||raw.quarterCount<0||raw.quarterCount>20000000||
+  !['stable','expanding','strained','recovering'].includes(raw.status))return null;
+ return{
+  revenue:raw.revenue,margin:raw.margin,cash:raw.cash,debt:raw.debt,
+  guidance:raw.guidance,lastEarningsDay:raw.lastEarningsDay,
+  quarterCount:raw.quarterCount,lastSurprise:raw.lastSurprise,status:raw.status
+ };
+}
+function normalizeCorporateAction(raw,day){
+ if(raw===undefined||raw===null)return null;
+ if(!raw||typeof raw!=='object'||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>day||
+  !['split','reverse'].includes(raw.kind)||![2,4].includes(raw.ratio))return false;
+ return{day:raw.day,kind:raw.kind,ratio:raw.ratio};
+}
+function initialQuote(s,c){
+ return{
+  price:c.price,previous:c.price,history:preHistory(s,c,c.price),volume:0,
+  sharesOutstanding:c.shares,publicFloat:c.float,lastSplitDay:0,splitCount:0,lastAction:null,
+  fundamentals:makeFundamentals(c,c.price,c.shares)
+ };
+}
+function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{},economy:freshEconomy()};for(const c of COMPANIES)s.companies[c.id]=initialQuote(s,c);s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
 function normalize(raw){
 if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==2||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295||!raw.companies||typeof raw.companies!=='object'||Array.isArray(raw.companies)||!raw.holdings||typeof raw.holdings!=='object'||Array.isArray(raw.holdings))return null;
 const economy=normalizeEconomy(raw.economy,raw.day);if(!economy)return null;
 const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{},economy};
 for(const sector of new Set(COMPANIES.map(c=>c.sector)))s.sectorMomentum[sector]=clampMomentum(raw.sectorMomentum?.[sector],.014);
 for(const c of COMPANIES)s.stockMomentum[c.id]=clampMomentum(raw.stockMomentum?.[c.id],.023);
-for(const c of COMPANIES){const q=raw.companies[c.id],n=raw.holdings[c.id]??0;if(!q||typeof q!=='object'||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(n)||n<0||n>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price)||!Number.isSafeInteger(q.volume)||q.volume<0||q.volume>c.float)return null;
-s.companies[c.id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:q.volume};if(n)s.holdings[c.id]=n;}
+for(const c of COMPANIES){
+ const q=raw.companies[c.id],n=raw.holdings[c.id]??0;
+ if(!q||typeof q!=='object')return null;
+ const issued=q.sharesOutstanding??c.shares,free=q.publicFloat??c.float;
+ if(!Number.isSafeInteger(issued)||issued<100||issued>MAX_COMPANY_SHARES||
+  !Number.isSafeInteger(free)||free<100||free>issued||
+  !safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||
+  !Number.isSafeInteger(n)||n<0||n>free||
+  !Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||
+  q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||
+  cents(q.history.at(-1))!==cents(q.price)||
+  !Number.isSafeInteger(q.volume)||q.volume<0||q.volume>free)return null;
+ const lastSplitDay=q.lastSplitDay??0,splitCount=q.splitCount??0;
+ if(!Number.isSafeInteger(lastSplitDay)||lastSplitDay<0||lastSplitDay>raw.day||
+  !Number.isSafeInteger(splitCount)||splitCount<0||splitCount>5000)return null;
+ const action=normalizeCorporateAction(q.lastAction,raw.day);
+ if(action===false||(action&&action.day!==lastSplitDay))return null;
+ const fundamentals=normalizeFundamentals(q.fundamentals,c,q.price,issued,raw.day);
+ if(!fundamentals)return null;
+ s.companies[c.id]={
+  price:usd(cents(q.price)),previous:usd(cents(q.previous)),
+  history:q.history.map(v=>usd(cents(v))),volume:q.volume,
+  sharesOutstanding:issued,publicFloat:free,lastSplitDay,splitCount,lastAction:action,
+  fundamentals
+ };
+ if(n)s.holdings[c.id]=n;
+}
 
 // Cost basis is the total cost in integer cents (weighted-average method).
 // Legacy holdings have no historical trade cost recorded. Mark them as estimated
@@ -1230,18 +1335,25 @@ for(const c of COMPANIES){
 if(raw.options!==undefined){
  if(!Array.isArray(raw.options)||raw.options.length>30)return null;
  for(const o of raw.options){
+  const deliverable=o?.contractShares??100,exercise=o?.exerciseCents??o?.strike*100,
+    entryValue=o?.entryValueCents??o?.entryPremiumCents*100;
   if(!o||typeof o!=='object'||!Number.isSafeInteger(o.id)||o.id<1||
    !company(o.ticker)||!['call','put'].includes(o.type)||!['long','short'].includes(o.side)||
    (o.side==='short'&&o.type==='call'&&s.holdings[o.ticker]===undefined)||
    !Number.isSafeInteger(o.qty)||o.qty<1||o.qty>10||
    !Number.isSafeInteger(o.strike)||o.strike<1||o.strike>MAX_PRICE_CENTS||
+   !Number.isSafeInteger(deliverable)||deliverable<1||deliverable>3200||
+   !Number.isSafeInteger(exercise)||exercise<1||exercise>MAX_PRICE_CENTS*3200||
+   Math.abs(o.strike-Math.round(exercise/deliverable))>1||
+   !Number.isSafeInteger(entryValue)||entryValue<1||entryValue>MAX_PRICE_CENTS*100||
    !Number.isSafeInteger(o.expiryDay)||o.expiryDay<=s.day||o.expiryDay>MAX_DAY||
    !Number.isSafeInteger(o.openedDay)||o.openedDay<1||o.openedDay>s.day||
    !Number.isSafeInteger(o.entryPremiumCents)||o.entryPremiumCents<1||o.entryPremiumCents>MAX_PRICE_CENTS||
    s.options.some(old=>old.id===o.id))return null;
   s.options.push({id:o.id,ticker:o.ticker,type:o.type,side:o.side,
    qty:o.qty,strike:o.strike,expiryDay:o.expiryDay,openedDay:o.openedDay,
-   entryPremiumCents:o.entryPremiumCents});
+   entryPremiumCents:o.entryPremiumCents,contractShares:deliverable,
+   exerciseCents:exercise,entryValueCents:entryValue});
  }
 }
 const lastOptionId=s.options.reduce((n,o)=>Math.max(n,o.id),0);
@@ -1249,14 +1361,14 @@ if(raw.nextOptionId!==undefined&&(!Number.isSafeInteger(raw.nextOptionId)||raw.n
 s.nextOptionId=raw.nextOptionId??lastOptionId+1;
 for(const c of COMPANIES){
  const lockedShares=s.options.filter(o=>o.side==='short'&&o.type==='call'&&o.ticker===c.id)
-  .reduce((n,o)=>n+o.qty*100,0);
+  .reduce((n,o)=>n+o.qty*o.contractShares,0);
  if(lockedShares>(s.holdings[c.id]||0))return null;
  const committedPuts=s.options.filter(o=>o.side==='short'&&o.type==='put'&&o.ticker===c.id)
-  .reduce((n,o)=>n+o.qty*100,0);
- if(committedPuts+(s.holdings[c.id]||0)>c.float)return null;
+  .reduce((n,o)=>n+o.qty*o.contractShares,0);
+ if(committedPuts+(s.holdings[c.id]||0)>s.companies[c.id].publicFloat)return null;
 }
 const lockedCash=s.options.filter(o=>o.side==='short'&&o.type==='put')
- .reduce((n,o)=>n+o.strike*o.qty*100,0);
+ .reduce((n,o)=>n+o.exerciseCents*o.qty,0);
 if(!Number.isSafeInteger(lockedCash)||lockedCash>cents(s.cash))return null;
 if(Array.isArray(raw.events))s.events=raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,14).map(e=>({day:e.day,text:e.text}));return s;
 }
@@ -1304,22 +1416,25 @@ function setProfileMode(mode){if(!['auto','desktop','mobile'].includes(mode))ret
 const quote=id=>state.companies[id],priceCents=id=>cents(quote(id).price),shares=id=>state.holdings[id]||0;
 // Stock ledger: integer-cent weighted-average basis for reproducible P&L.
 const basisCents=id=>state.positionCostCents[id]||0;
-const reservedShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='call'&&o.ticker===id?o.qty*100:0),0);
-const reservedPutShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'&&o.ticker===id?o.qty*OPTION_MULTIPLIER:0),0);
-const reservedCashCents=()=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'?o.qty*o.strike*100:0),0);
+const contractShares=o=>o.contractShares??100;
+const exerciseCost=o=>o.exerciseCents??o.strike*contractShares(o);
+const entryContractValue=o=>o.entryValueCents??o.entryPremiumCents*100;
+const reservedShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='call'&&o.ticker===id?o.qty*contractShares(o):0),0);
+const reservedPutShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'&&o.ticker===id?o.qty*contractShares(o):0),0);
+const reservedCashCents=()=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'?o.qty*exerciseCost(o):0),0);
 const buyingPowerCents=()=>Math.max(0,cents(state.cash)-reservedCashCents());
-function buyStockAt(id,qty,unitCents){
- const total=qty*unitCents,old=shares(id);
+function buyStockAt(id,qty,unitCents,settlementCents=null){
+ const total=settlementCents??qty*unitCents,old=shares(id);
  if(!Number.isSafeInteger(total)||!Number.isSafeInteger(basisCents(id)+total))return false;
  state.holdings[id]=old+qty;
  state.positionCostCents[id]=basisCents(id)+total;
  return true;
 }
-function sellStockAt(id,qty,unitCents){
+function sellStockAt(id,qty,unitCents,settlementCents=null){
  const old=shares(id),basis=basisCents(id);
  if(!qty||old<qty)return false;
  const soldBasis=qty===old?basis:Math.round(basis*(qty/old));
- const gain=qty*unitCents-soldBasis;
+ const gain=(settlementCents??qty*unitCents)-soldBasis;
  if(!Number.isSafeInteger(state.realizedPnLCents+gain))return false;
  state.realizedPnLCents+=gain;
  if(qty===old){delete state.holdings[id];delete state.positionCostCents[id];delete state.estimatedBasis[id]}
@@ -1327,10 +1442,10 @@ function sellStockAt(id,qty,unitCents){
  return true;
 }
 const OPTION_MULTIPLIER=100;
-const optionsMarkCents=()=>state.options.reduce((n,o)=>{
- const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
- return n+(o.side==='long'?1:-1)*mark*OPTION_MULTIPLIER*o.qty;
-},0);
+const contractMark=o=>Math.round(optionQuoteCents(o.ticker,o.type,
+ exerciseCost(o)/contractShares(o),o.expiryDay)*contractShares(o));
+const optionsMarkCents=()=>state.options.reduce((n,o)=>
+ n+(o.side==='long'?1:-1)*contractMark(o)*o.qty,0);
 // Approximate, bounded fictional model: intrinsic value plus decaying time
 // premium. Not a real exchange quotation or Black-Scholes implementation.
 function optionQuoteCents(ticker,type,strike,expiryDay){
@@ -1346,13 +1461,13 @@ function optionQuoteCents(ticker,type,strike,expiryDay){
 }
 const holdingsCents=()=>COMPANIES.reduce((n,c)=>n+shares(c.id)*priceCents(c.id),0);
 const worthCents=()=>cents(state.cash)+holdingsCents()+optionsMarkCents();
-const marketCap=c=>c.shares*quote(c.id).price;
-const marketCapPrevious=c=>c.shares*quote(c.id).previous;
+const marketCap=c=>quote(c.id).sharesOutstanding*quote(c.id).price;
+const marketCapPrevious=c=>quote(c.id).sharesOutstanding*quote(c.id).previous;
 const totalCap=()=>COMPANIES.reduce((n,c)=>n+marketCap(c),0);
 const totalCapPrevious=()=>COMPANIES.reduce((n,c)=>n+marketCapPrevious(c),0);
 const dayChange=id=>changePct(quote(id).price,quote(id).previous);
 function indexHistory(limit=HISTORY){
- const series=COMPANIES.map(c=>({weight:c.shares,history:quote(c.id).history}));
+ const series=COMPANIES.map(c=>({weight:quote(c.id).sharesOutstanding,history:quote(c.id).history}));
  const n=Math.min(limit,...series.map(x=>x.history.length));
  return Array.from({length:n},(_,i)=>series.reduce((sum,x)=>sum+x.weight*x.history[x.history.length-n+i],0)/BASE_MARKET_CAP*1000);
 }
@@ -1619,14 +1734,139 @@ function economySectorMove(sector,e){
  else if(sector==='Energy')move=(e.inflation-2.6)*.00030+(e.growth-2.1)*.00018;
  return clamp(move,-.006,.006);
 }
-function valuationPressure(c,price,day){
-  const longRunYears=Math.min(day,252*30);
-  const fair=Math.max(.01,c.price*Math.exp(longRunYears*.00018));
-  const deviation=Math.log(Math.max(.01,price)/fair);
-  const excess=Math.max(0,Math.abs(deviation)-.44);
-  return clamp(-Math.sign(deviation)*excess*.0022,-.010,.010);
+// The earnings cycle is company-specific. Reports are staggered so all six
+// businesses do not announce on the same day. This is simulated financial data.
+function fundamentalFairPrice(c){
+ const q=quote(c.id),f=q.fundamentals;
+ const operatingIncome=f.revenue*f.margin;
+ const equityValue=Math.max(f.revenue*.12,
+  operatingIncome*FUNDAMENTAL_PE[c.sector]+(f.cash-f.debt)*.12);
+ return clamp(equityValue/q.sharesOutstanding,.01,10000);
+}
+function companyHealth(f){
+ if(f.margin<.035||f.debt>f.revenue*1.8)return 'strained';
+ if(f.guidance>.10&&f.margin>.12)return 'expanding';
+ if(f.lastSurprise>.045&&f.margin>.075)return 'recovering';
+ return 'stable';
+}
+function quarterlyReport(c){
+ const q=quote(c.id),f=q.fundamentals;
+ const offset=COMPANIES.findIndex(x=>x.id===c.id)*10;
+ if((state.day+offset)%63!==0||f.lastEarningsDay===state.day)return 0;
+ const macro=state.economy,priorRevenue=f.revenue,oldGuidance=f.guidance;
+ const sectorBoost=c.sector==='Industrials'?(macro.pmi-50)*.002:
+  c.sector==='Consumer'?(macro.confidence-100)*.0011:
+  c.sector==='Energy'?(macro.inflation-2.6)*.006:
+  (macro.growth-2.1)*.012;
+ const annualGrowth=clamp(oldGuidance*.6+macro.growth*.008+sectorBoost+
+  bellNoise(state)*.057,-.28,.34);
+ f.revenue=Math.round(clamp(priorRevenue*(1+annualGrowth/4),1,MAX_FUNDAMENTAL_VALUE));
+ f.margin=Math.round(clamp(f.margin+(annualGrowth-oldGuidance)*.025+
+  bellNoise(state)*.008-(macro.inflation-2.6)*.001,-.2,.6)*10000)/10000;
+ const quarterlyProfit=Math.max(-MAX_FUNDAMENTAL_VALUE,
+  Math.round(f.revenue*f.margin/4));
+ f.cash=Math.round(clamp(f.cash+quarterlyProfit*.32-f.revenue*.003,0,MAX_FUNDAMENTAL_VALUE));
+ f.debt=Math.round(clamp(f.debt+Math.max(0,-quarterlyProfit)*.15-
+  Math.max(0,quarterlyProfit)*.045,0,MAX_FUNDAMENTAL_VALUE));
+ f.lastSurprise=Math.round(clamp(annualGrowth-oldGuidance,-.3,.3)*10000)/10000;
+ f.guidance=Math.round(clamp(oldGuidance*.65+annualGrowth*.35+
+  bellNoise(state)*.013,-.3,.45)*10000)/10000;
+ f.quarterCount++;f.lastEarningsDay=state.day;
+ const strategies={
+  Technology:['new platform gains enterprise customers','data-center expansion raises costs'],
+  Industrials:['factory modernization improves output','supply-chain disruption strains deliveries'],
+  Consumer:['new product line attracts shoppers','inventory markdowns pressure margins'],
+  Energy:['new production capacity comes online','maintenance costs reduce output']
+ };
+ let catalyst=0;
+ if(random(state)<.16){
+  const positive=random(state)<.52;
+  const headline=strategies[c.sector][positive?0:1];
+  const delta=positive?.016:-.016;
+  f.guidance=Math.round(clamp(f.guidance+delta,-.3,.45)*10000)/10000;
+  f.margin=Math.round(clamp(f.margin+delta*.25,-.2,.6)*10000)/10000;
+  catalyst=positive?.012:-.012;
+  pushEvent(c.id+': '+headline+'.');
  }
- function tick(){
+ f.status=companyHealth(f);
+ const quarterlyPct=(f.revenue/priorRevenue-1)*100;
+ pushEvent(c.id+' earnings: revenue '+signed(quarterlyPct)+
+  ', operating margin '+signed(f.margin*100)+
+  ', guidance '+signed(f.guidance*100)+'.');
+ return clamp(f.lastSurprise*.32+catalyst,-.06,.06);
+}
+function valuationPressure(c,price,day){
+ const fair=fundamentalFairPrice(c);
+ const deviation=Math.log(Math.max(.01,price)/Math.max(.01,fair));
+ // Smooth convergence to real company earnings rather than arbitrary base-price
+ // compounding. Large shocks and noisy trading remain part of the simulation.
+ return clamp(-deviation*.0038,-.012,.012);
+}
+// Split/reverse-split checks run only after a completed price update. Every
+// price in the chart is restated to the same share basis, including previous.
+// Company cash/debt/revenue and option total exercise cost are unchanged.
+function applyCorporateAction(c,kind,ratio){
+ const q=quote(c.id),forward=kind==='split',factor=forward?ratio:1/ratio;
+ if(q.lastSplitDay&&state.day-q.lastSplitDay<252)return false;
+ const outstanding=forward?q.sharesOutstanding*ratio:q.sharesOutstanding/ratio;
+ const free=forward?q.publicFloat*ratio:q.publicFloat/ratio;
+ if(!Number.isSafeInteger(outstanding)||!Number.isSafeInteger(free)||
+  outstanding<100||free<100||outstanding>MAX_COMPANY_SHARES||free>MAX_COMPANY_SHARES)return false;
+ const priceScale=1/factor,oldPrice=priceCents(c.id);
+ const convertedHistory=q.history.map(v=>Math.round(cents(v)*priceScale));
+ const convertedPrice=Math.round(oldPrice*priceScale),convertedPrev=Math.round(cents(q.previous)*priceScale);
+ if(convertedHistory.some(p=>p<1||p>MAX_PRICE_CENTS)||convertedPrice<1||
+  convertedPrice>MAX_PRICE_CENTS||convertedPrev<1||convertedPrev>MAX_PRICE_CENTS)return false;
+ const contracts=state.options.filter(o=>o.ticker===c.id);
+ for(const o of contracts){
+  const deliverable=forward?contractShares(o)*ratio:contractShares(o)/ratio;
+  const adjustedStrike=Math.round(exerciseCost(o)/deliverable);
+  if(!Number.isSafeInteger(deliverable)||deliverable<1||deliverable>3200||
+   adjustedStrike<1||adjustedStrike>MAX_PRICE_CENTS)return false;
+ }
+ const held=shares(c.id),newHeld=forward?held*ratio:Math.floor(held/ratio);
+ const fractionalRemainder=forward?0:held%ratio;
+ if(!Number.isSafeInteger(newHeld)||newHeld>free)return false;
+ const cashInLieu=fractionalRemainder*oldPrice;
+ const originalBasis=basisCents(c.id);
+ const allocatedBasis=fractionalRemainder&&held?Math.round(originalBasis*fractionalRemainder/held):0;
+ if(!Number.isSafeInteger(cents(state.cash)+cashInLieu)||
+  cents(state.cash)+cashInLieu>MAX_CASH_CENTS||
+  !Number.isSafeInteger(state.realizedPnLCents+cashInLieu-allocatedBasis)||
+  Math.abs(state.realizedPnLCents+cashInLieu-allocatedBasis)>MAX_CASH_CENTS)return false;
+ // All checks complete: apply in a single synchronous transaction.
+ if(held){
+  if(newHeld){state.holdings[c.id]=newHeld;state.positionCostCents[c.id]=originalBasis-allocatedBasis}
+  else{delete state.holdings[c.id];delete state.positionCostCents[c.id];delete state.estimatedBasis[c.id]}
+ }
+ if(fractionalRemainder){
+  state.cash=usd(cents(state.cash)+cashInLieu);
+  state.realizedPnLCents+=cashInLieu-allocatedBasis;
+ }
+ q.sharesOutstanding=outstanding;q.publicFloat=free;
+ q.price=usd(convertedPrice);q.previous=usd(convertedPrev);
+ q.history=convertedHistory.map(usd);
+ q.volume=clamp(Math.round(q.volume*factor),0,free);
+ q.lastSplitDay=state.day;q.splitCount++;
+ q.lastAction={day:state.day,kind,ratio};
+ for(const o of contracts){
+  o.contractShares=forward?contractShares(o)*ratio:contractShares(o)/ratio;
+  o.exerciseCents=exerciseCost(o);
+  o.strike=Math.round(o.exerciseCents/o.contractShares);
+ }
+ const label=forward?ratio+'-for-1 stock split':'1-for-'+ratio+' reverse split';
+ pushEvent(c.id+' announces a '+label+'; holders and adjusted options converted.'+
+  (cashInLieu?' Cash in lieu '+amount(cashInLieu)+'.':''));
+ return true;
+}
+function checkCorporateAction(c){
+ const q=quote(c.id),p=priceCents(c.id);
+ if(q.lastSplitDay&&state.day-q.lastSplitDay<252)return;
+ if(p>=140000)applyCorporateAction(c,'split',4);
+ else if(p>=50000)applyCorporateAction(c,'split',2);
+ else if(p<=175)applyCorporateAction(c,'reverse',2);
+}
+function tick(){
  if(state.day>=MAX_DAY){stopAuto();notify('Maximum simulated day reached.');return}
  updateEconomy(state);
  if(state.regimeDays<=0){
@@ -1662,23 +1902,17 @@ function valuationPressure(c,price,day){
   const q=quote(c.id),old=priceCents(c.id);q.previous=usd(old);
   const companyMomentum=clamp((state.stockMomentum[c.id]||0)*.88+bellNoise(state)*.0019,-.023,.023);
   state.stockMomentum[c.id]=companyMomentum;
-  let eventMove=0;
-  // Quarterly earnings create scheduled catalysts; breaking news is rare.
-  if(state.day%63===0&&random(state)<.55){
-   const tailwind=state.economy.growth>1.6?.54:.40;
-   eventMove=(random(state)<tailwind?1:-1)*(.028+random(state)*.077);
-   pushEvent(c.id+': quarterly earnings '+(eventMove>0?'beat':'miss')+
-    ' expectations; shares reprice.');
-  }else if(random(state)<.0027){
-   eventMove=(random(state)<.51?-1:1)*(.055+random(state)*.098);
-   pushEvent(c.id+': rare '+(eventMove<0?'negative':'positive')+
-    ' company news surprises investors.');
+  let eventMove=quarterlyReport(c);
+  if(random(state)<.0027){
+   eventMove+=(random(state)<.51?-1:1)*(.055+random(state)*.098);
+   pushEvent(c.id+': unexpected corporate news changes investor expectations.');
   }
   const sectorWeight=c.sector==='Technology'?1.13:c.sector==='Energy'?.83:1;
   const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.38*turbulence+eventMove+economySectorMove(c.sector,state.economy)+valuationPressure(c,q.price,state.day),-.33,.33);
   q.price=usd(clamp(marketRoundCents(old*(1+step),state),1,MAX_PRICE_CENTS));
   q.history.push(q.price);if(q.history.length>HISTORY)q.history.shift();
-  q.volume=clamp(Math.round(c.float*(.001+random(state)*.006)*(1+Math.abs(step)*13)),1,c.float);
+  q.volume=clamp(Math.round(q.publicFloat*(.001+random(state)*.006)*(1+Math.abs(step)*13)),1,q.publicFloat);
+  checkCorporateAction(c);
   const d=dayChange(c.id);
   if(!top||d>top.d)top={id:c.id,d};if(!low||d<low.d)low={id:c.id,d};
  }
@@ -1705,12 +1939,14 @@ function placeOptionOrder({ticker,type,side,qty,strike,days}){
   return{ok:false,reason:'Writing calls requires 100 unreserved shares per contract.'};
  if(side==='short'&&type==='put'&&strike*OPTION_MULTIPLIER*qty>buyingPowerCents())
   return{ok:false,reason:'Cash-secured puts require enough unreserved cash for assignment.'};
- if(side==='short'&&type==='put'&&shares(ticker)+reservedPutShares(ticker)+qty*OPTION_MULTIPLIER>company(ticker).float)
+ if(side==='short'&&type==='put'&&shares(ticker)+reservedPutShares(ticker)+qty*OPTION_MULTIPLIER>quote(ticker).publicFloat)
   return{ok:false,reason:'Insufficient public float to guarantee put assignment.'};
  if(side==='short'&&cash+premium>MAX_CASH_CENTS)
   return{ok:false,reason:'Premium exceeds the cash balance limit.'};
  state.cash=usd(side==='long'?cash-premium:cash+premium);
- const o={id:state.nextOptionId++,ticker,type,side,qty,strike,expiryDay,openedDay:state.day,entryPremiumCents:unit};
+ const o={id:state.nextOptionId++,ticker,type,side,qty,strike,expiryDay,
+  openedDay:state.day,entryPremiumCents:unit,contractShares:100,
+  exerciseCents:strike*100,entryValueCents:unit*100};
  state.options.push(o);
  pushEvent((side==='long'?'Bought ':'Wrote covered/secured ')+qty+' '+ticker+' '+type.toUpperCase()+
   ' contract(s) at '+amount(unit*100)+' premium each.');
@@ -1719,16 +1955,15 @@ function placeOptionOrder({ticker,type,side,qty,strike,days}){
 function closeOptionPosition(id){
  const index=state.options.findIndex(o=>o.id===id);
  if(index<0)return{ok:false,reason:'Option position not found.'};
- const o=state.options[index],unit=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
- const total=unit*OPTION_MULTIPLIER*o.qty,cash=cents(state.cash);
+ const o=state.options[index],unit=contractMark(o);
+ const total=unit*o.qty,cash=cents(state.cash);
  if(o.side==='short'){
   // Free this put's own cash collateral for closing, not other open puts' funds.
-  const ownReserve=o.type==='put'?o.strike*OPTION_MULTIPLIER*o.qty:0;
+  const ownReserve=o.type==='put'?exerciseCost(o)*o.qty:0;
   if(total>cash-(reservedCashCents()-ownReserve))
    return{ok:false,reason:'Insufficient available funds to buy back this option.'};
  }else if(cash+total>MAX_CASH_CENTS)return{ok:false,reason:'Maximum cash balance reached.'};
- const realized=(o.side==='long'?unit-o.entryPremiumCents:o.entryPremiumCents-unit)*
-  OPTION_MULTIPLIER*o.qty;
+ const realized=(o.side==='long'?unit-entryContractValue(o):entryContractValue(o)-unit)*o.qty;
  if(!Number.isSafeInteger(state.optionRealizedCents+realized))return{ok:false,reason:'P&L precision limit reached.'};
  state.cash=usd(o.side==='long'?cash+total:cash-total);
  state.optionRealizedCents+=realized;
@@ -1741,42 +1976,44 @@ function settleExpiringOptions(){
  if(!state.options.length||!state.options.some(o=>o.expiryDay<=state.day))return;
  const pending=state.options.filter(o=>o.expiryDay<=state.day);
  for(const o of pending){
-  const count=OPTION_MULTIPLIER*o.qty,spot=priceCents(o.ticker);
-  const intrinsic=Math.max(0,o.type==='call'?spot-o.strike:o.strike-spot);
-  const payoff=intrinsic*count,entry=o.entryPremiumCents*count;
+  const count=contractShares(o)*o.qty,spot=priceCents(o.ticker);
+  const intrinsic=Math.max(0,o.type==='call'?
+   spot*contractShares(o)-exerciseCost(o):
+   exerciseCost(o)-spot*contractShares(o));
+  const payoff=intrinsic*o.qty,entry=entryContractValue(o)*o.qty;
   if(o.side==='long'){
    state.cash=usd(cents(state.cash)+payoff);
    state.optionRealizedCents+=payoff-entry;
    pushEvent(o.ticker+' '+o.type.toUpperCase()+' long expires: '+
     (payoff?'cash settlement '+amount(payoff):'out of the money')+'.');
   }else if(o.type==='call'){
-   // Assignment delivers already-owned, reserved shares for strike cash.
    if(intrinsic>0){
-    sellStockAt(o.ticker,count,o.strike);
-    state.cash=usd(cents(state.cash)+o.strike*count);
+    sellStockAt(o.ticker,count,Math.round(exerciseCost(o)/contractShares(o)),
+     exerciseCost(o)*o.qty);
+    state.cash=usd(cents(state.cash)+exerciseCost(o)*o.qty);
    }
    state.optionRealizedCents+=entry;
-   pushEvent(o.ticker+' covered call '+(intrinsic?'assigned: '+count+' shares sold at '+amount(o.strike):
+   pushEvent(o.ticker+' covered call '+(intrinsic?'assigned: '+count+' shares delivered for '+amount(exerciseCost(o)*o.qty):
      'expired unassigned')+'.');
   }else{
-   // Secured collateral was held as cash rather than removed from balance.
    if(intrinsic>0){
-    buyStockAt(o.ticker,count,o.strike);
-    state.cash=usd(cents(state.cash)-o.strike*count);
+    buyStockAt(o.ticker,count,Math.round(exerciseCost(o)/contractShares(o)),
+     exerciseCost(o)*o.qty);
+    state.cash=usd(cents(state.cash)-exerciseCost(o)*o.qty);
    }
    state.optionRealizedCents+=entry;
-   pushEvent(o.ticker+' cash-secured put '+(intrinsic?'assigned: '+count+' shares bought at '+amount(o.strike):
+   pushEvent(o.ticker+' cash-secured put '+(intrinsic?'assigned: '+count+' shares purchased for '+amount(exerciseCost(o)*o.qty):
      'expired unassigned')+'.');
   }
  }
  state.options=state.options.filter(o=>o.expiryDay>state.day);
 }
 function maxQty(){const c=company(state.selected),p=priceCents(c.id),owned=shares(c.id),cash=cents(state.cash);if(state.side==='sell')return Math.max(0,Math.min(owned-reservedShares(c.id),Math.floor((MAX_CASH_CENTS-cash)/p)));
-return Math.max(0,Math.min(Math.floor(buyingPowerCents()/p),c.float-owned-reservedPutShares(c.id),Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
+return Math.max(0,Math.min(Math.floor(buyingPowerCents()/p),quote(c.id).publicFloat-owned-reservedPutShares(c.id),Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
 function validateOrder(){const raw=$('qty').value.trim(),qty=/^\d+$/.test(raw)?Number(raw):NaN,id=state.selected,c=company(id),owned=shares(id),p=priceCents(id);
 if(!Number.isSafeInteger(qty)||qty<1)return{ok:false,qty,reason:'Enter a positive whole number of shares.'};
 const cost=qty*p;if(!Number.isSafeInteger(cost)||cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'This order exceeds the exchange trade limit.'};
-if(state.side==='buy'&&qty>c.float-owned-reservedPutShares(id))return{ok:false,qty,reason:'Not enough shares remain in the public float.'};
+if(state.side==='buy'&&qty>quote(id).publicFloat-owned-reservedPutShares(id))return{ok:false,qty,reason:'Not enough shares remain in the public float.'};
 if(state.side==='buy'&&cost>buyingPowerCents())return{ok:false,qty,reason:'Insufficient unreserved buying power (cash may secure puts).'};
 if(state.side==='sell'&&qty>owned-reservedShares(id))return{ok:false,qty,reason:'Those shares are reserved to cover open calls.'};
 if(state.side==='sell'&&cents(state.cash)+cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'Maximum cash balance reached.'};
@@ -1818,6 +2055,34 @@ function startAuto(){
 function toggleAuto(){if(timer!==null){stopAuto();return}startAuto()}
 function updateAutoSettings(){state.ui.autoStep=Number($('autostep').value);state.ui.autoMs=Number($('autospeed').value);save();if(timer!==null)startAuto();else renderClock()}
 function renderClock(){$('mobileMarketDay').textContent='DAY '+state.day.toLocaleString('en-US');$('mobileMarketMood').textContent=state.regime.toUpperCase()+' MARKET';$('mobileAuto').textContent=timer!==null?'Ⅱ PAUSE':'▶ PLAY';$('mobileAuto').setAttribute('aria-pressed',String(timer!==null));$('mobileAuto').disabled=state.day>=MAX_DAY;$('mobileAdvance').disabled=state.day>=MAX_DAY;$('auto').textContent=timer!==null?'Ⅱ PAUSE':'▶ AUTO';$('auto').setAttribute('aria-pressed',String(timer!==null));$('auto').classList.toggle('active',timer!==null);for(const id of ['next','next10','auto'])$(id).disabled=state.day>=MAX_DAY;$('clockstatus').textContent='· '+(timer!==null?'Market running':'Advance simulated days');$('autostep').value=String(state.ui.autoStep);$('autospeed').value=String(state.ui.autoMs);$('autodetail').textContent=(timer!==null?'RUNNING · ':'SET · ')+state.ui.autoStep+'D / '+(state.ui.autoMs/1000)+'S'}
+// Company fundamentals are fictional operating results, refreshed every quarter.
+function renderCompanyBrief(){
+ const c=company(state.selected),q=quote(c.id),f=q.fundamentals;
+ const label=f.status.toUpperCase();
+ const title=c.id+' · '+label;
+ if($('briefTitle').textContent!==title)$('briefTitle').textContent=title;
+ const figures=[
+  ['ANNUAL REVENUE',compact(f.revenue)],['OPERATING MARGIN',signed(f.margin*100)],
+  ['ANNUAL OPERATING PROFIT',compact(f.revenue*f.margin)],
+  ['CASH',compact(f.cash)],['DEBT',compact(f.debt)],
+  ['GROWTH OUTLOOK',signed(f.guidance*100)],
+  ['EARNINGS-BASED VALUE',money(fundamentalFairPrice(c))+' / share'],
+  ['SHARES OUTSTANDING',compactShares(q.sharesOutstanding)],
+  ['CORPORATE ACTIONS',String(q.splitCount)]
+ ];
+ const html=figures.map(([k,v])=>'<div class="company-brief-metric"><small>'+
+  escape(k)+'</small><strong>'+escape(v)+'</strong></div>').join('');
+ if($('briefMetrics').innerHTML!==html)$('briefMetrics').innerHTML=html;
+ const offset=COMPANIES.findIndex(x=>x.id===c.id)*10,
+  remaining=63-((state.day+offset)%63);
+ const action=q.lastAction?
+  ' · Last '+(q.lastAction.kind==='split'?'split '+q.lastAction.ratio+'-for-1':
+   'reverse 1-for-'+q.lastAction.ratio)+' on Day '+q.lastAction.day:'';
+ const narrative='Next earnings Day '+(state.day+remaining)+
+  ' · Reports '+f.quarterCount+' · '+label+
+  ' · Model value is a rough earnings estimate, not a price target.'+action;
+ if($('briefNarrative').textContent!==narrative)$('briefNarrative').textContent=narrative;
+}
 function renderEconomy(){
  const e=state.economy,rate=e.rate.toFixed(2)+'%',inflation=e.inflation.toFixed(2)+'%';
  const values={
@@ -1865,7 +2130,7 @@ function setRowText(node,text){if(node.textContent!==text)node.textContent=text}
 function renderStocks(){
  const host=$('stocks');
  if(stockRows.length!==COMPANIES.length||stockRows.some(row=>row.button.parentElement!==host)){
-  host.innerHTML=COMPANIES.map(c=>`<button type="button" class="stock" data-stock="${c.id}" aria-pressed="false" title="${escape(c.name)} · ${integer(c.shares)} outstanding shares · ${integer(c.float)} public float"><span class="ticker">${c.id}</span><span><span class="sname" style="display:block">${escape(c.name)}</span><span class="sector"></span></span><span class="num strong"></span><span class="num"></span><span class="num"></span><span class="num">${compactShares(c.float)}</span><span class="stock-spark" aria-hidden="true"><svg viewBox="0 0 92 34" preserveAspectRatio="none"><path fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>`).join('');
+  host.innerHTML=COMPANIES.map(c=>`<button type="button" class="stock" data-stock="${c.id}" aria-pressed="false" title="${escape(c.name)} · ${integer(c.shares)} outstanding shares · ${integer(c.float)} public float"><span class="ticker">${c.id}</span><span><span class="sname" style="display:block">${escape(c.name)}</span><span class="sector"></span></span><span class="num strong"></span><span class="num"></span><span class="num"></span><span class="num stock-float">${compactShares(c.float)}</span><span class="stock-spark" aria-hidden="true"><svg viewBox="0 0 92 34" preserveAspectRatio="none"><path fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>`).join('');
   stockRows.length=0;
   for(const button of host.children)stockRows.push({
    button,sector:button.querySelector('.sector'),price:button.children[2],
@@ -1875,6 +2140,10 @@ function renderStocks(){
  }
  for(let i=0;i<COMPANIES.length;i++){
   const c=COMPANIES[i],row=stockRows[i],change=dayChange(c.id),cap=marketCap(c);
+  const title=c.name+' · '+integer(quote(c.id).sharesOutstanding)+' outstanding shares · '+
+  integer(quote(c.id).publicFloat)+' public float';
+  if(row.button.title!==title)row.button.title=title;
+  setRowText(row.button.querySelector('.stock-float'),compactShares(quote(c.id).publicFloat));
   const pressed=String(state.selected===c.id);
   if(row.button.getAttribute('aria-pressed')!==pressed)row.button.setAttribute('aria-pressed',pressed);
   setRowText(row.sector,c.sector+' · '+compact(cap)+' cap');
@@ -1972,7 +2241,7 @@ function toggleFocus(id){if(!company(id)||!state.ui.visible.includes(id))return;
 
 function renderTrade(){const id=state.selected,c=company(id),raw=$('qty').value.trim(),n=/^\d+$/.test(raw)?Number(raw):NaN,qty=Number.isSafeInteger(n)&&n>=1?n:null,o=validateOrder();$('buy').setAttribute('aria-pressed',String(state.side==='buy'));$('sell').setAttribute('aria-pressed',String(state.side==='sell'));$('orderticker').textContent=id;$('mobilecompany').value=id;$('unitprice').textContent=amount(priceCents(id));
 for(const b of $('mobileQtyPresets').querySelectorAll('[data-qty-pct]'))b.disabled=maxQty()<1;
-const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(buyingPowerCents()):integer(shares(id)-reservedShares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES');renderOptionTicket()}
+const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(buyingPowerCents()):integer(shares(id)-reservedShares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(quote(id).publicFloat-shares(id)-reservedPutShares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES');renderOptionTicket()}
 // Options ticket intentionally lives inside a disclosure to preserve mobile space.
 let lastOptionTicker='',lastOptionMarkup='';
 function optionStrikeChoices(){
@@ -2007,17 +2276,16 @@ function renderOptionTicket(){
  $('optionPreview').innerHTML=`<strong>${escape(legend)}</strong><span>Model premium: ${amount(price*100)} / contract · ${amount(premium)} total (${isWrite?'credit':'debit'})</span><span>Expiry: Day ${state.day+days} · Strike: ${amount(strike)} · Collateral: ${reserve}</span><span>Estimated max contracts affordable: ${Math.max(0,Math.min(10,available))} · Intrinsic at expiry varies with the market.</span>`;
 }
 const optionsOpenPnl=()=>state.options.reduce((sum,o)=>{
- const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
- return sum+(o.side==='long'?mark-o.entryPremiumCents:o.entryPremiumCents-mark)*OPTION_MULTIPLIER*o.qty;
+ const mark=contractMark(o),entry=entryContractValue(o);
+ return sum+(o.side==='long'?mark-entry:entry-mark)*o.qty;
 },0);
 function renderOptionPositions(){
  const open=state.options;
  const row=o=>{
-  const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay),value=mark*OPTION_MULTIPLIER*o.qty;
-  const paid=o.entryPremiumCents*OPTION_MULTIPLIER*o.qty;
+  const value=contractMark(o)*o.qty,paid=entryContractValue(o)*o.qty;
   const pnl=(o.side==='long'?value-paid:paid-value);
   const disposition=o.side==='long'?'LONG':o.type==='call'?'COVERED SHORT':'CASH-SECURED SHORT';
-  return `<div class="option-position-row"><div class="option-position-top"><strong>${o.ticker} ${o.type.toUpperCase()} · ${disposition}</strong><b class="${pnl>=0?'pos':'neg'}">${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</b></div><div class="option-position-grid"><span>CONTRACTS <strong>${o.qty}</strong></span><span>STRIKE <strong>${amount(o.strike)}</strong></span><span>DAY <strong>${o.expiryDay}</strong></span><span>ENTRY PREMIUM <strong>${amount(paid)}</strong></span><span>MARK VALUE <strong>${amount(value)}</strong></span><span>UNREALIZED P&L <strong>${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</strong></span></div><button class="option-close" type="button" data-option-close="${o.id}" ${session.role!=='writer'?'disabled':''}>${o.side==='long'?'SELL TO CLOSE':'BUY TO CLOSE'}</button></div>`;
+  return `<div class="option-position-row"><div class="option-position-top"><strong>${o.ticker} ${o.type.toUpperCase()} · ${disposition}</strong><b class="${pnl>=0?'pos':'neg'}">${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</b></div><div class="option-position-grid"><span>CONTRACTS <strong>${o.qty}</strong></span><span>STRIKE <strong>${money(usd(exerciseCost(o)/contractShares(o)))}</strong></span><span>DELIVERABLE <strong>${contractShares(o)} shares/contract</strong></span><span>DAY <strong>${o.expiryDay}</strong></span><span>ENTRY PREMIUM <strong>${amount(paid)}</strong></span><span>MARK VALUE <strong>${amount(value)}</strong></span><span>UNREALIZED P&L <strong>${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</strong></span></div><button class="option-close" type="button" data-option-close="${o.id}" ${session.role!=='writer'?'disabled':''}>${o.side==='long'?'SELL TO CLOSE':'BUY TO CLOSE'}</button></div>`;
  };
  const markup=open.length?open.map(row).join(''):'<div class="empty">No open option contracts.</div>';
  if(markup!==lastOptionMarkup){
@@ -2056,7 +2324,7 @@ function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class=
 // Hidden panels are refreshed when opened. Desktop retains its full workspace.
 let firstPanelRender=true;
 function render(){
- syncProfile();applyLayout();renderStats();renderEconomy();
+ syncProfile();applyLayout();renderStats();renderEconomy();renderCompanyBrief();
  if(firstPanelRender||!isMobileProfile()){
   renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();
   firstPanelRender=false;
@@ -2073,7 +2341,7 @@ function render(){
 // Market progress changes data, not panel geometry. Repaint only relevant
 // mobile views during fast playback; entering a tab still refreshes everything.
 function renderMarketFrame(){
- renderStats();renderEconomy();
+ renderStats();renderEconomy();renderCompanyBrief();
  // Market time is visible in the mobile quickbar on every tab.
  renderClock();
  if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();return;}

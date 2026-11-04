@@ -22,6 +22,31 @@ const probe = String.raw`
     assert($('stocks').querySelectorAll('[data-stock]').length === 6, 'Exchange did not render 6 stocks');
     assert($('chart').querySelectorAll('path').length >= 1, 'Chart SVG did not draw');
     assert($('stocks').querySelectorAll('.stock-spark svg path').length === 6, 'Watchlist mini charts were not rendered');
+    assert($('companyBrief').open === false, 'Company briefing should not occupy screen by default');
+    $('companyBrief').open = true;
+    assert($('briefMetrics').querySelectorAll('.company-brief-metric').length === 9,
+      'Selected company should show revenue, margins, debt and corporate actions');
+    assert($('briefTitle').textContent.includes('NEON'),'Company briefing ticker out of sync');
+    assert($('briefNarrative').textContent.includes('Next earnings Day'),
+      'Company earnings schedule missing');
+    $('companyBrief').open = false;
+    assert($('companyBrief').parentElement === $('boardlist') &&
+      $('economyPanel').parentElement === $('boardlist'),
+      'Secondary company/economy information must scroll below listed stocks');
+    if (document.body.dataset.profile === 'desktop') {
+      const exchange=$('exchangepanel'),oldHeight=exchange.style.height;
+      exchange.style.height='170px';
+      void exchange.offsetHeight;
+      const viewport=$('boardlist').getBoundingClientRect(),
+        firstStock=$('stocks').firstElementChild.getBoundingClientRect();
+      assert($('boardlist').clientHeight>40,
+        'Compact Exchange cannot display stock rows');
+      assert(firstStock.top>=viewport.top-2&&firstStock.top<viewport.bottom-10,
+        'A compact Exchange should show stock rows before its secondary panels');
+      assert($('boardlist').scrollHeight>$('boardlist').clientHeight,
+        'Secondary company/economy information should be scrollable');
+      exchange.style.height=oldHeight;
+    }
     assert($('economyPanel').querySelectorAll('.economy-stat').length === 8,
       'Economy panel should contain five indicators');
     assert($('economyRate').textContent === '3.50%', 'Starting policy rate incorrect');
@@ -231,6 +256,8 @@ const probe = String.raw`
       for (let i = 0; i < 15; i++) $('next').click();
     }
     assert(stockRow === $('stocks').firstElementChild, 'Market updates replaced persistent stock cards');
+    assert($('briefMetrics').textContent.includes('GROWTH OUTLOOK'),
+      'Company briefing should remain synchronized after market progression');
     assert(Number($('day').textContent)>21, 'Economic reports were not reached');
     assert($('economyNext').textContent.includes('Next report:'), 'Macro report schedule not updated');
     assert($('economyInflation').textContent.includes('%'), 'Macroeconomy missing after repeated ticks');
