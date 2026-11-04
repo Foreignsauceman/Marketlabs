@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const source = readFileSync(resolve(root, 'index.html'), 'utf8');
-const version = source.match(/<title>[^<]*\s(v\d+\.\d+\.\d+)<\/title>/)?.[1];
+const version = source.match(/<title>[^<]*\s(v\d+(?:\.\d+){2,3})<\/title>/)?.[1];
 if (!version) throw Error('Cannot determine expected application version');
 
 // GitHub Pages uses the repository owner's current username as its subdomain.

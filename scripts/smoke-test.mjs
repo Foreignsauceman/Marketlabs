@@ -92,7 +92,7 @@ test('HTML local links and service-worker app shell resolve inside the repo', ()
 });
 
 test('visible version, README version, and service-worker cache version agree', () => {
-  const title = html.match(/<title>[^<]*\s(v\d+\.\d+\.\d+)<\/title>/);
+  const title = html.match(/<title>[^<]*\s(v\d+(?:\.\d+){2,3})<\/title>/);
   assert.ok(title, 'App version missing from title');
   const version = title[1];
   assert.ok(html.includes('>' + version + '</span>'), 'Visible app version mismatch');

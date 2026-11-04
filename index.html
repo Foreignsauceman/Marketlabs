@@ -11,7 +11,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
-<title>MARKETLAB | The Simulated Exchange v0.6.3</title>
+<title>MARKETLAB | The Simulated Exchange v0.6.3.1</title>
 <style>
 :root{--bg:#101713;--panel:#1a251e;--panel2:#213026;--line:#33483a;--mint:#aaf6ad;--green:#81e4a0;--red:#ff9d9a;--amber:#ffd18a;--text:#e3eee2;--muted:#9ab09e;--c1:#9ef4a1;--c2:#e5bd7c;--c3:#86cafa;--c4:#e89acd;--c5:#b0a4fa;--c6:#ff997b}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 75% -15%,#25392a 0,transparent 37%),var(--bg);color:var(--text);font:12px/1.45 ui-monospace,Consolas,'Liberation Mono',monospace}button,input{font:inherit}button{cursor:pointer;transition:background .12s,border .12s}button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}button:disabled{opacity:.40;cursor:not-allowed}.wrap{max-width:none;margin:auto;padding:14px 18px 20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}.brand h1{font-size:27px;letter-spacing:-.08em;line-height:1;margin:0;font-weight:950}.brand em{color:var(--mint);font-style:normal}.tagline{color:var(--muted);font-size:10px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.tag{border:1px solid var(--line);padding:3px 7px;border-radius:3px;color:var(--muted);white-space:nowrap;font-size:10px}.reset{border:0;background:none;color:var(--muted);font-size:10px;text-decoration:underline;text-underline-offset:3px}.reset:hover{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:9px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:9px 11px;min-width:0}.statlabel,.minor{color:var(--muted);font-size:10px;letter-spacing:.025em}.statvalue{font-size:clamp(15px,1.7vw,22px);font-weight:850;letter-spacing:-.05em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.statnote{color:var(--muted);font-size:10px;min-height:13px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;overflow:hidden}.panelhead{padding:8px 11px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:37px}.heading{color:var(--mint);font-weight:850;letter-spacing:.08em;font-size:10px}.meta{color:var(--muted);font-size:10px}.main{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(300px,.92fr);gap:9px}.left,.right{display:grid;align-content:start;gap:9px;min-width:0}.clock{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.clock p{margin:0}.clockbuttons{display:flex;gap:6px}.btn{border:1px solid #526957;background:#293c2e;border-radius:4px;color:var(--text);font-weight:800;padding:6px 10px;font-size:11px}.btn:hover{border-color:var(--mint)}.btn.primary{background:var(--amber);color:#2d2210;border-color:var(--amber)}.btn.active{color:var(--mint);border-color:var(--mint)}.chartopts{display:flex;gap:5px}.mini{border:1px solid var(--line);border-radius:3px;padding:4px 7px;background:#18231b;color:var(--muted);font-size:10px;font-weight:850}.mini[aria-pressed="true"]{color:#102118;background:var(--mint);border-color:var(--mint)}.chartarea{padding:4px 10px 6px;position:relative}.chart{width:100%;height:auto;display:block;aspect-ratio:850/270;min-height:178px;touch-action:pan-y}.chartfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:9px;padding:0 5px 3px}.legend{display:flex;flex-wrap:wrap;gap:4px 7px;padding:3px 10px 9px}.legend button{border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;padding:4px 6px;border-radius:3px;font-weight:800}.legend button:hover,.legend button[aria-pressed="true"]{background:#2d4232;color:var(--text);border-color:#486451}.swatch{width:13px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px;border-radius:2px}.tooltip{pointer-events:none;position:absolute;z-index:2;min-width:125px;max-width:205px;background:#0c1810f5;border:1px solid #54745b;padding:7px 9px;box-shadow:0 8px 24px #0008;border-radius:4px;font-size:10px}.tooltip[hidden]{display:none}.tooltip div{display:flex;justify-content:space-between;gap:15px}.boardheader,.stock{display:grid;grid-template-columns:55px minmax(100px,1.25fr) 78px 78px 66px 82px;align-items:center;gap:8px}.boardheader{color:var(--muted);padding:7px 11px 5px;font-size:9px}.boardheader>span:nth-child(n+3){text-align:right}.stock{width:100%;text-align:left;background:transparent;color:var(--text);border:0;border-top:1px solid #304135;padding:8px 11px;font-size:11px}.stock:hover{background:#26372b}.stock[aria-pressed="true"]{background:#2a3f30;box-shadow:inset 3px 0 var(--mint)}.ticker{font-weight:900;color:var(--mint)}.sname{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector{font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.num{text-align:right;white-space:nowrap;font-size:11px}.num.strong{font-weight:850}.trade{padding:10px 11px 12px}.pair{display:flex;gap:6px}.pair button{flex:1}.side{padding:7px 9px;border:1px solid var(--line);border-radius:4px;background:#122017;color:var(--muted);font-weight:850;letter-spacing:.1em}.side[aria-pressed="true"]{color:#0f2118;background:var(--mint);border-color:var(--mint)}.fieldrow{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:10px 0 5px}.fieldrow label{color:var(--muted);font-size:10px}.fillmax{color:var(--amber);background:#2d3124;border:1px solid #77714e;border-radius:3px;padding:3px 10px;font-size:10px;font-weight:900}.fillmax:disabled{opacity:.4}.qty{width:100%;border:1px solid var(--line);background:#111c15;color:var(--text);border-radius:4px;padding:7px 9px;font-size:15px;font-weight:800}.lineitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;color:var(--muted);border-bottom:1px dashed #324837;font-size:11px}.lineitem strong{font-size:11px;color:var(--text)}.execute{width:100%;border:0;border-radius:4px;background:var(--mint);color:#0d2314;padding:9px;margin-top:10px;font-size:11px;font-weight:950;letter-spacing:.03em}.execute:hover:not(:disabled){background:#d1ffcc}.toast{color:var(--amber);font-size:10px;min-height:15px;margin:6px 0 0}.holding{display:grid;grid-template-columns:51px 1fr auto;gap:5px;align-items:center;padding:7px 11px;border-bottom:1px solid #304135;font-size:11px}.holding:last-child{border-bottom:0}.holding strong{color:var(--mint)}.holding .muted{color:var(--muted)}.empty{color:var(--muted);padding:11px;font-size:10px}.activity{padding:2px 11px 7px;min-height:65px;max-height:147px;overflow:auto}.event{display:grid;grid-template-columns:auto 1fr;gap:10px;border-bottom:1px dashed #324635;padding:6px 0;font-size:10px;color:var(--muted)}.event:last-child{border-bottom:0}.eventday{color:var(--green)}.marketnote{color:var(--muted);font-size:9px;padding:0 10px 8px}.footer{color:var(--muted);font-size:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-top:10px}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px;vertical-align:middle}
@@ -1030,10 +1030,50 @@ body[data-profile="mobile"] .company-brief>summary{min-height:49px}
  body[data-profile="mobile"] .company-brief-metric strong{font-size:12px}
 }
 
+
+
+/* v0.6.3.1: compact, low-allocation sector rotation dashboard. */
+.sector-rotation{border-top:1px solid #35514a;background:#142624;color:#d7ebdc}
+.sector-rotation>summary{display:flex;align-items:center;gap:10px;min-height:47px;
+ padding:10px 13px;list-style:none;cursor:pointer;font:780 11px/1.3 system-ui,sans-serif}
+.sector-rotation>summary::-webkit-details-marker{display:none}
+.sector-heading{white-space:nowrap;color:#b1f1c7}
+.sector-brief{flex:1;min-width:0;white-space:nowrap;overflow:hidden;
+ text-overflow:ellipsis;text-align:right;color:#a8bcac;font-weight:650;font-size:10px}
+.sector-caret{font-size:19px;color:#b0d3b7}
+.sector-rotation[open] .sector-caret{transform:rotate(180deg)}
+.sector-inner{padding:1px 12px 13px}
+.sector-notice{font:560 10px/1.45 system-ui,sans-serif;color:#9cbaac;margin:3px 0 11px}
+.sector-cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.sector-card{min-width:0;padding:10px 9px;border:1px solid #35544c;
+ border-radius:9px;background:#1b3331}
+.sector-card-top{display:flex;align-items:center;justify-content:space-between;
+ gap:5px;font-size:11px}
+.sector-card-top strong{color:#e2fae6;overflow:hidden;text-overflow:ellipsis}
+.sector-card-top b{font-size:11px;white-space:nowrap}
+.sector-card-top b.pos{color:#84e5b1}.sector-card-top b.neg{color:#fa9f9a}
+.sector-phase{font:780 9px/1.3 system-ui,sans-serif;color:#a9bbac;margin-top:9px}
+.sector-phase.sector-up{color:#8feabb}.sector-phase.sector-down{color:#ffc3a1}
+.sector-card small{display:block;margin-top:5px;color:#8ba59b;
+ font:560 9px/1.35 system-ui,sans-serif}
+.sector-factors{margin:10px 0 0;padding:8px 9px;background:#1a332f;
+ border:1px solid #35534c;border-radius:8px;color:#afd2bd;
+ font:690 10px/1.5 system-ui,sans-serif}
+body[data-profile="mobile"] .sector-rotation{margin:0 11px 11px;border:1px solid #35544c;border-radius:13px;overflow:hidden}
+body[data-profile="mobile"] .sector-rotation>summary{min-height:49px}
+body[data-profile="mobile"] .sector-cards{grid-template-columns:repeat(2,minmax(0,1fr))}
+body[data-profile="mobile"] .sector-card{padding:10px 9px}
+@media(min-width:601px) and (max-width:1000px){
+ .sector-cards{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:360px){
+ body[data-profile="mobile"] .sector-brief{max-width:120px;font-size:9px}
+}
+
 </style>
 </head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.6.3</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
+<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.6.3.1</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
 <section id="sessionNotice" class="session-notice" role="status" aria-live="polite" hidden>
  <div class="session-notice-text"><strong id="sessionHeading">Another tab is editing</strong><span id="sessionDescription">This tab is view-only to protect your portfolio.</span></div>
  <button type="button" id="sessionRetry" class="btn">CHECK AGAIN</button>
@@ -1051,18 +1091,18 @@ body[data-profile="mobile"] .company-brief>summary{min-height:49px}
   <div class="session-info"><span class="session-pulse" aria-hidden="true"></span><span><strong id="mobileMarketDay">DAY 1</strong><small id="mobileMarketMood">NORMAL MARKET</small></span></div>
   <div class="session-actions"><button type="button" id="mobileAdvance" class="session-next" aria-label="Advance market one day">+1 DAY</button><button type="button" id="mobileAuto" class="session-auto" aria-pressed="false" aria-label="Play or pause automatic market simulation">▶ PLAY</button><button type="button" id="mobileClockToggle" class="session-disclosure" aria-expanded="false" aria-controls="clockpanel" aria-label="Expand market timing controls" title="More market controls">⋯</button></div>
 </div>
-<div class="mobile-page-heading"><div><span class="mobile-page-eyebrow">THE SIMULATED EXCHANGE</span><h2 id="mobileScreenTitle">Explore</h2></div><span id="mobileScreenHint">Six stocks to discover</span></div>
+<div class="mobile-page-heading"><div><span class="mobile-page-eyebrow">THE SIMULATED EXCHANGE</span><h2 id="mobileScreenTitle">Explore</h2></div><span id="mobileScreenHint">Nine stocks across seven sectors</span></div>
 <div class="main" id="main">
 <div class="left">
 <section class="panel sizable" id="chartpanel" aria-label="Company chart"><div class="panelhead"><div><span class="heading"><span class="desktop-heading">01 / MARKET CHART</span><span class="mobile-heading">Chart overview</span></span><span class="meta" id="chartmeta"> · 42 trading days</span></div><div class="chartopts"><label class="range-picker" for="chartrange">RANGE <select id="chartrange" aria-label="Graph time range"><option value="21">1M</option><option value="63">3M</option><option value="252">1Y</option><option value="520">MAX</option></select></label><button id="indexoverlay" class="mini" type="button" aria-pressed="true" title="Show or hide exchange trend on the graph">↗ INDEX</button><button id="allchart" class="mini" aria-pressed="true">ALL / %</button><button id="singlechart" class="mini" aria-pressed="false">SINGLE / $</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="chartpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="chartpanel" role="button" aria-label="Move chartpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div>
 <div class="chartarea" id="chartarea"><svg id="chart" class="chart" viewBox="0 0 850 270" role="img" aria-label="Historical performance of every listed company"></svg><div id="tooltip" class="tooltip" hidden></div><div class="chartfoot"><span id="chartstart">41 DAYS AGO</span><span id="charttype">RELATIVE PERFORMANCE · BASE = 100</span><span id="chartend">DAY 001</span></div></div><button type="button" id="chartExtraToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="chartExtraBody"><span>Chart settings &amp; series</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div id="chartExtraBody" class="chart-extra-body"><div id="legend" class="legend" aria-label="Choose visible and highlighted chart companies"></div><div class="chartactions"><span>CHART SERIES</span><button type="button" id="showall">SHOW ALL</button><button type="button" id="hideall">HIDE ALL</button><button type="button" id="clearfocus">CLEAR FOCUS</button><button type="button" id="wideleft" title="Make left column as wide as practical">WIDE LEFT</button><button type="button" id="focusleft" aria-pressed="false" title="Place trading panels below to give the left column the full width">FULL LEFT ↗</button><button type="button" id="resetlayout">RESET SIZES</button><span id="splitreadout" class="split-readout">LEFT 72%</span><span class="resizehelp">DRAG HANDLES · DOUBLE-CLICK TO RESET</span></div></div><div class="panelsizer" data-panel="chartpanel" role="separator" tabindex="0" aria-label="Resize chart panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
-<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading"><span class="desktop-heading">02 / SIMULATED EXCHANGE</span><span class="mobile-heading">Explore stocks</span></div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div><details class="company-brief" id="companyBrief">
+<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading"><span class="desktop-heading">02 / SIMULATED EXCHANGE</span><span class="mobile-heading">Explore stocks</span></div><span class="meta" id="marketstate">9 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div><details class="company-brief" id="companyBrief">
  <summary><span>▦ COMPANY BRIEFING</span><strong id="briefTitle">NEON · STABLE</strong><span aria-hidden="true" class="brief-caret">⌄</span></summary>
  <div class="company-brief-inner">
   <div id="briefMetrics" class="company-brief-grid"></div>
   <p id="briefNarrative" class="company-brief-narrative">Fictional operating results.</p>
  </div>
-</details><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional stocks react to rates, confidence, factory activity, earnings surprises, and rare market shocks. Ordinary trading days are calmer; sharp moves remain possible.</div><details id="economyPanel" class="economy-panel">
+</details><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional firms respond to earnings, rates, credit, commodity prices, medical demand, power use, and independent sector cycles. Surprising news can still cause large price swings.</div><details id="economyPanel" class="economy-panel">
  <summary><span class="economy-heading"><span class="economy-signal" aria-hidden="true">◈</span> ECONOMY PULSE</span><span class="economy-brief" id="economyBrief">Macro indicators · simulated</span><span class="economy-caret" aria-hidden="true">⌄</span></summary>
  <div class="economy-inner">
   <p class="economy-description">FICTIONAL ECONOMY · Reports update every 21 trading days. Rates, wages, credit spreads, manufacturing, inflation and growth influence sectors. Policy decisions lag changes in the economy.</p>
@@ -1077,6 +1117,13 @@ body[data-profile="mobile"] .company-brief>summary{min-height:49px}
    <div class="economy-stat"><span>WAGE GROWTH</span><strong id="economyWages">3.20%</strong><small>ANNUALIZED</small></div>
   </div>
   <p class="economy-foot" id="economyNext">Next report: Day 21</p>
+ </div>
+</details><details id="sectorRotation" class="sector-rotation">
+ <summary><span class="sector-heading">◫ SECTOR ROTATION</span><span id="sectorLeader" class="sector-brief">7 sectors · independent cycles</span><span class="sector-caret" aria-hidden="true">⌄</span></summary>
+ <div class="sector-inner">
+  <p class="sector-notice">FICTIONAL MARKET · Industry trends last several trading weeks or months. A sector can rise while the wider exchange falls, or the reverse.</p>
+  <div class="sector-cards" id="sectorRows"></div>
+  <div class="sector-factors" id="sectorFactors">Commodity index 100 · Yield curve +1.10% · Care demand 100 · Power demand 100</div>
  </div>
 </details></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><div class="panelsizer" data-panel="exchangepanel" role="separator" tabindex="0" aria-label="Resize exchange panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
 <section class="panel sizable" id="clockpanel" aria-label="Time controls"><div class="panelhead clock"><div><span class="heading"><span class="desktop-heading">03 / MARKET CLOCK </span><span class="mobile-heading">Market controls</span></span><span class="meta" id="clockstatus">· Next closing bell</span></div><div class="clockbuttons"><button class="btn primary" id="next">+1 DAY →</button><button class="btn" id="next10">+10 DAYS</button><button class="btn" id="auto" aria-pressed="false">▶ AUTO</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="clockpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="clockpanel" role="button" aria-label="Move clockpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="clocksettings"><label for="autostep">AUTO STEP <select id="autostep" aria-label="Days advanced per automatic tick"><option value="1">1 day</option><option value="2">2 days</option><option value="5">5 days</option><option value="10">10 days</option><option value="30">30 days</option><option value="100">100 days</option></select></label><label for="autospeed">EVERY <select id="autospeed" aria-label="Automatic tick interval"><option value="100">0.1 sec</option><option value="250">0.25 sec</option><option value="500">0.5 sec</option><option value="650">0.65 sec</option><option value="1000">1 sec</option><option value="2000">2 sec</option><option value="5000">5 sec</option></select></label><span id="autodetail" class="meta"></span><span class="meta keyhint">SPACE PLAY/PAUSE · + / − SPEED · [ / ] STEP</span></div><div class="panelsizer" data-panel="clockpanel" role="separator" tabindex="0" aria-label="Resize market clock height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
@@ -1151,15 +1198,29 @@ const COMPANIES=[
 {id:'MISO',name:'Miso Retail',sector:'Consumer',color:'#86cafa',price:28.75,shares:100000000,float:62000000,volatility:.028,drift:.00060},
 {id:'VOLT',name:'Volt Energy',sector:'Energy',color:'#e89acd',price:93.10,shares:1100000000,float:690000000,volatility:.040,drift:.00035},
 {id:'AERO',name:'Aero Works',sector:'Industrials',color:'#b0a4fa',price:145.40,shares:280000000,float:156000000,volatility:.025,drift:.00055},
-{id:'BYTE',name:'Byte Labs',sector:'Technology',color:'#ff997b',price:8.60,shares:90000000,float:54000000,volatility:.063,drift:.00090}
+{id:'BYTE',name:'Byte Labs',sector:'Technology',color:'#ff997b',price:8.60,shares:90000000,float:54000000,volatility:.063,drift:.00090},
+{id:'FINA',name:'Meridian Financial',sector:'Finance',color:'#f0cf7e',price:64.80,shares:730000000,float:390000000,volatility:.027,drift:.00040},
+{id:'MEDI',name:'Morrow Health',sector:'Healthcare',color:'#8fddc8',price:118.40,shares:410000000,float:240000000,volatility:.024,drift:.00044},
+{id:'GRID',name:'Northstar Utilities',sector:'Utilities',color:'#b6c9f7',price:37.60,shares:1250000000,float:820000000,volatility:.017,drift:.00033}
 ];
+const NEW_LISTINGS=new Set(['FINA','MEDI','GRID']);
+const SECTORS=[...new Set(COMPANIES.map(c=>c.sector))];
+const SECTOR_MEMBERS=Object.fromEntries(SECTORS.map(sector=>[sector,COMPANIES.filter(c=>c.sector===sector)]));
 const $=id=>document.getElementById(id),company=id=>COMPANIES.find(c=>c.id===id);
 const FEATURE_FLAGS=Object.freeze({marketTrend:false});
  const STEP_OPTIONS=[1,2,5,10,30,100],SPEED_OPTIONS=[100,250,500,650,1000,2000,5000];
 const PANEL_LIMITS={chartpanel:[285,2600],exchangepanel:[115,2400],clockpanel:[90,650],tradepanel:[145,2000],holdingspanel:[65,1800],tapepanel:[72,1800]};
 function defaultUI(){return{visible:COMPANIES.map(c=>c.id),highlight:[],autoStep:1,autoMs:650,leftPct:72,focusLeft:false,heights:{},profileMode:"auto",mobileTab:"market",chartRange:63,showIndex:true,topWidths:[1,1,1,1,1,1],statsHeight:0,dock:{left:["chartpanel","exchangepanel","clockpanel"],right:["tradepanel","holdingspanel","tapepanel"]},pinned:[]}}
 function sanitizeUI(raw){const u=defaultUI();if(!raw||typeof raw!=='object'||Array.isArray(raw))return u;
-if(Array.isArray(raw.visible))u.visible=[...new Set(raw.visible.filter(id=>typeof id==='string'&&company(id)))];
+if(Array.isArray(raw.visible)){
+ u.visible=[...new Set(raw.visible.filter(id=>typeof id==='string'&&company(id)))];
+ // Existing players who displayed all six original listings also see the three
+ // new sectors. Hand-picked watchlists remain intentionally customized.
+ const original=COMPANIES.filter(c=>!NEW_LISTINGS.has(c.id)).map(c=>c.id);
+ if(original.every(id=>u.visible.includes(id))&&
+  !COMPANIES.filter(c=>NEW_LISTINGS.has(c.id)).some(c=>raw.visible.includes(c.id)))
+  for(const c of COMPANIES)if(NEW_LISTINGS.has(c.id))u.visible.push(c.id);
+}
 if(Array.isArray(raw.highlight))u.highlight=[...new Set(raw.highlight.filter(id=>typeof id==='string'&&u.visible.includes(id)))];
 if(STEP_OPTIONS.includes(raw.autoStep))u.autoStep=raw.autoStep;
 if(SPEED_OPTIONS.includes(raw.autoMs))u.autoMs=raw.autoMs;
@@ -1207,7 +1268,7 @@ function preHistory(s,c,last){let price=cents(last),history=[usd(price)];for(let
 // The economy is fictional, deterministic and stored alongside the v2 portfolio.
 // Missing economy data from older saves receives stable, backward-compatible defaults.
 const roundEconomy=n=>Math.round(n*100)/100;
-function freshEconomy(){return{rate:3.5,inflation:2.6,growth:2.1,unemployment:4.7,confidence:100,creditSpread:1.6,pmi:52,wageGrowth:3.2,lastReportDay:0,policyDirection:'hold'}}
+function freshEconomy(){return{rate:3.5,inflation:2.6,growth:2.1,unemployment:4.7,confidence:100,creditSpread:1.6,pmi:52,wageGrowth:3.2,commodityIndex:100,yieldCurve:1.1,careDemand:100,gridDemand:100,lastReportDay:0,policyDirection:'hold'}}
 function normalizeEconomy(raw,day){
  if(raw===undefined)return freshEconomy();
  if(!raw||typeof raw!=='object'||Array.isArray(raw))return null;
@@ -1215,7 +1276,7 @@ function normalizeEconomy(raw,day){
  for(const [key,[low,high]] of Object.entries(limits))if(typeof raw[key]!=='number'||!Number.isFinite(raw[key])||raw[key]<low||raw[key]>high)return null;
  if(!Number.isSafeInteger(raw.lastReportDay)||raw.lastReportDay<0||raw.lastReportDay>day||!['up','down','hold'].includes(raw.policyDirection))return null;
  const defaults=freshEconomy();
- const extraLimits={creditSpread:[.4,10],pmi:[30,70],wageGrowth:[-3,12]};
+ const extraLimits={creditSpread:[.4,10],pmi:[30,70],wageGrowth:[-3,12],commodityIndex:[40,200],yieldCurve:[-3,5],careDemand:[70,150],gridDemand:[60,165]};
  const extra={};
  for(const [key,[low,high]] of Object.entries(extraLimits)){
   const value=raw[key]===undefined?defaults[key]:raw[key];
@@ -1228,8 +1289,8 @@ function normalizeEconomy(raw,day){
 
 // A sector-specific income statement underpins each fictional business.
 // Legacy saves are anchored to the price and share count they already own.
-const FUNDAMENTAL_PE={Technology:26,Industrials:19,Consumer:21,Energy:15};
-const FUNDAMENTAL_MARGIN={Technology:.22,Industrials:.13,Consumer:.105,Energy:.115};
+const FUNDAMENTAL_PE={Technology:26,Industrials:19,Consumer:21,Energy:15,Finance:13,Healthcare:23,Utilities:17};
+const FUNDAMENTAL_MARGIN={Technology:.22,Industrials:.13,Consumer:.105,Energy:.115,Finance:.20,Healthcare:.16,Utilities:.135};
 const MAX_COMPANY_SHARES=10000000000000,MAX_FUNDAMENTAL_VALUE=1000000000000000;
 function makeFundamentals(c,price,issued){
  const cap=price*issued,margin=FUNDAMENTAL_MARGIN[c.sector],multiple=FUNDAMENTAL_PE[c.sector];
@@ -1268,15 +1329,33 @@ function initialQuote(s,c){
   fundamentals:makeFundamentals(c,c.price,c.shares)
  };
 }
-function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{},economy:freshEconomy()};for(const c of COMPANIES)s.companies[c.id]=initialQuote(s,c);s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
+function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{},sectorCycles:{},economy:freshEconomy()};for(const sector of SECTORS)s.sectorCycles[sector]={phase:0,daysLeft:0};for(const c of COMPANIES)s.companies[c.id]=initialQuote(s,c);s.events=[{day:1,text:'The exchange opens with nine publicly traded companies across seven sectors.'}];return s}
+// New listings must be deterministic without consuming or rewriting the
+// existing portfolio's saved market RNG. Corrupt missing legacy tickers still
+// invalidate a save; only these three intentional additions can be filled.
+function seededNewListing(raw,c){
+ let hash=(raw.seed^0x9e3779b9)>>>0;
+ for(const letter of c.id)hash=(Math.imul(hash,16777619)^letter.charCodeAt(0))>>>0;
+ return initialQuote({seed:hash},c);
+}
 function normalize(raw){
 if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==2||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295||!raw.companies||typeof raw.companies!=='object'||Array.isArray(raw.companies)||!raw.holdings||typeof raw.holdings!=='object'||Array.isArray(raw.holdings))return null;
 const economy=normalizeEconomy(raw.economy,raw.day);if(!economy)return null;
-const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{},economy};
+const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{},sectorCycles:{},economy};
 for(const sector of new Set(COMPANIES.map(c=>c.sector)))s.sectorMomentum[sector]=clampMomentum(raw.sectorMomentum?.[sector],.014);
 for(const c of COMPANIES)s.stockMomentum[c.id]=clampMomentum(raw.stockMomentum?.[c.id],.023);
+if(raw.sectorCycles!==undefined&&(!raw.sectorCycles||typeof raw.sectorCycles!=='object'||Array.isArray(raw.sectorCycles)))return null;
+for(const sector of SECTORS){
+ const rawCycle=raw.sectorCycles?.[sector];
+ if(rawCycle===undefined){s.sectorCycles[sector]={phase:0,daysLeft:0};continue}
+ if(!rawCycle||typeof rawCycle!=='object'||!Number.isSafeInteger(rawCycle.phase)||
+  ![-1,0,1].includes(rawCycle.phase)||!Number.isSafeInteger(rawCycle.daysLeft)||
+  rawCycle.daysLeft<0||rawCycle.daysLeft>300)return null;
+ s.sectorCycles[sector]={phase:rawCycle.phase,daysLeft:rawCycle.daysLeft};
+}
 for(const c of COMPANIES){
- const q=raw.companies[c.id],n=raw.holdings[c.id]??0;
+ const q=raw.companies[c.id]??(NEW_LISTINGS.has(c.id)?seededNewListing(raw,c):null),
+  n=raw.holdings[c.id]??0;
  if(!q||typeof q!=='object')return null;
  const issued=q.sharesOutstanding??c.shares,free=q.publicFloat??c.float;
  if(!Number.isSafeInteger(issued)||issued<100||issued>MAX_COMPANY_SHARES||
@@ -1372,8 +1451,15 @@ const lockedCash=s.options.filter(o=>o.side==='short'&&o.type==='put')
 if(!Number.isSafeInteger(lockedCash)||lockedCash>cents(s.cash))return null;
 if(Array.isArray(raw.events))s.events=raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,14).map(e=>({day:e.day,text:e.text}));return s;
 }
-function migrateV1(raw){if(!raw||raw.version!==1||!raw.companies||!raw.holdings||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295)return null;const s=fresh();s.seed=raw.seed;s.day=raw.day;s.cash=usd(cents(raw.cash));s.selected=company(raw.selected)?raw.selected:'NEON';s.side=raw.side==='sell'?'sell':'buy';for(const id of ['NEON','HARB','MISO','VOLT']){const q=raw.companies[id],owned=raw.holdings[id]??0,c=company(id);if(!q||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(owned)||owned<0||owned>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price))return null;s.companies[id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:0};if(owned)s.holdings[id]=owned;}s.events=Array.isArray(raw.events)?raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,13):[];s.events.unshift({day:s.day,text:'MarketLab upgraded to v0.2. Two companies joined the exchange.'});return s}
-function load(){try{const raw=localStorage.getItem(KEY);if(raw!==null){const val=normalize(JSON.parse(raw));if(val)return val;loadNotice='This save is invalid. Fresh market loaded. Your original save remains until the next action.';return fresh();}const legacy=localStorage.getItem(OLD_KEY);if(legacy!==null){const migrated=migrateV1(JSON.parse(legacy));if(migrated){loadNotice='Your v0.1 portfolio was imported into v0.2.';return migrated;}loadNotice='Older save was invalid. Started a new market.';}return fresh();}catch(e){if(e instanceof SyntaxError)loadNotice='Could not parse the saved game. A fresh market was loaded.';else{storageAvailable=false;loadNotice='Storage is unavailable. Your progress will not persist.'}return fresh()}}
+function migrateV1(raw){if(!raw||raw.version!==1||!raw.companies||!raw.holdings||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295)return null;const s=fresh();s.seed=raw.seed;s.day=raw.day;s.cash=usd(cents(raw.cash));s.selected=company(raw.selected)?raw.selected:'NEON';s.side=raw.side==='sell'?'sell':'buy';for(const id of ['NEON','HARB','MISO','VOLT']){const q=raw.companies[id],owned=raw.holdings[id]??0,c=company(id);if(!q||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(owned)||owned<0||owned>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price))return null;s.companies[id]={...s.companies[id],price:usd(cents(q.price)),
+ previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:0,
+ fundamentals:makeFundamentals(c,q.price,c.shares)};
+ if(owned){
+  s.holdings[id]=owned;
+  s.positionCostCents[id]=owned*cents(q.price);
+  s.estimatedBasis[id]=true;
+ }}s.events=Array.isArray(raw.events)?raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,13):[];s.events.unshift({day:s.day,text:'MarketLab upgraded: new companies, financial reports and sector cycles joined the exchange.'});return s}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw!==null){const val=normalize(JSON.parse(raw));if(val)return val;loadNotice='This save is invalid. Fresh market loaded. Your original save remains until the next action.';return fresh();}const legacy=localStorage.getItem(OLD_KEY);if(legacy!==null){const migrated=migrateV1(JSON.parse(legacy));if(migrated){loadNotice='Your legacy portfolio was imported into MarketLab v0.6.3.1.';return migrated;}loadNotice='Older save was invalid. Started a new market.';}return fresh();}catch(e){if(e instanceof SyntaxError)loadNotice='Could not parse the saved game. A fresh market was loaded.';else{storageAvailable=false;loadNotice='Storage is unavailable. Your progress will not persist.'}return fresh()}}
 let state=load(),timer=null;
 const SESSION_LOCK='marketlab-active-editor-v1';
 function readSavedRaw(){try{return localStorage.getItem(KEY)}catch{return null}}
@@ -1398,7 +1484,7 @@ function syncProfile(){
   else if(!settingsMobileSeeded)fold.open=fold.dataset.mobileDefault==='open';
  }
  if(next==='mobile')settingsMobileSeeded=true;
- const screenInfo={market:['Explore','6 companies'],chart:['Charts','Market performance'],trade:['Trade','Paper money · Instant fills'],portfolio:['Portfolio','Your market holdings']};
+ const screenInfo={market:['Explore',COMPANIES.length+' companies · '+SECTORS.length+' sectors'],chart:['Charts','Market performance'],trade:['Trade','Paper money · Instant fills'],portfolio:['Portfolio','Your market holdings']};
  const screen=screenInfo[state.ui.mobileTab]||screenInfo.market;
  $('mobileScreenTitle').textContent=screen[0];$('mobileScreenHint').textContent=screen[1];
  $('profilemode').value=state.ui.profileMode;
@@ -1623,7 +1709,7 @@ function exportFrameDiagnostics(){
  if(!framePerf.deltas.length)return;
  showFrameSummary();
  const report={
-  format:'marketlab-frame-diagnostics-v1',appVersion:'v0.6.0',
+  format:'marketlab-frame-diagnostics-v1',appVersion:'v0.6.3.1',
   capturedAt:new Date().toISOString(),active:framePerf.active,
   measurement:'requestAnimationFrame callback intervals (before paint); not GPU FPS or scanout',
   browser:navigator.userAgent,screen:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},
@@ -1704,6 +1790,16 @@ function updateEconomy(s){
    Math.max(0,1.3-e.growth)*.10+Math.max(0,49-e.pmi)*.032+bellNoise(s)*.18,.4,10));
  e.wageGrowth=roundEconomy(clamp(e.wageGrowth*.84+(3.1-(e.unemployment-4.7)*.20)*.16+
    bellNoise(s)*.20,-3,12));
+ // Independent economic drivers let sector leaders rotate independently of
+ // the overall bull/bear regime. Changes are monthly, bounded, and repeatable.
+ e.commodityIndex=roundEconomy(clamp(e.commodityIndex*.83+100*.17+
+  (e.growth-2.1)*1.25+bellNoise(s)*6.8,40,200));
+ e.yieldCurve=roundEconomy(clamp(e.yieldCurve*.76+(1.2-(e.rate-3.5)*.30-
+  (e.creditSpread-1.6)*.20)*.24+bellNoise(s)*.32,-3,5));
+ e.careDemand=roundEconomy(clamp(e.careDemand*.90+100*.10+
+  (e.unemployment-4.7)*.12+bellNoise(s)*1.9,70,150));
+ e.gridDemand=roundEconomy(clamp(e.gridDemand*.86+100*.14+
+  (e.growth-2.1)*.80+bellNoise(s)*3.5,60,165));
  const previous=e.rate;
  // Rate decisions are deliberately less reactive: modest quarter-point moves
  // only on alternating macro reports, and only when conditions support them.
@@ -1717,6 +1813,7 @@ function updateEconomy(s){
  const direction=e.policyDirection==='up'?'hikes':e.policyDirection==='down'?'cuts':'holds';
  pushEvent('Economic report: growth '+signed(e.growth)+', inflation '+e.inflation.toFixed(2)+
   '%. Factory PMI '+e.pmi.toFixed(1)+', credit spread '+e.creditSpread.toFixed(2)+
+  '%. Commodity '+e.commodityIndex.toFixed(1)+', yield curve '+e.yieldCurve.toFixed(2)+
   '%. Central bank '+direction+' rates at '+e.rate.toFixed(2)+'%.');
 }
 function economyMarketMove(e){
@@ -1725,16 +1822,68 @@ function economyMarketMove(e){
   (e.inflation-2.6)*.00017-(e.rate-3.5)*.00023-(spread-1.6)*.00024+
   (pmi-52)*.000029,-.005,.005);
 }
+// Sector responses are not identical: the same economy can help lenders
+// while hurting utilities or reverse the advantage when financing tightens.
 function economySectorMove(sector,e){
  const spread=e.creditSpread??1.6,pmi=e.pmi??52,wage=e.wageGrowth??3.2;
+ const oil=e.commodityIndex??100,curve=e.yieldCurve??1.1;
+ const care=e.careDemand??100,power=e.gridDemand??100;
  let move=0;
- if(sector==='Technology')move=-(e.rate-3.5)*.00044+(e.growth-2.1)*.00024-(spread-1.6)*.00025;
- else if(sector==='Industrials')move=(e.growth-2.1)*.00030-(e.unemployment-4.7)*.00019+(pmi-52)*.000052;
- else if(sector==='Consumer')move=(e.confidence-100)*.000055-(e.inflation-2.6)*.00024+(wage-3.2)*.000095;
- else if(sector==='Energy')move=(e.inflation-2.6)*.00030+(e.growth-2.1)*.00018;
- return clamp(move,-.006,.006);
+ switch(sector){
+  case 'Technology':
+   move=-(e.rate-3.5)*.00048+(e.growth-2.1)*.00029-(spread-1.6)*.00030;break;
+  case 'Industrials':
+   move=(e.growth-2.1)*.00030-(e.unemployment-4.7)*.00019+(pmi-52)*.000055;break;
+  case 'Consumer':
+   move=(e.confidence-100)*.000058-(e.inflation-2.6)*.00026+(wage-3.2)*.000095;break;
+  case 'Energy':
+   move=(oil-100)*.00018+(e.inflation-2.6)*.00017+(e.growth-2.1)*.00020;break;
+  case 'Finance':
+   move=(curve-1.1)*.00060-(spread-1.6)*.00075+
+     (e.growth-2.1)*.00019-(e.unemployment-4.7)*.00035;break;
+  case 'Healthcare':
+   move=(care-100)*.00016+(e.unemployment-4.7)*.00010-
+     (e.rate-3.5)*.00012-(e.inflation-2.6)*.00010;break;
+  case 'Utilities':
+   move=(power-100)*.00016-(e.rate-3.5)*.00044+
+     (e.unemployment-4.7)*.00012-(e.inflation-2.6)*.00006;break;
+ }
+ return clamp(move,-.0075,.0075);
 }
-// The earnings cycle is company-specific. Reports are staggered so all six
+function sectorCycleDrift(sector){
+ const cycle=state.sectorCycles[sector];
+ return (cycle?.phase||0)*({
+  Technology:.00125,Industrials:.00113,Consumer:.00103,
+  Energy:.00170,Finance:.00140,Healthcare:.00085,Utilities:.00095
+ }[sector]??.001);
+}
+function updateSectorCycles(){
+ const e=state.economy;
+ for(const sector of SECTORS){
+  const cycle=state.sectorCycles[sector];
+  if(cycle.daysLeft>0){cycle.daysLeft--;continue}
+  // Sector mood can diverge from the wider market. Economic conditions
+  // tilt the odds rather than permanently fixing a sector's direction.
+  const influence=clamp(economySectorMove(sector,e)*75,-.22,.22);
+  const favorable=clamp(.32+influence,.14,.55);
+  const adverse=clamp(.32-influence,.14,.55);
+  const draw=random(state);
+  const prior=cycle.phase;
+  cycle.phase=draw<favorable?1:draw<favorable+adverse?-1:0;
+  cycle.daysLeft=42+Math.floor(random(state)*86);
+  if(cycle.phase!==prior&&cycle.phase!==0){
+   pushEvent(sector+' sector enters a '+(cycle.phase>0?'tailwind':'headwind')+
+    ' cycle; relative performance may diverge from the market.');
+  }
+ }
+}
+const SECTOR_DRIVERS={
+ Technology:'Growth · financing rates',Industrials:'Factory activity · investment',
+ Consumer:'Confidence · purchasing power',Energy:'Commodity prices · supply shocks',
+ Finance:'Yield curve · credit conditions',Healthcare:'Medical demand · defensive spending',
+ Utilities:'Electricity demand · borrowing costs'
+};
+// The earnings cycle is company-specific. Reports are staggered so all nine
 // businesses do not announce on the same day. This is simulated financial data.
 function fundamentalFairPrice(c){
  const q=quote(c.id),f=q.fundamentals;
@@ -1756,7 +1905,12 @@ function quarterlyReport(c){
  const macro=state.economy,priorRevenue=f.revenue,oldGuidance=f.guidance;
  const sectorBoost=c.sector==='Industrials'?(macro.pmi-50)*.002:
   c.sector==='Consumer'?(macro.confidence-100)*.0011:
-  c.sector==='Energy'?(macro.inflation-2.6)*.006:
+  c.sector==='Energy'?((macro.commodityIndex??100)-100)*.0011:
+  c.sector==='Finance'?((macro.yieldCurve??1.1)-1.1)*.018-
+    (macro.creditSpread-1.6)*.015:
+  c.sector==='Healthcare'?((macro.careDemand??100)-100)*.0024:
+  c.sector==='Utilities'?((macro.gridDemand??100)-100)*.0017-
+    (macro.rate-3.5)*.008:
   (macro.growth-2.1)*.012;
  const annualGrowth=clamp(oldGuidance*.6+macro.growth*.008+sectorBoost+
   bellNoise(state)*.057,-.28,.34);
@@ -1776,7 +1930,10 @@ function quarterlyReport(c){
   Technology:['new platform gains enterprise customers','data-center expansion raises costs'],
   Industrials:['factory modernization improves output','supply-chain disruption strains deliveries'],
   Consumer:['new product line attracts shoppers','inventory markdowns pressure margins'],
-  Energy:['new production capacity comes online','maintenance costs reduce output']
+  Energy:['new production capacity comes online','maintenance costs reduce output'],
+  Finance:['loan growth and deposits strengthen','delinquencies and funding costs rise'],
+  Healthcare:['new treatment wins regulatory approval','clinical trials fail to meet endpoints'],
+  Utilities:['grid upgrades improve reliability','major storm damages transmission infrastructure']
  };
  let catalyst=0;
  if(random(state)<.16){
@@ -1879,6 +2036,7 @@ function tick(){
   pushEvent(`Market cycle shifts to ${state.regime.toUpperCase()}.`);
  }
  state.regimeDays--;
+ updateSectorCycles();
  const bias=state.regime==='bull'?.00145:state.regime==='bear'?-.0019:state.regime==='normal'?.00025:0;
  const turbulence=state.regime==='volatile'?1.48:state.regime==='bear'?1.12:1;
  // Persistent momentum creates trends, while random shocks keep prices unpredictable.
@@ -1895,7 +2053,13 @@ function tick(){
  for(const c of COMPANIES)if(!(c.sector in sectors)){
   const momentum=clamp((state.sectorMomentum[c.sector]||0)*.93+bellNoise(state)*.0012,-.014,.014);
   state.sectorMomentum[c.sector]=momentum;
-  sectors[c.sector]=momentum+bellNoise(state)*.006*turbulence;
+  // Distinct multi-month booms and slumps, plus rare localized headlines.
+  const sectorShock=random(state)<.0019?
+   (random(state)<.50?-1:1)*(.032+random(state)*.071):0;
+  if(sectorShock)pushEvent(c.sector+' sector '+(sectorShock>0?'surges':'sells off')+
+    ' on an unexpected industry-wide catalyst.');
+  sectors[c.sector]=momentum+bellNoise(state)*.006*turbulence+
+   sectorCycleDrift(c.sector)+sectorShock;
  }
  let top=null,low=null;
  for(const c of COMPANIES){
@@ -1907,7 +2071,10 @@ function tick(){
    eventMove+=(random(state)<.51?-1:1)*(.055+random(state)*.098);
    pushEvent(c.id+': unexpected corporate news changes investor expectations.');
   }
-  const sectorWeight=c.sector==='Technology'?1.13:c.sector==='Energy'?.83:1;
+  const sectorWeight={
+   Technology:1.13,Industrials:1.03,Consumer:1.02,Energy:.83,
+   Finance:1.11,Healthcare:.69,Utilities:.57
+  }[c.sector]??1;
   const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.38*turbulence+eventMove+economySectorMove(c.sector,state.economy)+valuationPressure(c,q.price,state.day),-.33,.33);
   q.price=usd(clamp(marketRoundCents(old*(1+step),state),1,MAX_PRICE_CENTS));
   q.history.push(q.price);if(q.history.length>HISTORY)q.history.shift();
@@ -2083,6 +2250,47 @@ function renderCompanyBrief(){
   ' · Model value is a rough earnings estimate, not a price target.'+action;
  if($('briefNarrative').textContent!==narrative)$('briefNarrative').textContent=narrative;
 }
+// Reuse sector cards across frames. Indicators describe modeled tailwinds,
+// not predictions; daily returns remain independently volatile.
+const sectorRows=[];
+function renderSectorRotation(){
+ const host=$('sectorRows');
+ if(sectorRows.length!==SECTORS.length||sectorRows.some(r=>r.node.parentElement!==host)){
+  host.innerHTML=SECTORS.map(sector=>'<div class="sector-card" data-sector="'+escape(sector)+'">'+
+   '<div class="sector-card-top"><strong>'+escape(sector)+'</strong><b class="sector-change">+0.00%</b></div>'+
+   '<div class="sector-phase">NEUTRAL</div><small>'+escape(SECTOR_DRIVERS[sector])+'</small></div>').join('');
+  sectorRows.length=0;
+  for(const node of host.children)sectorRows.push({
+   node,name:node.dataset.sector,change:node.querySelector('.sector-change'),
+   phase:node.querySelector('.sector-phase')
+  });
+ }
+ let best=null,worst=null;
+ for(const row of sectorRows){
+  const companies=SECTOR_MEMBERS[row.name];
+  const pct=companies.reduce((n,c)=>n+dayChange(c.id),0)/companies.length;
+  const cycle=state.sectorCycles[row.name];
+  if($('sectorRotation').open){
+   const stage=cycle.phase>0?'TAILWIND':cycle.phase<0?'HEADWIND':'NEUTRAL';
+   const phrase=stage+' · '+cycle.daysLeft+' days to review';
+   setRowText(row.phase,phrase);
+   setRowText(row.change,signed(pct));
+   const css='sector-change'+(pct>0?' pos':pct<0?' neg':'');
+   if(row.change.className!==css)row.change.className=css;
+   const pcss='sector-phase'+(cycle.phase>0?' sector-up':cycle.phase<0?' sector-down':'');
+   if(row.phase.className!==pcss)row.phase.className=pcss;
+  }
+  if(!best||pct>best.pct)best={sector:row.name,pct};
+  if(!worst||pct<worst.pct)worst={sector:row.name,pct};
+ }
+ setRowText($('sectorLeader'),'LEADS: '+best.sector+' · LAGS: '+worst.sector);
+ const e=state.economy;
+ setRowText($('sectorFactors'),'COMMODITY '+e.commodityIndex.toFixed(1)+
+  ' · YIELD CURVE '+signed(e.yieldCurve)+
+  ' · CARE DEMAND '+e.careDemand.toFixed(1)+
+  ' · POWER DEMAND '+e.gridDemand.toFixed(1));
+}
+$('sectorRotation').addEventListener('toggle',()=>{if($('sectorRotation').open)renderSectorRotation();});
 function renderEconomy(){
  const e=state.economy,rate=e.rate.toFixed(2)+'%',inflation=e.inflation.toFixed(2)+'%';
  const values={
@@ -2110,8 +2318,8 @@ if(FEATURE_FLAGS.marketTrend){
  $('trendvalue').textContent=word;$('trendvalue').className='statvalue '+(trend.kind==='up'?'pos':trend.kind==='down'?'neg':'');
  $('trendnote').textContent=signed(trend.pct)+' / '+trend.span+' days';
  $('marketpulse').innerHTML='<span class="'+(trend.kind==='up'?'pos':trend.kind==='down'?'neg':'')+'">'+escape(word)+'</span> · '+signed(trend.pct)+' in '+trend.span+' sessions · '+state.regime.toUpperCase()+' cycle · '+state.regimeDays+' days to reassessment';
- $('marketstate').textContent='6 STOCKS · '+word+' · '+state.regime.toUpperCase();
-}else $('marketstate').textContent='6 STOCKS · '+state.regime.toUpperCase()+' MARKET';
+ $('marketstate').textContent=COMPANIES.length+' STOCKS · '+word+' · '+state.regime.toUpperCase();
+}else $('marketstate').textContent=COMPANIES.length+' STOCKS · '+state.regime.toUpperCase()+' MARKET';
  for(const [id,short] of [['networth',compact(usd(w))],['cash',compact(state.cash)],['invested',compact(usd(held))],['index',numFmt.format(cap/BASE_MARKET_CAP*1000)],['totalcap',compact(cap)],['day',String(state.day)]]){
   const el=$(id);el.dataset.compact=short;el.title=el.textContent;
  }
@@ -2123,7 +2331,7 @@ function sparklinePath(id){
  const spread=Math.max(max-min,.01);
  return hist.slice(start).map((p,i)=>(i?'L':'M')+(2+i*88/Math.max(1,n-1)).toFixed(1)+' '+(30-(p-min)/spread*26).toFixed(1)).join(' ');
 }
-// Update the six existing watchlist rows in place, instead of replacing their
+// Update persistent watchlist rows in place, instead of replacing their
 // entire DOM (and losing focus/scroll position) on each simulated market day.
 const stockRows=[];
 function setRowText(node,text){if(node.textContent!==text)node.textContent=text}
@@ -2163,7 +2371,7 @@ function renderStocks(){
 function plotChartPath(values,px,py,width){
  const count=values.length;
  if(!count)return '';
- const pointLimit=Math.max(85,Math.ceil(width*.75));
+ const pointLimit=Math.max(85,Math.min(380,Math.ceil(width*.75)));
  const point=i=>(i?'L':'M')+px(i).toFixed(2)+' '+py(values[i]).toFixed(2);
  if(count<=pointLimit)return values.map((_,i)=>point(i)).join(' ');
  const bucketSize=Math.ceil((count-2)/Math.max(1,Math.floor((pointLimit-2)/2)));
@@ -2324,7 +2532,7 @@ function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class=
 // Hidden panels are refreshed when opened. Desktop retains its full workspace.
 let firstPanelRender=true;
 function render(){
- syncProfile();applyLayout();renderStats();renderEconomy();renderCompanyBrief();
+ syncProfile();applyLayout();renderStats();renderEconomy();renderCompanyBrief();renderSectorRotation();
  if(firstPanelRender||!isMobileProfile()){
   renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();
   firstPanelRender=false;
@@ -2341,7 +2549,7 @@ function render(){
 // Market progress changes data, not panel geometry. Repaint only relevant
 // mobile views during fast playback; entering a tab still refreshes everything.
 function renderMarketFrame(){
- renderStats();renderEconomy();renderCompanyBrief();
+ renderStats();renderEconomy();renderCompanyBrief();renderSectorRotation();
  // Market time is visible in the mobile quickbar on every tab.
  renderClock();
  if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();return;}
