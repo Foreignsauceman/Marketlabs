@@ -64,3 +64,11 @@ Browser/iPhone manual testing is still advised; Node smoke tests do not emulate 
 - Rebuilt mobile CSS remains scoped to the mobile profile. Switch to desktop mode through the profile selector if preferred.
 
 **Safety:** Export a JSON save before any major release. The v0.5.0 update leaves the save key and market mechanics untouched. Automated browser checks cover common actions, but test the installed app on iPhone after deployment.
+
+## GitHub username and Pages URL changes
+
+GitHub repository links usually redirect when the owner renames their account, but GitHub Pages moves to a **different subdomain**. This project currently publishes at https://foreignsauceman.github.io/Marketlabs/ . The post-deploy smoke test derives the GitHub Pages address from `GITHUB_REPOSITORY` instead of hardcoding a username.
+
+**Local portfolio safety:** Browser `localStorage`, service workers, and installed web-app data belong to a specific site origin. The old and new `*.github.io` subdomains do not share local data. Before abandoning or deleting an existing Home Screen installation, launch it and export a JSON save if it still opens. Then visit the new Pages URL and import that backup under **Saves & Settings**. If the old app no longer opens, do not uninstall it until recovery options are reviewed. Repository content and GitHub Pages redeployment cannot migrate browser storage across origins.
+
+If you set a custom Pages domain later, override the CI URL with `MARKETLAB_URL` to test the custom-domain origin instead.

@@ -7,7 +7,12 @@ const source = readFileSync(resolve(root, 'index.html'), 'utf8');
 const version = source.match(/<title>[^<]*\s(v\d+\.\d+\.\d+)<\/title>/)?.[1];
 if (!version) throw Error('Cannot determine expected application version');
 
-const site = new URL(process.env.MARKETLAB_URL || 'https://corbetthunter115.github.io/Marketlabs/');
+// GitHub Pages uses the repository owner's current username as its subdomain.
+// Resolve this at run time so account renames don't break release checks.
+const repository = process.env.GITHUB_REPOSITORY || 'Foreignsauceman/Marketlabs';
+const [owner, project] = repository.split('/');
+if (!owner || !project) throw Error('Invalid GITHUB_REPOSITORY: ' + repository);
+const site = new URL(process.env.MARKETLAB_URL || `https://${owner.toLowerCase()}.github.io/${project}/`);
 const sleep = duration => new Promise(resolve => setTimeout(resolve, duration));
 
 async function request(relativePath) {
