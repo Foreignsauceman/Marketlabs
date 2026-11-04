@@ -951,10 +951,24 @@ function marketRoundCents(raw,s){
  return floor+(random(s)<raw-floor?1:0);
 }
 function preHistory(s,c,last){let price=cents(last),history=[usd(price)];for(let i=0;i<HISTORY-1;i++){price=clamp(Math.round(price*(1+(random(s)-.5)*c.volatility*1.85)),1,MAX_PRICE_CENTS);history.unshift(usd(price))}return history}
-function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{}};for(const c of COMPANIES)s.companies[c.id]={price:c.price,previous:c.price,history:preHistory(s,c,c.price),volume:0};s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
+// The economy is fictional, deterministic and stored alongside the v2 portfolio.
+// Missing economy data from older saves receives stable, backward-compatible defaults.
+const roundEconomy=n=>Math.round(n*100)/100;
+function freshEconomy(){return{rate:3.5,inflation:2.6,growth:2.1,unemployment:4.7,confidence:100,lastReportDay:0,policyDirection:'hold'}}
+function normalizeEconomy(raw,day){
+ if(raw===undefined)return freshEconomy();
+ if(!raw||typeof raw!=='object'||Array.isArray(raw))return null;
+ const limits={rate:[0,10],inflation:[0,12],growth:[-8,10],unemployment:[1,20],confidence:[40,160]};
+ for(const [key,[low,high]] of Object.entries(limits))if(typeof raw[key]!=='number'||!Number.isFinite(raw[key])||raw[key]<low||raw[key]>high)return null;
+ if(!Number.isSafeInteger(raw.lastReportDay)||raw.lastReportDay<0||raw.lastReportDay>day||!['up','down','hold'].includes(raw.policyDirection))return null;
+ return{rate:raw.rate,inflation:raw.inflation,growth:raw.growth,unemployment:raw.unemployment,
+  confidence:raw.confidence,lastReportDay:raw.lastReportDay,policyDirection:raw.policyDirection};
+}
+function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{},economy:freshEconomy()};for(const c of COMPANIES)s.companies[c.id]={price:c.price,previous:c.price,history:preHistory(s,c,c.price),volume:0};s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
 function normalize(raw){
 if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==2||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295||!raw.companies||typeof raw.companies!=='object'||Array.isArray(raw.companies)||!raw.holdings||typeof raw.holdings!=='object'||Array.isArray(raw.holdings))return null;
-const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{}};
+const economy=normalizeEconomy(raw.economy,raw.day);if(!economy)return null;
+const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{},economy};
 for(const sector of new Set(COMPANIES.map(c=>c.sector)))s.sectorMomentum[sector]=clampMomentum(raw.sectorMomentum?.[sector],.014);
 for(const c of COMPANIES)s.stockMomentum[c.id]=clampMomentum(raw.stockMomentum?.[c.id],.023);
 for(const c of COMPANIES){const q=raw.companies[c.id],n=raw.holdings[c.id]??0;if(!q||typeof q!=='object'||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(n)||n<0||n>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price)||!Number.isSafeInteger(q.volume)||q.volume<0||q.volume>c.float)return null;
@@ -1118,6 +1132,39 @@ function releaseEditorLock(){
  if(session.release){const release=session.release;session.release=null;release()}
 }
 function pushEvent(t){state.events.unshift({day:state.day,text:t});state.events=state.events.slice(0,14)}
+// Monthly economic reports introduce slow-moving policy and business cycles.
+function updateEconomy(s){
+ if(s.day%21!==0||s.economy.lastReportDay===s.day)return;
+ const e=s.economy,regime=s.regime;
+ e.growth=roundEconomy(clamp(e.growth*.86+2.0*.14+bellNoise(s)*.44+
+   (regime==='bull'?.22:regime==='bear'?-.32:0),-8,10));
+ e.inflation=roundEconomy(clamp(e.inflation*.9+2.45*.1+bellNoise(s)*.24+
+   (regime==='bull'?.08:regime==='bear'?-.06:0),0,12));
+ e.unemployment=roundEconomy(clamp(e.unemployment*.92+(4.75-e.growth*.04)*.08+
+   bellNoise(s)*.18,1,20));
+ e.confidence=roundEconomy(clamp(e.confidence*.87+(98+e.growth*.85-e.unemployment*.35)*.13+
+   bellNoise(s)*2.6,40,160));
+ const previous=e.rate;
+ if(e.inflation>3.1&&e.growth>-.8)e.rate=clamp(roundEconomy(e.rate+.25),0,10);
+ else if(e.growth<.6&&e.inflation<2.8)e.rate=clamp(roundEconomy(e.rate-.25),0,10);
+ e.policyDirection=e.rate>previous?'up':e.rate<previous?'down':'hold';
+ e.lastReportDay=s.day;
+ const direction=e.policyDirection==='up'?'hikes':e.policyDirection==='down'?'cuts':'holds';
+ pushEvent('Economic report: growth '+signed(e.growth)+', inflation '+e.inflation.toFixed(2)+
+  '%. Central bank '+direction+' rates at '+e.rate.toFixed(2)+'%.');
+}
+function economyMarketMove(e){
+ return clamp((e.growth-2.1)*.00016+(e.confidence-100)*.000019-
+  (e.inflation-2.6)*.00017-(e.rate-3.5)*.00023,-.005,.005);
+}
+function economySectorMove(sector,e){
+ let move=0;
+ if(sector==='Technology')move=-(e.rate-3.5)*.00044+(e.growth-2.1)*.00024;
+ else if(sector==='Industrials')move=(e.growth-2.1)*.00035-(e.unemployment-4.7)*.00019;
+ else if(sector==='Consumer')move=(e.confidence-100)*.000055-(e.inflation-2.6)*.00024;
+ else if(sector==='Energy')move=(e.inflation-2.6)*.00030+(e.growth-2.1)*.00018;
+ return clamp(move,-.006,.006);
+}
 function valuationPressure(c,price,day){
   const longRunYears=Math.min(day,252*30);
   const fair=Math.max(.01,c.price*Math.exp(longRunYears*.00018));
@@ -1127,6 +1174,7 @@ function valuationPressure(c,price,day){
  }
  function tick(){
  if(state.day>=MAX_DAY){stopAuto();notify('Maximum simulated day reached.');return}
+ updateEconomy(state);
  if(state.regimeDays<=0){
   const r=random(state);state.regime=r<.28?'bull':r<.54?'bear':r<.72?'volatile':'normal';
   state.regimeDays=48+Math.floor(random(state)*105);
@@ -1139,7 +1187,7 @@ function valuationPressure(c,price,day){
  state.marketMomentum=clamp(state.marketMomentum*.92+bellNoise(state)*.0018+bias*.10,-.022,.022);
  let macroEvent=0;
  if(random(state)<.009){macroEvent=(random(state)<.60?-1:1)*(.043+random(state)*.094);pushEvent(macroEvent<0?'Broad market selloff hits the exchange.':'Unexpected market-wide rally lifts prices.');}
- const marketMove=bias+state.marketMomentum+bellNoise(state)*.016*turbulence+macroEvent;
+ const marketMove=bias+state.marketMomentum+bellNoise(state)*.016*turbulence+macroEvent+economyMarketMove(state.economy);
  const sectors={};
  for(const c of COMPANIES)if(!(c.sector in sectors)){
   const momentum=clamp((state.sectorMomentum[c.sector]||0)*.93+bellNoise(state)*.0016,-.014,.014);
@@ -1157,7 +1205,7 @@ function valuationPressure(c,price,day){
    pushEvent(`${c.id}: ${eventMove<0?'earnings miss / negative outlook':'breakout earnings / positive outlook'} drives sharp repricing.`);
   }
   const sectorWeight=c.sector==='Technology'?1.13:c.sector==='Energy'?.83:1;
-  const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.63*turbulence+eventMove+valuationPressure(c,q.price,state.day),-.33,.33);
+  const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.63*turbulence+eventMove+economySectorMove(c.sector,state.economy)+valuationPressure(c,q.price,state.day),-.33,.33);
   q.price=usd(clamp(marketRoundCents(old*(1+step),state),1,MAX_PRICE_CENTS));
   q.history.push(q.price);if(q.history.length>HISTORY)q.history.shift();
   q.volume=clamp(Math.round(c.float*(.001+random(state)*.006)*(1+Math.abs(step)*13)),1,c.float);
@@ -1209,6 +1257,21 @@ function startAuto(){
 function toggleAuto(){if(timer!==null){stopAuto();return}startAuto()}
 function updateAutoSettings(){state.ui.autoStep=Number($('autostep').value);state.ui.autoMs=Number($('autospeed').value);save();if(timer!==null)startAuto();else renderClock()}
 function renderClock(){$('mobileMarketDay').textContent='DAY '+state.day.toLocaleString('en-US');$('mobileMarketMood').textContent=state.regime.toUpperCase()+' MARKET';$('mobileAuto').textContent=timer!==null?'Ⅱ PAUSE':'▶ PLAY';$('mobileAuto').setAttribute('aria-pressed',String(timer!==null));$('mobileAuto').disabled=state.day>=MAX_DAY;$('mobileAdvance').disabled=state.day>=MAX_DAY;$('auto').textContent=timer!==null?'Ⅱ PAUSE':'▶ AUTO';$('auto').setAttribute('aria-pressed',String(timer!==null));$('auto').classList.toggle('active',timer!==null);for(const id of ['next','next10','auto'])$(id).disabled=state.day>=MAX_DAY;$('clockstatus').textContent='· '+(timer!==null?'Market running':'Advance simulated days');$('autostep').value=String(state.ui.autoStep);$('autospeed').value=String(state.ui.autoMs);$('autodetail').textContent=(timer!==null?'RUNNING · ':'SET · ')+state.ui.autoStep+'D / '+(state.ui.autoMs/1000)+'S'}
+function renderEconomy(){
+ const e=state.economy,rate=e.rate.toFixed(2)+'%',inflation=e.inflation.toFixed(2)+'%';
+ const values={
+  economyBrief:rate+' RATE · '+inflation+' CPI',
+  economyRate:rate,economyRateTrend:e.policyDirection.toUpperCase(),
+  economyInflation:inflation,economyGrowth:signed(e.growth),
+  economyJobs:e.unemployment.toFixed(2)+'%',
+  economyConfidence:e.confidence.toFixed(1),
+  economyNext:'Next report: Day '+(Math.floor(state.day/21)+1)*21+
+    ' · Technology reacts to rates, retail to confidence, industry to growth and energy to inflation.'
+ };
+ for(const [id,value] of Object.entries(values)){
+  const node=$(id);if(node.textContent!==value)node.textContent=value;
+ }
+}
 function renderStats(){const w=worthCents(),held=holdingsCents(),gain=w-START_CENTS;
 $('networth').textContent=amount(w);$('cash').textContent=amount(cents(state.cash));$('invested').textContent=amount(held);$('sharecount').textContent=integer(COMPANIES.reduce((n,c)=>n+shares(c.id),0))+' shares held';$('day').textContent=String(state.day).padStart(3,'0');
 $('profit').textContent=signed(changePct(w,START_CENTS))+' · '+(gain>=0?'+':'−')+amount(Math.abs(gain));$('profit').className='statnote '+(gain>0?'pos':gain<0?'neg':'');
@@ -1354,7 +1417,7 @@ function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class=
 // Hidden panels are refreshed when opened. Desktop retains its full workspace.
 let firstPanelRender=true;
 function render(){
- syncProfile();applyLayout();renderStats();
+ syncProfile();applyLayout();renderStats();renderEconomy();
  if(firstPanelRender||!isMobileProfile()){
   renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();
   firstPanelRender=false;
@@ -1371,7 +1434,7 @@ function render(){
 // Market progress changes data, not panel geometry. Repaint only relevant
 // mobile views during fast playback; entering a tab still refreshes everything.
 function renderMarketFrame(){
- renderStats();
+ renderStats();renderEconomy();
  // Market time is visible in the mobile quickbar on every tab.
  renderClock();
  if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();return;}
