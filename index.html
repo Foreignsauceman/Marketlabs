@@ -949,7 +949,7 @@ function readSavedRaw(){try{return localStorage.getItem(KEY)}catch{return null}}
 const session={
  hasWebLocks:typeof window!=='undefined'&&window.isSecureContext&&location.protocol!=='file:'&&
    !!navigator.locks&&typeof navigator.locks.request==='function',
- role:'starting',pending:false,release:null,lastSavedRaw:readSavedRaw(),warning:'',ending:false
+ role:'starting',pending:false,release:null,lockAbort:null,lockAttempt:0,lastSavedRaw:readSavedRaw(),warning:'',ending:false
 };
 if(!session.hasWebLocks)session.role='writer';
 const CLOUD_NAME='marketlab-cloud-save.json',CLOUD_META_KEY='marketlab.cloud-meta.v1',RESTORE_BACKUP_KEY='marketlab.restore-backup.v1';
@@ -1059,26 +1059,44 @@ function renderSaveStatus(){
 }
 function attemptEditorLock(){
  if(!session.hasWebLocks||session.pending||session.role==='writer'||session.role==='conflict'||session.ending)return;
- session.pending=true;showSessionStatus();
- navigator.locks.request(SESSION_LOCK,{mode:'exclusive',ifAvailable:true},lock=>{
-  session.pending=false;
+ const ticket=++session.lockAttempt,abort=new AbortController();
+ session.lockAbort=abort;session.pending=true;showSessionStatus();
+ // Some browsers can leave ifAvailable requests pending under frame throttling.
+ // A timed-out request is aborted, NEVER promoted to a writer without a lock.
+ const deadline=setTimeout(()=>{
+  if(!session.pending||session.lockAttempt!==ticket)return;
+  session.lockAttempt++;session.pending=false;session.role='viewer';
+  session.lockAbort=null;abort.abort();showSessionStatus();
+ },1500);
+ navigator.locks.request(SESSION_LOCK,{mode:'exclusive',ifAvailable:true,signal:abort.signal},lock=>{
+  clearTimeout(deadline);
+  if(session.lockAttempt!==ticket||session.ending)return;
+  session.pending=false;session.lockAbort=null;
   if(!lock){session.role='viewer';showSessionStatus();return}
-  // Reload the latest portfolio *after* obtaining ownership of the writer lock.
+  // Reload the current save only after obtaining exclusive writer ownership.
   session.role='writer';session.lastSavedRaw=readSavedRaw();
   try{
    const loaded=session.lastSavedRaw===null?load():normalize(JSON.parse(session.lastSavedRaw));
    if(!loaded){session.role='conflict';showSessionStatus();return}
    state=loaded;
   }catch{session.role='conflict';showSessionStatus();return}
-  cloud.allowAuto=false; // Folder sync never resumes automatically in a newly promoted tab.
+  cloud.allowAuto=false;
   render();cloudStatus(cloud.status,cloud.severity);
   if(loadNotice&&loadNotice.includes('imported')&&session.lastSavedRaw===null)save();
   return new Promise(resolve=>{session.release=resolve});
  }).catch(()=>{
-  session.pending=false;session.role='viewer';session.warning='Editor lock could not be acquired. Try again.';showSessionStatus();
+  clearTimeout(deadline);
+  if(session.lockAttempt!==ticket)return;
+  session.pending=false;session.lockAbort=null;session.role='viewer';
+  session.warning='Editor lock could not be acquired. Try again.';
+  showSessionStatus();
  });
 }
 function releaseEditorLock(){
+ if(session.lockAbort){
+  session.lockAttempt++;
+  session.lockAbort.abort();session.lockAbort=null;session.pending=false;
+ }
  if(session.release){const release=session.release;session.release=null;release()}
 }
 function pushEvent(t){state.events.unshift({day:state.day,text:t});state.events=state.events.slice(0,14)}
