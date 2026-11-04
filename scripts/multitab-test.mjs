@@ -44,6 +44,9 @@ const probe=String.raw`<!doctype html><html lang="en"><head><meta charset="utf-8
   const expected=localStorage.getItem(KEY);
   elem(b,'next').click();
   assert(localStorage.getItem(KEY)===expected,'Read-only follower overwrote market');
+  // Simulate the actual browser pagehide lifecycle before tearing down a frame.
+  // Some headless Chromium builds do not dispatch pagehide on iframe.remove().
+  a.contentWindow.dispatchEvent(new Event('pagehide'));
   a.remove();
   await wait(()=>elem(b,'sessionNotice').hidden===true && !elem(b,'next').disabled,
     'second tab automatic takeover',12500);
