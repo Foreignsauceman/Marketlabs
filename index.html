@@ -11,7 +11,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
-<title>MARKETLAB | The Simulated Exchange v0.5.1</title>
+<title>MARKETLAB | The Simulated Exchange v0.5.2</title>
 <style>
 :root{--bg:#101713;--panel:#1a251e;--panel2:#213026;--line:#33483a;--mint:#aaf6ad;--green:#81e4a0;--red:#ff9d9a;--amber:#ffd18a;--text:#e3eee2;--muted:#9ab09e;--c1:#9ef4a1;--c2:#e5bd7c;--c3:#86cafa;--c4:#e89acd;--c5:#b0a4fa;--c6:#ff997b}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 75% -15%,#25392a 0,transparent 37%),var(--bg);color:var(--text);font:12px/1.45 ui-monospace,Consolas,'Liberation Mono',monospace}button,input{font:inherit}button{cursor:pointer;transition:background .12s,border .12s}button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}button:disabled{opacity:.40;cursor:not-allowed}.wrap{max-width:none;margin:auto;padding:14px 18px 20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}.brand h1{font-size:27px;letter-spacing:-.08em;line-height:1;margin:0;font-weight:950}.brand em{color:var(--mint);font-style:normal}.tagline{color:var(--muted);font-size:10px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.tag{border:1px solid var(--line);padding:3px 7px;border-radius:3px;color:var(--muted);white-space:nowrap;font-size:10px}.reset{border:0;background:none;color:var(--muted);font-size:10px;text-decoration:underline;text-underline-offset:3px}.reset:hover{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:9px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:9px 11px;min-width:0}.statlabel,.minor{color:var(--muted);font-size:10px;letter-spacing:.025em}.statvalue{font-size:clamp(15px,1.7vw,22px);font-weight:850;letter-spacing:-.05em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.statnote{color:var(--muted);font-size:10px;min-height:13px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;overflow:hidden}.panelhead{padding:8px 11px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:37px}.heading{color:var(--mint);font-weight:850;letter-spacing:.08em;font-size:10px}.meta{color:var(--muted);font-size:10px}.main{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(300px,.92fr);gap:9px}.left,.right{display:grid;align-content:start;gap:9px;min-width:0}.clock{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.clock p{margin:0}.clockbuttons{display:flex;gap:6px}.btn{border:1px solid #526957;background:#293c2e;border-radius:4px;color:var(--text);font-weight:800;padding:6px 10px;font-size:11px}.btn:hover{border-color:var(--mint)}.btn.primary{background:var(--amber);color:#2d2210;border-color:var(--amber)}.btn.active{color:var(--mint);border-color:var(--mint)}.chartopts{display:flex;gap:5px}.mini{border:1px solid var(--line);border-radius:3px;padding:4px 7px;background:#18231b;color:var(--muted);font-size:10px;font-weight:850}.mini[aria-pressed="true"]{color:#102118;background:var(--mint);border-color:var(--mint)}.chartarea{padding:4px 10px 6px;position:relative}.chart{width:100%;height:auto;display:block;aspect-ratio:850/270;min-height:178px;touch-action:pan-y}.chartfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:9px;padding:0 5px 3px}.legend{display:flex;flex-wrap:wrap;gap:4px 7px;padding:3px 10px 9px}.legend button{border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;padding:4px 6px;border-radius:3px;font-weight:800}.legend button:hover,.legend button[aria-pressed="true"]{background:#2d4232;color:var(--text);border-color:#486451}.swatch{width:13px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px;border-radius:2px}.tooltip{pointer-events:none;position:absolute;z-index:2;min-width:125px;max-width:205px;background:#0c1810f5;border:1px solid #54745b;padding:7px 9px;box-shadow:0 8px 24px #0008;border-radius:4px;font-size:10px}.tooltip[hidden]{display:none}.tooltip div{display:flex;justify-content:space-between;gap:15px}.boardheader,.stock{display:grid;grid-template-columns:55px minmax(100px,1.25fr) 78px 78px 66px 82px;align-items:center;gap:8px}.boardheader{color:var(--muted);padding:7px 11px 5px;font-size:9px}.boardheader>span:nth-child(n+3){text-align:right}.stock{width:100%;text-align:left;background:transparent;color:var(--text);border:0;border-top:1px solid #304135;padding:8px 11px;font-size:11px}.stock:hover{background:#26372b}.stock[aria-pressed="true"]{background:#2a3f30;box-shadow:inset 3px 0 var(--mint)}.ticker{font-weight:900;color:var(--mint)}.sname{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector{font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.num{text-align:right;white-space:nowrap;font-size:11px}.num.strong{font-weight:850}.trade{padding:10px 11px 12px}.pair{display:flex;gap:6px}.pair button{flex:1}.side{padding:7px 9px;border:1px solid var(--line);border-radius:4px;background:#122017;color:var(--muted);font-weight:850;letter-spacing:.1em}.side[aria-pressed="true"]{color:#0f2118;background:var(--mint);border-color:var(--mint)}.fieldrow{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:10px 0 5px}.fieldrow label{color:var(--muted);font-size:10px}.fillmax{color:var(--amber);background:#2d3124;border:1px solid #77714e;border-radius:3px;padding:3px 10px;font-size:10px;font-weight:900}.fillmax:disabled{opacity:.4}.qty{width:100%;border:1px solid var(--line);background:#111c15;color:var(--text);border-radius:4px;padding:7px 9px;font-size:15px;font-weight:800}.lineitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;color:var(--muted);border-bottom:1px dashed #324837;font-size:11px}.lineitem strong{font-size:11px;color:var(--text)}.execute{width:100%;border:0;border-radius:4px;background:var(--mint);color:#0d2314;padding:9px;margin-top:10px;font-size:11px;font-weight:950;letter-spacing:.03em}.execute:hover:not(:disabled){background:#d1ffcc}.toast{color:var(--amber);font-size:10px;min-height:15px;margin:6px 0 0}.holding{display:grid;grid-template-columns:51px 1fr auto;gap:5px;align-items:center;padding:7px 11px;border-bottom:1px solid #304135;font-size:11px}.holding:last-child{border-bottom:0}.holding strong{color:var(--mint)}.holding .muted{color:var(--muted)}.empty{color:var(--muted);padding:11px;font-size:10px}.activity{padding:2px 11px 7px;min-height:65px;max-height:147px;overflow:auto}.event{display:grid;grid-template-columns:auto 1fr;gap:10px;border-bottom:1px dashed #324635;padding:6px 0;font-size:10px;color:var(--muted)}.event:last-child{border-bottom:0}.eventday{color:var(--green)}.marketnote{color:var(--muted);font-size:9px;padding:0 10px 8px}.footer{color:var(--muted);font-size:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-top:10px}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px;vertical-align:middle}
@@ -784,7 +784,11 @@ body[data-profile="mobile"][data-tab="portfolio"] .stats>.stat:nth-child(3){min-
 </style>
 </head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.5.1</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
+<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.5.2</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
+<section id="sessionNotice" class="session-notice" role="status" aria-live="polite" hidden>
+ <div class="session-notice-text"><strong id="sessionHeading">Another tab is editing</strong><span id="sessionDescription">This tab is view-only to protect your portfolio.</span></div>
+ <button type="button" id="sessionRetry" class="btn">CHECK AGAIN</button>
+</section>
 <section class="stats" aria-label="Portfolio and exchange statistics">
 <div class="stat"><div class="statlabel">NET WORTH</div><div class="statvalue" id="networth">$10,000.00</div><div class="statnote" id="profit">Starting balance</div></div>
 <div class="stat"><div class="statlabel">CASH</div><div class="statvalue" id="cash">$10,000.00</div><div class="statnote">Buying power</div></div>
@@ -914,6 +918,14 @@ if(Array.isArray(raw.events))s.events=raw.events.filter(e=>e&&Number.isSafeInteg
 function migrateV1(raw){if(!raw||raw.version!==1||!raw.companies||!raw.holdings||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295)return null;const s=fresh();s.seed=raw.seed;s.day=raw.day;s.cash=usd(cents(raw.cash));s.selected=company(raw.selected)?raw.selected:'NEON';s.side=raw.side==='sell'?'sell':'buy';for(const id of ['NEON','HARB','MISO','VOLT']){const q=raw.companies[id],owned=raw.holdings[id]??0,c=company(id);if(!q||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(owned)||owned<0||owned>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price))return null;s.companies[id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:0};if(owned)s.holdings[id]=owned;}s.events=Array.isArray(raw.events)?raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,13):[];s.events.unshift({day:s.day,text:'MarketLab upgraded to v0.2. Two companies joined the exchange.'});return s}
 function load(){try{const raw=localStorage.getItem(KEY);if(raw!==null){const val=normalize(JSON.parse(raw));if(val)return val;loadNotice='This save is invalid. Fresh market loaded. Your original save remains until the next action.';return fresh();}const legacy=localStorage.getItem(OLD_KEY);if(legacy!==null){const migrated=migrateV1(JSON.parse(legacy));if(migrated){loadNotice='Your v0.1 portfolio was imported into v0.2.';return migrated;}loadNotice='Older save was invalid. Started a new market.';}return fresh();}catch(e){if(e instanceof SyntaxError)loadNotice='Could not parse the saved game. A fresh market was loaded.';else{storageAvailable=false;loadNotice='Storage is unavailable. Your progress will not persist.'}return fresh()}}
 let state=load(),timer=null;
+const SESSION_LOCK='marketlab-active-editor-v1';
+function readSavedRaw(){try{return localStorage.getItem(KEY)}catch{return null}}
+const session={
+ hasWebLocks:typeof window!=='undefined'&&window.isSecureContext&&location.protocol!=='file:'&&
+   !!navigator.locks&&typeof navigator.locks.request==='function',
+ role:'starting',pending:false,release:null,lastSavedRaw:readSavedRaw(),warning:'',ending:false
+};
+if(!session.hasWebLocks)session.role='writer';
 const CLOUD_NAME='marketlab-cloud-save.json',CLOUD_META_KEY='marketlab.cloud-meta.v1',RESTORE_BACKUP_KEY='marketlab.restore-backup.v1';
 const cloud={folder:null,folderName:'',busy:false,allowAuto:false,revision:null,status:'Not connected. Local save stays active.',severity:'',lastSnapshot:'',lastSyncedAt:0,epoch:0};
 const MOBILE_BREAKPOINT='(max-width:760px)';
@@ -960,8 +972,89 @@ function indexHistory(limit=HISTORY){
 function trendSignal(){const h=indexHistory(21),span=Math.min(20,h.length-1),ret=span?changePct(h.at(-1),h.at(-1-span)):0;
  return{pct:ret,span,kind:ret>2.3?'up':ret< -2.3?'down':'flat',h};}
 function notify(message){$('toast').textContent=message}
-function save(){if(storageAvailable){try{localStorage.setItem(KEY,JSON.stringify(state))}catch{storageAvailable=false;notify('Saving failed. Progress may be lost after closing this window.')}}renderSaveStatus()}
-function renderSaveStatus(){$('saveStatus').textContent=storageAvailable?'BROWSER AUTOSAVE · OFFLINE · CLOUD OPTIONAL':'SAVE UNAVAILABLE · PROGRESS WILL NOT PERSIST';$('saveStatus').classList.toggle('neg',!storageAvailable);if($('cloudChip'))$('cloudChip').textContent=cloud.folder?'☁ CLOUD BETA':'☁ LOCAL ONLY'}
+function showSessionStatus(){
+ const viewer=session.role!=='writer';
+ $('sessionNotice').hidden=!viewer;
+ if(viewer){
+  const awaiting=session.role==='starting'||session.pending;
+  $('sessionHeading').textContent=session.role==='conflict'?'SAVE CONFLICT DETECTED':awaiting?'CHECKING EDITOR SESSION':'VIEW-ONLY SESSION';
+  $('sessionDescription').textContent=session.role==='conflict'?
+    'Another tab changed this save while you were editing. Your market was reloaded. Close other tabs before resuming.':
+    awaiting?'Checking which MarketLab tab can safely save…':
+    'Another tab is the active editor. This tab follows its progress but cannot trade, reset, import, or advance time.';
+  $('sessionRetry').disabled=awaiting;
+  $('sessionRetry').textContent=session.role==='conflict'?'RESUME AFTER CLOSING OTHERS':'CHECK AGAIN';
+ }
+ for(const id of ['execute','next','next10','auto','mobileAdvance','mobileAuto','reset','chooseImport','syncCloud','restoreCloud','replaceCloud','fullWipe']){
+  if(viewer)$(id).disabled=true;
+ }
+ if(!viewer){$('reset').disabled=false;$('chooseImport').disabled=false;}
+}
+function reloadSharedState(raw,conflict){
+ stopAuto();cloud.epoch++;cloud.allowAuto=false;cloud.lastSnapshot='';
+ session.lastSavedRaw=raw;
+ try{
+  const latest=raw===null?load():normalize(JSON.parse(raw));
+  if(latest)state=latest;
+  else conflict=true;
+ }catch{conflict=true}
+ if(conflict)session.role='conflict';
+ render();
+ notify(conflict?'Another session changed the portfolio. Editing paused until other tabs are closed.':'Another tab updated the market. Latest save loaded.');
+}
+function requireEditor(){
+ if(session.role!=='writer'){
+  notify('View-only tab. Close the editing tab and choose CHECK AGAIN.');showSessionStatus();return false;
+ }
+ if(storageAvailable){
+  try{
+   const raw=localStorage.getItem(KEY);
+   if(raw!==session.lastSavedRaw){reloadSharedState(raw,true);return false}
+  }catch{storageAvailable=false;renderSaveStatus();return false}
+ }
+ return true;
+}
+function save(){
+ if(!requireEditor())return false;
+ if(storageAvailable){
+  try{const raw=JSON.stringify(state);localStorage.setItem(KEY,raw);session.lastSavedRaw=raw}
+  catch{storageAvailable=false;notify('Saving failed. Progress may be lost after closing this window.');renderSaveStatus();return false}
+ }
+ renderSaveStatus();return true;
+}
+function renderSaveStatus(){
+ const label=!storageAvailable?'SAVE UNAVAILABLE · PROGRESS WILL NOT PERSIST':
+  session.role==='writer'?'BROWSER AUTOSAVE · OFFLINE · CLOUD OPTIONAL':
+  'VIEW ONLY · ANOTHER TAB MAY BE EDITING';
+ $('saveStatus').textContent=label;
+ $('saveStatus').classList.toggle('neg',!storageAvailable);
+ if($('cloudChip'))$('cloudChip').textContent=cloud.folder?'☁ CLOUD BETA':'☁ LOCAL ONLY';
+ showSessionStatus();
+}
+function attemptEditorLock(){
+ if(!session.hasWebLocks||session.pending||session.role==='writer'||session.role==='conflict'||session.ending)return;
+ session.pending=true;showSessionStatus();
+ navigator.locks.request(SESSION_LOCK,{mode:'exclusive',ifAvailable:true},lock=>{
+  session.pending=false;
+  if(!lock){session.role='viewer';showSessionStatus();return}
+  // Reload the latest portfolio *after* obtaining ownership of the writer lock.
+  session.role='writer';session.lastSavedRaw=readSavedRaw();
+  try{
+   const loaded=session.lastSavedRaw===null?load():normalize(JSON.parse(session.lastSavedRaw));
+   if(!loaded){session.role='conflict';showSessionStatus();return}
+   state=loaded;
+  }catch{session.role='conflict';showSessionStatus();return}
+  cloud.allowAuto=false; // Folder sync never resumes automatically in a newly promoted tab.
+  render();
+  if(loadNotice&&loadNotice.includes('imported')&&session.lastSavedRaw===null)save();
+  return new Promise(resolve=>{session.release=resolve});
+ }).catch(()=>{
+  session.pending=false;session.hasWebLocks=false;session.role='viewer';session.warning='Web Locks unavailable; reload to retry safe editing.';showSessionStatus();
+ });
+}
+function releaseEditorLock(){
+ if(session.release){const release=session.release;session.release=null;release()}
+}
 function pushEvent(t){state.events.unshift({day:state.day,text:t});state.events=state.events.slice(0,14)}
 function valuationPressure(c,price,day){
   const longRunYears=Math.min(day,252*30);
@@ -1013,7 +1106,7 @@ function valuationPressure(c,price,day){
  // Tape includes context without generating unbounded saved events.
  if(macroEvent===0)pushEvent(top.d>=0?`${top.id} led today's session (${signed(top.d)}).`:`Red session: ${low.id} closed ${signed(low.d)}.`);
 }
-function advance(days){const count=Math.min(days,MAX_DAY-state.day);if(count<=0)return;for(let i=0;i<count;i++)tick();save();renderMarketFrame();if(state.day===MAX_DAY)stopAuto()}
+function advance(days){if(!requireEditor())return;const count=Math.min(days,MAX_DAY-state.day);if(count<=0)return;for(let i=0;i<count;i++)tick();save();renderMarketFrame();if(state.day===MAX_DAY)stopAuto()}
 function maxQty(){const c=company(state.selected),p=priceCents(c.id),owned=shares(c.id),cash=cents(state.cash);if(state.side==='sell')return Math.max(0,Math.min(owned,Math.floor((MAX_CASH_CENTS-cash)/p)));
 return Math.max(0,Math.min(Math.floor(cash/p),c.float-owned,Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
 function validateOrder(){const raw=$('qty').value.trim(),qty=/^\d+$/.test(raw)?Number(raw):NaN,id=state.selected,c=company(id),owned=shares(id),p=priceCents(id);
@@ -1024,14 +1117,14 @@ if(state.side==='buy'&&cost>cents(state.cash))return{ok:false,qty,reason:'Not en
 if(state.side==='sell'&&qty>owned)return{ok:false,qty,reason:'You do not own that many shares.'};
 if(state.side==='sell'&&cents(state.cash)+cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'Maximum cash balance reached.'};
 return{ok:true,qty,cost,reason:''}}
-function trade(){const o=validateOrder();if(!o.ok){notify(o.reason);renderTrade();return}
+function trade(){if(!requireEditor())return;const o=validateOrder();if(!o.ok){notify(o.reason);renderTrade();return}
 const id=state.selected,old=shares(id),cash=cents(state.cash);if(state.side==='buy'){state.cash=usd(cash-o.cost);state.holdings[id]=old+o.qty}else{state.cash=usd(cash+o.cost);if(old===o.qty)delete state.holdings[id];else state.holdings[id]=old-o.qty}
 pushEvent(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} ${o.qty===1?'share':'shares'} @ ${amount(priceCents(id))}.`);notify(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} for ${amount(o.cost)}.`);save();render()}
 function setSide(side){state.side=side;save();renderTrade();notify(validateOrder().reason)}
 function select(id){if(!company(id))return;state.selected=id;save();render();notify(validateOrder().reason)}
 function setView(v){state.view=v==='single'?'single':'all';save();renderChart()}
 function stopAuto(){if(timer!==null){clearInterval(timer);timer=null}renderClock()}
-function startAuto(){if(state.day>=MAX_DAY)return notify('Maximum day reached.');if(timer!==null)clearInterval(timer);timer=setInterval(()=>advance(state.ui.autoStep),state.ui.autoMs);renderClock()}
+function startAuto(){if(!requireEditor())return;if(state.day>=MAX_DAY)return notify('Maximum day reached.');if(timer!==null)clearInterval(timer);timer=setInterval(()=>advance(state.ui.autoStep),state.ui.autoMs);renderClock()}
 function toggleAuto(){if(timer!==null){stopAuto();return}startAuto()}
 function updateAutoSettings(){state.ui.autoStep=Number($('autostep').value);state.ui.autoMs=Number($('autospeed').value);save();if(timer!==null)startAuto();else renderClock()}
 function renderClock(){$('mobileMarketDay').textContent='DAY '+state.day.toLocaleString('en-US');$('mobileMarketMood').textContent=state.regime.toUpperCase()+' MARKET';$('mobileAuto').textContent=timer!==null?'Ⅱ PAUSE':'▶ PLAY';$('mobileAuto').setAttribute('aria-pressed',String(timer!==null));$('mobileAuto').disabled=state.day>=MAX_DAY;$('mobileAdvance').disabled=state.day>=MAX_DAY;$('auto').textContent=timer!==null?'Ⅱ PAUSE':'▶ AUTO';$('auto').setAttribute('aria-pressed',String(timer!==null));$('auto').classList.toggle('active',timer!==null);for(const id of ['next','next10','auto'])$(id).disabled=state.day>=MAX_DAY;$('clockstatus').textContent='· '+(timer!==null?'Market running':'Advance simulated days');$('autostep').value=String(state.ui.autoStep);$('autospeed').value=String(state.ui.autoMs);$('autodetail').textContent=(timer!==null?'RUNNING · ':'SET · ')+state.ui.autoStep+'D / '+(state.ui.autoMs/1000)+'S'}
@@ -1183,9 +1276,31 @@ $('mobileQtyPresets').addEventListener('click',e=>{const b=e.target.closest('[da
 $('qty').addEventListener('input',()=>{renderTrade();notify(validateOrder().reason)});
 $('qty').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();trade()}});
 $('execute').addEventListener('click',trade);$('next').addEventListener('click',()=>advance(1));$('next10').addEventListener('click',()=>advance(10));$('auto').addEventListener('click',toggleAuto);
-$('reset').addEventListener('click',()=>{if(cloud.busy)return notify('Cloud operation in progress. Try reset after it completes.');if(window.confirm('Reset this simulated exchange and erase your portfolio? This cannot be undone.')){stopAuto();cloud.epoch++;state=fresh();$('qty').value='1';cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();save();render();cloudStatus('Market reset. Automatic cloud sync paused to protect the previous cloud save. Use RESTORE CLOUD or REPLACE CLOUD when ready.');notify('Fresh start. Your cloud backup was left untouched.')}});
+$('reset').addEventListener('click',()=>{if(!requireEditor())return;if(cloud.busy)return notify('Cloud operation in progress. Try reset after it completes.');if(window.confirm('Reset this simulated exchange and erase your portfolio? This cannot be undone.')){stopAuto();cloud.epoch++;state=fresh();$('qty').value='1';cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();save();render();cloudStatus('Market reset. Automatic cloud sync paused to protect the previous cloud save. Use RESTORE CLOUD or REPLACE CLOUD when ready.');notify('Fresh start. Your cloud backup was left untouched.')}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAuto()});window.addEventListener('pagehide',stopAuto);
-window.addEventListener('storage',e=>{if(e.key!==KEY)return;stopAuto();state=load();render();notify('Another tab updated your market. Latest save loaded.')});
+window.addEventListener('storage',e=>{
+ if(e.key!==KEY)return;
+ // Never silently discard another tab's save. A foreign writer stops this editor.
+ reloadSharedState(e.newValue,session.role==='writer');
+});
+window.addEventListener('pagehide',()=>{
+ session.ending=true;releaseEditorLock();
+ if(session.hasWebLocks)session.role='viewer';
+});
+window.addEventListener('pageshow',()=>{
+ session.ending=false;
+ if(session.hasWebLocks&&session.role!=='writer'&&session.role!=='conflict')attemptEditorLock();
+});
+setInterval(()=>{if(session.hasWebLocks&&session.role==='viewer'&&!document.hidden)attemptEditorLock()},2500);
+$('sessionRetry').addEventListener('click',()=>{
+ if(session.role==='conflict'){
+  releaseEditorLock();session.role=session.hasWebLocks?'viewer':'writer';
+  const raw=readSavedRaw();session.lastSavedRaw=raw;
+  try{const next=raw===null?load():normalize(JSON.parse(raw));if(next)state=next}catch{}
+  render();
+ }
+ if(session.hasWebLocks)attemptEditorLock();else renderSaveStatus();
+});
 // Top dashboard tiles have independent neighbor-to-neighbor widths and a separate height.
 function applyStatsLayout(){
  const el=document.querySelector('.stats');
@@ -1432,7 +1547,7 @@ async function backupRemote(raw){
  const f=await cloud.folder.getFileHandle(name,{create:true});const w=await f.createWritable();await w.write(raw);await w.close();
  const check=await (await f.getFile()).text();if(check!==raw)throw Error('Backup verification failed. Original cloud save not touched.');
 }
-function beginBusy(){if(cloud.busy||!cloud.folder)return false;cloud.busy=true;cloudStatus('Working with your sync folder…');return true}
+function beginBusy(){if(!requireEditor()||cloud.busy||!cloud.folder)return false;cloud.busy=true;cloudStatus('Working with your sync folder…');return true}
 function endBusy(){cloud.busy=false;cloudStatus(cloud.status,cloud.severity)}
 async function inspectCloud(){
  const raw=await readRemote(),info=parseCloud(raw),meta=localMeta();
@@ -1447,7 +1562,7 @@ async function setCachedFolder(handle){try{const db=await openDB();await new Pro
 async function getCachedFolder(){try{const db=await openDB();const item=await new Promise((res,rej)=>{const tx=db.transaction('handles');const req=tx.objectStore('handles').get('folder');req.onsuccess=()=>res(req.result);req.onerror=()=>rej(req.error)});db.close();return item}catch{return null}}
 async function clearCachedFolder(){try{const db=await openDB();await new Promise((res,rej)=>{const tx=db.transaction('handles','readwrite');tx.objectStore('handles').delete('folder');tx.oncomplete=res;tx.onerror=()=>rej(tx.error)});db.close()}catch{}}
 async function connectFolder(){
- if(cloud.busy)return;
+ if(!requireEditor()||cloud.busy)return;
  if(!window.showDirectoryPicker){cloudStatus('Folder sync is not supported by this browser. Use EXPORT / IMPORT JSON instead (iOS and Android supported).','bad');return}
  try{
   let handle=cloud.folder;
@@ -1459,7 +1574,7 @@ async function connectFolder(){
   await setCachedFolder(handle);await inspectCloud();renderSaveStatus();
  }catch(e){if(e.name==='AbortError')return;cloudStatus('Could not connect: '+e.message,'bad')}
 }
-async function disconnectFolder(){cloud.epoch++;cloud.folder=null;cloud.folderName='';cloud.allowAuto=false;cloud.revision=null;forgetMeta();await clearCachedFolder();cloudStatus('Disconnected. Your local save and cloud files were not deleted.');renderSaveStatus()}
+async function disconnectFolder(){if(!requireEditor())return;cloud.epoch++;cloud.folder=null;cloud.folderName='';cloud.allowAuto=false;cloud.revision=null;forgetMeta();await clearCachedFolder();cloudStatus('Disconnected. Your local save and cloud files were not deleted.');renderSaveStatus()}
 async function syncFolder(replace=false,automatic=false){
  if(!beginBusy())return false;
  const epoch=cloud.epoch;
@@ -1477,6 +1592,7 @@ async function syncFolder(replace=false,automatic=false){
   await backupRemote(was);
   const revision=randomRevision(),out=JSON.stringify({format:'marketlab-cloud-v1',revision,updatedAt:new Date().toISOString(),state:JSON.parse(local)});
   if(epoch!==cloud.epoch)throw Error('Folder connection changed.');
+  if(!requireEditor())throw Error('Another tab changed this portfolio. Cloud sync paused.');
   await writeRemote(out);
   if(await readRemote()!==out)throw Error('Cloud write did not verify. Check your sync folder and its backups.');
   cloud.revision=revision;cloud.lastSnapshot=local;cloud.lastSyncedAt=Date.now();cloud.allowAuto=saveMeta(revision);
@@ -1507,7 +1623,8 @@ async function restoreFolder(){
   if(!storeLocalRestoreBackup())throw Error('Unable to back up current local save. Restore cancelled.');
   if(raw!==await readRemote())throw Error('Cloud changed during restore. Try again.');
   if(epoch!==cloud.epoch)throw Error('Folder connection changed.');
-  stopAuto();const old=state;state=remote.save;save();
+  if(!requireEditor())throw Error('Another tab changed the portfolio. Restore cancelled.');
+  stopAuto();const old=state;state=remote.save;if(!save()){state=old;throw Error('Could not safely save restored portfolio.')};
   if(!storageAvailable){state=old;throw Error('Local save failed. Your previous market remains in memory.');}
   cloud.revision=remote.revision;cloud.lastSnapshot=JSON.stringify(state);cloud.allowAuto=saveMeta(remote.revision);
   render();cloudStatus('Cloud save restored. Previous local state backed up in browser storage.','good');notify('Cloud restore complete.');
@@ -1527,7 +1644,7 @@ async function tryReconnectCachedFolder(){
 function downloadJson(data,filename){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),4000)}
 function exportSave(){downloadJson({format:'marketlab-export-v1',exportedAt:new Date().toISOString(),state},'marketlab-export-day-'+state.day+'.json');cloudStatus('Local market exported as JSON.','good')}
 async function importSave(file){
- if(!file)return;
+ if(!file||!requireEditor())return;
  try{
   if(file.size>2000000)throw Error('File exceeds 2 MB.');
   const raw=JSON.parse(await file.text()),parsed=normalize(raw?.format==='marketlab-export-v1'?raw.state:raw?.format==='marketlab-cloud-v1'?raw.state:raw);
@@ -1535,12 +1652,13 @@ async function importSave(file){
   if(!window.confirm('IMPORT SAVE? Replace the local portfolio and workspace? The current local data will be backed up first.'))return;
   if(cloud.busy)throw Error('Cloud operation in progress. Retry import after it finishes.');
   if(!storageAvailable||!storeLocalRestoreBackup())throw Error('Failed to back up current local save. Import cancelled.');
-  stopAuto();cloud.epoch++;const old=state;state=parsed;save();if(!storageAvailable){state=old;throw Error('Browser storage failed. Existing in-memory market retained.')}render();cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();cloudStatus('Imported JSON file. Cloud autosync paused until you explicitly RESTORE or REPLACE the cloud copy.','good');notify('Import complete.');
+  if(!requireEditor())throw Error('Another tab changed the market before import.');
+  stopAuto();cloud.epoch++;const old=state;state=parsed;if(!save()){state=old;throw Error('Could not safely save imported portfolio.')}render();cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();cloudStatus('Imported JSON file. Cloud autosync paused until you explicitly RESTORE or REPLACE the cloud copy.','good');notify('Import complete.');
  }catch(e){cloudStatus('Import failed: '+e.message,'bad')}
  finally{$('importFile').value=''}
 }
 async function fullLocalWipe(){
- if($('wipeText').value!=='WIPE'||cloud.busy)return;
+ if(!requireEditor()||$('wipeText').value!=='WIPE'||cloud.busy)return;
  stopAuto();cloud.epoch++;cloud.folder=null;cloud.allowAuto=false;cloud.revision=null;
  const keys=[KEY,OLD_KEY,CLOUD_META_KEY,RESTORE_BACKUP_KEY];
  try{for(const key of keys)localStorage.removeItem(key)}catch(e){cloudStatus('Wipe failed because browser storage was blocked. Your cloud file is untouched.','bad');return}
@@ -1548,6 +1666,7 @@ async function fullLocalWipe(){
  const freshRaw=JSON.stringify(state);
  try{localStorage.setItem(KEY,freshRaw);storageAvailable=true}
  catch{storageAvailable=false;cloudStatus('Wipe performed in memory but local storage is unavailable.','bad')}
+ session.lastSavedRaw=storageAvailable?freshRaw:null;
  render();updateRecoveryButton();cloudStatus('Full local reset complete. A fresh market has started. Existing cloud files were NOT deleted.','good');notify('Full local wipe complete.');$('settingsDialog').close();
 }
 $('openSettings').addEventListener('click',()=>{updateRecoveryButton();$('settingsDialog').showModal()});
@@ -1563,12 +1682,13 @@ $('chooseImport').addEventListener('click',()=>$('importFile').click());
 $('importFile').addEventListener('change',e=>importSave(e.target.files?.[0]));
 $('wipeText').addEventListener('input',e=>$('fullWipe').disabled=e.target.value!=='WIPE');
 $('fullWipe').addEventListener('click',fullLocalWipe);
-setInterval(()=>{if(!document.hidden&&cloud.folder&&cloud.allowAuto&&!cloud.busy&&storageAvailable&&cloud.lastSnapshot!==JSON.stringify(state))syncFolder(false,true)},90000);
+setInterval(()=>{if(session.role==='writer'&&!document.hidden&&cloud.folder&&cloud.allowAuto&&!cloud.busy&&storageAvailable&&cloud.lastSnapshot!==JSON.stringify(state))syncFolder(false,true)},90000);
 cloudStatus('Not connected. Local save stays active.');
 tryReconnectCachedFolder();
 
 document.body.classList.toggle('market-trends-enabled',FEATURE_FLAGS.marketTrend);
- render();if(loadNotice){notify(loadNotice);if(loadNotice.includes('imported'))save()}
+ render();if(loadNotice){notify(loadNotice);if(loadNotice.includes('imported')&&!session.hasWebLocks)save()}
+ if(session.hasWebLocks)attemptEditorLock();
 })();
 </script>
 
