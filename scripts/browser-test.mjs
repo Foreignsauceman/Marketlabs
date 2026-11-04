@@ -8,7 +8,7 @@ import { spawnSync } from 'node:child_process';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const html = readFileSync(join(root, 'index.html'), 'utf8');
-const version = html.match(/<title>[^<]*\s(v\d+\.\d+\.\d+)<\/title>/)?.[1];
+const version = html.match(/<title>[^<]*\s(v\d+(?:\.\d+){2,3})<\/title>/)?.[1];
 assert.ok(version, 'Missing MarketLab version');
 
 const probe = String.raw`
@@ -19,9 +19,9 @@ const probe = String.raw`
     const $ = id => document.getElementById(id);
     const cash = () => Number($('cash').textContent.replace(/[^0-9.]/g, ''));
     const assert = (truth, message) => { if (!truth) throw Error(message); };
-    assert($('stocks').querySelectorAll('[data-stock]').length === 6, 'Exchange did not render 6 stocks');
+    assert($('stocks').querySelectorAll('[data-stock]').length === 9, 'Exchange should show nine companies across seven sectors');
     assert($('chart').querySelectorAll('path').length >= 1, 'Chart SVG did not draw');
-    assert($('stocks').querySelectorAll('.stock-spark svg path').length === 6, 'Watchlist mini charts were not rendered');
+    assert($('stocks').querySelectorAll('.stock-spark svg path').length === 9, 'All nine watchlist mini charts must render');
     assert($('companyBrief').open === false, 'Company briefing should not occupy screen by default');
     $('companyBrief').open = true;
     assert($('briefMetrics').querySelectorAll('.company-brief-metric').length === 9,
