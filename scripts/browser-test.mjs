@@ -22,6 +22,19 @@ const probe = String.raw`
     assert($('stocks').querySelectorAll('[data-stock]').length === 6, 'Exchange did not render 6 stocks');
     assert($('chart').querySelectorAll('path').length >= 1, 'Chart SVG did not draw');
     assert($('stocks').querySelectorAll('.stock-spark svg path').length === 6, 'Watchlist mini charts were not rendered');
+    assert($('economyPanel').querySelectorAll('.economy-stat').length === 5,
+      'Economy panel should contain five indicators');
+    assert($('economyRate').textContent === '3.50%', 'Starting policy rate incorrect');
+    $('economyPanel').open=true;
+    assert($('economyPanel').querySelector('#economyGrowth').textContent.includes('%'),
+      'Economic growth metric was not rendered');
+    $('economyPanel').open=false;
+    $('perfStart').click();
+    assert($('perfHud').hidden===false && !$('perfStop').disabled,
+      'Live performance monitor did not start');
+    $('perfStop').click();
+    assert($('perfHud').hidden===true && !$('perfStart').disabled,
+      'Live performance monitor did not stop');
     assert($('mobilenav').querySelectorAll('button svg').length === 4, 'Bottom navigation icons missing');
     if (document.body.dataset.profile === 'mobile') {
       assert(getComputedStyle(document.querySelector('.mobile-session')).display === 'flex', 'Quick market controls not visible');
@@ -79,7 +92,7 @@ const probe = String.raw`
       $('openSettings').click();
       assert($('settingsDialog').open, 'Settings dialog did not open');
       const sections = [...document.querySelectorAll('.settings-accordion')];
-      assert(sections.length === 4, 'Expected four settings disclosure groups');
+      assert(sections.length === 5, 'Expected five settings disclosure groups');
       assert(sections.filter(x => x.open).length === 1 &&
              sections.some(x => x.open && x.dataset.mobileDefault === 'open'),
         'Settings sections should default to Portable Save only');
@@ -147,6 +160,9 @@ const probe = String.raw`
       for (let i = 0; i < 15; i++) $('next').click();
     }
     assert(stockRow === $('stocks').firstElementChild, 'Market updates replaced persistent stock cards');
+    assert(Number($('day').textContent)>21, 'Economic reports were not reached');
+    assert($('economyNext').textContent.includes('Next report:'), 'Macro report schedule not updated');
+    assert($('economyInflation').textContent.includes('%'), 'Macroeconomy missing after repeated ticks');
     document.documentElement.setAttribute('data-marketlab-render-metrics', [p50,p95,maxPoints].join(','));
   } catch (error) {
     failures.push(error.message);
