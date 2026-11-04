@@ -1414,13 +1414,13 @@ function optionQuoteCents(ticker,type,strike,expiryDay){
 }
 const holdingsCents=()=>COMPANIES.reduce((n,c)=>n+shares(c.id)*priceCents(c.id),0);
 const worthCents=()=>cents(state.cash)+holdingsCents()+optionsMarkCents();
-const marketCap=c=>c.shares*quote(c.id).price;
-const marketCapPrevious=c=>c.shares*quote(c.id).previous;
+const marketCap=c=>quote(c.id).sharesOutstanding*quote(c.id).price;
+const marketCapPrevious=c=>quote(c.id).sharesOutstanding*quote(c.id).previous;
 const totalCap=()=>COMPANIES.reduce((n,c)=>n+marketCap(c),0);
 const totalCapPrevious=()=>COMPANIES.reduce((n,c)=>n+marketCapPrevious(c),0);
 const dayChange=id=>changePct(quote(id).price,quote(id).previous);
 function indexHistory(limit=HISTORY){
- const series=COMPANIES.map(c=>({weight:c.shares,history:quote(c.id).history}));
+ const series=COMPANIES.map(c=>({weight:quote(c.id).sharesOutstanding,history:quote(c.id).history}));
  const n=Math.min(limit,...series.map(x=>x.history.length));
  return Array.from({length:n},(_,i)=>series.reduce((sum,x)=>sum+x.weight*x.history[x.history.length-n+i],0)/BASE_MARKET_CAP*1000);
 }
@@ -1746,7 +1746,7 @@ function valuationPressure(c,price,day){
   const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.38*turbulence+eventMove+economySectorMove(c.sector,state.economy)+valuationPressure(c,q.price,state.day),-.33,.33);
   q.price=usd(clamp(marketRoundCents(old*(1+step),state),1,MAX_PRICE_CENTS));
   q.history.push(q.price);if(q.history.length>HISTORY)q.history.shift();
-  q.volume=clamp(Math.round(c.float*(.001+random(state)*.006)*(1+Math.abs(step)*13)),1,c.float);
+  q.volume=clamp(Math.round(q.publicFloat*(.001+random(state)*.006)*(1+Math.abs(step)*13)),1,q.publicFloat);
   const d=dayChange(c.id);
   if(!top||d>top.d)top={id:c.id,d};if(!low||d<low.d)low={id:c.id,d};
  }
@@ -1773,7 +1773,7 @@ function placeOptionOrder({ticker,type,side,qty,strike,days}){
   return{ok:false,reason:'Writing calls requires 100 unreserved shares per contract.'};
  if(side==='short'&&type==='put'&&strike*OPTION_MULTIPLIER*qty>buyingPowerCents())
   return{ok:false,reason:'Cash-secured puts require enough unreserved cash for assignment.'};
- if(side==='short'&&type==='put'&&shares(ticker)+reservedPutShares(ticker)+qty*OPTION_MULTIPLIER>company(ticker).float)
+ if(side==='short'&&type==='put'&&shares(ticker)+reservedPutShares(ticker)+qty*OPTION_MULTIPLIER>quote(ticker).publicFloat)
   return{ok:false,reason:'Insufficient public float to guarantee put assignment.'};
  if(side==='short'&&cash+premium>MAX_CASH_CENTS)
   return{ok:false,reason:'Premium exceeds the cash balance limit.'};
@@ -1840,11 +1840,11 @@ function settleExpiringOptions(){
  state.options=state.options.filter(o=>o.expiryDay>state.day);
 }
 function maxQty(){const c=company(state.selected),p=priceCents(c.id),owned=shares(c.id),cash=cents(state.cash);if(state.side==='sell')return Math.max(0,Math.min(owned-reservedShares(c.id),Math.floor((MAX_CASH_CENTS-cash)/p)));
-return Math.max(0,Math.min(Math.floor(buyingPowerCents()/p),c.float-owned-reservedPutShares(c.id),Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
+return Math.max(0,Math.min(Math.floor(buyingPowerCents()/p),quote(c.id).publicFloat-owned-reservedPutShares(c.id),Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
 function validateOrder(){const raw=$('qty').value.trim(),qty=/^\d+$/.test(raw)?Number(raw):NaN,id=state.selected,c=company(id),owned=shares(id),p=priceCents(id);
 if(!Number.isSafeInteger(qty)||qty<1)return{ok:false,qty,reason:'Enter a positive whole number of shares.'};
 const cost=qty*p;if(!Number.isSafeInteger(cost)||cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'This order exceeds the exchange trade limit.'};
-if(state.side==='buy'&&qty>c.float-owned-reservedPutShares(id))return{ok:false,qty,reason:'Not enough shares remain in the public float.'};
+if(state.side==='buy'&&qty>quote(id).publicFloat-owned-reservedPutShares(id))return{ok:false,qty,reason:'Not enough shares remain in the public float.'};
 if(state.side==='buy'&&cost>buyingPowerCents())return{ok:false,qty,reason:'Insufficient unreserved buying power (cash may secure puts).'};
 if(state.side==='sell'&&qty>owned-reservedShares(id))return{ok:false,qty,reason:'Those shares are reserved to cover open calls.'};
 if(state.side==='sell'&&cents(state.cash)+cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'Maximum cash balance reached.'};
@@ -1933,7 +1933,7 @@ function setRowText(node,text){if(node.textContent!==text)node.textContent=text}
 function renderStocks(){
  const host=$('stocks');
  if(stockRows.length!==COMPANIES.length||stockRows.some(row=>row.button.parentElement!==host)){
-  host.innerHTML=COMPANIES.map(c=>`<button type="button" class="stock" data-stock="${c.id}" aria-pressed="false" title="${escape(c.name)} · ${integer(c.shares)} outstanding shares · ${integer(c.float)} public float"><span class="ticker">${c.id}</span><span><span class="sname" style="display:block">${escape(c.name)}</span><span class="sector"></span></span><span class="num strong"></span><span class="num"></span><span class="num"></span><span class="num">${compactShares(c.float)}</span><span class="stock-spark" aria-hidden="true"><svg viewBox="0 0 92 34" preserveAspectRatio="none"><path fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>`).join('');
+  host.innerHTML=COMPANIES.map(c=>`<button type="button" class="stock" data-stock="${c.id}" aria-pressed="false" title="${escape(c.name)} · ${integer(c.shares)} outstanding shares · ${integer(c.float)} public float"><span class="ticker">${c.id}</span><span><span class="sname" style="display:block">${escape(c.name)}</span><span class="sector"></span></span><span class="num strong"></span><span class="num"></span><span class="num"></span><span class="num stock-float">${compactShares(c.float)}</span><span class="stock-spark" aria-hidden="true"><svg viewBox="0 0 92 34" preserveAspectRatio="none"><path fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>`).join('');
   stockRows.length=0;
   for(const button of host.children)stockRows.push({
    button,sector:button.querySelector('.sector'),price:button.children[2],
@@ -1943,6 +1943,10 @@ function renderStocks(){
  }
  for(let i=0;i<COMPANIES.length;i++){
   const c=COMPANIES[i],row=stockRows[i],change=dayChange(c.id),cap=marketCap(c);
+  const title=c.name+' · '+integer(quote(c.id).sharesOutstanding)+' outstanding shares · '+
+  integer(quote(c.id).publicFloat)+' public float';
+  if(row.button.title!==title)row.button.title=title;
+  setRowText(row.button.querySelector('.stock-float'),compactShares(quote(c.id).publicFloat));
   const pressed=String(state.selected===c.id);
   if(row.button.getAttribute('aria-pressed')!==pressed)row.button.setAttribute('aria-pressed',pressed);
   setRowText(row.sector,c.sector+' · '+compact(cap)+' cap');
@@ -2040,7 +2044,7 @@ function toggleFocus(id){if(!company(id)||!state.ui.visible.includes(id))return;
 
 function renderTrade(){const id=state.selected,c=company(id),raw=$('qty').value.trim(),n=/^\d+$/.test(raw)?Number(raw):NaN,qty=Number.isSafeInteger(n)&&n>=1?n:null,o=validateOrder();$('buy').setAttribute('aria-pressed',String(state.side==='buy'));$('sell').setAttribute('aria-pressed',String(state.side==='sell'));$('orderticker').textContent=id;$('mobilecompany').value=id;$('unitprice').textContent=amount(priceCents(id));
 for(const b of $('mobileQtyPresets').querySelectorAll('[data-qty-pct]'))b.disabled=maxQty()<1;
-const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(buyingPowerCents()):integer(shares(id)-reservedShares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES');renderOptionTicket()}
+const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(buyingPowerCents()):integer(shares(id)-reservedShares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(quote(id).publicFloat-shares(id)-reservedPutShares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES');renderOptionTicket()}
 // Options ticket intentionally lives inside a disclosure to preserve mobile space.
 let lastOptionTicker='',lastOptionMarkup='';
 function optionStrikeChoices(){
