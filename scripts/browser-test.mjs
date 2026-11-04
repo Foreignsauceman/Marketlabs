@@ -21,6 +21,24 @@ const probe = String.raw`
     const assert = (truth, message) => { if (!truth) throw Error(message); };
     assert($('stocks').querySelectorAll('[data-stock]').length === 6, 'Exchange did not render 6 stocks');
     assert($('chart').querySelectorAll('path').length >= 1, 'Chart SVG did not draw');
+    assert($('stocks').querySelectorAll('.stock-spark svg path').length === 6, 'Watchlist mini charts were not rendered');
+    assert($('mobilenav').querySelectorAll('button svg').length === 4, 'Bottom navigation icons missing');
+    if (document.body.dataset.profile === 'mobile') {
+      assert(getComputedStyle(document.querySelector('.mobile-session')).display === 'flex', 'Quick market controls not visible');
+      assert(getComputedStyle(document.querySelector('.stats>.stat')).display === 'flex', 'Portfolio hero card missing');
+      assert(document.querySelector('.stats>.stat').getBoundingClientRect().width > window.innerWidth * 0.70, 'Hero card is not full width');
+      assert(document.documentElement.scrollWidth <= window.innerWidth + 3, 'Mobile layout scrolls sideways');
+      const nav = $('mobilenav');
+      assert(getComputedStyle(nav).position === 'fixed', 'Mobile navigation is not fixed');
+      nav.querySelector('[data-tab="portfolio"]').click();
+      assert(document.body.dataset.tab === 'portfolio', 'Portfolio navigation failed');
+      nav.querySelector('[data-tab="chart"]').click();
+      assert(document.body.dataset.tab === 'chart', 'Chart navigation failed');
+      nav.querySelector('[data-tab="market"]').click();
+      assert(document.body.dataset.tab === 'market', 'Watchlist navigation failed');
+    } else {
+      assert(getComputedStyle(document.querySelector('.mobile-session')).display === 'none', 'Mobile toolbar leaked onto desktop');
+    }
     const before = cash();
     const target = $('stocks').querySelector('[data-stock="HARB"]');
     assert(target, 'Could not find HARB stock');
@@ -29,6 +47,10 @@ const probe = String.raw`
     if (window.innerWidth <= 760) {
       assert(document.body.dataset.profile === 'mobile', 'Mobile profile did not activate');
       assert(document.body.dataset.tab === 'trade', 'Selecting ticker did not navigate to mobile trade tab');
+    }
+    if (document.body.dataset.profile === 'mobile') {
+      $('mobileQtyPresets').querySelector('[data-qty-pct="25"]').click();
+      assert(Number($('qty').value) >= 1, 'Quick quantity preset failed');
     }
     $('qty').value = '1';
     $('qty').dispatchEvent(new Event('input', { bubbles: true }));
@@ -44,6 +66,11 @@ const probe = String.raw`
     assert(Math.abs(cash() - before) < 0.001, 'Sell did not restore cash');
     $('next').click();
     assert(Number($('day').textContent) === 2, 'Advancing the simulated day failed');
+    if (document.body.dataset.profile === 'mobile') {
+      $('mobileAdvance').click();
+      assert(Number($('day').textContent) === 3, 'Mobile quick day advance failed');
+      assert($('mobileMarketDay').textContent.includes('3'), 'Quick market clock failed to update');
+    }
   } catch (error) {
     failures.push(error.message);
   }
