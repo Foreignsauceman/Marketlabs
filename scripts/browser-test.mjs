@@ -29,7 +29,7 @@ const probe = String.raw`
       assert(document.querySelector('.stats>.stat').getBoundingClientRect().width > window.innerWidth * 0.70, 'Hero card is not full width');
       assert(document.documentElement.scrollWidth <= window.innerWidth + 3, 'Mobile layout scrolls sideways');
       const nav = $('mobilenav');
-      const shown = id => getComputedStyle($(id)).display !== 'none';
+      const shown = id => $(id).getClientRects().length > 0;
       const overflowFree = name => assert(document.documentElement.scrollWidth <= window.innerWidth + 3,
         name + ' creates horizontal overflow');
       assert(getComputedStyle(nav).position === 'fixed', 'Mobile navigation is not fixed');
