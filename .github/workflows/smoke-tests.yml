@@ -16,10 +16,32 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
+          package-manager-cache: false
       - name: Run MarketLab smoke tests
-        run: node --test scripts/smoke-test.mjs
+        run: node --test scripts/smoke-test.mjs scripts/engine-test.mjs
+      - name: Run desktop and mobile browser smoke tests
+        run: node --test scripts/browser-test.mjs
+      - name: Check live-site verification script syntax
+        run: node --check scripts/live-deployment-check.mjs
+
+  live-site:
+    name: Verify published MarketLab
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: smoke-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out release
+        uses: actions/checkout@v5
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Verify public GitHub Pages version and assets
+        run: node scripts/live-deployment-check.mjs
