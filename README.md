@@ -1,4 +1,4 @@
-# MarketLab v0.5.2
+# MarketLab v0.5.3
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -94,3 +94,14 @@ If you set a custom Pages domain later, override the CI URL with `MARKETLAB_URL`
 - Folder-based cloud sync remains an optional manual external backup, not real-time cross-device collaboration. Existing cloud revision checks and backup safeguards remain.
 - Save format and key `marketlab.tiny-exchange.v2` are unchanged. Export a JSON recovery file before updating if your current portfolio matters.
 - CI now tests two real same-origin browser frames, writer/follower enforcement, cross-tab updates, handoff on editor closure, and rogue legacy writes, in addition to trading and mobile UI checks.
+
+## v0.5.3 performance and 120 Hz rendering target
+
+- Target: keep individual UI updates within an **8.33 ms** frame budget on capable 120 Hz screens. Actual FPS depends on device, browser, compositing, thermal throttling, and refresh-rate settings. A 60 Hz display cannot present 120 distinct frames per second.
+- The stock list now updates six persistent row elements in place instead of replacing all their HTML every market day. This reduces GC/DOM churn and preserves keyboard focus.
+- On mobile, after initial boot only the active panel is repainted; hidden Charts, Trade, and Portfolio content refresh when navigated to.
+- Chart SVG geometry is pixel-aware: long histories are downsampled with chronological min/max buckets, retaining local spikes and endpoints while rendering fewer path segments on narrow screens. Full 520-day history, hover values, pricing, and saved data are untouched.
+- Automatic market stepping uses `requestAnimationFrame` with wall-clock timing instead of unaligned `setInterval`; it does not pile up catch-up steps after hidden/slow frames.
+- Removed duplicated profile syncing and clock rendering.
+- Browser CI now records median and 95th percentile synchronous JS+layout time, verifies persistent DOM stock rows, and checks mobile 520-session chart geometry. These timings are diagnostics from a shared CI runner, **not a real-device 120 FPS guarantee**.
+- Market math, trading validation, multi-tab editor lock, and `marketlab.tiny-exchange.v2` save schema remain unchanged. A JSON export is prudent before testing this release.
