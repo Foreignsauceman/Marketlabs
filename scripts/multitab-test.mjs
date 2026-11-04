@@ -177,10 +177,19 @@ test('two same-origin browser sessions use one editor, live updates, and safe ha
    await pause(120);
   }
   assert.equal(result,'PASS','Two-tab browser regression: '+(error||'Timed out'));
+  console.log('Real-time two-tab editor/viewer handoff and stale-save conflict checks passed');
  }finally{
   try{devtools?.close()}catch{}
-  try{chrome?.kill('SIGTERM')}catch{}
+  if(chrome){
+   const exited=new Promise(resolve=>{
+    if(chrome.exitCode!==null||chrome.signalCode!==null)return resolve();
+    const deadline=setTimeout(resolve,3500);
+    chrome.once('exit',()=>{clearTimeout(deadline);resolve()});
+   });
+   chrome.kill('SIGTERM');
+   await exited;
+  }
   server.kill('SIGTERM');
-  rmSync(dir,{recursive:true,force:true});
+  rmSync(dir,{recursive:true,force:true,maxRetries:15,retryDelay:150});
  }
 });
