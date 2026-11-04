@@ -309,6 +309,41 @@ test('covered calls reserve owned stock; written puts reserve cash for assignmen
  assert.deepEqual(copy(h.normalize(normalized)),normalized);
 });
 
+
+test('in-the-money covered calls deliver reserved stock with realized stock and option gains',()=>{
+ const h=createHarness();h.setQty(100);h.trade();
+ const initialCash=h.getState().cash;
+ const opened=h.placeOptionOrder({ticker:'NEON',type:'call',side:'short',qty:1,strike:4900,days:7});
+ assert.equal(opened.ok,true);
+ assert.equal(h.reservedShares('NEON'),100);
+ h.getState().day=8;h.getState().companies.NEON.price=55;
+ h.getState().companies.NEON.history[519]=55;
+ h.settleOptions();
+ assert.equal(h.getState().holdings.NEON,undefined,'Shares should be delivered');
+ assert.equal(h.getState().realizedPnLCents,28000,'Stock delivery realizes strike less share basis');
+ assert.equal(h.getState().optionRealizedCents,opened.premium);
+ assert.equal(h.getState().cash,initialCash+(opened.premium+490000)/100);
+ assert.equal(h.reservedShares('NEON'),0);
+ assert.equal(h.getState().options.length,0);
+});
+
+test('option positions preserve net worth at the quoted entry premium and release collateral on closing',()=>{
+ const h=createHarness(),starting=h.netWorth();
+ const long=h.placeOptionOrder({ticker:'BYTE',type:'put',side:'long',qty:1,strike:900,days:21});
+ assert.equal(long.ok,true);
+ assert.equal(h.netWorth(),starting,'Opening a model-priced long option should not create instant P&L');
+ const closed=h.closeOption(long.option.id);
+ assert.equal(closed.ok,true);
+ assert.equal(h.netWorth(),starting);
+ const put=h.placeOptionOrder({ticker:'NEON',type:'put',side:'short',qty:1,strike:4600,days:21});
+ assert.equal(put.ok,true);
+ assert.equal(h.netWorth(),starting,'Premium is offset by an option liability at entry');
+ assert.equal(h.reservedCash(),460000);
+ assert.equal(h.closeOption(put.option.id).ok,true);
+ assert.equal(h.reservedCash(),0);
+ assert.equal(h.netWorth(),starting);
+});
+
 test('options validation rejects uncollateralized, expired, or malformed contracts', () => {
  const h=createHarness(),s=copy(h.getState());
  const valid={id:1,ticker:'NEON',type:'put',side:'short',qty:1,strike:4500,expiryDay:8,openedDay:1,entryPremiumCents:80};
