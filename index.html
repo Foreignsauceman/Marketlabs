@@ -1139,7 +1139,7 @@ function save(){
 // timestamps where supported (otherwise the report explicitly says unavailable).
 const framePerf={
  active:false,raf:0,last:0,started:0,lastDisplay:0,deltas:[],loafs:[],
- observer:null,report:null
+ observer:null,loafSupported:false,report:null
 };
 function percentile(values,fraction){
  if(!values.length)return 0;
@@ -1160,7 +1160,7 @@ function frameSummary(){
   medianMs:Number(median.toFixed(2)),p95Ms:Number(p95.toFixed(2)),
   estimatedRefreshHz:estimatedHz,estimatedMissedFrames:missed,
   slowFramesOver50ms:framePerf.loafs.length,
-  longAnimationFrameApi:!!framePerf.observer,measuredSeconds:Math.round((performance.now()-framePerf.started)/1000)};
+  longAnimationFrameApi:framePerf.loafSupported,measuredSeconds:Math.round((performance.now()-framePerf.started)/1000)};
 }
 function showFrameSummary(){
  const report=frameSummary();framePerf.report=report;
@@ -1194,7 +1194,7 @@ function watchFrame(timestamp){
 }
 function startFrameMonitor(){
  if(framePerf.active)return;
- framePerf.active=true;framePerf.deltas=[];framePerf.loafs=[];framePerf.report=null;
+ framePerf.active=true;framePerf.deltas=[];framePerf.loafs=[];framePerf.report=null;framePerf.loafSupported=false;
  framePerf.last=0;framePerf.lastDisplay=performance.now();framePerf.started=performance.now();
  $('perfStart').disabled=true;$('perfStop').disabled=false;$('perfExport').disabled=true;
  $('perfHud').hidden=false;
@@ -1216,7 +1216,7 @@ function startFrameMonitor(){
     }
     if(framePerf.loafs.length>60)framePerf.loafs.splice(0,framePerf.loafs.length-60);
    });
-   framePerf.observer.observe({type:'long-animation-frame'});
+   framePerf.observer.observe({type:'long-animation-frame'});framePerf.loafSupported=true;
   }
  }catch{framePerf.observer?.disconnect();framePerf.observer=null}
  framePerf.raf=requestAnimationFrame(watchFrame);
