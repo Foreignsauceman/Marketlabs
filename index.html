@@ -1477,10 +1477,92 @@ function valuationPressure(c,price,day){
   if(!top||d>top.d)top={id:c.id,d};if(!low||d<low.d)low={id:c.id,d};
  }
  state.day++;
+ settleExpiringOptions();
  // Tape includes context without generating unbounded saved events.
  if(macroEvent===0)pushEvent(top.d>=0?`${top.id} led today's session (${signed(top.d)}).`:`Red session: ${low.id} closed ${signed(low.d)}.`);
 }
 function advance(days){if(!requireEditor())return;const count=Math.min(days,MAX_DAY-state.day);if(count<=0)return;for(let i=0;i<count;i++)tick();save();renderMarketFrame();if(state.day===MAX_DAY)stopAuto()}
+// Options beta uses 100-share contracts and model prices. Long positions are
+// cash-settled at expiration. Short calls must be covered with owned shares;
+// short puts reserve enough cash to take delivery at the strike.
+function placeOptionOrder({ticker,type,side,qty,strike,days}){
+ if(!company(ticker)||!['call','put'].includes(type)||!['long','short'].includes(side)||
+  !Number.isSafeInteger(qty)||qty<1||qty>10||
+  !Number.isSafeInteger(strike)||strike<1||strike>MAX_PRICE_CENTS||
+  ![7,21,63].includes(days)||state.day+days>MAX_DAY)return{ok:false,reason:'Invalid option order.'};
+ if(state.options.length>=30||state.nextOptionId>=1000000000)return{ok:false,reason:'Option position limit reached.'};
+ const expiryDay=state.day+days,unit=optionQuoteCents(ticker,type,strike,expiryDay);
+ const premium=unit*OPTION_MULTIPLIER*qty,cash=cents(state.cash);
+ if(!Number.isSafeInteger(premium))return{ok:false,reason:'Option premium exceeds supported limits.'};
+ if(side==='long'&&premium>buyingPowerCents())return{ok:false,reason:'Not enough unreserved cash to buy the option.'};
+ if(side==='short'&&type==='call'&&shares(ticker)-reservedShares(ticker)<qty*OPTION_MULTIPLIER)
+  return{ok:false,reason:'Writing calls requires 100 unreserved shares per contract.'};
+ if(side==='short'&&type==='put'&&strike*OPTION_MULTIPLIER*qty>buyingPowerCents())
+  return{ok:false,reason:'Cash-secured puts require enough unreserved cash for assignment.'};
+ if(side==='short'&&cash+premium>MAX_CASH_CENTS)
+  return{ok:false,reason:'Premium exceeds the cash balance limit.'};
+ state.cash=usd(side==='long'?cash-premium:cash+premium);
+ const o={id:state.nextOptionId++,ticker,type,side,qty,strike,expiryDay,openedDay:state.day,entryPremiumCents:unit};
+ state.options.push(o);
+ pushEvent((side==='long'?'Bought ':'Wrote covered/secured ')+qty+' '+ticker+' '+type.toUpperCase()+
+  ' contract(s) at '+amount(unit*100)+' premium each.');
+ return{ok:true,option:o,premium};
+}
+function closeOptionPosition(id){
+ const index=state.options.findIndex(o=>o.id===id);
+ if(index<0)return{ok:false,reason:'Option position not found.'};
+ const o=state.options[index],unit=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
+ const total=unit*OPTION_MULTIPLIER*o.qty,cash=cents(state.cash);
+ if(o.side==='short'){
+  // Free this put's own cash collateral for closing, not other open puts' funds.
+  const ownReserve=o.type==='put'?o.strike*OPTION_MULTIPLIER*o.qty:0;
+  if(total>cash-(reservedCashCents()-ownReserve))
+   return{ok:false,reason:'Insufficient available funds to buy back this option.'};
+ }else if(cash+total>MAX_CASH_CENTS)return{ok:false,reason:'Maximum cash balance reached.'};
+ const realized=(o.side==='long'?unit-o.entryPremiumCents:o.entryPremiumCents-unit)*
+  OPTION_MULTIPLIER*o.qty;
+ if(!Number.isSafeInteger(state.optionRealizedCents+realized))return{ok:false,reason:'P&L precision limit reached.'};
+ state.cash=usd(o.side==='long'?cash+total:cash-total);
+ state.optionRealizedCents+=realized;
+ state.options.splice(index,1);
+ pushEvent((o.side==='long'?'Sold to close ':'Bought to close ')+o.ticker+' '+o.type.toUpperCase()+
+  ' · option P&L '+(realized>=0?'+':'−')+amount(Math.abs(realized))+'.');
+ return{ok:true,realized};
+}
+function settleExpiringOptions(){
+ if(!state.options.length||!state.options.some(o=>o.expiryDay<=state.day))return;
+ const pending=state.options.filter(o=>o.expiryDay<=state.day);
+ for(const o of pending){
+  const count=OPTION_MULTIPLIER*o.qty,spot=priceCents(o.ticker);
+  const intrinsic=Math.max(0,o.type==='call'?spot-o.strike:o.strike-spot);
+  const payoff=intrinsic*count,entry=o.entryPremiumCents*count;
+  if(o.side==='long'){
+   state.cash=usd(cents(state.cash)+payoff);
+   state.optionRealizedCents+=payoff-entry;
+   pushEvent(o.ticker+' '+o.type.toUpperCase()+' long expires: '+
+    (payoff?'cash settlement '+amount(payoff):'out of the money')+'.');
+  }else if(o.type==='call'){
+   // Assignment delivers already-owned, reserved shares for strike cash.
+   if(intrinsic>0){
+    sellStockAt(o.ticker,count,o.strike);
+    state.cash=usd(cents(state.cash)+o.strike*count);
+   }
+   state.optionRealizedCents+=entry;
+   pushEvent(o.ticker+' covered call '+(intrinsic?'assigned: '+count+' shares sold at '+amount(o.strike):
+     'expired unassigned')+'.');
+  }else{
+   // Secured collateral was held as cash rather than removed from balance.
+   if(intrinsic>0){
+    buyStockAt(o.ticker,count,o.strike);
+    state.cash=usd(cents(state.cash)-o.strike*count);
+   }
+   state.optionRealizedCents+=entry;
+   pushEvent(o.ticker+' cash-secured put '+(intrinsic?'assigned: '+count+' shares bought at '+amount(o.strike):
+     'expired unassigned')+'.');
+  }
+ }
+ state.options=state.options.filter(o=>o.expiryDay>state.day);
+}
 function maxQty(){const c=company(state.selected),p=priceCents(c.id),owned=shares(c.id),cash=cents(state.cash);if(state.side==='sell')return Math.max(0,Math.min(owned-reservedShares(c.id),Math.floor((MAX_CASH_CENTS-cash)/p)));
 return Math.max(0,Math.min(Math.floor(buyingPowerCents()/p),c.float-owned,Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
 function validateOrder(){const raw=$('qty').value.trim(),qty=/^\d+$/.test(raw)?Number(raw):NaN,id=state.selected,c=company(id),owned=shares(id),p=priceCents(id);
