@@ -662,6 +662,125 @@ body[data-profile="mobile"] .settings-dialog{font-family:-apple-system,BlinkMacS
  body[data-profile="mobile"] .stock,body[data-profile="mobile"] .mobile-nav button{transition:none}
 }
 
+
+
+/* v0.5.1 | Mobile focus and collapsible secondary controls */
+.mobile-expand-row{display:none}
+.chart-extra-body,.trade-more-body{display:contents}
+.settings-accordion>summary{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ cursor:pointer;list-style:none;user-select:none;
+}
+.settings-accordion>summary::-webkit-details-marker{display:none}
+.settings-accordion>summary h3{margin:0;color:var(--mint);font-size:12px;letter-spacing:.04em}
+.settings-fold-arrow{color:var(--muted);font-size:22px;line-height:1;transition:transform .15s}
+.settings-accordion[open] .settings-fold-arrow{transform:rotate(180deg)}
+.settings-fold-body{padding-top:9px}
+body[data-profile="mobile"] .settings-accordion{
+ padding:0;border:1px solid #30464c;border-radius:13px;background:#192730;
+ overflow:hidden;margin:10px 0;
+}
+body[data-profile="mobile"] .settings-accordion>summary{
+ min-height:55px;padding:13px 14px;align-items:center;
+}
+body[data-profile="mobile"] .settings-accordion>summary h3{font-size:13px;color:#b4f3d1;letter-spacing:.01em}
+body[data-profile="mobile"] .settings-accordion[open]>summary{border-bottom:1px solid #36505a;background:#21342f}
+body[data-profile="mobile"] .settings-fold-body{padding:11px 14px 13px}
+body[data-profile="mobile"] .settings-accordion .settings-actions button{min-height:44px}
+body[data-profile="mobile"] .settings-scroll{padding-top:7px}
+body[data-profile="mobile"] .mobile-expand-row{
+ min-height:46px;width:calc(100% - 24px);
+ margin:5px 12px 12px;padding:11px 15px;
+ border:1px solid #35515a;border-radius:12px;
+ display:flex;align-items:center;justify-content:space-between;gap:10px;
+ background:#1a2d36;color:#bce2d5;font:750 12px/1.25 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+ text-align:left;letter-spacing:0;
+}
+body[data-profile="mobile"] .mobile-expand-row:active{background:#29453d}
+body[data-profile="mobile"] .mobile-expand-row .fold-arrow{
+ font-size:21px;line-height:1;color:#b5e7d0;transition:transform .16s;flex:0 0 auto;
+}
+body[data-profile="mobile"] .mobile-expand-row[aria-expanded="true"]{
+ border-color:#5d9786;color:#d9fce9;background:#213c3c;
+}
+body[data-profile="mobile"] .mobile-expand-row[aria-expanded="true"] .fold-arrow{transform:rotate(180deg)}
+body[data-profile="mobile"] .session-actions #mobileClockToggle{
+ width:42px;min-width:42px;min-height:40px;padding:6px 5px;
+ font-size:23px;line-height:1;border-color:#3e5d61;background:#1c3237;
+}
+body[data-profile="mobile"] .session-actions #mobileClockToggle[aria-expanded="true"]{
+ background:#a4f6cf;border-color:#a4f6cf;color:#173326;
+}
+body[data-profile="mobile"]:not([data-tab="market"]) #mobileClockToggle{display:none}
+body[data-profile="mobile"][data-tab="market"] #main #clockpanel{display:none;order:2}
+body[data-profile="mobile"][data-tab="market"].mobile-clock-expanded #main #clockpanel{display:flex}
+body[data-profile="mobile"] #clockpanel .clockbuttons #next,
+body[data-profile="mobile"] #clockpanel .clockbuttons #auto{display:none}
+body[data-profile="mobile"] #clockpanel .clockbuttons{display:flex}
+body[data-profile="mobile"] #clockpanel .clockbuttons #next10{
+ flex:1;min-width:0;border:1px solid #60866f;background:#294537;color:#dff8e4;
+}
+body[data-profile="mobile"] #clockpanel .clocksettings{border-top:1px solid #2c444b;padding-top:12px}
+body[data-profile="mobile"] #main #exchangepanel #marketNote{display:none}
+body[data-profile="mobile"] #main #exchangepanel.market-info-expanded #marketNote{display:block}
+body[data-profile="mobile"] #exchangepanel #marketInfoToggle{margin-top:0}
+body[data-profile="mobile"] #chartpanel .chart-extra-body{display:none}
+body[data-profile="mobile"] #chartpanel.chart-extras-expanded .chart-extra-body{display:block}
+body[data-profile="mobile"] #chartpanel .chartopts .mini{display:none}
+body[data-profile="mobile"] #chartpanel.chart-extras-expanded .chartopts .mini{display:block}
+body[data-profile="mobile"] #chartpanel .chartopts{grid-template-columns:repeat(3,minmax(0,1fr))}
+body[data-profile="mobile"] #chartpanel .chartopts .range-picker{grid-column:1/-1}
+body[data-profile="mobile"] #chartpanel #chartExtraToggle{margin-top:10px}
+body[data-profile="mobile"] #tradepanel .trade-more-body{display:none}
+body[data-profile="mobile"] #tradepanel.trade-more-expanded .trade-more-body{display:block}
+body[data-profile="mobile"] #tradepanel #tradeMoreToggle{
+ width:100%;margin:11px 0 3px;padding:10px 12px;min-height:43px;
+ border-color:#2b444d;background:#152631;
+}
+body[data-profile="mobile"] .portfolio-activity-toggle{display:none}
+body[data-profile="mobile"][data-tab="portfolio"] .portfolio-activity-toggle{
+ display:flex;order:2;margin:4px 0 0;width:100%;
+}
+body[data-profile="mobile"][data-tab="portfolio"] #main #tapepanel{display:none;order:3}
+body[data-profile="mobile"][data-tab="portfolio"].activity-expanded #main #tapepanel{display:flex}
+
+/* Show only the financial information needed on the active screen. */
+body[data-profile="mobile"][data-tab="chart"] .stats{display:none!important}
+body[data-profile="mobile"][data-tab="market"] .stats>.stat:nth-child(2),
+body[data-profile="mobile"][data-tab="market"] .stats>.stat:nth-child(3){display:none!important}
+body[data-profile="mobile"][data-tab="market"] .stats>.stat:nth-child(1){
+ min-height:116px;padding:13px 18px;border-radius:18px;
+}
+body[data-profile="mobile"][data-tab="market"] .stats>.stat:nth-child(1)::after{display:none}
+body[data-profile="mobile"][data-tab="market"] .stats>.stat:nth-child(1) .statlabel{font-size:10px}
+body[data-profile="mobile"][data-tab="market"] .stats>.stat:nth-child(1) .statvalue{
+ font-size:clamp(27px,8vw,36px);margin:4px 0 5px;line-height:1.1;
+}
+body[data-profile="mobile"][data-tab="market"] .stats>.stat:nth-child(1) #profit{
+ font-size:10px;padding:4px 8px;
+}
+body[data-profile="mobile"][data-tab="trade"] .stats>.stat:nth-child(1),
+body[data-profile="mobile"][data-tab="trade"] .stats>.stat:nth-child(3){display:none!important}
+body[data-profile="mobile"][data-tab="trade"] .stats>.stat:nth-child(2){
+ grid-column:1/-1;min-height:76px;padding:13px 17px;border-radius:15px;
+}
+body[data-profile="mobile"][data-tab="trade"] .stats>.stat:nth-child(2) .statvalue{
+ font-size:23px;margin:3px 0 0;
+}
+body[data-profile="mobile"][data-tab="trade"] .stats>.stat:nth-child(2) .statnote{display:none}
+body[data-profile="mobile"][data-tab="portfolio"] .stats>.stat:nth-child(1){min-height:151px}
+body[data-profile="mobile"][data-tab="portfolio"] .stats>.stat:nth-child(2),
+body[data-profile="mobile"][data-tab="portfolio"] .stats>.stat:nth-child(3){min-height:89px}
+@media(max-width:390px){
+ body[data-profile="mobile"] .session-actions #mobileClockToggle{width:38px;min-width:38px}
+ body[data-profile="mobile"] .session-actions button{padding-left:7px;padding-right:7px}
+ body[data-profile="mobile"] .mobile-page-heading h2{font-size:24px}
+ body[data-profile="mobile"] .mobile-expand-row{font-size:12px}
+}
+@media(prefers-reduced-motion:reduce){
+ .settings-fold-arrow,body[data-profile="mobile"] .mobile-expand-row .fold-arrow{transition:none}
+}
+
 </style>
 </head>
 <body><div class="wrap">
