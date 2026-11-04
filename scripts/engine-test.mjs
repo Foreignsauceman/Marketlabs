@@ -42,7 +42,11 @@ const engineSource = [
     'getState:()=>state,',
     'placeOptionOrder:x=>placeOptionOrder(x),',
     'closeOption:id=>closeOptionPosition(id),',
-    'settleOptions:()=>settleExpiringOptions(),',
+    'settleOptions:()=>settleExpiringOptions(),'
+    'applyAction:(ticker,kind,ratio)=>applyCorporateAction(company(ticker),kind,ratio),',
+    'fairValue:ticker=>fundamentalFairPrice(company(ticker)),',
+    'quote:ticker=>state.companies[ticker],',
+    'company:ticker=>company(ticker),',,
     'quoteOption:(ticker,type,strike,expiry)=>optionQuoteCents(ticker,type,strike,expiry),',
     'reservedCash:()=>reservedCashCents(),',
     'reservedShares:id=>reservedShares(id),',
@@ -369,6 +373,152 @@ test('quieter typical days coexist with infrequent large scheduled and surprise 
  assert.ok(normal>550,'Ordinary trading days should be predominantly moderate');
  assert.ok(huge<35,'Double-digit swings should be infrequent');
  assert.ok(h.getState().events.some(e=>/earnings|credit|market|session/i.test(e.text)));
+});
+
+
+test('4-for-1 stock split preserves ownership, cost basis, capitalization and adjusted history',()=>{
+ const h=createHarness();h.setQty(7);h.trade();
+ const s=h.getState(),q=h.quote('NEON');
+ q.price=2313.12;q.previous=2300;q.history=q.history.map(()=>2313.12);
+ const beforeValue=7*q.price,basis=h.basis('NEON');
+ const beforeCap=q.price*q.sharesOutstanding;
+ assert.equal(h.applyAction('NEON','split',4),true);
+ assert.equal(h.getState().holdings.NEON,28);
+ assert.equal(h.basis('NEON'),basis);
+ assert.equal(q.price,578.28);
+ assert.equal(q.sharesOutstanding,6400000000*4);
+ assert.equal(q.publicFloat,3200000000*4);
+ assert.equal(q.lastAction.kind,'split');
+ assert.equal(q.lastAction.ratio,4);
+ assert.equal(q.history.at(-1),q.price);
+ assert.equal(q.previous,575);
+ assert.equal(h.getState().realizedPnLCents,0);
+ assert.ok(Math.abs(h.getState().holdings.NEON*q.price-beforeValue)<.001);
+ assert.ok(Math.abs(q.price*q.sharesOutstanding-beforeCap)<.001);
+ assert.deepEqual(copy(h.normalize(copy(s))),copy(s));
+});
+
+test('reverse split cashes fractional shares at market value and allocates basis exactly',()=>{
+ const h=createHarness();h.getState().selected='MISO';h.setQty(5);h.trade();
+ const s=h.getState(),q=h.quote('MISO'),basis=h.basis('MISO'),cash=s.cash;
+ q.price=1.25;q.previous=1.25;q.history=q.history.map(()=>1.25);
+ assert.equal(h.applyAction('MISO','reverse',2),true);
+ assert.equal(s.holdings.MISO,2);
+ assert.equal(q.price,2.5);
+ assert.equal(s.cash,cash+1.25);
+ assert.equal(h.basis('MISO'),basis-Math.round(basis/5));
+ assert.equal(s.realizedPnLCents,125-Math.round(basis/5));
+ assert.equal(q.sharesOutstanding,50000000);
+ assert.equal(q.publicFloat,31000000);
+ assert.equal(q.lastAction.kind,'reverse');
+ assert.equal(q.history.at(-1),q.price);
+ assert.deepEqual(copy(h.normalize(copy(s))),copy(s));
+});
+
+test('split-adjusted covered call keeps exercise cost and reserved shares through assignment',()=>{
+ const h=createHarness();h.setQty(100);h.trade();
+ const opened=h.placeOptionOrder({ticker:'NEON',type:'call',side:'short',qty:1,strike:4600,days:7});
+ assert.equal(opened.ok,true);
+ const cash=h.getState().cash;
+ assert.equal(h.applyAction('NEON','split',2),true);
+ const o=h.getState().options[0];
+ assert.equal(o.contractShares,200);
+ assert.equal(o.exerciseCents,460000);
+ assert.equal(o.strike,2300);
+ assert.equal(o.entryValueCents,opened.premium);
+ assert.equal(h.reservedShares('NEON'),200);
+ assert.equal(h.getState().holdings.NEON,200);
+ assert.deepEqual(copy(h.normalize(copy(h.getState()))),copy(h.getState()));
+ h.getState().day=8;
+ h.quote('NEON').price=26;h.quote('NEON').history[519]=26;
+ h.settleOptions();
+ assert.equal(h.getState().holdings.NEON,undefined);
+ assert.equal(h.getState().realizedPnLCents,-2000);
+ assert.equal(h.getState().optionRealizedCents,opened.premium);
+ assert.equal(h.getState().cash,cash+(460000/100));
+ assert.equal(h.reservedShares('NEON'),0);
+});
+
+test('reverse-split cash-secured put keeps original dollar collateral and assigns fewer shares',()=>{
+ const h=createHarness();
+ const opened=h.placeOptionOrder({ticker:'NEON',type:'put',side:'short',qty:1,strike:4500,days:7});
+ assert.equal(opened.ok,true);
+ assert.equal(h.reservedCash(),450000);
+ assert.equal(h.applyAction('NEON','reverse',2),true);
+ const o=h.getState().options[0];
+ assert.equal(o.contractShares,50);
+ assert.equal(o.exerciseCents,450000);
+ assert.equal(o.strike,9000);
+ assert.equal(h.reservedCash(),450000);
+ assert.deepEqual(copy(h.normalize(copy(h.getState()))),copy(h.getState()));
+ h.getState().day=8;h.quote('NEON').price=70;
+ h.quote('NEON').history[519]=70;
+ const cash=h.getState().cash;
+ h.settleOptions();
+ assert.equal(h.getState().options.length,0);
+ assert.equal(h.getState().holdings.NEON,50);
+ assert.equal(h.basis('NEON'),450000);
+ assert.equal(h.reservedCash(),0);
+ assert.equal(h.getState().cash,cash-4500);
+ assert.equal(h.getState().optionRealizedCents,opened.premium);
+});
+
+test('a legacy 23,365-day portfolio migrates at its current value then can split',()=>{
+ const h=createHarness(),raw=copy(h.getState());
+ raw.day=23365;
+ raw.companies.NEON.price=2313.12;
+ raw.companies.NEON.previous=2310;
+ raw.companies.NEON.history=Array(520).fill(2313.12);
+ delete raw.companies.NEON.sharesOutstanding;
+ delete raw.companies.NEON.publicFloat;
+ delete raw.companies.NEON.fundamentals;
+ delete raw.companies.NEON.lastSplitDay;
+ delete raw.companies.NEON.splitCount;
+ delete raw.companies.NEON.lastAction;
+ const migrated=copy(h.normalize(raw));
+ assert.ok(migrated);
+ assert.ok(Math.abs(migrated.companies.NEON.fundamentals.revenue)>0);
+ h.setState(migrated);
+ assert.ok(Math.abs(h.fairValue('NEON')/2313.12-1)<.04,
+   'Historical portfolio should not be repriced against its original IPO');
+ h.tick();
+ assert.equal(h.quote('NEON').lastAction.kind,'split');
+ assert.equal(h.quote('NEON').lastAction.ratio,4);
+ assert.ok(h.quote('NEON').price<1000);
+ assert.deepEqual(copy(h.normalize(copy(h.getState()))),copy(h.getState()));
+});
+
+test('quarterly reports evolve business earnings, credit and guidance deterministically',()=>{
+ const a=createHarness(),b=createHarness();
+ const starting=a.quote('MISO').fundamentals.revenue;
+ for(let i=0;i<630;i++){a.tick();b.tick()}
+ assert.deepEqual(copy(a.getState()),copy(b.getState()));
+ for(const ticker of ['NEON','HARB','MISO','VOLT','AERO','BYTE']){
+  const q=a.quote(ticker);
+  assert.ok(q.fundamentals.quarterCount>=9);
+  assert.ok(['stable','expanding','strained','recovering'].includes(q.fundamentals.status));
+  assert.ok(Number.isFinite(a.fairValue(ticker))&&a.fairValue(ticker)>0);
+ }
+ assert.notEqual(a.quote('MISO').fundamentals.revenue,starting);
+ assert.deepEqual(copy(a.normalize(copy(a.getState()))),copy(a.getState()));
+});
+
+test('reject impossible split states and tampered adjusted option contracts',()=>{
+ const h=createHarness(),base=copy(h.getState());
+ const invalid=[
+  s=>{s.companies.NEON.publicFloat=100000000000000;},
+  s=>{s.companies.NEON.fundamentals.margin=2;},
+  s=>{s.companies.NEON.lastAction={kind:'split',ratio:2,day:999};},
+  s=>{s.companies.NEON.sharesOutstanding=3;},
+  s=>{s.companies.NEON.fundamentals.revenue=-5;}
+ ];
+ for(const modify of invalid){const v=copy(base);modify(v);assert.equal(h.normalize(v),null)}
+ const opened=h.placeOptionOrder({ticker:'NEON',type:'put',side:'long',qty:1,strike:4600,days:7});
+ assert.equal(opened.ok,true);
+ const corrupt=copy(h.getState());corrupt.options[0].contractShares=17.5;
+ assert.equal(h.normalize(corrupt),null);
+ const obligation=copy(h.getState());obligation.options[0].exerciseCents=300;
+ assert.equal(h.normalize(obligation),null);
 });
 
 test('mobile selection handlers use one save and repaint per action', () => {
