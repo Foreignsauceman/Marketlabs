@@ -1071,7 +1071,7 @@ function attemptEditorLock(){
    state=loaded;
   }catch{session.role='conflict';showSessionStatus();return}
   cloud.allowAuto=false; // Folder sync never resumes automatically in a newly promoted tab.
-  render();
+  render();cloudStatus(cloud.status,cloud.severity);
   if(loadNotice&&loadNotice.includes('imported')&&session.lastSavedRaw===null)save();
   return new Promise(resolve=>{session.release=resolve});
  }).catch(()=>{
@@ -1542,9 +1542,9 @@ function cloudStatus(msg,severity=''){
  const available=!!cloud.folder&&!cloud.busy;
  $('connectCloud').disabled=cloud.busy;
  $('disconnectCloud').disabled=!available;
- $('syncCloud').disabled=!available;
- $('restoreCloud').disabled=!available;
- $('replaceCloud').disabled=!available;
+ $('syncCloud').disabled=!available||session.role!=='writer';
+ $('restoreCloud').disabled=!available||session.role!=='writer';
+ $('replaceCloud').disabled=!available||session.role!=='writer';
  $('cloudChip').textContent=available?'☁ BETA CONNECTED':'☁ LOCAL ONLY';
  $('syncCloud').textContent=cloud.allowAuto?'↑ SYNC NOW':'↑ BACK UP LOCAL';
 }
@@ -1650,7 +1650,7 @@ async function restoreFolder(){
   if(raw!==await readRemote())throw Error('Cloud changed during restore. Try again.');
   if(epoch!==cloud.epoch)throw Error('Folder connection changed.');
   if(!requireEditor())throw Error('Another tab changed the portfolio. Restore cancelled.');
-  stopAuto();const old=state;state=remote.save;if(!save()){state=old;throw Error('Could not safely save restored portfolio.')};
+  stopAuto();const old=state;state=remote.save;if(!save()){if(session.role!=='conflict')state=old;throw Error('Could not safely save restored portfolio.')};
   if(!storageAvailable){state=old;throw Error('Local save failed. Your previous market remains in memory.');}
   cloud.revision=remote.revision;cloud.lastSnapshot=JSON.stringify(state);cloud.allowAuto=saveMeta(remote.revision);
   render();cloudStatus('Cloud save restored. Previous local state backed up in browser storage.','good');notify('Cloud restore complete.');
@@ -1679,7 +1679,7 @@ async function importSave(file){
   if(cloud.busy)throw Error('Cloud operation in progress. Retry import after it finishes.');
   if(!storageAvailable||!storeLocalRestoreBackup())throw Error('Failed to back up current local save. Import cancelled.');
   if(!requireEditor())throw Error('Another tab changed the market before import.');
-  stopAuto();cloud.epoch++;const old=state;state=parsed;if(!save()){state=old;throw Error('Could not safely save imported portfolio.')}render();cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();cloudStatus('Imported JSON file. Cloud autosync paused until you explicitly RESTORE or REPLACE the cloud copy.','good');notify('Import complete.');
+  stopAuto();cloud.epoch++;const old=state;state=parsed;if(!save()){if(session.role!=='conflict')state=old;throw Error('Could not safely save imported portfolio.')}render();cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();cloudStatus('Imported JSON file. Cloud autosync paused until you explicitly RESTORE or REPLACE the cloud copy.','good');notify('Import complete.');
  }catch(e){cloudStatus('Import failed: '+e.message,'bad')}
  finally{$('importFile').value=''}
 }
@@ -1687,8 +1687,8 @@ async function fullLocalWipe(){
  if(!requireEditor()||$('wipeText').value!=='WIPE'||cloud.busy)return;
  stopAuto();cloud.epoch++;cloud.folder=null;cloud.allowAuto=false;cloud.revision=null;
  const keys=[KEY,OLD_KEY,CLOUD_META_KEY,RESTORE_BACKUP_KEY];
- try{for(const key of keys)localStorage.removeItem(key)}catch(e){cloudStatus('Wipe failed because browser storage was blocked. Your cloud file is untouched.','bad');return}
- await clearCachedFolder();state=fresh();$('qty').value='1';$('wipeText').value='';$('fullWipe').disabled=true;
+ try{for(const key of keys)localStorage.removeItem(key);session.lastSavedRaw=null}catch(e){cloudStatus('Wipe failed because browser storage was blocked. Your cloud file is untouched.','bad');return}
+ await clearCachedFolder();if(!requireEditor())return;state=fresh();$('qty').value='1';$('wipeText').value='';$('fullWipe').disabled=true;
  const freshRaw=JSON.stringify(state);
  try{localStorage.setItem(KEY,freshRaw);storageAvailable=true}
  catch{storageAvailable=false;cloudStatus('Wipe performed in memory but local storage is unavailable.','bad')}
