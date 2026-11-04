@@ -122,7 +122,7 @@ const probe = String.raw`
     $('buy').click();
     $('execute').click();
     assert($('holdings').querySelector('[data-holding="HARB"]'), 'Buy did not create holding');
-    const positionCard=$('holdings').querySelector('[data-holding="HARB"]');
+    let positionCard=$('holdings').querySelector('[data-holding="HARB"]');
     assert(positionCard.textContent.includes('AVG BUY') && positionCard.textContent.includes('UNREALIZED P&L'),
       'Position card lacks average acquisition cost or unrealized profit');
     assert(positionCard.textContent.includes('$72.50'), 'New stock position has incorrect average purchase price');
@@ -135,6 +135,12 @@ const probe = String.raw`
       'P&L details should start collapsed to prioritize holdings');
     assert($('portfolioOptions').hidden,
       'The empty options section should be hidden');
+    if (document.body.dataset.profile === 'mobile') {
+      // A stock purchase happens on the Trade tab, where Portfolio is hidden.
+      // Check actual visibility after entering the Portfolio tab.
+      $('mobilenav').querySelector('[data-tab="portfolio"]').click();
+      positionCard = $('holdings').querySelector('[data-holding="HARB"]');
+    }
     assert(positionCard.getClientRects().length > 0,
       'Stock position should be visibly rendered');
     if (document.body.dataset.profile === 'desktop') {
@@ -163,6 +169,9 @@ const probe = String.raw`
     assert($('realizedTotal').textContent.includes('$0.00'),
       'Expandable realized P&L summary is missing');
     $('portfolioSummary').open = false;
+    if (document.body.dataset.profile === 'mobile') {
+      $('mobilenav').querySelector('[data-tab="trade"]').click();
+    }
     assert(Math.abs(cash() - (before - 72.5)) < 0.001, 'Buy cash ledger is incorrect');
     $('sell').click();
     $('qty').value = '1';
