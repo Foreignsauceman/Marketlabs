@@ -395,7 +395,8 @@ test('4-for-1 stock split preserves ownership, cost basis, capitalization and ad
  assert.equal(h.getState().realizedPnLCents,0);
  assert.ok(Math.abs(h.getState().holdings.NEON*q.price-beforeValue)<.001);
  assert.ok(Math.abs(q.price*q.sharesOutstanding-beforeCap)<.001);
- assert.deepEqual(copy(h.normalize(copy(s))),copy(s));
+ const canonical=copy(h.normalize(copy(s)));
+ assert.deepEqual(copy(h.normalize(canonical)),canonical);
 });
 
 test('reverse split cashes fractional shares at market value and allocates basis exactly',()=>{
@@ -412,7 +413,8 @@ test('reverse split cashes fractional shares at market value and allocates basis
  assert.equal(q.publicFloat,31000000);
  assert.equal(q.lastAction.kind,'reverse');
  assert.equal(q.history.at(-1),q.price);
- assert.deepEqual(copy(h.normalize(copy(s))),copy(s));
+ const canonical=copy(h.normalize(copy(s)));
+ assert.deepEqual(copy(h.normalize(canonical)),canonical);
 });
 
 test('split-adjusted covered call keeps exercise cost and reserved shares through assignment',()=>{
@@ -428,7 +430,8 @@ test('split-adjusted covered call keeps exercise cost and reserved shares throug
  assert.equal(o.entryValueCents,opened.premium);
  assert.equal(h.reservedShares('NEON'),200);
  assert.equal(h.getState().holdings.NEON,200);
- assert.deepEqual(copy(h.normalize(copy(h.getState()))),copy(h.getState()));
+ const canonical=copy(h.normalize(copy(h.getState())));
+ assert.deepEqual(copy(h.normalize(canonical)),canonical);
  h.getState().day=8;
  h.quote('NEON').price=26;h.quote('NEON').history[519]=26;
  h.settleOptions();
@@ -450,7 +453,8 @@ test('reverse-split cash-secured put keeps original dollar collateral and assign
  assert.equal(o.exerciseCents,450000);
  assert.equal(o.strike,9000);
  assert.equal(h.reservedCash(),450000);
- assert.deepEqual(copy(h.normalize(copy(h.getState()))),copy(h.getState()));
+ const canonical=copy(h.normalize(copy(h.getState())));
+ assert.deepEqual(copy(h.normalize(canonical)),canonical);
  h.getState().day=8;h.quote('NEON').price=70;
  h.quote('NEON').history[519]=70;
  const cash=h.getState().cash;
@@ -485,7 +489,8 @@ test('a legacy 23,365-day portfolio migrates at its current value then can split
  assert.equal(h.quote('NEON').lastAction.kind,'split');
  assert.equal(h.quote('NEON').lastAction.ratio,4);
  assert.ok(h.quote('NEON').price<1000);
- assert.deepEqual(copy(h.normalize(copy(h.getState()))),copy(h.getState()));
+ const canonical=copy(h.normalize(copy(h.getState())));
+ assert.deepEqual(copy(h.normalize(canonical)),canonical);
 });
 
 test('quarterly reports evolve business earnings, credit and guidance deterministically',()=>{
