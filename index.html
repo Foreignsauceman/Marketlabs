@@ -1082,6 +1082,118 @@ function save(){
  }
  renderSaveStatus();return true;
 }
+// Optional real-device frame diagnostics. Nothing is persisted or uploaded.
+// rAF measures pre-paint cadence, not GPU scanout. LoAF supplies richer render
+// timestamps where supported (otherwise the report explicitly says unavailable).
+const framePerf={
+ active:false,raf:0,last:0,started:0,lastDisplay:0,deltas:[],loafs:[],
+ observer:null,report:null
+};
+function percentile(values,fraction){
+ if(!values.length)return 0;
+ const ordered=values.slice().sort((a,b)=>a-b);
+ return ordered[Math.min(ordered.length-1,Math.floor((ordered.length-1)*fraction))];
+}
+function frameSummary(){
+ const samples=framePerf.deltas;
+ if(samples.length<15)return null;
+ const median=percentile(samples,.5),p95=percentile(samples,.95);
+ const mean=samples.reduce((sum,x)=>sum+x,0)/samples.length;
+ const observedHz=1000/mean,medianHz=1000/median;
+ const supported=[30,48,60,75,90,120,144,165,240];
+ const estimatedHz=supported.reduce((best,n)=>Math.abs(n-medianHz)<Math.abs(best-medianHz)?n:best,60);
+ const budget=1000/estimatedHz;
+ const missed=samples.reduce((sum,ms)=>sum+Math.max(0,Math.round(ms/budget)-1),0);
+ return{samples:samples.length,observedFps:Number(observedHz.toFixed(1)),
+  medianMs:Number(median.toFixed(2)),p95Ms:Number(p95.toFixed(2)),
+  estimatedRefreshHz:estimatedHz,estimatedMissedFrames:missed,
+  slowFramesOver50ms:framePerf.loafs.length,
+  longAnimationFrameApi:!!framePerf.observer,measuredSeconds:Math.round((performance.now()-framePerf.started)/1000)};
+}
+function showFrameSummary(){
+ const report=frameSummary();framePerf.report=report;
+ if(!report)return;
+ $('perfHudFps').textContent=report.observedFps+' FPS · '+report.estimatedRefreshHz+' Hz est.';
+ $('perfHudMeta').textContent='p95 '+report.p95Ms+' ms · missed ~'+report.estimatedMissedFrames+
+  ' · >50ms '+report.slowFramesOver50ms;
+ $('perfSummary').textContent='Measured '+report.measuredSeconds+' sec · '+report.samples+
+  ' frames · '+report.observedFps+' FPS observed · p95 '+report.p95Ms+
+  ' ms · estimated '+report.estimatedRefreshHz+' Hz · missed ~'+report.estimatedMissedFrames+
+  ' · long frames '+report.slowFramesOver50ms+
+  (report.longAnimationFrameApi?' (browser render timing on)':' (browser render timing unavailable)');
+ $('perfExport').disabled=false;
+}
+function watchFrame(timestamp){
+ if(!framePerf.active)return;
+ if(document.hidden){framePerf.last=0;framePerf.raf=requestAnimationFrame(watchFrame);return}
+ if(framePerf.last){
+  const elapsed=timestamp-framePerf.last;
+  if(elapsed>0&&elapsed<500){
+   framePerf.deltas.push(Number(elapsed.toFixed(2)));
+   if(framePerf.deltas.length>3600)framePerf.deltas.shift();
+  }
+ }
+ framePerf.last=timestamp;
+ if(timestamp-framePerf.lastDisplay>1000){
+  framePerf.lastDisplay=timestamp;
+  showFrameSummary();
+ }
+ framePerf.raf=requestAnimationFrame(watchFrame);
+}
+function startFrameMonitor(){
+ if(framePerf.active)return;
+ framePerf.active=true;framePerf.deltas=[];framePerf.loafs=[];framePerf.report=null;
+ framePerf.last=0;framePerf.lastDisplay=performance.now();framePerf.started=performance.now();
+ $('perfStart').disabled=true;$('perfStop').disabled=false;$('perfExport').disabled=true;
+ $('perfHud').hidden=false;
+ $('perfHudFps').textContent='SAMPLING FRAMES…';
+ $('perfHudMeta').textContent='120 Hz target = 8.33 ms';
+ $('perfSummary').textContent='Sampling now. Close Settings and use the market, charts and automatic playback.';
+ try{
+  if(typeof PerformanceObserver!=='undefined'&&PerformanceObserver.supportedEntryTypes?.includes('long-animation-frame')){
+   framePerf.observer=new PerformanceObserver(list=>{
+    for(const entry of list.getEntries()){
+     framePerf.loafs.push({
+      startMs:Number(entry.startTime.toFixed(1)),durationMs:Number(entry.duration.toFixed(1)),
+      blockingMs:Number((entry.blockingDuration||0).toFixed(1)),
+      renderMs:entry.renderStart?Number(Math.max(0,entry.startTime+entry.duration-entry.renderStart).toFixed(1)):null,
+      layoutAndPaintMs:entry.styleAndLayoutStart?Number(Math.max(0,entry.startTime+entry.duration-entry.styleAndLayoutStart).toFixed(1)):null,
+      paintTimeMs:Number.isFinite(entry.paintTime)?Number(entry.paintTime.toFixed(1)):null,
+      presentationTimeMs:Number.isFinite(entry.presentationTime)?Number(entry.presentationTime.toFixed(1)):null
+     });
+    }
+    if(framePerf.loafs.length>60)framePerf.loafs.splice(0,framePerf.loafs.length-60);
+   });
+   framePerf.observer.observe({type:'long-animation-frame'});
+  }
+ }catch{framePerf.observer?.disconnect();framePerf.observer=null}
+ framePerf.raf=requestAnimationFrame(watchFrame);
+}
+function stopFrameMonitor(){
+ if(!framePerf.active)return;
+ framePerf.active=false;cancelAnimationFrame(framePerf.raf);framePerf.raf=0;
+ framePerf.observer?.disconnect();framePerf.observer=null;
+ showFrameSummary();
+ $('perfStart').disabled=false;$('perfStop').disabled=true;
+ $('perfHud').hidden=true;
+}
+function exportFrameDiagnostics(){
+ if(!framePerf.deltas.length)return;
+ showFrameSummary();
+ const report={
+  format:'marketlab-frame-diagnostics-v1',appVersion:'v0.6.0',
+  capturedAt:new Date().toISOString(),active:framePerf.active,
+  measurement:'requestAnimationFrame callback intervals (before paint); not GPU FPS or scanout',
+  browser:navigator.userAgent,screen:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},
+  summary:framePerf.report,frameIntervalsMs:framePerf.deltas.slice(),longAnimationFrames:framePerf.loafs.slice()
+ };
+ downloadJson(report,'marketlab-frame-report.json');
+ $('perfSummary').textContent='Diagnostic JSON exported. '+(framePerf.report?.samples||0)+' frame intervals included. No portfolio data was exported.';
+}
+$('perfStart').addEventListener('click',startFrameMonitor);
+$('perfStop').addEventListener('click',stopFrameMonitor);
+$('perfExport').addEventListener('click',exportFrameDiagnostics);
+window.addEventListener('pagehide',stopFrameMonitor);
 function renderSaveStatus(){
  const label=!storageAvailable?'SAVE UNAVAILABLE · PROGRESS WILL NOT PERSIST':
   session.role==='writer'?'BROWSER AUTOSAVE · OFFLINE · CLOUD OPTIONAL':
