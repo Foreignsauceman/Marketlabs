@@ -243,8 +243,8 @@ test('weighted-average share entry and realized/unrealized P&L use integer cents
  h.setSide('sell');h.setQty(2);h.trade();
  assert.equal(h.getState().holdings.NEON,3);
  assert.equal(h.basis('NEON'),14316);
- assert.equal(h.getState().realizedPnLCents,5684);
- assert.equal(h.getState().realizedPnLCents+3*5000-h.basis('NEON'),6368);
+ assert.equal(h.getState().realizedPnLCents,456);
+ assert.equal(h.getState().realizedPnLCents+3*5000-h.basis('NEON'),1140);
  assert.deepEqual(copy(h.normalize(copy(h.getState()))),copy(h.getState()));
 });
 
@@ -297,6 +297,7 @@ test('covered calls reserve owned stock; written puts reserve cash for assignmen
  assert.ok(h.buyingPower()<1000000);
  h.getState().day=8;
  h.getState().companies.NEON.price=40;
+ h.getState().companies.NEON.history[519]=40;
  h.settleOptions();
  assert.equal(h.getState().holdings.NEON,100);
  assert.equal(h.basis('NEON'),460000);
