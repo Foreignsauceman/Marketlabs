@@ -1331,7 +1331,7 @@ for(const c of COMPANIES){
  if(committedPuts+(s.holdings[c.id]||0)>s.companies[c.id].publicFloat)return null;
 }
 const lockedCash=s.options.filter(o=>o.side==='short'&&o.type==='put')
- .reduce((n,o)=>n+o.strike*o.qty*o.contractShares,0);
+ .reduce((n,o)=>n+o.exerciseCents*o.qty,0);
 if(!Number.isSafeInteger(lockedCash)||lockedCash>cents(s.cash))return null;
 if(Array.isArray(raw.events))s.events=raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,14).map(e=>({day:e.day,text:e.text}));return s;
 }
@@ -1820,31 +1820,33 @@ function settleExpiringOptions(){
  if(!state.options.length||!state.options.some(o=>o.expiryDay<=state.day))return;
  const pending=state.options.filter(o=>o.expiryDay<=state.day);
  for(const o of pending){
-  const count=OPTION_MULTIPLIER*o.qty,spot=priceCents(o.ticker);
-  const intrinsic=Math.max(0,o.type==='call'?spot-o.strike:o.strike-spot);
-  const payoff=intrinsic*count,entry=o.entryPremiumCents*count;
+  const count=contractShares(o)*o.qty,spot=priceCents(o.ticker);
+  const intrinsic=Math.max(0,o.type==='call'?
+   spot*contractShares(o)-exerciseCost(o):
+   exerciseCost(o)-spot*contractShares(o));
+  const payoff=intrinsic*o.qty,entry=entryContractValue(o)*o.qty;
   if(o.side==='long'){
    state.cash=usd(cents(state.cash)+payoff);
    state.optionRealizedCents+=payoff-entry;
    pushEvent(o.ticker+' '+o.type.toUpperCase()+' long expires: '+
     (payoff?'cash settlement '+amount(payoff):'out of the money')+'.');
   }else if(o.type==='call'){
-   // Assignment delivers already-owned, reserved shares for strike cash.
    if(intrinsic>0){
-    sellStockAt(o.ticker,count,o.strike);
-    state.cash=usd(cents(state.cash)+o.strike*count);
+    sellStockAt(o.ticker,count,Math.round(exerciseCost(o)/contractShares(o)),
+     exerciseCost(o)*o.qty);
+    state.cash=usd(cents(state.cash)+exerciseCost(o)*o.qty);
    }
    state.optionRealizedCents+=entry;
-   pushEvent(o.ticker+' covered call '+(intrinsic?'assigned: '+count+' shares sold at '+amount(o.strike):
+   pushEvent(o.ticker+' covered call '+(intrinsic?'assigned: '+count+' shares delivered for '+amount(exerciseCost(o)*o.qty):
      'expired unassigned')+'.');
   }else{
-   // Secured collateral was held as cash rather than removed from balance.
    if(intrinsic>0){
-    buyStockAt(o.ticker,count,o.strike);
-    state.cash=usd(cents(state.cash)-o.strike*count);
+    buyStockAt(o.ticker,count,Math.round(exerciseCost(o)/contractShares(o)),
+     exerciseCost(o)*o.qty);
+    state.cash=usd(cents(state.cash)-exerciseCost(o)*o.qty);
    }
    state.optionRealizedCents+=entry;
-   pushEvent(o.ticker+' cash-secured put '+(intrinsic?'assigned: '+count+' shares bought at '+amount(o.strike):
+   pushEvent(o.ticker+' cash-secured put '+(intrinsic?'assigned: '+count+' shares purchased for '+amount(exerciseCost(o)*o.qty):
      'expired unassigned')+'.');
   }
  }
