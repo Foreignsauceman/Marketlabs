@@ -1,4 +1,4 @@
-# MarketLab v0.6.1
+# MarketLab v0.6.2
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -100,3 +100,13 @@ The **Frame & Render Profiler** in Settings is opt-in and local-only. Start it, 
 - Automated tests cover cent-accurate average-cost accounting, trade execution, legacy basis migration, options premiums, collateral, exercise/assignment, deterministic simulations and corrupted save rejection, plus responsive options UI and real-browser two-tab locks.
 - The existing optional frame monitor remains available in Settings; watch p95 frame timing while opening options and after longer market simulation.
 - **Export JSON before updating** because trading and save mechanics are changing. No import is needed if your current local save loads correctly. Retain the backup until you have verified positions and trading in v0.6.1.
+
+## v0.6.2: Holdings panel layout hotfix
+
+- Fix a regression where a short, user-resized desktop Holdings panel could allocate nearly all its height to P&L tiles and the empty Options section, leaving the actual stock position list hidden.
+- Show **stock positions first**. Keep the detailed realized/unrealized P&L cards in a keyboard-accessible, collapsed **Position P&L Breakdown** with an always-visible unrealized P&L preview.
+- Hide the **Open Options** disclosure entirely when there are no open contracts; restore it automatically when contracts are opened. Existing option positions remain available below the stock cards.
+- Put stocks, P&L breakdown, and options in a **single scrollable desktop Holdings body**. Small saved panel heights still show the start of the stock card and can scroll to secondary information. Mobile Portfolio continues to grow naturally without a nested scroll area.
+- Use a legible two-column detail grid for narrow position cards and shorten the panel's position-count label.
+- Add real desktop/360/390/430px browser checks for compact saved-height behavior, card ordering, expandable P&L and open/empty option visibility. Preserve all market/option calculations and the v2 save format.
+- **No import/export needed:** this is a layout-only patch. A JSON backup is always optional if you want one.
