@@ -49,7 +49,7 @@ On a personal repository, choose review requirements that do not lock out the so
 - Mobile exchange and portfolio selections now save and repaint once per action instead of repeating full layout work.
 - Chart scaling finds minimum and maximum directly without allocating a flattened history array on each frame.
 - The service worker precaches `index.html` once (instead of storing duplicate HTML responses for `/` and `/index.html`); offline navigation still falls back to the cached page.
-- CI now runs deterministic market simulation, buy/sell ledger, invalid-order, saved-state-validation, and mobile UI efficiency regression checks alongside the existing PWA/static checks.
+- CI now runs deterministic market simulation, buy/sell ledger, invalid-order, saved-state validation, and mobile UI efficiency regression checks alongside existing PWA/static checks. Headless Chrome additionally checks real desktop and mobile rendering, buy/sell actions, and day advancement. After every `main` push, the `Verify published MarketLab` job checks the live Pages version, service worker and icons (allowing time for propagation).
 - Trading rules, cash/share calculations, market RNG, and the existing `marketlab.tiny-exchange.v2` save key are unchanged. Before major upgrades, export saves in Settings.
 
 Browser/iPhone manual testing is still advised; Node smoke tests do not emulate Safari rendering, install behavior, or File System Access APIs.
