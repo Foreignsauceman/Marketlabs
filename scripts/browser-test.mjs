@@ -123,6 +123,31 @@ const probe = String.raw`
       assert(Number($('day').textContent) === 3, 'Mobile quick day advance failed');
       assert($('mobileMarketDay').textContent.includes('3'), 'Quick market clock failed to update');
     }
+    // Benchmark real rendering and layout. This is a 120Hz (8.33ms) budget
+    // indicator, NOT a claim that headless CI presents frames at 120 FPS.
+    const stockRow = $('stocks').firstElementChild;
+    const mobile = document.body.dataset.profile === 'mobile';
+    if (mobile) $('mobilenav').querySelector('[data-tab="chart"]').click();
+    $('chartrange').value = '520';
+    $('chartrange').dispatchEvent(new Event('change', { bubbles: true }));
+    const samples = [];
+    for (let i = 0; i < 40; i++) {
+      const start = performance.now();
+      $('next').click();
+      void document.documentElement.offsetHeight;
+      samples.push(performance.now() - start);
+    }
+    samples.sort((a,b)=>a-b);
+    const p50 = Number(samples[19].toFixed(2));
+    const p95 = Number(samples[37].toFixed(2));
+    const maxPoints = Math.max(...[...$('chart').querySelectorAll('[data-line]')].map(path => (path.getAttribute('d').match(/[LM]/g)||[]).length));
+    if (mobile) {
+      assert(maxPoints < 410, 'Mobile 520-day chart path was not pixel-limited');
+      $('mobilenav').querySelector('[data-tab="market"]').click();
+      for (let i = 0; i < 15; i++) $('next').click();
+    }
+    assert(stockRow === $('stocks').firstElementChild, 'Market updates replaced persistent stock cards');
+    document.documentElement.setAttribute('data-marketlab-render-metrics', [p50,p95,maxPoints].join(','));
   } catch (error) {
     failures.push(error.message);
   }
@@ -159,6 +184,11 @@ test('headless browser renders, buys, sells, and advances on desktop and mobile'
       const root = command.stdout.match(/<html\b[^>]*>/)?.[0] || '';
       assert.match(root, /data-marketlab-browser-smoke="PASS"/,
         label + ' browser smoke failed: ' + root + ' ' + (command.stderr || '').slice(-350));
+      const perf = root.match(/data-marketlab-render-metrics="([^"]+)"/)?.[1];
+      assert.ok(perf, label + ' missing render performance sample');
+      const [p50,p95,points] = perf.split(',').map(Number);
+      console.log(label + ' JS+layout: median ' + p50 + 'ms, p95 ' + p95 + 'ms, SVG points ' + points + ' (120Hz budget 8.33ms)');
+      assert.ok(p95 < 100, label + ' extreme render time regression');
     }
   } finally {
     rmSync(temp, { recursive: true, force: true });

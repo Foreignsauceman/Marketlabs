@@ -11,7 +11,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
-<title>MARKETLAB | The Simulated Exchange v0.5.2</title>
+<title>MARKETLAB | The Simulated Exchange v0.5.3</title>
 <style>
 :root{--bg:#101713;--panel:#1a251e;--panel2:#213026;--line:#33483a;--mint:#aaf6ad;--green:#81e4a0;--red:#ff9d9a;--amber:#ffd18a;--text:#e3eee2;--muted:#9ab09e;--c1:#9ef4a1;--c2:#e5bd7c;--c3:#86cafa;--c4:#e89acd;--c5:#b0a4fa;--c6:#ff997b}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 75% -15%,#25392a 0,transparent 37%),var(--bg);color:var(--text);font:12px/1.45 ui-monospace,Consolas,'Liberation Mono',monospace}button,input{font:inherit}button{cursor:pointer;transition:background .12s,border .12s}button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}button:disabled{opacity:.40;cursor:not-allowed}.wrap{max-width:none;margin:auto;padding:14px 18px 20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}.brand h1{font-size:27px;letter-spacing:-.08em;line-height:1;margin:0;font-weight:950}.brand em{color:var(--mint);font-style:normal}.tagline{color:var(--muted);font-size:10px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.tag{border:1px solid var(--line);padding:3px 7px;border-radius:3px;color:var(--muted);white-space:nowrap;font-size:10px}.reset{border:0;background:none;color:var(--muted);font-size:10px;text-decoration:underline;text-underline-offset:3px}.reset:hover{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:9px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:9px 11px;min-width:0}.statlabel,.minor{color:var(--muted);font-size:10px;letter-spacing:.025em}.statvalue{font-size:clamp(15px,1.7vw,22px);font-weight:850;letter-spacing:-.05em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.statnote{color:var(--muted);font-size:10px;min-height:13px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;overflow:hidden}.panelhead{padding:8px 11px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:37px}.heading{color:var(--mint);font-weight:850;letter-spacing:.08em;font-size:10px}.meta{color:var(--muted);font-size:10px}.main{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(300px,.92fr);gap:9px}.left,.right{display:grid;align-content:start;gap:9px;min-width:0}.clock{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.clock p{margin:0}.clockbuttons{display:flex;gap:6px}.btn{border:1px solid #526957;background:#293c2e;border-radius:4px;color:var(--text);font-weight:800;padding:6px 10px;font-size:11px}.btn:hover{border-color:var(--mint)}.btn.primary{background:var(--amber);color:#2d2210;border-color:var(--amber)}.btn.active{color:var(--mint);border-color:var(--mint)}.chartopts{display:flex;gap:5px}.mini{border:1px solid var(--line);border-radius:3px;padding:4px 7px;background:#18231b;color:var(--muted);font-size:10px;font-weight:850}.mini[aria-pressed="true"]{color:#102118;background:var(--mint);border-color:var(--mint)}.chartarea{padding:4px 10px 6px;position:relative}.chart{width:100%;height:auto;display:block;aspect-ratio:850/270;min-height:178px;touch-action:pan-y}.chartfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:9px;padding:0 5px 3px}.legend{display:flex;flex-wrap:wrap;gap:4px 7px;padding:3px 10px 9px}.legend button{border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;padding:4px 6px;border-radius:3px;font-weight:800}.legend button:hover,.legend button[aria-pressed="true"]{background:#2d4232;color:var(--text);border-color:#486451}.swatch{width:13px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px;border-radius:2px}.tooltip{pointer-events:none;position:absolute;z-index:2;min-width:125px;max-width:205px;background:#0c1810f5;border:1px solid #54745b;padding:7px 9px;box-shadow:0 8px 24px #0008;border-radius:4px;font-size:10px}.tooltip[hidden]{display:none}.tooltip div{display:flex;justify-content:space-between;gap:15px}.boardheader,.stock{display:grid;grid-template-columns:55px minmax(100px,1.25fr) 78px 78px 66px 82px;align-items:center;gap:8px}.boardheader{color:var(--muted);padding:7px 11px 5px;font-size:9px}.boardheader>span:nth-child(n+3){text-align:right}.stock{width:100%;text-align:left;background:transparent;color:var(--text);border:0;border-top:1px solid #304135;padding:8px 11px;font-size:11px}.stock:hover{background:#26372b}.stock[aria-pressed="true"]{background:#2a3f30;box-shadow:inset 3px 0 var(--mint)}.ticker{font-weight:900;color:var(--mint)}.sname{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector{font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.num{text-align:right;white-space:nowrap;font-size:11px}.num.strong{font-weight:850}.trade{padding:10px 11px 12px}.pair{display:flex;gap:6px}.pair button{flex:1}.side{padding:7px 9px;border:1px solid var(--line);border-radius:4px;background:#122017;color:var(--muted);font-weight:850;letter-spacing:.1em}.side[aria-pressed="true"]{color:#0f2118;background:var(--mint);border-color:var(--mint)}.fieldrow{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:10px 0 5px}.fieldrow label{color:var(--muted);font-size:10px}.fillmax{color:var(--amber);background:#2d3124;border:1px solid #77714e;border-radius:3px;padding:3px 10px;font-size:10px;font-weight:900}.fillmax:disabled{opacity:.4}.qty{width:100%;border:1px solid var(--line);background:#111c15;color:var(--text);border-radius:4px;padding:7px 9px;font-size:15px;font-weight:800}.lineitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;color:var(--muted);border-bottom:1px dashed #324837;font-size:11px}.lineitem strong{font-size:11px;color:var(--text)}.execute{width:100%;border:0;border-radius:4px;background:var(--mint);color:#0d2314;padding:9px;margin-top:10px;font-size:11px;font-weight:950;letter-spacing:.03em}.execute:hover:not(:disabled){background:#d1ffcc}.toast{color:var(--amber);font-size:10px;min-height:15px;margin:6px 0 0}.holding{display:grid;grid-template-columns:51px 1fr auto;gap:5px;align-items:center;padding:7px 11px;border-bottom:1px solid #304135;font-size:11px}.holding:last-child{border-bottom:0}.holding strong{color:var(--mint)}.holding .muted{color:var(--muted)}.empty{color:var(--muted);padding:11px;font-size:10px}.activity{padding:2px 11px 7px;min-height:65px;max-height:147px;overflow:auto}.event{display:grid;grid-template-columns:auto 1fr;gap:10px;border-bottom:1px dashed #324635;padding:6px 0;font-size:10px;color:var(--muted)}.event:last-child{border-bottom:0}.eventday{color:var(--green)}.marketnote{color:var(--muted);font-size:9px;padding:0 10px 8px}.footer{color:var(--muted);font-size:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-top:10px}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px;vertical-align:middle}
@@ -810,7 +810,7 @@ body[data-profile="mobile"] .session-notice button{width:100%;min-height:44px}
 </style>
 </head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.5.2</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
+<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.5.3</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
 <section id="sessionNotice" class="session-notice" role="status" aria-live="polite" hidden>
  <div class="session-notice-text"><strong id="sessionHeading">Another tab is editing</strong><span id="sessionDescription">This tab is view-only to protect your portfolio.</span></div>
  <button type="button" id="sessionRetry" class="btn">CHECK AGAIN</button>
@@ -949,7 +949,7 @@ function readSavedRaw(){try{return localStorage.getItem(KEY)}catch{return null}}
 const session={
  hasWebLocks:typeof window!=='undefined'&&window.isSecureContext&&location.protocol!=='file:'&&
    !!navigator.locks&&typeof navigator.locks.request==='function',
- role:'starting',pending:false,release:null,lastSavedRaw:readSavedRaw(),warning:'',ending:false
+ role:'starting',pending:false,release:null,lockAttempt:0,lastSavedRaw:readSavedRaw(),warning:'',ending:false
 };
 if(!session.hasWebLocks)session.role='writer';
 const CLOUD_NAME='marketlab-cloud-save.json',CLOUD_META_KEY='marketlab.cloud-meta.v1',RESTORE_BACKUP_KEY='marketlab.restore-backup.v1';
@@ -977,10 +977,10 @@ function syncProfile(){
  }
 }
 function setMobileTab(tab){if(!['market','chart','trade','portfolio'].includes(tab))return;
- state.ui.mobileTab=tab;syncProfile();save();render();window.scrollTo({top:0,behavior:'instant'});
+ state.ui.mobileTab=tab;save();render();window.scrollTo({top:0,behavior:'instant'});
 }
 function setProfileMode(mode){if(!['auto','desktop','mobile'].includes(mode))return;
- state.ui.profileMode=mode;syncProfile();save();render();
+ state.ui.profileMode=mode;save();render();
 }
 const quote=id=>state.companies[id],priceCents=id=>cents(quote(id).price),shares=id=>state.holdings[id]||0;
 const holdingsCents=()=>COMPANIES.reduce((n,c)=>n+shares(c.id)*priceCents(c.id),0);
@@ -1059,26 +1059,42 @@ function renderSaveStatus(){
 }
 function attemptEditorLock(){
  if(!session.hasWebLocks||session.pending||session.role==='writer'||session.role==='conflict'||session.ending)return;
+ const ticket=++session.lockAttempt;
  session.pending=true;showSessionStatus();
+ // ifAvailable cannot be combined with AbortSignal (Web Locks specification).
+ // If the browser is slow to respond, time out safely to view-only.
+ // Invalidate the ticket so any late callback immediately releases its lock.
+ const deadline=setTimeout(()=>{
+  if(!session.pending||session.lockAttempt!==ticket)return;
+  session.lockAttempt++;session.pending=false;session.role='viewer';
+  showSessionStatus();
+ },1500);
  navigator.locks.request(SESSION_LOCK,{mode:'exclusive',ifAvailable:true},lock=>{
+  clearTimeout(deadline);
+  if(session.lockAttempt!==ticket||session.ending)return;
   session.pending=false;
   if(!lock){session.role='viewer';showSessionStatus();return}
-  // Reload the latest portfolio *after* obtaining ownership of the writer lock.
   session.role='writer';session.lastSavedRaw=readSavedRaw();
   try{
    const loaded=session.lastSavedRaw===null?load():normalize(JSON.parse(session.lastSavedRaw));
    if(!loaded){session.role='conflict';showSessionStatus();return}
    state=loaded;
   }catch{session.role='conflict';showSessionStatus();return}
-  cloud.allowAuto=false; // Folder sync never resumes automatically in a newly promoted tab.
+  cloud.allowAuto=false;
   render();cloudStatus(cloud.status,cloud.severity);
   if(loadNotice&&loadNotice.includes('imported')&&session.lastSavedRaw===null)save();
   return new Promise(resolve=>{session.release=resolve});
  }).catch(()=>{
-  session.pending=false;session.role='viewer';session.warning='Editor lock could not be acquired. Try again.';showSessionStatus();
+  clearTimeout(deadline);
+  if(session.lockAttempt!==ticket)return;
+  session.pending=false;session.role='viewer';
+  session.warning='Editor lock could not be acquired. Try again.';
+  showSessionStatus();
  });
 }
 function releaseEditorLock(){
+ session.lockAttempt++;
+ session.pending=false;
  if(session.release){const release=session.release;session.release=null;release()}
 }
 function pushEvent(t){state.events.unshift({day:state.day,text:t});state.events=state.events.slice(0,14)}
@@ -1149,8 +1165,27 @@ pushEvent(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} ${o.qty
 function setSide(side){state.side=side;save();renderTrade();notify(validateOrder().reason)}
 function select(id){if(!company(id))return;state.selected=id;save();render();notify(validateOrder().reason)}
 function setView(v){state.view=v==='single'?'single':'all';save();renderChart()}
-function stopAuto(){if(timer!==null){clearInterval(timer);timer=null}renderClock()}
-function startAuto(){if(!requireEditor())return;if(state.day>=MAX_DAY)return notify('Maximum day reached.');if(timer!==null)clearInterval(timer);timer=setInterval(()=>advance(state.ui.autoStep),state.ui.autoMs);renderClock()}
+function stopAuto(){
+ if(timer!==null){cancelAnimationFrame(timer);timer=null}
+ renderClock();
+}
+function startAuto(){
+ if(!requireEditor())return;
+ if(state.day>=MAX_DAY)return notify('Maximum day reached.');
+ if(timer!==null)cancelAnimationFrame(timer);
+ let next=performance.now()+state.ui.autoMs;
+ const frame=now=>{
+  if(timer===null)return;
+  if(document.hidden){stopAuto();return}
+  if(now>=next){
+   next=now+state.ui.autoMs; // No burst of catch-up ticks after a slow/hidden frame.
+   advance(state.ui.autoStep);
+  }
+  if(timer!==null)timer=requestAnimationFrame(frame);
+ };
+ timer=requestAnimationFrame(frame);
+ renderClock();
+}
 function toggleAuto(){if(timer!==null){stopAuto();return}startAuto()}
 function updateAutoSettings(){state.ui.autoStep=Number($('autostep').value);state.ui.autoMs=Number($('autospeed').value);save();if(timer!==null)startAuto();else renderClock()}
 function renderClock(){$('mobileMarketDay').textContent='DAY '+state.day.toLocaleString('en-US');$('mobileMarketMood').textContent=state.regime.toUpperCase()+' MARKET';$('mobileAuto').textContent=timer!==null?'Ⅱ PAUSE':'▶ PLAY';$('mobileAuto').setAttribute('aria-pressed',String(timer!==null));$('mobileAuto').disabled=state.day>=MAX_DAY;$('mobileAdvance').disabled=state.day>=MAX_DAY;$('auto').textContent=timer!==null?'Ⅱ PAUSE':'▶ AUTO';$('auto').setAttribute('aria-pressed',String(timer!==null));$('auto').classList.toggle('active',timer!==null);for(const id of ['next','next10','auto'])$(id).disabled=state.day>=MAX_DAY;$('clockstatus').textContent='· '+(timer!==null?'Market running':'Advance simulated days');$('autostep').value=String(state.ui.autoStep);$('autospeed').value=String(state.ui.autoMs);$('autodetail').textContent=(timer!==null?'RUNNING · ':'SET · ')+state.ui.autoStep+'D / '+(state.ui.autoMs/1000)+'S'}
@@ -1178,7 +1213,64 @@ function sparklinePath(id){
  const spread=Math.max(max-min,.01);
  return hist.slice(start).map((p,i)=>(i?'L':'M')+(2+i*88/Math.max(1,n-1)).toFixed(1)+' '+(30-(p-min)/spread*26).toFixed(1)).join(' ');
 }
-function renderStocks(){$('stocks').innerHTML=COMPANIES.map(c=>{const d=dayChange(c.id);return `<button type="button" class="stock" data-stock="${c.id}" aria-pressed="${state.selected===c.id}" title="${escape(c.name)} · ${integer(c.shares)} outstanding shares · ${integer(c.float)} public float"><span class="ticker">${c.id}</span><span><span class="sname" style="display:block">${escape(c.name)}</span><span class="sector">${escape(c.sector)} · ${compact(marketCap(c))} cap</span></span><span class="num strong">${amount(priceCents(c.id))}</span><span class="num ${d>0?'pos':d<0?'neg':''}">${signed(d)}</span><span class="num">${compact(marketCap(c))}</span><span class="num">${compactShares(c.float)}</span><span class="stock-spark" aria-hidden="true"><svg viewBox="0 0 92 34" preserveAspectRatio="none"><path d="${sparklinePath(c.id)}" stroke="${d>=0?'#75e6b2':'#ff9d9a'}" fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>`}).join('')}
+// Update the six existing watchlist rows in place, instead of replacing their
+// entire DOM (and losing focus/scroll position) on each simulated market day.
+const stockRows=[];
+function setRowText(node,text){if(node.textContent!==text)node.textContent=text}
+function renderStocks(){
+ const host=$('stocks');
+ if(stockRows.length!==COMPANIES.length||stockRows.some(row=>row.button.parentElement!==host)){
+  host.innerHTML=COMPANIES.map(c=>`<button type="button" class="stock" data-stock="${c.id}" aria-pressed="false" title="${escape(c.name)} · ${integer(c.shares)} outstanding shares · ${integer(c.float)} public float"><span class="ticker">${c.id}</span><span><span class="sname" style="display:block">${escape(c.name)}</span><span class="sector"></span></span><span class="num strong"></span><span class="num"></span><span class="num"></span><span class="num">${compactShares(c.float)}</span><span class="stock-spark" aria-hidden="true"><svg viewBox="0 0 92 34" preserveAspectRatio="none"><path fill="none" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>`).join('');
+  stockRows.length=0;
+  for(const button of host.children)stockRows.push({
+   button,sector:button.querySelector('.sector'),price:button.children[2],
+   change:button.children[3],cap:button.children[4],
+   spark:button.querySelector('.stock-spark path')
+  });
+ }
+ for(let i=0;i<COMPANIES.length;i++){
+  const c=COMPANIES[i],row=stockRows[i],change=dayChange(c.id),cap=marketCap(c);
+  const pressed=String(state.selected===c.id);
+  if(row.button.getAttribute('aria-pressed')!==pressed)row.button.setAttribute('aria-pressed',pressed);
+  setRowText(row.sector,c.sector+' · '+compact(cap)+' cap');
+  setRowText(row.price,amount(priceCents(c.id)));
+  setRowText(row.change,signed(change));
+  const changeClass='num'+(change>0?' pos':change<0?' neg':'');
+  if(row.change.className!==changeClass)row.change.className=changeClass;
+  setRowText(row.cap,compact(cap));
+  const path=sparklinePath(c.id);
+  if(row.spark.getAttribute('d')!==path)row.spark.setAttribute('d',path);
+  const color=change>=0?'#75e6b2':'#ff9d9a';
+  if(row.spark.getAttribute('stroke')!==color)row.spark.setAttribute('stroke',color);
+ }
+}
+// A pixel-limited min/max envelope preserves spikes while reducing SVG work.
+// Only plotted geometry is simplified. Trading, history and hover remain exact.
+function plotChartPath(values,px,py,width){
+ const count=values.length;
+ if(!count)return '';
+ const pointLimit=Math.max(85,Math.ceil(width*.75));
+ const point=i=>(i?'L':'M')+px(i).toFixed(2)+' '+py(values[i]).toFixed(2);
+ if(count<=pointLimit)return values.map((_,i)=>point(i)).join(' ');
+ const bucketSize=Math.ceil((count-2)/Math.max(1,Math.floor((pointLimit-2)/2)));
+ let path=point(0);
+ for(let start=1;start<count-1;start+=bucketSize){
+  const end=Math.min(count-1,start+bucketSize);
+  let low=start,high=start;
+  for(let i=start+1;i<end;i++){
+   if(values[i]<values[low])low=i;
+   if(values[i]>values[high])high=i;
+  }
+  // Chronological ordering preserves the shape of up/down extrema.
+  if(low===high)path+=' L'+px(low).toFixed(2)+' '+py(values[low]).toFixed(2);
+  else{
+   const first=Math.min(low,high),second=Math.max(low,high);
+   path+=' L'+px(first).toFixed(2)+' '+py(values[first]).toFixed(2);
+   path+=' L'+px(second).toFixed(2)+' '+py(values[second]).toFixed(2);
+  }
+ }
+ return path+' L'+px(count-1).toFixed(2)+' '+py(values[count-1]).toFixed(2);
+}
 let lastLegendMarkup='',chartHoverFrame=0;
 function renderChart(){
  if(chartHoverFrame){cancelAnimationFrame(chartHoverFrame);chartHoverFrame=0;}
@@ -1207,7 +1299,7 @@ const spread=Math.max(hi-lo,isAll?1:.05),top=hi+spread*.15,bot=Math.max(0,lo-spr
 py=v=>yb-(v-bot)/(top-bot)*(yb-yt);
 guides=[0,.25,.5,.75,1].map(f=>{const y=yt+(yb-yt)*f,val=top-(top-bot)*f;return `<line x1="${left}" y1="${y}" x2="768" y2="${y}" stroke="#314c3a" stroke-dasharray="3 5"/><text x="842" y="${y+4*unit}" fill="#9ab09e" font-size="${(11*unit).toFixed(2)}" text-anchor="end">${isAll?val.toFixed(1):money(val)}</text>`}).join('');
 const ordered=data.slice().sort((a,b)=>(focused.has(a.c.id)?1:0)-(focused.has(b.c.id)?1:0));
-lines=ordered.map(({c,values,isIndex})=>{const points=values.map((v,i)=>(i?'L':'M')+px(i).toFixed(2)+' '+py(v).toFixed(2)).join(' '),f=focused.has(c.id),op=isIndex?.92:useFocus?(f?1:.34):.96,w=isIndex?2.2:useFocus?(f?4.1:1.65):2.7;
+lines=ordered.map(({c,values,isIndex})=>{const points=plotChartPath(values,px,py,chartBox.width),f=focused.has(c.id),op=isIndex?.92:useFocus?(f?1:.34):.96,w=isIndex?2.2:useFocus?(f?4.1:1.65):2.7;
 return `<path data-line="${c.id}" d="${points}" stroke="${c.color}" stroke-width="${w}" ${isIndex?'stroke-dasharray="7 5"':''} stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="${op}" vector-effect="non-scaling-stroke"/><circle cx="${px(values.length-1)}" cy="${py(values.at(-1))}" r="${isIndex?2:useFocus?(f?4.3:2):3.4}" fill="${c.color}" opacity="${op}"/>`}).join('');
 }else{guides=`<text x="425" y="${viewH/2}" fill="#9ab09e" text-anchor="middle" font-size="${14*unit}">NO COMPANIES SELECTED · CHOOSE A TICKER BELOW</text>`}
 $('chart').innerHTML=guides+lines+`<line id="crosshair" x1="0" y1="${yt}" x2="0" y2="${yb}" stroke="#d9ffdd" stroke-width="1" stroke-dasharray="4 3" visibility="hidden"/>`;
@@ -1238,7 +1330,24 @@ for(const b of $('mobileQtyPresets').querySelectorAll('[data-qty-pct]'))b.disabl
 const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(cents(state.cash)):integer(shares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES')}
 function renderHoldings(){const owned=COMPANIES.filter(c=>shares(c.id)>0);$('positioncount').textContent=owned.length+' '+(owned.length===1?'POSITION':'POSITIONS');$('holdings').innerHTML=owned.length?owned.map(c=>`<button type="button" class="holding" data-holding="${c.id}" aria-label="Trade ${c.name}, ${integer(shares(c.id))} shares held"><strong>${c.id}</strong><span class="muted">${integer(shares(c.id))} shares</span><b>${amount(shares(c.id)*priceCents(c.id))}</b></button>`).join(''):'<div class="empty">No holdings. Pick a stock and buy shares.</div>'}
 function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class="event"><span class="eventday">D${String(e.day).padStart(3,'0')}</span><span>${escape(e.text)}</span></div>`).join('')}
-function render(){syncProfile();applyLayout();renderStats();renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();renderClock();renderSaveStatus()}
+// On mobile, render only the currently visible work area after initial boot.
+// Hidden panels are refreshed when opened. Desktop retains its full workspace.
+let firstPanelRender=true;
+function render(){
+ syncProfile();applyLayout();renderStats();
+ if(firstPanelRender||!isMobileProfile()){
+  renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();
+  firstPanelRender=false;
+ }else{
+  switch(state.ui.mobileTab){
+   case 'market':renderStocks();break;
+   case 'chart':renderChart();break;
+   case 'trade':renderTrade();renderHoldings();break;
+   case 'portfolio':renderHoldings();renderEvents();break;
+  }
+ }
+ renderClock();renderSaveStatus();
+}
 // Market progress changes data, not panel geometry. Repaint only relevant
 // mobile views during fast playback; entering a tab still refreshes everything.
 function renderMarketFrame(){
@@ -1247,7 +1356,7 @@ function renderMarketFrame(){
  renderClock();
  if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();return;}
  switch(state.ui.mobileTab){
-  case 'market':renderStocks();renderClock();break;
+  case 'market':renderStocks();break;
   case 'chart':renderChart();break;
   case 'trade':renderTrade();break;
   case 'portfolio':renderHoldings();renderEvents();break;
