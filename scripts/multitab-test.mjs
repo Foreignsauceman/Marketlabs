@@ -104,7 +104,9 @@ test('two same-origin browser sessions use one editor, live updates, and safe ha
   const result=spawnSync(chrome,[
    '--headless=new','--no-sandbox','--disable-gpu',
    '--disable-background-networking','--disable-dev-shm-usage','--no-first-run',
-   '--disable-extensions','--virtual-time-budget=23000','--window-size=1200,900',
+   '--disable-extensions','--disable-background-timer-throttling',
+   '--disable-renderer-backgrounding','--disable-backgrounding-occluded-windows',
+   '--virtual-time-budget=70000','--window-size=1200,900',
    '--user-data-dir='+join(dir,'chrome-profile'),'--dump-dom',
    'http://127.0.0.1:'+port+'/probe.html'
   ],{encoding:'utf8',timeout:45000,maxBuffer:3_000_000});
