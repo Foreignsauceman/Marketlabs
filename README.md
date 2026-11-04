@@ -1,4 +1,4 @@
-# MarketLab v0.6.2
+# MarketLab v0.6.3
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -110,3 +110,15 @@ The **Frame & Render Profiler** in Settings is opt-in and local-only. Start it, 
 - Use a legible two-column detail grid for narrow position cards and shorten the panel's position-count label.
 - Add real desktop/360/390/430px browser checks for compact saved-height behavior, card ordering, expandable P&L and open/empty option visibility. Preserve all market/option calculations and the v2 save format.
 - **No import/export needed:** this is a layout-only patch. A JSON backup is always optional if you want one.
+
+## v0.6.3: corporate actions and living companies
+
+- **Stock splits:** Above roughly $500 a share, companies can execute a 2-for-1 split; above roughly $1,400, a 4-for-1 split. They have a 252-session cooldown and can postpone when the required conversion is not financially safe. **Reverse splits:** Below about $1.75, eligible companies can perform a 1-for-2 reverse split. No cash is created by a routine split.
+- A split adjusts share price, the user's share quantity, outstanding shares, public float, trading volume, prior-day quote, and the entire 520-day chart history to a common basis. **Aggregate stock position value and total cost basis should stay unchanged within cents rounding**. Reverse splits pay cash in lieu of fractional shares and allocate their acquisition cost to realized P&L. Corporate actions appear in the news feed and company briefing.
+- Open simulated options also receive adjusted share deliverables and per-share strikes without changing their **total exercise obligation or original premium**. The contract can deliver a nonstandard number of shares after a split; covered calls and secured puts continue to enforce their adjusted share and cash collateral. Exercised contracts use exact original total strike costs. No market-value transfer should arise merely because the company re-denominated its shares.
+- Companies now have persistent annual revenue, operating margin, cash, debt, annual revenue growth guidance, quarterly reports, earnings surprises and a simple business state (stable, expanding, strained, recovering). Reports are staggered rather than all arriving on the same day. Sector-specific strategic developments can raise or lower forecasts.
+- **Fundamental valuation:** Each company has a rough earnings-based per-share value tied to actual fictional revenue, operating profitability, leverage and its current share count. The simulated price gradually responds to this value, with volatility and unusual news still able to produce major moves. This replaces the fixed historical IPO-price fair-value anchor. It is deliberately simplified game modeling, not a professional security valuation or earnings forecast.
+- A compact, **collapsible Company Briefing** under the Exchange reveals the selected company's financial information, expected next earnings date, capital structure and latest split/reverse split. Mobile stays collapsed by default.
+- **Old portfolio migration:** The save key `marketlab.tiny-exchange.v2`, existing holdings/cost basis/cash/options, history and RNG seed are preserved. A portfolio from an earlier version receives initial fundamentals anchored to **its current saved prices** and initial outstanding share counts. There are no retroactive splits and no surprise reset to Day 1 quotes. Legacy options receive 100-share deliverables until they experience a corporate action.
+- Run a JSON export **before upgrading**, because both simulation and contract accounting have changed. Reimport only if a recovery is needed. Do not use an older tab to overwrite a save that has already upgraded.
+- Tests cover 2-for-1/4-for-1 splits, reverse splits with cash-in-lieu, options adjustments, strike collateral, price/cap/holdings invariants, quarterly reports, 23,365-day save migration, responsive UI, deterministic simulation, multi-tab safety and production GitHub Pages deployment.
