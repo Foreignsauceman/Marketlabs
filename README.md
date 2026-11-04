@@ -1,4 +1,4 @@
-# MarketLab v0.4.6
+# MarketLab v0.5.0
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -53,3 +53,14 @@ On a personal repository, choose review requirements that do not lock out the so
 - Trading rules, cash/share calculations, market RNG, and the existing `marketlab.tiny-exchange.v2` save key are unchanged. Before major upgrades, export saves in Settings.
 
 Browser/iPhone manual testing is still advised; Node smoke tests do not emulate Safari rendering, install behavior, or File System Access APIs.
+
+## v0.5.0 mobile redesign
+
+- A new mobile-first dark portfolio dashboard with a large net-worth summary, cash and invested balance tiles.
+- A compact quick market clock, market-screen labels and navigation icons sized for touch.
+- Watchlist cards show 24-session mini trend lines, prices and daily changes.
+- Redesigned chart, trading and portfolio screens, including one-tap 25%, 50% and MAX share quantity presets.
+- The desktop workspace, fictional market engine, and existing `marketlab.tiny-exchange.v2` save format remain unchanged.
+- Rebuilt mobile CSS remains scoped to the mobile profile. Switch to desktop mode through the profile selector if preferred.
+
+**Safety:** Export a JSON save before any major release. The v0.5.0 update leaves the save key and market mechanics untouched. Automated browser checks cover common actions, but test the installed app on iPhone after deployment.
