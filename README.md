@@ -1,4 +1,4 @@
-# MarketLab v0.5.1
+# MarketLab v0.5.2
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -83,3 +83,14 @@ If you set a custom Pages domain later, override the CI URL with `MARKETLAB_URL`
 - All disclosure buttons expose their state with `aria-expanded`; mobile controls are designed for touch and the desktop workspace remains fully expanded.
 - The market engine, existing save key `marketlab.tiny-exchange.v2`, and trading and sync logic are unchanged. Disclosure state is temporary UI-only state, not added to save JSON.
 - Automated Chromium smoke tests check disclosure behaviors, the four mobile tabs, no horizontal overflow, stock buy/sell, and narrow phone viewport sizes.
+
+## v0.5.2 two-tab and session safety
+
+- MarketLab uses **one active editor per website origin** where the browser's Web Locks API is available. A second tab follows the current saved portfolio in read-only mode. Trading, automatic market advancement, imports, resets, and cloud writes are unavailable in that second tab.
+- When the editing tab closes, a viewer can automatically become the editor or use **CHECK AGAIN**. Its state is reloaded from the latest save before trading.
+- Every local save checks that its starting snapshot is still current. A foreign or outdated tab's write pauses editing instead of silently overwriting the other tab's progress. **Close other tabs before resuming.**
+- Browsers without Web Locks use a weaker optimistic snapshot check and storage-change listener. Concurrent writes in unsupported browsers are not guaranteed to be atomic; avoid editing in multiple tabs simultaneously.
+- The one-editor rule covers tabs on the **same origin** in the same browser storage profile. Separate browsers, private windows, distinct devices, and the old vs new GitHub Pages username subdomains do **not** share local portfolios or browser locks.
+- Folder-based cloud sync remains an optional manual external backup, not real-time cross-device collaboration. Existing cloud revision checks and backup safeguards remain.
+- Save format and key `marketlab.tiny-exchange.v2` are unchanged. Export a JSON recovery file before updating if your current portfolio matters.
+- CI now tests two real same-origin browser frames, writer/follower enforcement, cross-tab updates, handoff on editor closure, and rogue legacy writes, in addition to trading and mobile UI checks.
