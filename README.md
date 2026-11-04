@@ -1,4 +1,4 @@
-# MarketLab v0.4.5
+# MarketLab v0.4.6
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -29,7 +29,7 @@ Trading progress is stored in each browser's local storage, **not** in GitHub an
 ## Development and release workflow
 
 1. Create a branch from `main`, edit the app, and open a pull request.
-2. GitHub Actions runs **MarketLab Smoke Tests / Verify static app and PWA** for every pull request and push to `main`. Run the same tests locally with `node --test scripts/smoke-test.mjs` (Node.js 22 or newer).
+2. GitHub Actions runs **MarketLab Smoke Tests / Verify static app and PWA** for every pull request and push to `main`. Run the same tests locally with `node --test scripts/smoke-test.mjs scripts/engine-test.mjs` (Node.js 22 or newer).
 3. After the checks pass and the changes are reviewed, merge the pull request. GitHub Pages deploys updates to the same website URL.
 4. For new releases, update the visible version in `index.html`, the README heading, and `CACHE` version in `sw.js`. Do not change local-save keys casually: that could reset or strand portfolios.
 5. Smoke tests verify JavaScript syntax, DOM references, local-save controls, PWA manifest, PNG dimensions, offline cache files, version alignment, and self-contained runtime dependencies. They do not replace manual trading, save import/export, or iPhone checks.
@@ -43,3 +43,13 @@ In GitHub go to **Settings > Rules > Rulesets > New branch ruleset**, create an 
 - Block force pushes and branch deletion (normally enabled by default for protected branches).
 
 On a personal repository, choose review requirements that do not lock out the sole maintainer. **This setup requires owner action in GitHub's settings**; repository content commits cannot apply protection rules themselves.
+
+## v0.4.6 maintenance notes
+
+- Mobile exchange and portfolio selections now save and repaint once per action instead of repeating full layout work.
+- Chart scaling finds minimum and maximum directly without allocating a flattened history array on each frame.
+- The service worker precaches `index.html` once (instead of storing duplicate HTML responses for `/` and `/index.html`); offline navigation still falls back to the cached page.
+- CI now runs deterministic market simulation, buy/sell ledger, invalid-order, saved-state-validation, and mobile UI efficiency regression checks alongside the existing PWA/static checks.
+- Trading rules, cash/share calculations, market RNG, and the existing `marketlab.tiny-exchange.v2` save key are unchanged. Before major upgrades, export saves in Settings.
+
+Browser/iPhone manual testing is still advised; Node smoke tests do not emulate Safari rendering, install behavior, or File System Access APIs.
