@@ -999,6 +999,37 @@ body[data-profile="mobile"] #holdingspanel .portfolio-summary>summary{min-height
  #holdingspanel .portfolio-summary .portfolio-caret{transition:none}
 }
 
+
+
+/* v0.6.3: compact company fundamentals, hidden until the player requests them */
+.company-brief{margin:5px 10px 10px;border:1px solid #34564c;
+ border-radius:12px;overflow:hidden;background:#162a29}
+.company-brief>summary{display:flex;align-items:center;gap:9px;min-height:46px;
+ padding:9px 13px;list-style:none;cursor:pointer;color:#b7dfca;
+ font:800 11px/1.3 system-ui,sans-serif}
+.company-brief>summary::-webkit-details-marker{display:none}
+.company-brief>summary strong{margin-left:auto;color:#d7fbe1;font-size:10px;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.company-brief>summary .brief-caret{font-size:19px;line-height:1}
+.company-brief[open]>summary{border-bottom:1px solid #35564e}
+.company-brief[open]>summary .brief-caret{transform:rotate(180deg)}
+.company-brief-inner{padding:11px 12px}
+.company-brief-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.company-brief-metric{display:flex;flex-direction:column;gap:6px;padding:10px;
+ border:1px solid #35514a;border-radius:9px;background:#1c3433;min-width:0}
+.company-brief-metric small{font:760 9px/1.25 system-ui,sans-serif;
+ letter-spacing:.02em;color:#a5c3b4}
+.company-brief-metric strong{font:760 13px/1.2 system-ui,sans-serif;color:#edfff0;
+ overflow:hidden;text-overflow:ellipsis}
+.company-brief-narrative{margin:11px 0 0;color:#a5c6b9;
+ font:550 11px/1.5 system-ui,sans-serif}
+body[data-profile="mobile"] .company-brief{margin:0 11px 11px;border-radius:13px}
+body[data-profile="mobile"] .company-brief-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+body[data-profile="mobile"] .company-brief>summary{min-height:49px}
+@media(max-width:420px){
+ body[data-profile="mobile"] .company-brief-metric strong{font-size:12px}
+}
+
 </style>
 </head>
 <body><div class="wrap">
@@ -1025,7 +1056,13 @@ body[data-profile="mobile"] #holdingspanel .portfolio-summary>summary{min-height
 <div class="left">
 <section class="panel sizable" id="chartpanel" aria-label="Company chart"><div class="panelhead"><div><span class="heading"><span class="desktop-heading">01 / MARKET CHART</span><span class="mobile-heading">Chart overview</span></span><span class="meta" id="chartmeta"> · 42 trading days</span></div><div class="chartopts"><label class="range-picker" for="chartrange">RANGE <select id="chartrange" aria-label="Graph time range"><option value="21">1M</option><option value="63">3M</option><option value="252">1Y</option><option value="520">MAX</option></select></label><button id="indexoverlay" class="mini" type="button" aria-pressed="true" title="Show or hide exchange trend on the graph">↗ INDEX</button><button id="allchart" class="mini" aria-pressed="true">ALL / %</button><button id="singlechart" class="mini" aria-pressed="false">SINGLE / $</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="chartpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="chartpanel" role="button" aria-label="Move chartpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div>
 <div class="chartarea" id="chartarea"><svg id="chart" class="chart" viewBox="0 0 850 270" role="img" aria-label="Historical performance of every listed company"></svg><div id="tooltip" class="tooltip" hidden></div><div class="chartfoot"><span id="chartstart">41 DAYS AGO</span><span id="charttype">RELATIVE PERFORMANCE · BASE = 100</span><span id="chartend">DAY 001</span></div></div><button type="button" id="chartExtraToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="chartExtraBody"><span>Chart settings &amp; series</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div id="chartExtraBody" class="chart-extra-body"><div id="legend" class="legend" aria-label="Choose visible and highlighted chart companies"></div><div class="chartactions"><span>CHART SERIES</span><button type="button" id="showall">SHOW ALL</button><button type="button" id="hideall">HIDE ALL</button><button type="button" id="clearfocus">CLEAR FOCUS</button><button type="button" id="wideleft" title="Make left column as wide as practical">WIDE LEFT</button><button type="button" id="focusleft" aria-pressed="false" title="Place trading panels below to give the left column the full width">FULL LEFT ↗</button><button type="button" id="resetlayout">RESET SIZES</button><span id="splitreadout" class="split-readout">LEFT 72%</span><span class="resizehelp">DRAG HANDLES · DOUBLE-CLICK TO RESET</span></div></div><div class="panelsizer" data-panel="chartpanel" role="separator" tabindex="0" aria-label="Resize chart panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
-<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading"><span class="desktop-heading">02 / SIMULATED EXCHANGE</span><span class="mobile-heading">Explore stocks</span></div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional stocks react to rates, confidence, factory activity, earnings surprises, and rare market shocks. Ordinary trading days are calmer; sharp moves remain possible.</div><details id="economyPanel" class="economy-panel">
+<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading"><span class="desktop-heading">02 / SIMULATED EXCHANGE</span><span class="mobile-heading">Explore stocks</span></div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional stocks react to rates, confidence, factory activity, earnings surprises, and rare market shocks. Ordinary trading days are calmer; sharp moves remain possible.</div><details class="company-brief" id="companyBrief">
+ <summary><span>▦ COMPANY BRIEFING</span><strong id="briefTitle">NEON · STABLE</strong><span aria-hidden="true" class="brief-caret">⌄</span></summary>
+ <div class="company-brief-inner">
+  <div id="briefMetrics" class="company-brief-grid"></div>
+  <p id="briefNarrative" class="company-brief-narrative">Fictional operating results.</p>
+ </div>
+</details><details id="economyPanel" class="economy-panel">
  <summary><span class="economy-heading"><span class="economy-signal" aria-hidden="true">◈</span> ECONOMY PULSE</span><span class="economy-brief" id="economyBrief">Macro indicators · simulated</span><span class="economy-caret" aria-hidden="true">⌄</span></summary>
  <div class="economy-inner">
   <p class="economy-description">FICTIONAL ECONOMY · Reports update every 21 trading days. Rates, wages, credit spreads, manufacturing, inflation and growth influence sectors. Policy decisions lag changes in the economy.</p>
@@ -2018,6 +2055,34 @@ function startAuto(){
 function toggleAuto(){if(timer!==null){stopAuto();return}startAuto()}
 function updateAutoSettings(){state.ui.autoStep=Number($('autostep').value);state.ui.autoMs=Number($('autospeed').value);save();if(timer!==null)startAuto();else renderClock()}
 function renderClock(){$('mobileMarketDay').textContent='DAY '+state.day.toLocaleString('en-US');$('mobileMarketMood').textContent=state.regime.toUpperCase()+' MARKET';$('mobileAuto').textContent=timer!==null?'Ⅱ PAUSE':'▶ PLAY';$('mobileAuto').setAttribute('aria-pressed',String(timer!==null));$('mobileAuto').disabled=state.day>=MAX_DAY;$('mobileAdvance').disabled=state.day>=MAX_DAY;$('auto').textContent=timer!==null?'Ⅱ PAUSE':'▶ AUTO';$('auto').setAttribute('aria-pressed',String(timer!==null));$('auto').classList.toggle('active',timer!==null);for(const id of ['next','next10','auto'])$(id).disabled=state.day>=MAX_DAY;$('clockstatus').textContent='· '+(timer!==null?'Market running':'Advance simulated days');$('autostep').value=String(state.ui.autoStep);$('autospeed').value=String(state.ui.autoMs);$('autodetail').textContent=(timer!==null?'RUNNING · ':'SET · ')+state.ui.autoStep+'D / '+(state.ui.autoMs/1000)+'S'}
+// Company fundamentals are fictional operating results, refreshed every quarter.
+function renderCompanyBrief(){
+ const c=company(state.selected),q=quote(c.id),f=q.fundamentals;
+ const label=f.status.toUpperCase();
+ const title=c.id+' · '+label;
+ if($('briefTitle').textContent!==title)$('briefTitle').textContent=title;
+ const figures=[
+  ['ANNUAL REVENUE',compact(f.revenue)],['OPERATING MARGIN',signed(f.margin*100)],
+  ['ANNUAL OPERATING PROFIT',compact(f.revenue*f.margin)],
+  ['CASH',compact(f.cash)],['DEBT',compact(f.debt)],
+  ['GROWTH OUTLOOK',signed(f.guidance*100)],
+  ['EARNINGS-BASED VALUE',money(fundamentalFairPrice(c))+' / share'],
+  ['SHARES OUTSTANDING',compactShares(q.sharesOutstanding)],
+  ['CORPORATE ACTIONS',String(q.splitCount)]
+ ];
+ const html=figures.map(([k,v])=>'<div class="company-brief-metric"><small>'+
+  escape(k)+'</small><strong>'+escape(v)+'</strong></div>').join('');
+ if($('briefMetrics').innerHTML!==html)$('briefMetrics').innerHTML=html;
+ const offset=COMPANIES.findIndex(x=>x.id===c.id)*10,
+  remaining=63-((state.day+offset)%63);
+ const action=q.lastAction?
+  ' · Last '+(q.lastAction.kind==='split'?'split '+q.lastAction.ratio+'-for-1':
+   'reverse 1-for-'+q.lastAction.ratio)+' on Day '+q.lastAction.day:'';
+ const narrative='Next earnings Day '+(state.day+remaining)+
+  ' · Reports '+f.quarterCount+' · '+label+
+  ' · Model value is a rough earnings estimate, not a price target.'+action;
+ if($('briefNarrative').textContent!==narrative)$('briefNarrative').textContent=narrative;
+}
 function renderEconomy(){
  const e=state.economy,rate=e.rate.toFixed(2)+'%',inflation=e.inflation.toFixed(2)+'%';
  const values={
@@ -2211,17 +2276,16 @@ function renderOptionTicket(){
  $('optionPreview').innerHTML=`<strong>${escape(legend)}</strong><span>Model premium: ${amount(price*100)} / contract · ${amount(premium)} total (${isWrite?'credit':'debit'})</span><span>Expiry: Day ${state.day+days} · Strike: ${amount(strike)} · Collateral: ${reserve}</span><span>Estimated max contracts affordable: ${Math.max(0,Math.min(10,available))} · Intrinsic at expiry varies with the market.</span>`;
 }
 const optionsOpenPnl=()=>state.options.reduce((sum,o)=>{
- const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
- return sum+(o.side==='long'?mark-o.entryPremiumCents:o.entryPremiumCents-mark)*OPTION_MULTIPLIER*o.qty;
+ const mark=contractMark(o),entry=entryContractValue(o);
+ return sum+(o.side==='long'?mark-entry:entry-mark)*o.qty;
 },0);
 function renderOptionPositions(){
  const open=state.options;
  const row=o=>{
-  const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay),value=mark*OPTION_MULTIPLIER*o.qty;
-  const paid=o.entryPremiumCents*OPTION_MULTIPLIER*o.qty;
+  const value=contractMark(o)*o.qty,paid=entryContractValue(o)*o.qty;
   const pnl=(o.side==='long'?value-paid:paid-value);
   const disposition=o.side==='long'?'LONG':o.type==='call'?'COVERED SHORT':'CASH-SECURED SHORT';
-  return `<div class="option-position-row"><div class="option-position-top"><strong>${o.ticker} ${o.type.toUpperCase()} · ${disposition}</strong><b class="${pnl>=0?'pos':'neg'}">${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</b></div><div class="option-position-grid"><span>CONTRACTS <strong>${o.qty}</strong></span><span>STRIKE <strong>${amount(o.strike)}</strong></span><span>DAY <strong>${o.expiryDay}</strong></span><span>ENTRY PREMIUM <strong>${amount(paid)}</strong></span><span>MARK VALUE <strong>${amount(value)}</strong></span><span>UNREALIZED P&L <strong>${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</strong></span></div><button class="option-close" type="button" data-option-close="${o.id}" ${session.role!=='writer'?'disabled':''}>${o.side==='long'?'SELL TO CLOSE':'BUY TO CLOSE'}</button></div>`;
+  return `<div class="option-position-row"><div class="option-position-top"><strong>${o.ticker} ${o.type.toUpperCase()} · ${disposition}</strong><b class="${pnl>=0?'pos':'neg'}">${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</b></div><div class="option-position-grid"><span>CONTRACTS <strong>${o.qty}</strong></span><span>STRIKE <strong>${money(usd(exerciseCost(o)/contractShares(o)))}</strong></span><span>DELIVERABLE <strong>${contractShares(o)} shares/contract</strong></span><span>DAY <strong>${o.expiryDay}</strong></span><span>ENTRY PREMIUM <strong>${amount(paid)}</strong></span><span>MARK VALUE <strong>${amount(value)}</strong></span><span>UNREALIZED P&L <strong>${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</strong></span></div><button class="option-close" type="button" data-option-close="${o.id}" ${session.role!=='writer'?'disabled':''}>${o.side==='long'?'SELL TO CLOSE':'BUY TO CLOSE'}</button></div>`;
  };
  const markup=open.length?open.map(row).join(''):'<div class="empty">No open option contracts.</div>';
  if(markup!==lastOptionMarkup){
@@ -2260,7 +2324,7 @@ function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class=
 // Hidden panels are refreshed when opened. Desktop retains its full workspace.
 let firstPanelRender=true;
 function render(){
- syncProfile();applyLayout();renderStats();renderEconomy();
+ syncProfile();applyLayout();renderStats();renderEconomy();renderCompanyBrief();
  if(firstPanelRender||!isMobileProfile()){
   renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();
   firstPanelRender=false;
@@ -2277,7 +2341,7 @@ function render(){
 // Market progress changes data, not panel geometry. Repaint only relevant
 // mobile views during fast playback; entering a tab still refreshes everything.
 function renderMarketFrame(){
- renderStats();renderEconomy();
+ renderStats();renderEconomy();renderCompanyBrief();
  // Market time is visible in the mobile quickbar on every tab.
  renderClock();
  if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();return;}
