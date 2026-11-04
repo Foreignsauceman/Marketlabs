@@ -167,6 +167,59 @@ test('long-running market remains bounded, deterministic and reloadable', () => 
   assert.deepEqual(copy(a.normalize(state)), state);
 });
 
+test('legacy v2 saves migrate to a stable macro economy without losing trading data', () => {
+  const engine=createHarness();
+  const previous=copy(engine.getState());
+  delete previous.economy;
+  const restored=copy(engine.normalize(previous));
+  assert.ok(restored, 'Missing economy must not invalidate an existing portfolio');
+  assert.equal(restored.economy.rate,3.5);
+  assert.equal(restored.economy.inflation,2.6);
+  assert.equal(restored.economy.lastReportDay,0);
+  assert.deepEqual(restored.holdings,previous.holdings);
+  assert.deepEqual(restored.companies,previous.companies);
+  assert.equal(restored.seed,previous.seed);
+  assert.deepEqual(copy(engine.normalize(restored)),restored);
+});
+
+test('the fictional economic cycle updates monthly and survives saves', () => {
+  const a=createHarness(),b=createHarness();
+  for(let i=0;i<84;i++){a.tick();b.tick()}
+  const value=copy(a.getState());
+  assert.equal(value.day,85);
+  assert.equal(value.economy.lastReportDay,84);
+  assert.ok(value.economy.rate>=0&&value.economy.rate<=10);
+  assert.ok(value.economy.inflation>=0&&value.economy.inflation<=12);
+  assert.ok(value.economy.confidence>=40&&value.economy.confidence<=160);
+  assert.ok(value.events.some(event=>event.text.includes('Economic report:')));
+  assert.deepEqual(value,copy(b.getState()),'Monthly reports must be reproducible with a saved RNG');
+  assert.deepEqual(value,copy(a.normalize(value)),'Economic indicators must round-trip losslessly');
+});
+
+test('different macroeconomic conditions influence sector prices without changing share math', () => {
+  const optimistic=createHarness(),stressed=createHarness();
+  const a=copy(optimistic.getState()),b=copy(stressed.getState());
+  a.economy={rate:0,inflation:1.0,growth:7.0,unemployment:2,confidence:145,lastReportDay:0,policyDirection:'hold'};
+  b.economy={rate:9,inflation:9.0,growth:-5,unemployment:14,confidence:55,lastReportDay:0,policyDirection:'hold'};
+  optimistic.setState(a);stressed.setState(b);
+  optimistic.tick();stressed.tick();
+  const up=copy(optimistic.getState()),down=copy(stressed.getState());
+  assert.equal(up.day,down.day);
+  assert.deepEqual(up.holdings,down.holdings);
+  assert.notDeepEqual(Object.values(up.companies).map(x=>x.price),
+    Object.values(down.companies).map(x=>x.price),
+    'Interest rates and the wider economy should affect trading prices');
+});
+
+test('invalid economy values are rejected while legacy saves remain compatible', () => {
+ const engine=createHarness(),state=copy(engine.getState());
+ for(const change of [{rate:Infinity},{inflation:-5},{growth:100},
+   {confidence:200},{unemployment:0},{lastReportDay:1000},{policyDirection:'crash'}]){
+  const corrupt=copy(state);Object.assign(corrupt.economy,change);
+  assert.equal(engine.normalize(corrupt),null);
+ }
+});
+
 test('mobile selection handlers use one save and repaint per action', () => {
   const stocks = section("$('stocks').addEventListener('click'", "$('profilemode').addEventListener");
   const holdings = section("$('holdings').addEventListener('click'", "$('mobileReset').addEventListener");
