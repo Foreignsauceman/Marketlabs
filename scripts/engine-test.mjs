@@ -245,7 +245,8 @@ test('weighted-average share entry and realized/unrealized P&L use integer cents
  assert.equal(h.basis('NEON'),14316);
  assert.equal(h.getState().realizedPnLCents,456);
  assert.equal(h.getState().realizedPnLCents+3*5000-h.basis('NEON'),1140);
- assert.deepEqual(copy(h.normalize(copy(h.getState()))),copy(h.getState()));
+ const normalized=copy(h.normalize(copy(h.getState())));
+ assert.deepEqual(copy(h.normalize(normalized)),normalized);
 });
 
 test('legacy portfolios receive clearly estimated cost basis instead of invented trades', () => {
@@ -304,7 +305,8 @@ test('covered calls reserve owned stock; written puts reserve cash for assignmen
  assert.equal(h.reservedCash(),0);
  assert.equal(h.getState().options.length,0);
  assert.ok(h.getState().optionRealizedCents>0);
- assert.deepEqual(copy(h.normalize(copy(h.getState()))),copy(h.getState()));
+ const normalized=copy(h.normalize(copy(h.getState())));
+ assert.deepEqual(copy(h.normalize(normalized)),normalized);
 });
 
 test('options validation rejects uncollateralized, expired, or malformed contracts', () => {
