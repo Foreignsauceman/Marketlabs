@@ -1779,8 +1779,80 @@ function toggleFocus(id){if(!company(id)||!state.ui.visible.includes(id))return;
 
 function renderTrade(){const id=state.selected,c=company(id),raw=$('qty').value.trim(),n=/^\d+$/.test(raw)?Number(raw):NaN,qty=Number.isSafeInteger(n)&&n>=1?n:null,o=validateOrder();$('buy').setAttribute('aria-pressed',String(state.side==='buy'));$('sell').setAttribute('aria-pressed',String(state.side==='sell'));$('orderticker').textContent=id;$('mobilecompany').value=id;$('unitprice').textContent=amount(priceCents(id));
 for(const b of $('mobileQtyPresets').querySelectorAll('[data-qty-pct]'))b.disabled=maxQty()<1;
-const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(buyingPowerCents()):integer(shares(id)-reservedShares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES')}
-function renderHoldings(){const owned=COMPANIES.filter(c=>shares(c.id)>0);$('positioncount').textContent=owned.length+' '+(owned.length===1?'POSITION':'POSITIONS');$('holdings').innerHTML=owned.length?owned.map(c=>`<button type="button" class="holding" data-holding="${c.id}" aria-label="Trade ${c.name}, ${integer(shares(c.id))} shares held"><strong>${c.id}</strong><span class="muted">${integer(shares(c.id))} shares</span><b>${amount(shares(c.id)*priceCents(c.id))}</b></button>`).join(''):'<div class="empty">No holdings. Pick a stock and buy shares.</div>'}
+const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(buyingPowerCents()):integer(shares(id)-reservedShares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES');renderOptionTicket()}
+// Options ticket intentionally lives inside a disclosure to preserve mobile space.
+let lastOptionTicker='',lastOptionMarkup='';
+function optionStrikeChoices(){
+ const input=$('optionStrike'),ticker=state.selected,spot=priceCents(ticker);
+ const current=Number(input.value);
+ if(ticker===lastOptionTicker&&input.options.length&&Math.abs(spot-current)/Math.max(1,spot)<.20)return;
+ const strikes=[.85,.90,.95,1,1.05,1.10,1.15].map(f=>Math.max(50,Math.round(spot*f/50)*50));
+ const values=[...new Set(strikes)].sort((a,b)=>a-b);
+ input.innerHTML=values.map(c=>`<option value="${c}">${amount(c)}</option>`).join('');
+ const nearest=values.reduce((best,v)=>Math.abs(v-spot)<Math.abs(best-spot)?v:best,values[0]);
+ input.value=String(ticker===lastOptionTicker&&values.includes(current)?current:nearest);
+ lastOptionTicker=ticker;
+}
+function renderOptionTicket(){
+ optionStrikeChoices();
+ const type=$('optionType').value,side=$('optionSide').value;
+ const qty=Number($('optionQty').value),strike=Number($('optionStrike').value),days=Number($('optionExpiry').value);
+ $('optionExecute').textContent=side==='long'?'BUY OPTION':'WRITE OPTION';
+ const valid=Number.isSafeInteger(qty)&&qty>=1&&qty<=10&&Number.isSafeInteger(strike)&&strike>0;
+ $('optionExecute').disabled=session.role!=='writer'||!valid||state.day+days>MAX_DAY;
+ if(!valid){$('optionPreview').textContent='Enter 1–10 contracts and a valid strike.';return}
+ const price=optionQuoteCents(state.selected,type,strike,state.day+days);
+ const premium=price*OPTION_MULTIPLIER*qty;
+ const isWrite=side==='short';
+ const reserve=isWrite?(type==='put'?amount(strike*OPTION_MULTIPLIER*qty):
+   integer(OPTION_MULTIPLIER*qty)+' free shares'):'none';
+ const available=type==='call'&&isWrite?Math.floor(Math.max(0,shares(state.selected)-reservedShares(state.selected))/100):
+   type==='put'&&isWrite?Math.floor(buyingPowerCents()/(strike*100)):
+   Math.floor(buyingPowerCents()/Math.max(1,price*100));
+ const legend=isWrite?(type==='call'?'Covered call · capped upside':'Cash-secured put · stock purchase risk'):
+  type==='call'?'Long call · bullish':'Long put · bearish';
+ $('optionPreview').innerHTML=`<strong>${escape(legend)}</strong><span>Model premium: ${amount(price*100)} / contract · ${amount(premium)} total (${isWrite?'credit':'debit'})</span><span>Expiry: Day ${state.day+days} · Strike: ${amount(strike)} · Collateral: ${reserve}</span><span>Estimated max contracts affordable: ${Math.max(0,Math.min(10,available))} · Intrinsic at expiry varies with the market.</span>`;
+}
+const optionsOpenPnl=()=>state.options.reduce((sum,o)=>{
+ const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
+ return sum+(o.side==='long'?mark-o.entryPremiumCents:o.entryPremiumCents-mark)*OPTION_MULTIPLIER*o.qty;
+},0);
+function renderOptionPositions(){
+ const open=state.options;
+ const row=o=>{
+  const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay),value=mark*OPTION_MULTIPLIER*o.qty;
+  const paid=o.entryPremiumCents*OPTION_MULTIPLIER*o.qty;
+  const pnl=(o.side==='long'?value-paid:paid-value);
+  const disposition=o.side==='long'?'LONG':o.type==='call'?'COVERED SHORT':'CASH-SECURED SHORT';
+  return `<div class="option-position-row"><div class="option-position-top"><strong>${o.ticker} ${o.type.toUpperCase()} · ${disposition}</strong><b class="${pnl>=0?'pos':'neg'}">${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</b></div><div class="option-position-grid"><span>CONTRACTS <strong>${o.qty}</strong></span><span>STRIKE <strong>${amount(o.strike)}</strong></span><span>DAY <strong>${o.expiryDay}</strong></span><span>ENTRY PREMIUM <strong>${amount(paid)}</strong></span><span>MARK VALUE <strong>${amount(value)}</strong></span><span>UNREALIZED P&L <strong>${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</strong></span></div><button class="option-close" type="button" data-option-close="${o.id}" ${session.role!=='writer'?'disabled':''}>${o.side==='long'?'SELL TO CLOSE':'BUY TO CLOSE'}</button></div>`;
+ };
+ const markup=open.length?open.map(row).join(''):'<div class="empty">No open option contracts.</div>';
+ if(markup!==lastOptionMarkup){
+  $('optionPositions').innerHTML=markup;
+  $('optionsPortfolio').innerHTML=markup;
+  lastOptionMarkup=markup;
+ }
+ $('optionCount').textContent=String(open.length);
+ $('portfolioOptionCount').textContent=String(open.length);
+}
+function renderHoldings(){
+ const owned=COMPANIES.filter(c=>shares(c.id)>0);
+ $('positioncount').textContent=owned.length+' STOCK '+(owned.length===1?'POSITION':'POSITIONS');
+ const stockPnl=owned.reduce((sum,c)=>sum+shares(c.id)*priceCents(c.id)-basisCents(c.id),0);
+ const unrealized=stockPnl+optionsOpenPnl();
+ for(const [id,value] of [['unrealizedTotal',unrealized],['realizedTotal',state.realizedPnLCents],
+ ['optionRealizedTotal',state.optionRealizedCents]]){
+  const el=$(id);el.textContent=(value>=0?'+':'−')+amount(Math.abs(value));
+  el.className=value>0?'pos':value<0?'neg':'';
+ }
+ $('holdings').innerHTML=owned.length?owned.map(c=>{
+  const qty=shares(c.id),basis=basisCents(c.id),mark=qty*priceCents(c.id),
+    pnl=mark-basis,pct=basis>0?pnl/basis*100:0,avg=Math.round(basis/qty);
+  const estimated=state.estimatedBasis[c.id];
+  return `<button type="button" class="holding position-card" data-holding="${c.id}" aria-label="View and trade ${escape(c.name)}, ${qty} shares, unrealized P&L ${pnl>=0?'plus':'minus'} ${amount(Math.abs(pnl))}"><span class="position-card-head"><strong>${c.id} <small>${escape(c.name)}</small></strong><b>${amount(mark)}</b></span><span class="position-card-grid"><span>SHARES <strong>${integer(qty)}</strong></span><span>AVG BUY <strong>${amount(avg)}${estimated?'*':''}</strong></span><span>PRICE NOW <strong>${amount(priceCents(c.id))}</strong></span><span>COST BASIS <strong>${amount(basis)}</strong></span><span>UNREALIZED P&L <strong class="${pnl>=0?'pos':'neg'}">${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</strong></span><span>RETURN <strong class="${pct>=0?'pos':'neg'}">${signed(pct)}</strong></span></span>${estimated?'<span class="basis-disclaimer">* Estimated basis from the first upgraded save. Original purchase price was not recorded.</span>':''}</button>`;
+ }).join(''):'<div class="empty">No holdings. Pick a stock and buy shares.</div>';
+ renderOptionPositions();
+}
 function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class="event"><span class="eventday">D${String(e.day).padStart(3,'0')}</span><span>${escape(e.text)}</span></div>`).join('')}
 // On mobile, render only the currently visible work area after initial boot.
 // Hidden panels are refreshed when opened. Desktop retains its full workspace.
