@@ -526,6 +526,42 @@ test('reject impossible split states and tampered adjusted option contracts',()=
  assert.equal(h.normalize(obligation),null);
 });
 
+
+test('automatic reverse split is triggered by low prices and restates history',()=>{
+ const h=createHarness(),s=h.getState(),q=h.quote('BYTE');
+ s.day=100;q.price=.5;q.previous=.5;q.history=q.history.map(()=>.5);
+ h.tick();
+ assert.equal(q.lastAction?.kind,'reverse');
+ assert.equal(q.lastAction?.ratio,2);
+ assert.equal(q.history.at(-1),q.price);
+ assert.equal(q.publicFloat,27000000);
+ assert.deepEqual(copy(h.normalize(copy(h.normalize(copy(s))))),copy(h.normalize(copy(s))));
+});
+
+test('25,000-session economy remains reloadable, bounded, and split-aware',()=>{
+ const h=createHarness();
+ for(let i=0;i<25000;i++)h.tick();
+ const state=copy(h.getState());
+ assert.equal(state.day,25001);
+ let totalActions=0;
+ for(const ticker of ['NEON','HARB','MISO','VOLT','AERO','BYTE']){
+  const q=state.companies[ticker];
+  assert.ok(q.price>=.01&&q.price<=10000,ticker+' price out of bounds');
+  assert.ok(q.sharesOutstanding>=q.publicFloat&&q.publicFloat>=100,
+   ticker+' invalid share structure');
+  assert.ok(Number.isSafeInteger(q.sharesOutstanding)&&Number.isSafeInteger(q.publicFloat));
+  assert.equal(q.history.at(-1),q.price);
+  assert.equal(q.history.length,520);
+  assert.ok(q.fundamentals.revenue>=0&&Number.isSafeInteger(q.fundamentals.revenue));
+  assert.ok(q.fundamentals.quarterCount>=300,'Quarterly reports stopped for '+ticker);
+  totalActions+=q.splitCount;
+ }
+ assert.ok(totalActions>0,'A century of market history should generate corporate actions');
+ const restored=copy(h.normalize(state));
+ assert.ok(restored,'Long-running saves must not be rejected by the loader');
+ assert.deepEqual(copy(h.normalize(restored)),restored);
+});
+
 test('mobile selection handlers use one save and repaint per action', () => {
   const stocks = section("$('stocks').addEventListener('click'", "$('profilemode').addEventListener");
   const holdings = section("$('holdings').addEventListener('click'", "$('mobileReset').addEventListener");
