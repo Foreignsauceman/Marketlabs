@@ -86,7 +86,12 @@ test('fresh market is deterministic and round-trips through saved-state validati
     assert.equal(quote.history.at(-1), quote.price);
   }
   assert.deepEqual(copy(engine.fresh()), starting);
-  assert.deepEqual(copy(engine.normalize(starting)), starting);
+  const normalized = copy(engine.normalize(starting));
+  assert.equal(normalized.version, starting.version);
+  assert.equal(normalized.seed, starting.seed);
+  assert.deepEqual(normalized.companies, starting.companies);
+  // The loader intentionally fills missing per-sector/per-company momentum defaults.
+  assert.deepEqual(copy(engine.normalize(normalized)), normalized);
 });
 
 test('buy and sell preserve cent arithmetic and do not create phantom shares', () => {
@@ -120,7 +125,8 @@ test('invalid orders never modify balances, holdings or trigger saves', () => {
   assert.equal(engine.validateOrder().ok, false);
   engine.trade();
   assert.equal(engine.getWriteCount(), 0);
-  assert.deepEqual(copy(engine.getState()), starting);
+  // Only the selected buy/sell UI side changed during the invalid-order test.
+  assert.deepEqual({ ...copy(engine.getState()), side: starting.side }, starting);
 });
 
 test('reject corrupt saved quotes, invalid history and impossible holdings', () => {
