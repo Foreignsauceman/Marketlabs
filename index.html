@@ -1765,6 +1765,70 @@ function valuationPressure(c,price,day){
  // compounding. Large shocks and noisy trading remain part of the simulation.
  return clamp(-deviation*.0038,-.012,.012);
 }
+// Split/reverse-split checks run only after a completed price update. Every
+// price in the chart is restated to the same share basis, including previous.
+// Company cash/debt/revenue and option total exercise cost are unchanged.
+function applyCorporateAction(c,kind,ratio){
+ const q=quote(c.id),forward=kind==='split',factor=forward?ratio:1/ratio;
+ if(q.lastSplitDay&&state.day-q.lastSplitDay<252)return false;
+ const outstanding=forward?q.sharesOutstanding*ratio:q.sharesOutstanding/ratio;
+ const free=forward?q.publicFloat*ratio:q.publicFloat/ratio;
+ if(!Number.isSafeInteger(outstanding)||!Number.isSafeInteger(free)||
+  outstanding<100||free<100||outstanding>MAX_COMPANY_SHARES||free>MAX_COMPANY_SHARES)return false;
+ const priceScale=1/factor,oldPrice=priceCents(c.id);
+ const convertedHistory=q.history.map(v=>Math.round(cents(v)*priceScale));
+ const convertedPrice=Math.round(oldPrice*priceScale),convertedPrev=Math.round(cents(q.previous)*priceScale);
+ if(convertedHistory.some(p=>p<1||p>MAX_PRICE_CENTS)||convertedPrice<1||
+  convertedPrice>MAX_PRICE_CENTS||convertedPrev<1||convertedPrev>MAX_PRICE_CENTS)return false;
+ const contracts=state.options.filter(o=>o.ticker===c.id);
+ for(const o of contracts){
+  const deliverable=forward?contractShares(o)*ratio:contractShares(o)/ratio;
+  const adjustedStrike=Math.round(exerciseCost(o)/deliverable);
+  if(!Number.isSafeInteger(deliverable)||deliverable<1||deliverable>3200||
+   adjustedStrike<1||adjustedStrike>MAX_PRICE_CENTS)return false;
+ }
+ const held=shares(c.id),newHeld=forward?held*ratio:Math.floor(held/ratio);
+ const fractionalRemainder=forward?0:held%ratio;
+ if(!Number.isSafeInteger(newHeld)||newHeld>free)return false;
+ const cashInLieu=fractionalRemainder*oldPrice;
+ const originalBasis=basisCents(c.id);
+ const allocatedBasis=fractionalRemainder&&held?Math.round(originalBasis*fractionalRemainder/held):0;
+ if(!Number.isSafeInteger(cents(state.cash)+cashInLieu)||
+  cents(state.cash)+cashInLieu>MAX_CASH_CENTS||
+  !Number.isSafeInteger(state.realizedPnLCents+cashInLieu-allocatedBasis)||
+  Math.abs(state.realizedPnLCents+cashInLieu-allocatedBasis)>MAX_CASH_CENTS)return false;
+ // All checks complete: apply in a single synchronous transaction.
+ if(held){
+  if(newHeld){state.holdings[c.id]=newHeld;state.positionCostCents[c.id]=originalBasis-allocatedBasis}
+  else{delete state.holdings[c.id];delete state.positionCostCents[c.id];delete state.estimatedBasis[c.id]}
+ }
+ if(fractionalRemainder){
+  state.cash=usd(cents(state.cash)+cashInLieu);
+  state.realizedPnLCents+=cashInLieu-allocatedBasis;
+ }
+ q.sharesOutstanding=outstanding;q.publicFloat=free;
+ q.price=usd(convertedPrice);q.previous=usd(convertedPrev);
+ q.history=convertedHistory.map(usd);
+ q.volume=clamp(Math.round(q.volume*factor),0,free);
+ q.lastSplitDay=state.day;q.splitCount++;
+ q.lastAction={day:state.day,kind,ratio};
+ for(const o of contracts){
+  o.contractShares=forward?contractShares(o)*ratio:contractShares(o)/ratio;
+  o.exerciseCents=exerciseCost(o);
+  o.strike=Math.round(o.exerciseCents/o.contractShares);
+ }
+ const label=forward?ratio+'-for-1 stock split':'1-for-'+ratio+' reverse split';
+ pushEvent(c.id+' announces a '+label+'; holders and adjusted options converted.'+
+  (cashInLieu?' Cash in lieu '+amount(cashInLieu)+'.':''));
+ return true;
+}
+function checkCorporateAction(c){
+ const q=quote(c.id),p=priceCents(c.id);
+ if(q.lastSplitDay&&state.day-q.lastSplitDay<252)return;
+ if(p>=140000)applyCorporateAction(c,'split',4);
+ else if(p>=50000)applyCorporateAction(c,'split',2);
+ else if(p<=175)applyCorporateAction(c,'reverse',2);
+}
 function tick(){
  if(state.day>=MAX_DAY){stopAuto();notify('Maximum simulated day reached.');return}
  updateEconomy(state);
@@ -1811,6 +1875,7 @@ function tick(){
   q.price=usd(clamp(marketRoundCents(old*(1+step),state),1,MAX_PRICE_CENTS));
   q.history.push(q.price);if(q.history.length>HISTORY)q.history.shift();
   q.volume=clamp(Math.round(q.publicFloat*(.001+random(state)*.006)*(1+Math.abs(step)*13)),1,q.publicFloat);
+  checkCorporateAction(c);
   const d=dayChange(c.id);
   if(!top||d>top.d)top={id:c.id,d};if(!low||d<low.d)low={id:c.id,d};
  }
