@@ -1,5 +1,5 @@
-/* MarketLab v0.6.1: independent offline app-shell cache. */
-const CACHE='marketlab-shell-v0.6.1';
+/* MarketLab v0.6.2: independent offline app-shell cache. */
+const CACHE='marketlab-shell-v0.6.2';
 // Cache the HTML once; offline navigation already falls back to ./index.html.
 const SHELL=['./index.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png','./icons/maskable-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('install',event=>{
