@@ -130,7 +130,7 @@ test('two same-origin browser sessions use one editor, live updates, and safe ha
    const timeout=setTimeout(()=>reject(Error('Test HTTP server not ready')),10000);
    server.stdout.on('data',chunk=>{
     out+=chunk.toString();
-    const match=out.match(/PORT:(\\d+)/);
+    const match=out.match(/PORT:(\d+)/);
     if(match){clearTimeout(timeout);resolve(Number(match[1]))}
    });
    server.on('error',reject);
