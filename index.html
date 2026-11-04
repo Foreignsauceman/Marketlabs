@@ -1128,8 +1128,49 @@ function setProfileMode(mode){if(!['auto','desktop','mobile'].includes(mode))ret
  state.ui.profileMode=mode;save();render();
 }
 const quote=id=>state.companies[id],priceCents=id=>cents(quote(id).price),shares=id=>state.holdings[id]||0;
+// Stock ledger: integer-cent weighted-average basis for reproducible P&L.
+const basisCents=id=>state.positionCostCents[id]||0;
+const reservedShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='call'&&o.ticker===id?o.qty*100:0),0);
+const reservedCashCents=()=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'?o.qty*o.strike*100:0),0);
+const buyingPowerCents=()=>Math.max(0,cents(state.cash)-reservedCashCents());
+function buyStockAt(id,qty,unitCents){
+ const total=qty*unitCents,old=shares(id);
+ if(!Number.isSafeInteger(total)||!Number.isSafeInteger(basisCents(id)+total))return false;
+ state.holdings[id]=old+qty;
+ state.positionCostCents[id]=basisCents(id)+total;
+ return true;
+}
+function sellStockAt(id,qty,unitCents){
+ const old=shares(id),basis=basisCents(id);
+ if(!qty||old<qty)return false;
+ const soldBasis=qty===old?basis:Math.round(basis*(qty/old));
+ const gain=qty*unitCents-soldBasis;
+ if(!Number.isSafeInteger(state.realizedPnLCents+gain))return false;
+ state.realizedPnLCents+=gain;
+ if(qty===old){delete state.holdings[id];delete state.positionCostCents[id];delete state.estimatedBasis[id]}
+ else{state.holdings[id]=old-qty;state.positionCostCents[id]=basis-soldBasis}
+ return true;
+}
+const OPTION_MULTIPLIER=100;
+const optionsMarkCents=()=>state.options.reduce((n,o)=>{
+ const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
+ return n+(o.side==='long'?1:-1)*mark*OPTION_MULTIPLIER*o.qty;
+},0);
+// Approximate, bounded fictional model: intrinsic value plus decaying time
+// premium. Not a real exchange quotation or Black-Scholes implementation.
+function optionQuoteCents(ticker,type,strike,expiryDay){
+ const spot=priceCents(ticker),days=Math.max(0,expiryDay-state.day);
+ const intrinsic=Math.max(0,type==='call'?spot-strike:strike-spot);
+ if(!days)return intrinsic;
+ const c=company(ticker);
+ const annualVol=clamp(c.volatility*Math.sqrt(252)*.75,.18,.78);
+ const stress=clamp(1+(state.economy.creditSpread??1.6)*.10,.95,1.55);
+ const distance=Math.abs(Math.log(Math.max(1,spot)/Math.max(1,strike)));
+ const timeValue=spot*annualVol*Math.sqrt(days/252)*.46*Math.exp(-2*distance)*stress;
+ return Math.min(MAX_PRICE_CENTS,Math.max(1,Math.round(intrinsic+timeValue)));
+}
 const holdingsCents=()=>COMPANIES.reduce((n,c)=>n+shares(c.id)*priceCents(c.id),0);
-const worthCents=()=>cents(state.cash)+holdingsCents();
+const worthCents=()=>cents(state.cash)+holdingsCents()+optionsMarkCents();
 const marketCap=c=>c.shares*quote(c.id).price;
 const marketCapPrevious=c=>c.shares*quote(c.id).previous;
 const totalCap=()=>COMPANIES.reduce((n,c)=>n+marketCap(c),0);
@@ -1440,18 +1481,25 @@ function valuationPressure(c,price,day){
  if(macroEvent===0)pushEvent(top.d>=0?`${top.id} led today's session (${signed(top.d)}).`:`Red session: ${low.id} closed ${signed(low.d)}.`);
 }
 function advance(days){if(!requireEditor())return;const count=Math.min(days,MAX_DAY-state.day);if(count<=0)return;for(let i=0;i<count;i++)tick();save();renderMarketFrame();if(state.day===MAX_DAY)stopAuto()}
-function maxQty(){const c=company(state.selected),p=priceCents(c.id),owned=shares(c.id),cash=cents(state.cash);if(state.side==='sell')return Math.max(0,Math.min(owned,Math.floor((MAX_CASH_CENTS-cash)/p)));
-return Math.max(0,Math.min(Math.floor(cash/p),c.float-owned,Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
+function maxQty(){const c=company(state.selected),p=priceCents(c.id),owned=shares(c.id),cash=cents(state.cash);if(state.side==='sell')return Math.max(0,Math.min(owned-reservedShares(c.id),Math.floor((MAX_CASH_CENTS-cash)/p)));
+return Math.max(0,Math.min(Math.floor(buyingPowerCents()/p),c.float-owned,Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
 function validateOrder(){const raw=$('qty').value.trim(),qty=/^\d+$/.test(raw)?Number(raw):NaN,id=state.selected,c=company(id),owned=shares(id),p=priceCents(id);
 if(!Number.isSafeInteger(qty)||qty<1)return{ok:false,qty,reason:'Enter a positive whole number of shares.'};
 const cost=qty*p;if(!Number.isSafeInteger(cost)||cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'This order exceeds the exchange trade limit.'};
 if(state.side==='buy'&&qty>c.float-owned)return{ok:false,qty,reason:'Not enough shares remain in the public float.'};
-if(state.side==='buy'&&cost>cents(state.cash))return{ok:false,qty,reason:'Not enough cash for that order.'};
-if(state.side==='sell'&&qty>owned)return{ok:false,qty,reason:'You do not own that many shares.'};
+if(state.side==='buy'&&cost>buyingPowerCents())return{ok:false,qty,reason:'Insufficient unreserved buying power (cash may secure puts).'};
+if(state.side==='sell'&&qty>owned-reservedShares(id))return{ok:false,qty,reason:'Those shares are reserved to cover open calls.'};
 if(state.side==='sell'&&cents(state.cash)+cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'Maximum cash balance reached.'};
 return{ok:true,qty,cost,reason:''}}
 function trade(){if(!requireEditor())return;const o=validateOrder();if(!o.ok){notify(o.reason);renderTrade();return}
-const id=state.selected,old=shares(id),cash=cents(state.cash);if(state.side==='buy'){state.cash=usd(cash-o.cost);state.holdings[id]=old+o.qty}else{state.cash=usd(cash+o.cost);if(old===o.qty)delete state.holdings[id];else state.holdings[id]=old-o.qty}
+const id=state.selected,cash=cents(state.cash);
+if(state.side==='buy'){
+ if(!buyStockAt(id,o.qty,priceCents(id)))return notify('Position basis exceeds supported precision.');
+ state.cash=usd(cash-o.cost);
+}else{
+ if(!sellStockAt(id,o.qty,priceCents(id)))return notify('Could not safely allocate cost basis.');
+ state.cash=usd(cash+o.cost);
+}
 pushEvent(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} ${o.qty===1?'share':'shares'} @ ${amount(priceCents(id))}.`);notify(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} for ${amount(o.cost)}.`);save();render()}
 function setSide(side){state.side=side;save();renderTrade();notify(validateOrder().reason)}
 function select(id){if(!company(id))return;state.selected=id;save();render();notify(validateOrder().reason)}
@@ -1495,8 +1543,8 @@ function renderEconomy(){
   const node=$(id);if(node.textContent!==value)node.textContent=value;
  }
 }
-function renderStats(){const w=worthCents(),held=holdingsCents(),gain=w-START_CENTS;
-$('networth').textContent=amount(w);$('cash').textContent=amount(cents(state.cash));$('invested').textContent=amount(held);$('sharecount').textContent=integer(COMPANIES.reduce((n,c)=>n+shares(c.id),0))+' shares held';$('day').textContent=String(state.day).padStart(3,'0');
+function renderStats(){const w=worthCents(),held=holdingsCents()+optionsMarkCents(),gain=w-START_CENTS;
+$('networth').textContent=amount(w);$('cash').textContent=amount(cents(state.cash));$('invested').textContent=amount(held);$('sharecount').textContent=integer(COMPANIES.reduce((n,c)=>n+shares(c.id),0))+' shares held'+(state.options.length?' · '+state.options.length+' option position(s)':'');$('day').textContent=String(state.day).padStart(3,'0');
 $('profit').textContent=signed(changePct(w,START_CENTS))+' · '+(gain>=0?'+':'−')+amount(Math.abs(gain));$('profit').className='statnote '+(gain>0?'pos':gain<0?'neg':'');
 const cap=totalCap(),prev=totalCapPrevious(),d=changePct(cap,prev);$('index').textContent=(cap/BASE_MARKET_CAP*1000).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});$('indexchange').textContent=signed(d)+' today';$('indexchange').className='statnote '+(d>0?'pos':d<0?'neg':'');$('totalcap').textContent=compact(cap);$('regime').textContent=state.regime.toUpperCase()+' MARKET';
 // Keep the trend algorithm for a future research unlock, but don't
@@ -1633,7 +1681,7 @@ function toggleFocus(id){if(!company(id)||!state.ui.visible.includes(id))return;
 
 function renderTrade(){const id=state.selected,c=company(id),raw=$('qty').value.trim(),n=/^\d+$/.test(raw)?Number(raw):NaN,qty=Number.isSafeInteger(n)&&n>=1?n:null,o=validateOrder();$('buy').setAttribute('aria-pressed',String(state.side==='buy'));$('sell').setAttribute('aria-pressed',String(state.side==='sell'));$('orderticker').textContent=id;$('mobilecompany').value=id;$('unitprice').textContent=amount(priceCents(id));
 for(const b of $('mobileQtyPresets').querySelectorAll('[data-qty-pct]'))b.disabled=maxQty()<1;
-const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(cents(state.cash)):integer(shares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES')}
+const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(buyingPowerCents()):integer(shares(id)-reservedShares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES')}
 function renderHoldings(){const owned=COMPANIES.filter(c=>shares(c.id)>0);$('positioncount').textContent=owned.length+' '+(owned.length===1?'POSITION':'POSITIONS');$('holdings').innerHTML=owned.length?owned.map(c=>`<button type="button" class="holding" data-holding="${c.id}" aria-label="Trade ${c.name}, ${integer(shares(c.id))} shares held"><strong>${c.id}</strong><span class="muted">${integer(shares(c.id))} shares</span><b>${amount(shares(c.id)*priceCents(c.id))}</b></button>`).join(''):'<div class="empty">No holdings. Pick a stock and buy shares.</div>'}
 function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class="event"><span class="eventday">D${String(e.day).padStart(3,'0')}</span><span>${escape(e.text)}</span></div>`).join('')}
 // On mobile, render only the currently visible work area after initial boot.
