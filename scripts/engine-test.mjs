@@ -47,6 +47,8 @@ const engineSource = [
     'fairValue:ticker=>fundamentalFairPrice(company(ticker)),',
     'quote:ticker=>state.companies[ticker],',
     'company:ticker=>company(ticker),',
+    'sectorMove:(sector,conditions)=>economySectorMove(sector,conditions),',
+    'sectorCycle:sector=>state.sectorCycles[sector],',
     'quoteOption:(ticker,type,strike,expiry)=>optionQuoteCents(ticker,type,strike,expiry),',
     'reservedCash:()=>reservedCashCents(),',
     'reservedShares:id=>reservedShares(id),',
@@ -96,7 +98,7 @@ test('fresh market is deterministic and round-trips through saved-state validati
   assert.equal(starting.version, 2);
   assert.equal(starting.day, 1);
   assert.equal(starting.cash, 10000);
-  assert.equal(Object.keys(starting.companies).length, 6);
+  assert.equal(Object.keys(starting.companies).length, 9);
   assert.equal(Object.keys(starting.holdings).length, 0);
   for (const quote of Object.values(starting.companies)) {
     assert.equal(quote.history.length, 520);
@@ -562,6 +564,118 @@ test('25,000-session economy remains reloadable, bounded, and split-aware',()=>{
  assert.deepEqual(copy(h.normalize(restored)),restored);
 });
 
+
+test('three added sectors contain distinct listed companies with valid fundamentals and trading float',()=>{
+ const h=createHarness(),state=h.getState();
+ for(const [ticker,sector] of [['FINA','Finance'],['MEDI','Healthcare'],['GRID','Utilities']]){
+  const c=h.company(ticker),q=h.quote(ticker);
+  assert.ok(c, 'Missing '+ticker);
+  assert.equal(c.sector,sector);
+  assert.ok(q.publicFloat>0&&q.sharesOutstanding>=q.publicFloat);
+  assert.ok(q.fundamentals.revenue>0&&q.fundamentals.margin>0);
+  assert.equal(q.history.length,520);
+  assert.equal(q.history.at(-1),q.price);
+  assert.ok(state.sectorCycles[sector]);
+ }
+ assert.equal(Object.keys(state.sectorCycles).length,7);
+});
+
+test('legacy six-stock saves add listings deterministically without touching the original seed, shares or options',()=>{
+ const h=createHarness(),previous=copy(h.getState());
+ const six=['NEON','HARB','MISO','VOLT','AERO','BYTE'];
+ for(const t of ['FINA','MEDI','GRID'])delete previous.companies[t];
+ delete previous.sectorCycles;
+ for(const k of ['commodityIndex','yieldCurve','careDemand','gridDemand'])delete previous.economy[k];
+ previous.ui.visible=six;
+ previous.holdings.NEON=100;
+ previous.positionCostCents.NEON=462000;
+ previous.cash=5380;
+ previous.options=[{id:1,ticker:'NEON',type:'call',side:'short',qty:1,strike:5000,expiryDay:22,
+  openedDay:1,entryPremiumCents:120,contractShares:100,exerciseCents:500000,entryValueCents:12000}];
+ previous.nextOptionId=2;
+ const oldSeed=previous.seed;
+ const once=copy(h.normalize(previous)),twice=copy(h.normalize(previous));
+ assert.ok(once,'Six-stock save did not migrate');
+ assert.deepEqual(once,twice,'New listings must use a reproducible forked seed');
+ assert.equal(once.seed,oldSeed,'Migration must not advance the existing RNG');
+ for(const t of six)assert.deepEqual(once.companies[t],previous.companies[t]);
+ assert.deepEqual(once.holdings,previous.holdings);
+ assert.deepEqual(once.positionCostCents,previous.positionCostCents);
+ assert.deepEqual(once.options,previous.options);
+ assert.equal(once.cash,5380);
+ assert.equal(Object.keys(once.companies).length,9);
+ assert.deepEqual(once.ui.visible,six.concat(['FINA','MEDI','GRID']));
+ assert.equal(once.economy.commodityIndex,100);
+ assert.equal(once.economy.yieldCurve,1.1);
+ assert.deepEqual(copy(h.normalize(once)),once);
+});
+
+test('custom watchlists are preserved on six-stock migration',()=>{
+ const h=createHarness(),old=copy(h.getState());
+ for(const t of ['FINA','MEDI','GRID'])delete old.companies[t];
+ old.ui.visible=['MISO','NEON'];
+ const next=copy(h.normalize(old));
+ assert.deepEqual(next.ui.visible,['MISO','NEON']);
+});
+
+test('sector-specific macro exposures diverge under the same interest-rate, credit and energy conditions',()=>{
+ const h=createHarness();
+ const normal=copy(h.getState().economy);
+ const oilUp={...normal,commodityIndex:176,rate:3.5};
+ const oilDown={...normal,commodityIndex:58,rate:3.5};
+ assert.ok(h.sectorMove('Energy',oilUp)>h.sectorMove('Energy',oilDown)+.005,
+  'Energy must react independently to commodity cycles');
+ const steepCurve={...normal,yieldCurve:3.5,creditSpread:.5};
+ const fundingStress={...normal,yieldCurve:-2,creditSpread:6};
+ assert.ok(h.sectorMove('Finance',steepCurve)>h.sectorMove('Finance',fundingStress),
+  'Lenders must respond to a profitable curve and tight credit differently');
+ const highRates={...normal,rate:9,unemployment:4.7};
+ const lowRates={...normal,rate:1,unemployment:4.7};
+ assert.ok(h.sectorMove('Utilities',highRates)<h.sectorMove('Utilities',lowRates),
+  'Rate-sensitive utilities must face financing headwinds');
+ const careBoom={...normal,careDemand:135},careSlump={...normal,careDemand:80};
+ assert.ok(h.sectorMove('Healthcare',careBoom)>h.sectorMove('Healthcare',careSlump),
+  'Medical demand must change healthcare performance');
+});
+
+test('independent sector leadership rotates between favorable and adverse regimes over time',()=>{
+ const h=createHarness();
+ const history={};
+ for(const sector of ['Technology','Industrials','Consumer','Energy','Finance','Healthcare','Utilities'])
+  history[sector]=new Set();
+ let distinct=0;
+ for(let n=0;n<2000;n++){
+  h.tick();
+  const phases=Object.entries(h.getState().sectorCycles);
+  for(const [sector,cycle] of phases){
+   history[sector].add(cycle.phase);
+   assert.ok(Number.isSafeInteger(cycle.daysLeft)&&cycle.daysLeft>=0&&cycle.daysLeft<=300);
+  }
+  if(new Set(phases.map(([,cycle])=>cycle.phase)).size>=2)distinct++;
+ }
+ assert.ok(distinct>1700,'Sector leadership should not remain synchronized across the entire exchange');
+ for(const [sector,phases] of Object.entries(history)){
+  assert.ok(phases.has(1)&&phases.has(-1),sector+' never experienced both tailwind and headwind');
+ }
+ const state=copy(h.getState());
+ assert.deepEqual(copy(h.normalize(state)),state,'Sector cycles must survive save/load');
+});
+
+test('sector cycles and new macro factors reject corrupt save values',()=>{
+ const h=createHarness(),s=copy(h.getState());
+ const changes=[
+  v=>{v.sectorCycles.Energy.phase=99},
+  v=>{v.sectorCycles.Finance.daysLeft=-1},
+  v=>{v.sectorCycles.Healthcare=null},
+  v=>{v.economy.commodityIndex=10000},
+  v=>{v.economy.yieldCurve=-900},
+  v=>{v.economy.gridDemand=NaN}
+ ];
+ for(const corrupt of changes){
+  const raw=copy(s);corrupt(raw);
+  assert.equal(h.normalize(raw),null);
+ }
+});
 test('mobile selection handlers use one save and repaint per action', () => {
   const stocks = section("$('stocks').addEventListener('click'", "$('profilemode').addEventListener");
   const holdings = section("$('holdings').addEventListener('click'", "$('mobileReset').addEventListener");
