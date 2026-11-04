@@ -1457,15 +1457,17 @@ function updateEconomy(s){
   '%. Central bank '+direction+' rates at '+e.rate.toFixed(2)+'%.');
 }
 function economyMarketMove(e){
+ const spread=e.creditSpread??1.6,pmi=e.pmi??52;
  return clamp((e.growth-2.1)*.00016+(e.confidence-100)*.000019-
-  (e.inflation-2.6)*.00017-(e.rate-3.5)*.00023-(e.creditSpread-1.6)*.00024+
-  (e.pmi-52)*.000029,-.005,.005);
+  (e.inflation-2.6)*.00017-(e.rate-3.5)*.00023-(spread-1.6)*.00024+
+  (pmi-52)*.000029,-.005,.005);
 }
 function economySectorMove(sector,e){
+ const spread=e.creditSpread??1.6,pmi=e.pmi??52,wage=e.wageGrowth??3.2;
  let move=0;
- if(sector==='Technology')move=-(e.rate-3.5)*.00044+(e.growth-2.1)*.00024-(e.creditSpread-1.6)*.00025;
- else if(sector==='Industrials')move=(e.growth-2.1)*.00030-(e.unemployment-4.7)*.00019+(e.pmi-52)*.000052;
- else if(sector==='Consumer')move=(e.confidence-100)*.000055-(e.inflation-2.6)*.00024+(e.wageGrowth-3.2)*.000095;
+ if(sector==='Technology')move=-(e.rate-3.5)*.00044+(e.growth-2.1)*.00024-(spread-1.6)*.00025;
+ else if(sector==='Industrials')move=(e.growth-2.1)*.00030-(e.unemployment-4.7)*.00019+(pmi-52)*.000052;
+ else if(sector==='Consumer')move=(e.confidence-100)*.000055-(e.inflation-2.6)*.00024+(wage-3.2)*.000095;
  else if(sector==='Energy')move=(e.inflation-2.6)*.00030+(e.growth-2.1)*.00018;
  return clamp(move,-.006,.006);
 }
@@ -1480,36 +1482,52 @@ function valuationPressure(c,price,day){
  if(state.day>=MAX_DAY){stopAuto();notify('Maximum simulated day reached.');return}
  updateEconomy(state);
  if(state.regimeDays<=0){
-  const r=random(state);state.regime=r<.28?'bull':r<.54?'bear':r<.72?'volatile':'normal';
+  const e=state.economy,r=random(state);
+  const stress=clamp((1.2-e.growth)*.055+((e.creditSpread??1.6)-1.6)*.07,-.10,.20);
+  const bull=clamp(.30-stress,.12,.42),bear=clamp(.23+stress,.12,.44);
+  const volatile=clamp(.12+((e.creditSpread??1.6)-1.6)*.035,.08,.24);
+  state.regime=r<bull?'bull':r<bull+bear?'bear':r<bull+bear+volatile?'volatile':'normal';
   state.regimeDays=48+Math.floor(random(state)*105);
   pushEvent(`Market cycle shifts to ${state.regime.toUpperCase()}.`);
  }
  state.regimeDays--;
- const bias=state.regime==='bull'?.0019:state.regime==='bear'?-.0025:state.regime==='normal'?.00038:0;
- const turbulence=state.regime==='volatile'?1.8:state.regime==='bear'?1.18:1;
+ const bias=state.regime==='bull'?.00145:state.regime==='bear'?-.0019:state.regime==='normal'?.00025:0;
+ const turbulence=state.regime==='volatile'?1.48:state.regime==='bear'?1.12:1;
  // Persistent momentum creates trends, while random shocks keep prices unpredictable.
- state.marketMomentum=clamp(state.marketMomentum*.92+bellNoise(state)*.0018+bias*.10,-.022,.022);
+ state.marketMomentum=clamp(state.marketMomentum*.92+bellNoise(state)*.0013+bias*.10,-.022,.022);
  let macroEvent=0;
- if(random(state)<.009){macroEvent=(random(state)<.60?-1:1)*(.043+random(state)*.094);pushEvent(macroEvent<0?'Broad market selloff hits the exchange.':'Unexpected market-wide rally lifts prices.');}
- const marketMove=bias+state.marketMomentum+bellNoise(state)*.016*turbulence+macroEvent+economyMarketMove(state.economy);
+ const shockOdds=.0021+Math.max(0,(state.economy.creditSpread??1.6)-2)*.00055;
+ if(random(state)<shockOdds){
+  const stressed=state.economy.growth<.5||(state.economy.creditSpread??1.6)>3;
+  macroEvent=(random(state)<(stressed?.68:.50)?-1:1)*(.048+random(state)*.095);
+  pushEvent(macroEvent<0?'Rare credit/liquidity shock triggers a market selloff.':'Unexpected market-wide rally lifts prices.');
+ }
+ const marketMove=bias+state.marketMomentum+bellNoise(state)*.010*turbulence+macroEvent+economyMarketMove(state.economy);
  const sectors={};
  for(const c of COMPANIES)if(!(c.sector in sectors)){
-  const momentum=clamp((state.sectorMomentum[c.sector]||0)*.93+bellNoise(state)*.0016,-.014,.014);
+  const momentum=clamp((state.sectorMomentum[c.sector]||0)*.93+bellNoise(state)*.0012,-.014,.014);
   state.sectorMomentum[c.sector]=momentum;
-  sectors[c.sector]=momentum+bellNoise(state)*.010*turbulence;
+  sectors[c.sector]=momentum+bellNoise(state)*.006*turbulence;
  }
  let top=null,low=null;
  for(const c of COMPANIES){
   const q=quote(c.id),old=priceCents(c.id);q.previous=usd(old);
-  const companyMomentum=clamp((state.stockMomentum[c.id]||0)*.88+bellNoise(state)*.003,-.023,.023);
+  const companyMomentum=clamp((state.stockMomentum[c.id]||0)*.88+bellNoise(state)*.0019,-.023,.023);
   state.stockMomentum[c.id]=companyMomentum;
   let eventMove=0;
-  if(random(state)<.012){
-   eventMove=(random(state)<.52?-1:1)*(.045+random(state)*.11);
-   pushEvent(`${c.id}: ${eventMove<0?'earnings miss / negative outlook':'breakout earnings / positive outlook'} drives sharp repricing.`);
+  // Quarterly earnings create scheduled catalysts; breaking news is rare.
+  if(state.day%63===0&&random(state)<.55){
+   const tailwind=state.economy.growth>1.6?.54:.40;
+   eventMove=(random(state)<tailwind?1:-1)*(.028+random(state)*.077);
+   pushEvent(c.id+': quarterly earnings '+(eventMove>0?'beat':'miss')+
+    ' expectations; shares reprice.');
+  }else if(random(state)<.0027){
+   eventMove=(random(state)<.51?-1:1)*(.055+random(state)*.098);
+   pushEvent(c.id+': rare '+(eventMove<0?'negative':'positive')+
+    ' company news surprises investors.');
   }
   const sectorWeight=c.sector==='Technology'?1.13:c.sector==='Energy'?.83:1;
-  const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.63*turbulence+eventMove+economySectorMove(c.sector,state.economy)+valuationPressure(c,q.price,state.day),-.33,.33);
+  const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.38*turbulence+eventMove+economySectorMove(c.sector,state.economy)+valuationPressure(c,q.price,state.day),-.33,.33);
   q.price=usd(clamp(marketRoundCents(old*(1+step),state),1,MAX_PRICE_CENTS));
   q.history.push(q.price);if(q.history.length>HISTORY)q.history.shift();
   q.volume=clamp(Math.round(c.float*(.001+random(state)*.006)*(1+Math.abs(step)*13)),1,c.float);
