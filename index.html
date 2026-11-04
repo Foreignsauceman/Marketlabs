@@ -781,6 +781,32 @@ body[data-profile="mobile"][data-tab="portfolio"] .stats>.stat:nth-child(3){min-
  .settings-fold-arrow,body[data-profile="mobile"] .mobile-expand-row .fold-arrow{transition:none}
 }
 
+
+
+/* v0.5.2 | Read-only multi-tab indicator (never modifies portfolio data). */
+.session-notice[hidden]{display:none!important}
+.session-notice{
+ display:flex;align-items:center;justify-content:space-between;gap:14px;
+ margin:0 0 12px;padding:13px 16px;border:1px solid #a17d4e;
+ border-radius:11px;background:linear-gradient(120deg,#443523,#2b2c23);
+ color:#f5e4c0;box-shadow:0 5px 18px #0002;
+}
+.session-notice-text{display:flex;flex-direction:column;gap:4px;min-width:0}
+.session-notice strong{font-size:12px;letter-spacing:.035em;color:#ffe0a2}
+.session-notice span{font-size:11px;line-height:1.5;color:#eedebd}
+.session-notice button{
+ min-height:40px;flex-shrink:0;border:1px solid #d5b880;border-radius:9px;
+ color:#1b241b;background:#f2dcad;white-space:nowrap;font-size:11px;font-weight:850;
+}
+.session-notice button:disabled{opacity:.55}
+body[data-profile="mobile"] .session-notice{
+ flex-direction:column;align-items:stretch;margin-bottom:13px;
+ border-radius:15px;padding:13px 14px;gap:9px;
+}
+body[data-profile="mobile"] .session-notice strong{font-size:13px}
+body[data-profile="mobile"] .session-notice span{font-size:12px}
+body[data-profile="mobile"] .session-notice button{width:100%;min-height:44px}
+
 </style>
 </head>
 <body><div class="wrap">
@@ -1049,7 +1075,7 @@ function attemptEditorLock(){
   if(loadNotice&&loadNotice.includes('imported')&&session.lastSavedRaw===null)save();
   return new Promise(resolve=>{session.release=resolve});
  }).catch(()=>{
-  session.pending=false;session.hasWebLocks=false;session.role='viewer';session.warning='Web Locks unavailable; reload to retry safe editing.';showSessionStatus();
+  session.pending=false;session.role='viewer';session.warning='Editor lock could not be acquired. Try again.';showSessionStatus();
  });
 }
 function releaseEditorLock(){
