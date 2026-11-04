@@ -999,7 +999,9 @@ function render(){syncProfile();applyLayout();renderStats();renderStocks();rende
 // mobile views during fast playback; entering a tab still refreshes everything.
 function renderMarketFrame(){
  renderStats();
- if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();renderClock();return;}
+ // Market time is visible in the mobile quickbar on every tab.
+ renderClock();
+ if(!isMobileProfile()){renderStocks();renderChart();renderTrade();renderHoldings();renderEvents();return;}
  switch(state.ui.mobileTab){
   case 'market':renderStocks();renderClock();break;
   case 'chart':renderChart();break;
