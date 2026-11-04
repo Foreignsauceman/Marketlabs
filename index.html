@@ -1451,8 +1451,15 @@ const lockedCash=s.options.filter(o=>o.side==='short'&&o.type==='put')
 if(!Number.isSafeInteger(lockedCash)||lockedCash>cents(s.cash))return null;
 if(Array.isArray(raw.events))s.events=raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,14).map(e=>({day:e.day,text:e.text}));return s;
 }
-function migrateV1(raw){if(!raw||raw.version!==1||!raw.companies||!raw.holdings||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295)return null;const s=fresh();s.seed=raw.seed;s.day=raw.day;s.cash=usd(cents(raw.cash));s.selected=company(raw.selected)?raw.selected:'NEON';s.side=raw.side==='sell'?'sell':'buy';for(const id of ['NEON','HARB','MISO','VOLT']){const q=raw.companies[id],owned=raw.holdings[id]??0,c=company(id);if(!q||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(owned)||owned<0||owned>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price))return null;s.companies[id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:0};if(owned)s.holdings[id]=owned;}s.events=Array.isArray(raw.events)?raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,13):[];s.events.unshift({day:s.day,text:'MarketLab upgraded to v0.2. Two companies joined the exchange.'});return s}
-function load(){try{const raw=localStorage.getItem(KEY);if(raw!==null){const val=normalize(JSON.parse(raw));if(val)return val;loadNotice='This save is invalid. Fresh market loaded. Your original save remains until the next action.';return fresh();}const legacy=localStorage.getItem(OLD_KEY);if(legacy!==null){const migrated=migrateV1(JSON.parse(legacy));if(migrated){loadNotice='Your v0.1 portfolio was imported into v0.2.';return migrated;}loadNotice='Older save was invalid. Started a new market.';}return fresh();}catch(e){if(e instanceof SyntaxError)loadNotice='Could not parse the saved game. A fresh market was loaded.';else{storageAvailable=false;loadNotice='Storage is unavailable. Your progress will not persist.'}return fresh()}}
+function migrateV1(raw){if(!raw||raw.version!==1||!raw.companies||!raw.holdings||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295)return null;const s=fresh();s.seed=raw.seed;s.day=raw.day;s.cash=usd(cents(raw.cash));s.selected=company(raw.selected)?raw.selected:'NEON';s.side=raw.side==='sell'?'sell':'buy';for(const id of ['NEON','HARB','MISO','VOLT']){const q=raw.companies[id],owned=raw.holdings[id]??0,c=company(id);if(!q||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(owned)||owned<0||owned>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price))return null;s.companies[id]={...s.companies[id],price:usd(cents(q.price)),
+ previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:0,
+ fundamentals:makeFundamentals(c,q.price,c.shares)};
+ if(owned){
+  s.holdings[id]=owned;
+  s.positionCostCents[id]=owned*cents(q.price);
+  s.estimatedBasis[id]=true;
+ }}s.events=Array.isArray(raw.events)?raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,13):[];s.events.unshift({day:s.day,text:'MarketLab upgraded: new companies, financial reports and sector cycles joined the exchange.'});return s}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw!==null){const val=normalize(JSON.parse(raw));if(val)return val;loadNotice='This save is invalid. Fresh market loaded. Your original save remains until the next action.';return fresh();}const legacy=localStorage.getItem(OLD_KEY);if(legacy!==null){const migrated=migrateV1(JSON.parse(legacy));if(migrated){loadNotice='Your legacy portfolio was imported into MarketLab v0.6.3.1.';return migrated;}loadNotice='Older save was invalid. Started a new market.';}return fresh();}catch(e){if(e instanceof SyntaxError)loadNotice='Could not parse the saved game. A fresh market was loaded.';else{storageAvailable=false;loadNotice='Storage is unavailable. Your progress will not persist.'}return fresh()}}
 let state=load(),timer=null;
 const SESSION_LOCK='marketlab-active-editor-v1';
 function readSavedRaw(){try{return localStorage.getItem(KEY)}catch{return null}}
@@ -2263,14 +2270,16 @@ function renderSectorRotation(){
   const companies=SECTOR_MEMBERS[row.name];
   const pct=companies.reduce((n,c)=>n+dayChange(c.id),0)/companies.length;
   const cycle=state.sectorCycles[row.name];
-  const stage=cycle.phase>0?'TAILWIND':cycle.phase<0?'HEADWIND':'NEUTRAL';
-  const phrase=stage+' · '+cycle.daysLeft+' days to review';
-  setRowText(row.phase,phrase);
-  setRowText(row.change,signed(pct));
-  const css='sector-change'+(pct>0?' pos':pct<0?' neg':'');
-  if(row.change.className!==css)row.change.className=css;
-  const pcss='sector-phase'+(cycle.phase>0?' sector-up':cycle.phase<0?' sector-down':'');
-  if(row.phase.className!==pcss)row.phase.className=pcss;
+  if($('sectorRotation').open){
+   const stage=cycle.phase>0?'TAILWIND':cycle.phase<0?'HEADWIND':'NEUTRAL';
+   const phrase=stage+' · '+cycle.daysLeft+' days to review';
+   setRowText(row.phase,phrase);
+   setRowText(row.change,signed(pct));
+   const css='sector-change'+(pct>0?' pos':pct<0?' neg':'');
+   if(row.change.className!==css)row.change.className=css;
+   const pcss='sector-phase'+(cycle.phase>0?' sector-up':cycle.phase<0?' sector-down':'');
+   if(row.phase.className!==pcss)row.phase.className=pcss;
+  }
   if(!best||pct>best.pct)best={sector:row.name,pct};
   if(!worst||pct<worst.pct)worst={sector:row.name,pct};
  }
@@ -2281,6 +2290,7 @@ function renderSectorRotation(){
   ' · CARE DEMAND '+e.careDemand.toFixed(1)+
   ' · POWER DEMAND '+e.gridDemand.toFixed(1));
 }
+$('sectorRotation').addEventListener('toggle',()=>{if($('sectorRotation').open)renderSectorRotation();});
 function renderEconomy(){
  const e=state.economy,rate=e.rate.toFixed(2)+'%',inflation=e.inflation.toFixed(2)+'%';
  const values={
@@ -2361,7 +2371,7 @@ function renderStocks(){
 function plotChartPath(values,px,py,width){
  const count=values.length;
  if(!count)return '';
- const pointLimit=Math.max(85,Math.ceil(width*.75));
+ const pointLimit=Math.max(85,Math.min(380,Math.ceil(width*.75)));
  const point=i=>(i?'L':'M')+px(i).toFixed(2)+' '+py(values[i]).toFixed(2);
  if(count<=pointLimit)return values.map((_,i)=>point(i)).join(' ');
  const bucketSize=Math.ceil((count-2)/Math.max(1,Math.floor((pointLimit-2)/2)));
