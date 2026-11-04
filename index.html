@@ -1372,22 +1372,25 @@ function setProfileMode(mode){if(!['auto','desktop','mobile'].includes(mode))ret
 const quote=id=>state.companies[id],priceCents=id=>cents(quote(id).price),shares=id=>state.holdings[id]||0;
 // Stock ledger: integer-cent weighted-average basis for reproducible P&L.
 const basisCents=id=>state.positionCostCents[id]||0;
-const reservedShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='call'&&o.ticker===id?o.qty*100:0),0);
-const reservedPutShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'&&o.ticker===id?o.qty*OPTION_MULTIPLIER:0),0);
-const reservedCashCents=()=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'?o.qty*o.strike*100:0),0);
+const contractShares=o=>o.contractShares??100;
+const exerciseCost=o=>o.exerciseCents??o.strike*contractShares(o);
+const entryContractValue=o=>o.entryValueCents??o.entryPremiumCents*100;
+const reservedShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='call'&&o.ticker===id?o.qty*contractShares(o):0),0);
+const reservedPutShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'&&o.ticker===id?o.qty*contractShares(o):0),0);
+const reservedCashCents=()=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'?o.qty*exerciseCost(o):0),0);
 const buyingPowerCents=()=>Math.max(0,cents(state.cash)-reservedCashCents());
-function buyStockAt(id,qty,unitCents){
- const total=qty*unitCents,old=shares(id);
+function buyStockAt(id,qty,unitCents,settlementCents=null){
+ const total=settlementCents??qty*unitCents,old=shares(id);
  if(!Number.isSafeInteger(total)||!Number.isSafeInteger(basisCents(id)+total))return false;
  state.holdings[id]=old+qty;
  state.positionCostCents[id]=basisCents(id)+total;
  return true;
 }
-function sellStockAt(id,qty,unitCents){
+function sellStockAt(id,qty,unitCents,settlementCents=null){
  const old=shares(id),basis=basisCents(id);
  if(!qty||old<qty)return false;
  const soldBasis=qty===old?basis:Math.round(basis*(qty/old));
- const gain=qty*unitCents-soldBasis;
+ const gain=(settlementCents??qty*unitCents)-soldBasis;
  if(!Number.isSafeInteger(state.realizedPnLCents+gain))return false;
  state.realizedPnLCents+=gain;
  if(qty===old){delete state.holdings[id];delete state.positionCostCents[id];delete state.estimatedBasis[id]}
@@ -1395,10 +1398,10 @@ function sellStockAt(id,qty,unitCents){
  return true;
 }
 const OPTION_MULTIPLIER=100;
-const optionsMarkCents=()=>state.options.reduce((n,o)=>{
- const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
- return n+(o.side==='long'?1:-1)*mark*OPTION_MULTIPLIER*o.qty;
-},0);
+const contractMark=o=>Math.round(optionQuoteCents(o.ticker,o.type,
+ exerciseCost(o)/contractShares(o),o.expiryDay)*contractShares(o));
+const optionsMarkCents=()=>state.options.reduce((n,o)=>
+ n+(o.side==='long'?1:-1)*contractMark(o)*o.qty,0);
 // Approximate, bounded fictional model: intrinsic value plus decaying time
 // premium. Not a real exchange quotation or Black-Scholes implementation.
 function optionQuoteCents(ticker,type,strike,expiryDay){
@@ -1778,7 +1781,9 @@ function placeOptionOrder({ticker,type,side,qty,strike,days}){
  if(side==='short'&&cash+premium>MAX_CASH_CENTS)
   return{ok:false,reason:'Premium exceeds the cash balance limit.'};
  state.cash=usd(side==='long'?cash-premium:cash+premium);
- const o={id:state.nextOptionId++,ticker,type,side,qty,strike,expiryDay,openedDay:state.day,entryPremiumCents:unit};
+ const o={id:state.nextOptionId++,ticker,type,side,qty,strike,expiryDay,
+  openedDay:state.day,entryPremiumCents:unit,contractShares:100,
+  exerciseCents:strike*100,entryValueCents:unit*100};
  state.options.push(o);
  pushEvent((side==='long'?'Bought ':'Wrote covered/secured ')+qty+' '+ticker+' '+type.toUpperCase()+
   ' contract(s) at '+amount(unit*100)+' premium each.');
@@ -1787,16 +1792,15 @@ function placeOptionOrder({ticker,type,side,qty,strike,days}){
 function closeOptionPosition(id){
  const index=state.options.findIndex(o=>o.id===id);
  if(index<0)return{ok:false,reason:'Option position not found.'};
- const o=state.options[index],unit=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
- const total=unit*OPTION_MULTIPLIER*o.qty,cash=cents(state.cash);
+ const o=state.options[index],unit=contractMark(o);
+ const total=unit*o.qty,cash=cents(state.cash);
  if(o.side==='short'){
   // Free this put's own cash collateral for closing, not other open puts' funds.
-  const ownReserve=o.type==='put'?o.strike*OPTION_MULTIPLIER*o.qty:0;
+  const ownReserve=o.type==='put'?exerciseCost(o)*o.qty:0;
   if(total>cash-(reservedCashCents()-ownReserve))
    return{ok:false,reason:'Insufficient available funds to buy back this option.'};
  }else if(cash+total>MAX_CASH_CENTS)return{ok:false,reason:'Maximum cash balance reached.'};
- const realized=(o.side==='long'?unit-o.entryPremiumCents:o.entryPremiumCents-unit)*
-  OPTION_MULTIPLIER*o.qty;
+ const realized=(o.side==='long'?unit-entryContractValue(o):entryContractValue(o)-unit)*o.qty;
  if(!Number.isSafeInteger(state.optionRealizedCents+realized))return{ok:false,reason:'P&L precision limit reached.'};
  state.cash=usd(o.side==='long'?cash+total:cash-total);
  state.optionRealizedCents+=realized;
