@@ -190,6 +190,12 @@ test('two same-origin browser sessions use one editor, live updates, and safe ha
    await exited;
   }
   server.kill('SIGTERM');
-  rmSync(dir,{recursive:true,force:true,maxRetries:15,retryDelay:150});
+  try{rmSync(dir,{recursive:true,force:true,maxRetries:3,retryDelay:100})}
+  catch(error){
+   // Chromium child processes can release their temp profile after the parent
+   // exits. Do not turn a successful integration test into a cleanup failure.
+   if(!['ENOTEMPTY','EBUSY','EPERM'].includes(error.code))throw error;
+   console.warn('Deferred temporary Chromium profile cleanup: '+error.code);
+  }
  }
 });
