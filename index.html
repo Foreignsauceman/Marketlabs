@@ -1934,6 +1934,33 @@ $('max').addEventListener('click',()=>{$('qty').value=String(maxQty());renderTra
 $('mobileQtyPresets').addEventListener('click',e=>{const b=e.target.closest('[data-qty-pct]');if(!b)return;const available=maxQty();if(available<1)return;const pct=Number(b.dataset.qtyPct);$('qty').value=String(Math.max(1,Math.floor(available*pct/100)));renderTrade();notify(validateOrder().reason);});
 $('qty').addEventListener('input',()=>{renderTrade();notify(validateOrder().reason)});
 $('qty').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();trade()}});
+for(const id of ['optionType','optionSide','optionStrike','optionExpiry','optionQty']){
+ $(id).addEventListener(id==='optionQty'?'input':'change',()=>{
+  $('optionMessage').textContent='';
+  renderOptionTicket();
+ });
+}
+$('optionExecute').addEventListener('click',()=>{
+ if(!requireEditor())return;
+ const result=placeOptionOrder({
+  ticker:state.selected,type:$('optionType').value,side:$('optionSide').value,
+  qty:Number($('optionQty').value),strike:Number($('optionStrike').value),days:Number($('optionExpiry').value)
+ });
+ if(!result.ok){$('optionMessage').textContent=result.reason;return}
+ $('optionMessage').textContent=(result.option.side==='long'?'Bought ':'Wrote ')+result.option.qty+
+  ' contract(s) for '+amount(result.premium)+' premium.';
+ save();render();
+});
+document.addEventListener('click',event=>{
+ const btn=event.target.closest('[data-option-close]');
+ if(!btn)return;
+ if(!requireEditor())return;
+ const result=closeOptionPosition(Number(btn.dataset.optionClose));
+ if(!result.ok){$('optionMessage').textContent=result.reason;notify(result.reason);return}
+ $('optionMessage').textContent='Option position closed. Realized '+(result.realized>=0?'+':'−')+
+  amount(Math.abs(result.realized))+'.';
+ save();render();
+});
 $('execute').addEventListener('click',trade);$('next').addEventListener('click',()=>advance(1));$('next10').addEventListener('click',()=>advance(10));$('auto').addEventListener('click',toggleAuto);
 $('reset').addEventListener('click',()=>{if(!requireEditor())return;if(cloud.busy)return notify('Cloud operation in progress. Try reset after it completes.');if(window.confirm('Reset this simulated exchange and erase your portfolio? This cannot be undone.')){stopAuto();cloud.epoch++;state=fresh();$('qty').value='1';cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();save();render();cloudStatus('Market reset. Automatic cloud sync paused to protect the previous cloud save. Use RESTORE CLOUD or REPLACE CLOUD when ready.');notify('Fresh start. Your cloud backup was left untouched.')}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAuto()});window.addEventListener('pagehide',stopAuto);
