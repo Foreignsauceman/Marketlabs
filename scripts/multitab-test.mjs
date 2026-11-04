@@ -88,33 +88,99 @@ function chromeBinary(){
  }
  throw Error('Headless Chrome unavailable');
 }
+
+const pause=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+async function openDevtools(url){
+ const socket=new WebSocket(url);
+ const waiting=new Map();
+ let sequence=0;
+ socket.addEventListener('message',event=>{
+  let message;
+  try{message=JSON.parse(event.data)}catch{return}
+  if(!message.id)return;
+  const pending=waiting.get(message.id);
+  if(!pending)return;
+  waiting.delete(message.id);
+  if(message.error)pending.reject(Error(message.error.message||'DevTools protocol error'));
+  else pending.resolve(message.result||{});
+ });
+ await new Promise((resolve,reject)=>{
+  socket.addEventListener('open',resolve,{once:true});
+  socket.addEventListener('error',reject,{once:true});
+ });
+ return{
+  async send(method,params={},sessionId){
+   const id=++sequence;
+   return new Promise((resolve,reject)=>{
+    waiting.set(id,{resolve,reject});
+    socket.send(JSON.stringify({id,method,params,...(sessionId?{sessionId}:{})}));
+   });
+  },
+  close(){socket.close()}
+ };
+}
 test('two same-origin browser sessions use one editor, live updates, and safe handoff',async()=>{
  const dir=mkdtempSync(join(tmpdir(),'marketlab-multitab-'));
  const probeFile=join(dir,'probe.html');writeFileSync(probeFile,probe);
- const child=spawn(process.execPath,[join(root,'scripts/test-http-server.mjs'),probeFile],{stdio:['ignore','pipe','pipe']});
+ const server=spawn(process.execPath,[join(root,'scripts/test-http-server.mjs'),probeFile],{stdio:['ignore','pipe','pipe']});
+ let chrome=null,devtools=null;
  try{
   const port=await new Promise((resolve,reject)=>{
    let out='';
-   const deadline=setTimeout(()=>reject(Error('Test HTTP server not ready')),10000);
-   child.stdout.on('data',chunk=>{out+=chunk.toString();const found=out.match(/PORT:(\d+)/);if(found){clearTimeout(deadline);resolve(Number(found[1]))}});
-   child.on('error',reject);
-   child.on('exit',code=>reject(Error('Test server exited with code '+code)));
+   const timeout=setTimeout(()=>reject(Error('Test HTTP server not ready')),10000);
+   server.stdout.on('data',chunk=>{
+    out+=chunk.toString();
+    const match=out.match(/PORT:(\\d+)/);
+    if(match){clearTimeout(timeout);resolve(Number(match[1]))}
+   });
+   server.on('error',reject);
+   server.on('exit',code=>reject(Error('Test server exited with code '+code)));
   });
-  const chrome=chromeBinary();
-  const result=spawnSync(chrome,[
-   '--headless=new','--no-sandbox','--disable-gpu',
-   '--disable-background-networking','--disable-dev-shm-usage','--no-first-run',
-   '--disable-extensions','--disable-background-timer-throttling',
-   '--disable-renderer-backgrounding','--disable-backgrounding-occluded-windows',
-   '--virtual-time-budget=70000','--window-size=1200,900',
-   '--user-data-dir='+join(dir,'chrome-profile'),'--dump-dom',
-   'http://127.0.0.1:'+port+'/probe.html'
-  ],{encoding:'utf8',timeout:45000,maxBuffer:3_000_000});
-  assert.equal(result.status,0,'Chrome failed: '+(result.stderr||'').slice(-400));
-  const rootTag=result.stdout.match(/<html\b[^>]*>/)?.[0]||'';
-  assert.match(rootTag,/data-multitab-test="PASS"/,'Two-tab regression failed: '+rootTag);
+  // Unlike Chrome --virtual-time-budget, DevTools polling uses actual time.
+  // Web Locks callbacks are asynchronous browser-service operations.
+  chrome=spawn(chromeBinary(),[
+   '--headless=new','--no-sandbox','--disable-gpu','--disable-dev-shm-usage',
+   '--disable-background-networking','--disable-extensions',
+   '--disable-background-timer-throttling','--disable-renderer-backgrounding',
+   '--no-first-run','--remote-debugging-address=127.0.0.1',
+   '--remote-debugging-port=0','--window-size=1200,900',
+   '--user-data-dir='+join(dir,'chrome-profile'),'about:blank'
+  ],{stdio:['ignore','ignore','pipe']});
+  const websocketUrl=await new Promise((resolve,reject)=>{
+   let out='';
+   const timeout=setTimeout(()=>reject(Error('Chrome DevTools did not start: '+out.slice(-400))),12000);
+   chrome.stderr.on('data',chunk=>{
+    out+=chunk.toString();
+    const found=out.match(/DevTools listening on (ws:\/\/[^\s]+)/);
+    if(found){clearTimeout(timeout);resolve(found[1])}
+   });
+   chrome.on('error',reject);
+   chrome.on('exit',code=>reject(Error('Chrome exited with code '+code+': '+out.slice(-400))));
+  });
+  devtools=await openDevtools(websocketUrl);
+  const target=await devtools.send('Target.createTarget',{url:'http://127.0.0.1:'+port+'/probe.html'});
+  const attached=await devtools.send('Target.attachToTarget',{targetId:target.targetId,flatten:true});
+  const sessionId=attached.sessionId;
+  await devtools.send('Runtime.enable',{},sessionId);
+  const deadline=Date.now()+30000;
+  let result='',error='';
+  while(Date.now()<deadline){
+   const report=await devtools.send('Runtime.evaluate',{
+    expression:'[document.documentElement.getAttribute("data-multitab-test"),document.documentElement.getAttribute("data-multitab-error")]',
+    returnByValue:true
+   },sessionId);
+   const attrs=report.result?.value;
+   if(Array.isArray(attrs)){
+    result=attrs[0]||'';error=attrs[1]||'';
+    if(result==='PASS'||result==='FAIL')break;
+   }
+   await pause(120);
+  }
+  assert.equal(result,'PASS','Two-tab browser regression: '+(error||'Timed out'));
  }finally{
-  child.kill('SIGTERM');
+  try{devtools?.close()}catch{}
+  try{chrome?.kill('SIGTERM')}catch{}
+  server.kill('SIGTERM');
   rmSync(dir,{recursive:true,force:true});
  }
 });
