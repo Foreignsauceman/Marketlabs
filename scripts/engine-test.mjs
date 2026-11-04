@@ -25,8 +25,10 @@ const engineSource = [
   'let state=fresh();',
   'const quote=id=>state.companies[id],priceCents=id=>cents(quote(id).price),shares=id=>state.holdings[id]||0;',
   'const dayChange=id=>changePct(quote(id).price,quote(id).previous);',
+  section('const basisCents=', 'const holdingsCents='),
   section('function pushEvent(', 'function valuationPressure('),
   section('function valuationPressure(', 'function advance('),
+  section('function placeOptionOrder(', 'function maxQty('),
   section('function maxQty(', 'function setSide('),
   'let writeCount=0,renderCount=0,lastNotice="";',
   'function requireEditor(){return true}',
@@ -38,6 +40,16 @@ const engineSource = [
   [
     'globalThis.harness={',
     'getState:()=>state,',
+    'placeOptionOrder:x=>placeOptionOrder(x),',
+    'closeOption:id=>closeOptionPosition(id),',
+    'settleOptions:()=>settleExpiringOptions(),',
+    'quoteOption:(ticker,type,strike,expiry)=>optionQuoteCents(ticker,type,strike,expiry),',
+    'reservedCash:()=>reservedCashCents(),',
+    'reservedShares:id=>reservedShares(id),',
+    'buyingPower:()=>buyingPowerCents(),',
+    'basis:id=>basisCents(id),',
+    'netWorth:()=>cents(state.cash)+Object.keys(state.holdings).reduce((n,id)=>n+state.holdings[id]*priceCents(id),0)+optionsMarkCents(),',
+
     'setState:s=>{state=s},',
     'fresh:()=>fresh(),',
     'normalize:s=>normalize(s),',
@@ -218,6 +230,145 @@ test('invalid economy values are rejected while legacy saves remain compatible',
   const corrupt=copy(state);Object.assign(corrupt.economy,change);
   assert.equal(engine.normalize(corrupt),null);
  }
+});
+
+
+test('weighted-average share entry and realized/unrealized P&L use integer cents', () => {
+ const h=createHarness();h.setQty(3);h.trade();
+ assert.equal(h.basis('NEON'),13860);
+ assert.equal(h.getState().realizedPnLCents,0);
+ const q=h.getState().companies.NEON;q.price=50;q.history[q.history.length-1]=50;
+ h.setQty(2);h.trade();
+ assert.equal(h.basis('NEON'),23860);
+ h.setSide('sell');h.setQty(2);h.trade();
+ assert.equal(h.getState().holdings.NEON,3);
+ assert.equal(h.basis('NEON'),14316);
+ assert.equal(h.getState().realizedPnLCents,456);
+ assert.equal(h.getState().realizedPnLCents+3*5000-h.basis('NEON'),1140);
+ const normalized=copy(h.normalize(copy(h.getState())));
+ assert.deepEqual(copy(h.normalize(normalized)),normalized);
+});
+
+test('legacy portfolios receive clearly estimated cost basis instead of invented trades', () => {
+ const h=createHarness(),original=copy(h.getState());
+ original.holdings.NEON=100;original.cash-=4620;
+ delete original.positionCostCents;delete original.estimatedBasis;
+ delete original.realizedPnLCents;delete original.options;delete original.nextOptionId;
+ delete original.optionRealizedCents;
+ const migrated=copy(h.normalize(original));
+ assert.equal(migrated.positionCostCents.NEON,462000);
+ assert.equal(migrated.estimatedBasis.NEON,true);
+ assert.equal(migrated.cash,5380);
+ assert.deepEqual(migrated.holdings,original.holdings);
+ assert.deepEqual(migrated.companies,original.companies);
+ assert.equal(migrated.seed,original.seed);
+ assert.deepEqual(copy(h.normalize(migrated)),migrated);
+});
+
+test('long calls and puts debit premiums and cash-settle only their intrinsic value', () => {
+ const h=createHarness(),original=h.getState().cash;
+ const opened=h.placeOptionOrder({ticker:'NEON',type:'call',side:'long',qty:1,strike:4500,days:7});
+ assert.equal(opened.ok,true);
+ assert.ok(opened.premium>0);
+ assert.equal(h.getState().cash,original-opened.premium/100);
+ assert.equal(h.getState().options.length,1);
+ h.getState().day=8;
+ const q=h.getState().companies.NEON;q.price=52;
+ h.settleOptions();
+ assert.equal(h.getState().options.length,0);
+ assert.equal(h.getState().optionRealizedCents,70000-opened.premium);
+ assert.equal(h.getState().cash,original+(70000-opened.premium)/100);
+ assert.equal(h.getState().holdings.NEON,undefined);
+});
+
+test('covered calls reserve owned stock; written puts reserve cash for assignment', () => {
+ const h=createHarness();
+ assert.equal(h.placeOptionOrder({ticker:'NEON',type:'call',side:'short',qty:1,strike:4600,days:7}).ok,false);
+ h.setQty(100);h.trade();
+ const call=h.placeOptionOrder({ticker:'NEON',type:'call',side:'short',qty:1,strike:4600,days:7});
+ assert.equal(call.ok,true);
+ assert.equal(h.reservedShares('NEON'),100);
+ h.setSide('sell');h.setQty(1);assert.equal(h.validateOrder().ok,false);
+ assert.equal(h.closeOption(call.option.id).ok,true);
+ assert.equal(h.reservedShares('NEON'),0);
+ h.setQty(100);assert.equal(h.validateOrder().ok,true);h.trade();
+ const put=h.placeOptionOrder({ticker:'NEON',type:'put',side:'short',qty:1,strike:4600,days:7});
+ assert.equal(put.ok,true);
+ assert.ok(h.reservedCash()>=460000);
+ assert.ok(h.buyingPower()<1000000);
+ h.getState().day=8;
+ h.getState().companies.NEON.price=40;
+ h.getState().companies.NEON.history[519]=40;
+ h.settleOptions();
+ assert.equal(h.getState().holdings.NEON,100);
+ assert.equal(h.basis('NEON'),460000);
+ assert.equal(h.reservedCash(),0);
+ assert.equal(h.getState().options.length,0);
+ assert.ok(h.getState().optionRealizedCents>0);
+ const normalized=copy(h.normalize(copy(h.getState())));
+ assert.deepEqual(copy(h.normalize(normalized)),normalized);
+});
+
+
+test('in-the-money covered calls deliver reserved stock with realized stock and option gains',()=>{
+ const h=createHarness();h.setQty(100);h.trade();
+ const initialCash=h.getState().cash;
+ const opened=h.placeOptionOrder({ticker:'NEON',type:'call',side:'short',qty:1,strike:4900,days:7});
+ assert.equal(opened.ok,true);
+ assert.equal(h.reservedShares('NEON'),100);
+ h.getState().day=8;h.getState().companies.NEON.price=55;
+ h.getState().companies.NEON.history[519]=55;
+ h.settleOptions();
+ assert.equal(h.getState().holdings.NEON,undefined,'Shares should be delivered');
+ assert.equal(h.getState().realizedPnLCents,28000,'Stock delivery realizes strike less share basis');
+ assert.equal(h.getState().optionRealizedCents,opened.premium);
+ assert.equal(h.getState().cash,initialCash+(opened.premium+490000)/100);
+ assert.equal(h.reservedShares('NEON'),0);
+ assert.equal(h.getState().options.length,0);
+});
+
+test('option positions preserve net worth at the quoted entry premium and release collateral on closing',()=>{
+ const h=createHarness(),starting=h.netWorth();
+ const long=h.placeOptionOrder({ticker:'BYTE',type:'put',side:'long',qty:1,strike:900,days:21});
+ assert.equal(long.ok,true);
+ assert.equal(h.netWorth(),starting,'Opening a model-priced long option should not create instant P&L');
+ const closed=h.closeOption(long.option.id);
+ assert.equal(closed.ok,true);
+ assert.equal(h.netWorth(),starting);
+ const put=h.placeOptionOrder({ticker:'NEON',type:'put',side:'short',qty:1,strike:4600,days:21});
+ assert.equal(put.ok,true);
+ assert.equal(h.netWorth(),starting,'Premium is offset by an option liability at entry');
+ assert.equal(h.reservedCash(),460000);
+ assert.equal(h.closeOption(put.option.id).ok,true);
+ assert.equal(h.reservedCash(),0);
+ assert.equal(h.netWorth(),starting);
+});
+
+test('options validation rejects uncollateralized, expired, or malformed contracts', () => {
+ const h=createHarness(),s=copy(h.getState());
+ const valid={id:1,ticker:'NEON',type:'put',side:'short',qty:1,strike:4500,expiryDay:8,openedDay:1,entryPremiumCents:80};
+ for(const patch of [{strike:1000001},{qty:20},{type:'future'},{expiryDay:0},{ticker:'NOPE'}]){
+  const invalid=copy(s);invalid.options=[{...valid,...patch}];invalid.nextOptionId=2;
+  assert.equal(h.normalize(invalid),null);
+ }
+ const shortCall=copy(s);shortCall.options=[{...valid,type:'call'}];shortCall.nextOptionId=2;
+ assert.equal(h.normalize(shortCall),null,'Uncovered short call should be rejected on import');
+ const overspent=copy(s);overspent.options=[{...valid,strike:100000}];overspent.nextOptionId=2;
+ assert.equal(h.normalize(overspent),null,'Insufficient put collateral should be rejected');
+});
+
+test('quieter typical days coexist with infrequent large scheduled and surprise moves', () => {
+ const h=createHarness();let huge=0,normal=0;
+ for(let i=0;i<700;i++){
+  const before=h.getState().companies.NEON.price;
+  h.tick();
+  const change=Math.abs(h.getState().companies.NEON.price/before-1);
+  if(change>.1)huge++;
+  if(change<.04)normal++;
+ }
+ assert.ok(normal>550,'Ordinary trading days should be predominantly moderate');
+ assert.ok(huge<35,'Double-digit swings should be infrequent');
+ assert.ok(h.getState().events.some(e=>/earnings|credit|market|session/i.test(e.text)));
 });
 
 test('mobile selection handlers use one save and repaint per action', () => {

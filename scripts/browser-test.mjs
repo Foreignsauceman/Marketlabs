@@ -22,7 +22,7 @@ const probe = String.raw`
     assert($('stocks').querySelectorAll('[data-stock]').length === 6, 'Exchange did not render 6 stocks');
     assert($('chart').querySelectorAll('path').length >= 1, 'Chart SVG did not draw');
     assert($('stocks').querySelectorAll('.stock-spark svg path').length === 6, 'Watchlist mini charts were not rendered');
-    assert($('economyPanel').querySelectorAll('.economy-stat').length === 5,
+    assert($('economyPanel').querySelectorAll('.economy-stat').length === 8,
       'Economy panel should contain five indicators');
     assert($('economyRate').textContent === '3.50%', 'Starting policy rate incorrect');
     $('economyPanel').open=true;
@@ -122,6 +122,10 @@ const probe = String.raw`
     $('buy').click();
     $('execute').click();
     assert($('holdings').querySelector('[data-holding="HARB"]'), 'Buy did not create holding');
+    const positionCard=$('holdings').querySelector('[data-holding="HARB"]');
+    assert(positionCard.textContent.includes('AVG BUY') && positionCard.textContent.includes('UNREALIZED P&L'),
+      'Position card lacks average acquisition cost or unrealized profit');
+    assert(positionCard.textContent.includes('$72.50'), 'New stock position has incorrect average purchase price');
     assert(Math.abs(cash() - (before - 72.5)) < 0.001, 'Buy cash ledger is incorrect');
     $('sell').click();
     $('qty').value = '1';
@@ -129,6 +133,25 @@ const probe = String.raw`
     $('execute').click();
     assert(!$('holdings').querySelector('[data-holding="HARB"]'), 'Sell did not clear holding');
     assert(Math.abs(cash() - before) < 0.001, 'Sell did not restore cash');
+    assert($('realizedTotal').textContent.includes('$0.00'), 'Round-trip stock P&L should be zero');
+    assert(!$('optionsBeta').open,'Options beta should default to collapsed');
+    $('optionsBeta').open=true;
+    $('optionType').value='call';
+    $('optionSide').value='long';
+    $('optionQty').value='1';
+    $('optionExpiry').value='7';
+    $('optionExpiry').dispatchEvent(new Event('change',{bubbles:true}));
+    assert($('optionExecute').disabled===false, 'Long option order should be enabled');
+    $('optionExecute').click();
+    assert($('optionPositions').querySelectorAll('.option-position-row').length===1,
+      'Buying a simulated call did not create an option contract');
+    assert($('optionsPortfolio').querySelectorAll('.option-position-row').length===1,
+      'Open options missing from Portfolio');
+    $('optionPositions').querySelector('[data-option-close]').click();
+    assert($('optionPositions').querySelectorAll('.option-position-row').length===0,
+      'Sell to close did not settle a long option');
+    assert(Math.abs(cash()-before)<.001,'Closing an unchanged-price option lost cash');
+    $('optionsBeta').open=false;
     $('next').click();
     assert(Number($('day').textContent) === 2, 'Advancing the simulated day failed');
     if (document.body.dataset.profile === 'mobile') {
@@ -163,6 +186,9 @@ const probe = String.raw`
     assert(Number($('day').textContent)>21, 'Economic reports were not reached');
     assert($('economyNext').textContent.includes('Next report:'), 'Macro report schedule not updated');
     assert($('economyInflation').textContent.includes('%'), 'Macroeconomy missing after repeated ticks');
+    assert($('economyCredit').textContent.includes('%') &&
+      Number($('economyPmi').textContent)>0 &&
+      $('economyWages').textContent.includes('%'),'New macro indicators missing after repeated ticks');
     document.documentElement.setAttribute('data-marketlab-render-metrics', [p50,p95,maxPoints].join(','));
   } catch (error) {
     failures.push(error.message);

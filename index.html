@@ -11,7 +11,7 @@
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png">
 <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png">
-<title>MARKETLAB | The Simulated Exchange v0.6.0</title>
+<title>MARKETLAB | The Simulated Exchange v0.6.1</title>
 <style>
 :root{--bg:#101713;--panel:#1a251e;--panel2:#213026;--line:#33483a;--mint:#aaf6ad;--green:#81e4a0;--red:#ff9d9a;--amber:#ffd18a;--text:#e3eee2;--muted:#9ab09e;--c1:#9ef4a1;--c2:#e5bd7c;--c3:#86cafa;--c4:#e89acd;--c5:#b0a4fa;--c6:#ff997b}
 *{box-sizing:border-box}html{background:var(--bg)}body{margin:0;min-height:100vh;background:radial-gradient(circle at 75% -15%,#25392a 0,transparent 37%),var(--bg);color:var(--text);font:12px/1.45 ui-monospace,Consolas,'Liberation Mono',monospace}button,input{font:inherit}button{cursor:pointer;transition:background .12s,border .12s}button:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}button:disabled{opacity:.40;cursor:not-allowed}.wrap{max-width:none;margin:auto;padding:14px 18px 20px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.brand{display:flex;align-items:baseline;gap:13px;flex-wrap:wrap}.brand h1{font-size:27px;letter-spacing:-.08em;line-height:1;margin:0;font-weight:950}.brand em{color:var(--mint);font-style:normal}.tagline{color:var(--muted);font-size:10px}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.tag{border:1px solid var(--line);padding:3px 7px;border-radius:3px;color:var(--muted);white-space:nowrap;font-size:10px}.reset{border:0;background:none;color:var(--muted);font-size:10px;text-decoration:underline;text-underline-offset:3px}.reset:hover{color:var(--red)}.stats{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;margin-bottom:9px}.stat{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:9px 11px;min-width:0}.statlabel,.minor{color:var(--muted);font-size:10px;letter-spacing:.025em}.statvalue{font-size:clamp(15px,1.7vw,22px);font-weight:850;letter-spacing:-.05em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.statnote{color:var(--muted);font-size:10px;min-height:13px}.pos{color:var(--green)!important}.neg{color:var(--red)!important}.panel{background:var(--panel);border:1px solid var(--line);border-radius:6px;min-width:0;overflow:hidden}.panelhead{padding:8px 11px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:37px}.heading{color:var(--mint);font-weight:850;letter-spacing:.08em;font-size:10px}.meta{color:var(--muted);font-size:10px}.main{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(300px,.92fr);gap:9px}.left,.right{display:grid;align-content:start;gap:9px;min-width:0}.clock{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.clock p{margin:0}.clockbuttons{display:flex;gap:6px}.btn{border:1px solid #526957;background:#293c2e;border-radius:4px;color:var(--text);font-weight:800;padding:6px 10px;font-size:11px}.btn:hover{border-color:var(--mint)}.btn.primary{background:var(--amber);color:#2d2210;border-color:var(--amber)}.btn.active{color:var(--mint);border-color:var(--mint)}.chartopts{display:flex;gap:5px}.mini{border:1px solid var(--line);border-radius:3px;padding:4px 7px;background:#18231b;color:var(--muted);font-size:10px;font-weight:850}.mini[aria-pressed="true"]{color:#102118;background:var(--mint);border-color:var(--mint)}.chartarea{padding:4px 10px 6px;position:relative}.chart{width:100%;height:auto;display:block;aspect-ratio:850/270;min-height:178px;touch-action:pan-y}.chartfoot{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:9px;padding:0 5px 3px}.legend{display:flex;flex-wrap:wrap;gap:4px 7px;padding:3px 10px 9px}.legend button{border:1px solid transparent;background:transparent;color:var(--muted);font-size:10px;padding:4px 6px;border-radius:3px;font-weight:800}.legend button:hover,.legend button[aria-pressed="true"]{background:#2d4232;color:var(--text);border-color:#486451}.swatch{width:13px;height:3px;display:inline-block;vertical-align:middle;margin-right:5px;border-radius:2px}.tooltip{pointer-events:none;position:absolute;z-index:2;min-width:125px;max-width:205px;background:#0c1810f5;border:1px solid #54745b;padding:7px 9px;box-shadow:0 8px 24px #0008;border-radius:4px;font-size:10px}.tooltip[hidden]{display:none}.tooltip div{display:flex;justify-content:space-between;gap:15px}.boardheader,.stock{display:grid;grid-template-columns:55px minmax(100px,1.25fr) 78px 78px 66px 82px;align-items:center;gap:8px}.boardheader{color:var(--muted);padding:7px 11px 5px;font-size:9px}.boardheader>span:nth-child(n+3){text-align:right}.stock{width:100%;text-align:left;background:transparent;color:var(--text);border:0;border-top:1px solid #304135;padding:8px 11px;font-size:11px}.stock:hover{background:#26372b}.stock[aria-pressed="true"]{background:#2a3f30;box-shadow:inset 3px 0 var(--mint)}.ticker{font-weight:900;color:var(--mint)}.sname{font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector{font-size:9px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.num{text-align:right;white-space:nowrap;font-size:11px}.num.strong{font-weight:850}.trade{padding:10px 11px 12px}.pair{display:flex;gap:6px}.pair button{flex:1}.side{padding:7px 9px;border:1px solid var(--line);border-radius:4px;background:#122017;color:var(--muted);font-weight:850;letter-spacing:.1em}.side[aria-pressed="true"]{color:#0f2118;background:var(--mint);border-color:var(--mint)}.fieldrow{display:flex;align-items:center;justify-content:space-between;gap:7px;margin:10px 0 5px}.fieldrow label{color:var(--muted);font-size:10px}.fillmax{color:var(--amber);background:#2d3124;border:1px solid #77714e;border-radius:3px;padding:3px 10px;font-size:10px;font-weight:900}.fillmax:disabled{opacity:.4}.qty{width:100%;border:1px solid var(--line);background:#111c15;color:var(--text);border-radius:4px;padding:7px 9px;font-size:15px;font-weight:800}.lineitem{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:5px 0;color:var(--muted);border-bottom:1px dashed #324837;font-size:11px}.lineitem strong{font-size:11px;color:var(--text)}.execute{width:100%;border:0;border-radius:4px;background:var(--mint);color:#0d2314;padding:9px;margin-top:10px;font-size:11px;font-weight:950;letter-spacing:.03em}.execute:hover:not(:disabled){background:#d1ffcc}.toast{color:var(--amber);font-size:10px;min-height:15px;margin:6px 0 0}.holding{display:grid;grid-template-columns:51px 1fr auto;gap:5px;align-items:center;padding:7px 11px;border-bottom:1px solid #304135;font-size:11px}.holding:last-child{border-bottom:0}.holding strong{color:var(--mint)}.holding .muted{color:var(--muted)}.empty{color:var(--muted);padding:11px;font-size:10px}.activity{padding:2px 11px 7px;min-height:65px;max-height:147px;overflow:auto}.event{display:grid;grid-template-columns:auto 1fr;gap:10px;border-bottom:1px dashed #324635;padding:6px 0;font-size:10px;color:var(--muted)}.event:last-child{border-bottom:0}.eventday{color:var(--green)}.marketnote{color:var(--muted);font-size:9px;padding:0 10px 8px}.footer{color:var(--muted);font-size:9px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:5px;margin-top:10px}.dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px;vertical-align:middle}
@@ -859,10 +859,109 @@ body[data-profile="mobile"] .perf-hud{right:12px;bottom:calc(83px + env(safe-are
 }
 @media(prefers-reduced-motion:reduce){.economy-caret{transition:none}}
 
+
+
+/* v0.6.1: position analytics and risk-bounded simulated options. */
+.position-totals{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:10px 11px}
+.position-totals>span{display:flex;flex-direction:column;gap:5px;min-width:0;
+ border:1px solid #344b52;border-radius:10px;background:#172a2e;padding:10px 8px;
+ color:#a3b9b9;font:750 9px/1.3 system-ui,sans-serif;letter-spacing:.045em}
+.position-totals strong{font:800 clamp(12px,1.1vw,17px)/1.2 system-ui,sans-serif;letter-spacing:-.025em}
+.position-card{width:calc(100% - 20px)!important;margin:6px 10px!important;padding:13px!important;
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:10px!important;text-align:left!important;height:auto!important;
+ min-height:122px;border-radius:13px!important}
+.position-card-head{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%}
+.position-card-head>strong{display:flex;align-items:center;gap:6px;min-width:0;
+ color:#e5ffec;font-size:16px}
+.position-card-head small{font-size:11px;color:#93aeaa;font-weight:600;overflow:hidden;text-overflow:ellipsis}
+.position-card-head>b{white-space:nowrap;color:#dbf5e2;font-size:15px}
+.position-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:9px 7px;width:100%}
+.position-card-grid>span{display:flex;flex-direction:column;gap:4px;min-width:0;
+ font:730 9px/1.2 system-ui,sans-serif;letter-spacing:.035em;color:#95b0ad}
+.position-card-grid>span strong{font-size:13px;letter-spacing:-.012em;color:#e6f5eb;
+ overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.position-card-grid>span strong.pos,.position-totals .pos{color:#87e6b4}
+.position-card-grid>span strong.neg,.position-totals .neg{color:#ffaaa5}
+.basis-disclaimer{font:550 10px/1.4 system-ui,sans-serif;color:#e6cf8c;
+ border-top:1px solid #394648;padding-top:7px}
+.option-ticket{border-top:1px solid #34515b;margin:15px -1px 0;background:#14252b;border-radius:11px;
+ overflow:hidden}
+.option-ticket>summary{display:flex;align-items:center;gap:10px;cursor:pointer;
+ list-style:none;min-height:47px;padding:12px 13px;color:#c0edcf;font-size:12px;font-weight:850}
+.option-ticket>summary::-webkit-details-marker,.portfolio-options>summary::-webkit-details-marker{display:none}
+.option-ticket>summary>span:first-child{white-space:nowrap}
+.option-ticket>summary small{color:#d3b57c;font-size:10px;border:1px solid #907c50;
+ border-radius:5px;padding:2px 4px;margin-left:5px}
+.option-summary-hint{flex:1;min-width:0;color:#90adab;font:600 10px/1.2 system-ui,sans-serif;
+ white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.option-caret{color:#bedcca;font-size:20px;transition:transform .18s}
+.option-ticket[open] .option-caret{transform:rotate(180deg)}
+.option-inner{padding:4px 13px 14px}
+.option-warning{margin:5px 0 13px;color:#cdbb96;font:500 11px/1.5 system-ui,sans-serif}
+.option-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.option-form label{display:flex;flex-direction:column;gap:6px;min-width:0;
+ color:#b7c9c0;font:760 10px/1.2 system-ui,sans-serif;letter-spacing:.03em}
+.option-form select,.option-form input{min-width:0;width:100%;padding:10px 9px;min-height:40px;
+ border:1px solid #46636b;border-radius:8px;background:#203540;color:#f0ffee;
+ font:650 12px/1.2 system-ui,sans-serif}
+.option-form input{font-variant-numeric:tabular-nums}
+.option-quote{display:flex;flex-direction:column;gap:6px;margin-top:11px;padding:10px 12px;
+ border:1px solid #415d5f;border-radius:9px;background:#1b3336;
+ color:#bfd7cc;font:600 11px/1.35 system-ui,sans-serif}
+.option-quote>strong{color:#ddfadd;font-size:12px}
+.option-submit{margin-top:9px!important;width:100%!important;min-height:43px!important}
+.option-message{font-size:11px;line-height:1.45;color:#f2d7a8;min-height:0;margin:7px 0}
+.option-position-heading{display:flex;justify-content:space-between;gap:8px;
+ font:800 11px/1.2 system-ui,sans-serif;color:#b7d3c2;letter-spacing:.035em;
+ margin:15px 0 7px}
+.option-position-list{display:flex;flex-direction:column;gap:8px}
+.option-position-row{padding:12px;border:1px solid #385159;border-radius:10px;
+ background:#1b2b33}
+.option-position-top{display:flex;justify-content:space-between;gap:10px;align-items:center;
+ font-size:12px}
+.option-position-top strong{color:#def7e5}
+.option-position-top b{white-space:nowrap}
+.option-position-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ gap:9px 6px;margin:11px 0}
+.option-position-grid>span{display:flex;flex-direction:column;gap:4px;min-width:0;
+ color:#92afad;font:750 9px/1.2 system-ui,sans-serif}
+.option-position-grid strong{color:#e7f8ed;font-size:12px;font-weight:740;
+ overflow:hidden;text-overflow:ellipsis}
+.option-close{width:100%;min-height:40px;border:1px solid #65876f;border-radius:8px;
+ background:#253e35;color:#c5f5d6;font-size:11px;font-weight:800}
+.option-close:disabled{opacity:.5}
+.portfolio-options{margin:7px 10px 12px;padding:0 10px;border:1px solid #355058;
+ border-radius:11px;background:#182b34}
+.portfolio-options>summary{display:flex;gap:8px;align-items:center;min-height:44px;
+ cursor:pointer;list-style:none;color:#badac8;font:800 11px/1.2 system-ui,sans-serif}
+.portfolio-options>summary strong{margin-left:auto;color:#e6fce8;font-size:13px}
+.portfolio-options>summary span{font-size:18px}
+.portfolio-options .option-position-list{padding-bottom:10px}
+@media(max-width:800px){
+ .position-totals{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .position-totals strong{font-size:12px}
+ .position-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .option-position-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+body[data-profile="mobile"] .position-totals{grid-template-columns:repeat(2,minmax(0,1fr));
+ padding:9px 10px}
+body[data-profile="mobile"] .position-totals>span:last-child{grid-column:1/-1}
+body[data-profile="mobile"] .position-totals strong{font-size:17px}
+body[data-profile="mobile"] .position-card{min-height:142px}
+body[data-profile="mobile"] .position-card-head small{display:block}
+body[data-profile="mobile"] .position-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+body[data-profile="mobile"] .option-form select,body[data-profile="mobile"] .option-form input{min-height:44px}
+body[data-profile="mobile"] .option-ticket{margin:12px 0 0}
+body[data-profile="mobile"] .option-ticket>summary{min-height:48px}
+body[data-profile="mobile"] .option-summary-hint{font-size:10px}
+@media(prefers-reduced-motion:reduce){.option-caret{transition:none}}
+
 </style>
 </head>
 <body><div class="wrap">
-<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.6.0</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
+<header class="top"><div class="brand"><h1>MARKET<em>LAB</em><span style="color:var(--muted)">_</span></h1><span class="tagline">THE FICTIONAL EXCHANGE / PAPER MONEY ONLY</span></div><div class="topright"><label class="profile-picker" for="profilemode"><span>UI PROFILE</span><select id="profilemode" aria-label="Interface profile"><option value="auto">AUTO</option><option value="desktop">DESKTOP</option><option value="mobile">MOBILE</option></select></label><span class="tag" id="profiletag">DESKTOP VIEW</span><span class="tag">v0.6.1</span><span class="tag cloud-chip" id="cloudChip">☁ LOCAL ONLY</span><button type="button" class="btn settings-open" id="openSettings" aria-label="Open saves and settings"><span class="settings-icon" aria-hidden="true">⚙</span><span class="settings-label"> SAVES & SETTINGS</span></button><button class="reset" id="reset">↺ Reset market</button></div></header>
 <section id="sessionNotice" class="session-notice" role="status" aria-live="polite" hidden>
  <div class="session-notice-text"><strong id="sessionHeading">Another tab is editing</strong><span id="sessionDescription">This tab is view-only to protect your portfolio.</span></div>
  <button type="button" id="sessionRetry" class="btn">CHECK AGAIN</button>
@@ -885,16 +984,19 @@ body[data-profile="mobile"] .perf-hud{right:12px;bottom:calc(83px + env(safe-are
 <div class="left">
 <section class="panel sizable" id="chartpanel" aria-label="Company chart"><div class="panelhead"><div><span class="heading"><span class="desktop-heading">01 / MARKET CHART</span><span class="mobile-heading">Chart overview</span></span><span class="meta" id="chartmeta"> · 42 trading days</span></div><div class="chartopts"><label class="range-picker" for="chartrange">RANGE <select id="chartrange" aria-label="Graph time range"><option value="21">1M</option><option value="63">3M</option><option value="252">1Y</option><option value="520">MAX</option></select></label><button id="indexoverlay" class="mini" type="button" aria-pressed="true" title="Show or hide exchange trend on the graph">↗ INDEX</button><button id="allchart" class="mini" aria-pressed="true">ALL / %</button><button id="singlechart" class="mini" aria-pressed="false">SINGLE / $</button></div><div class="paneltools"><button type="button" class="pinbtn" data-pin="chartpanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="chartpanel" role="button" aria-label="Move chartpanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div>
 <div class="chartarea" id="chartarea"><svg id="chart" class="chart" viewBox="0 0 850 270" role="img" aria-label="Historical performance of every listed company"></svg><div id="tooltip" class="tooltip" hidden></div><div class="chartfoot"><span id="chartstart">41 DAYS AGO</span><span id="charttype">RELATIVE PERFORMANCE · BASE = 100</span><span id="chartend">DAY 001</span></div></div><button type="button" id="chartExtraToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="chartExtraBody"><span>Chart settings &amp; series</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div id="chartExtraBody" class="chart-extra-body"><div id="legend" class="legend" aria-label="Choose visible and highlighted chart companies"></div><div class="chartactions"><span>CHART SERIES</span><button type="button" id="showall">SHOW ALL</button><button type="button" id="hideall">HIDE ALL</button><button type="button" id="clearfocus">CLEAR FOCUS</button><button type="button" id="wideleft" title="Make left column as wide as practical">WIDE LEFT</button><button type="button" id="focusleft" aria-pressed="false" title="Place trading panels below to give the left column the full width">FULL LEFT ↗</button><button type="button" id="resetlayout">RESET SIZES</button><span id="splitreadout" class="split-readout">LEFT 72%</span><span class="resizehelp">DRAG HANDLES · DOUBLE-CLICK TO RESET</span></div></div><div class="panelsizer" data-panel="chartpanel" role="separator" tabindex="0" aria-label="Resize chart panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
-<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading"><span class="desktop-heading">02 / SIMULATED EXCHANGE</span><span class="mobile-heading">Explore stocks</span></div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional prices react to trends, sectors, and occasional news shocks.</div><details id="economyPanel" class="economy-panel">
+<section class="panel sizable" id="exchangepanel" aria-label="Listed stocks"><div class="panelhead"><div class="heading"><span class="desktop-heading">02 / SIMULATED EXCHANGE</span><span class="mobile-heading">Explore stocks</span></div><span class="meta" id="marketstate">6 STOCKS · MARKET TREND</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="exchangepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="exchangepanel" role="button" aria-label="Move exchangepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="boardheader"><span>TICKER</span><span>COMPANY</span><span>PRICE</span><span>DAY %</span><span>MKT CAP</span><span>FLOAT</span></div><div class="boardlist" id="boardlist"><div id="stocks"></div></div><div class="marketpulse" id="marketpulse" aria-live="off">◉ NORMAL · Trend building</div><button type="button" id="marketInfoToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="marketNote"><span>How the market works</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div class="marketnote" id="marketNote">Market caps = outstanding shares × price. Float = publicly tradeable shares. Fictional stocks react to rates, confidence, factory activity, earnings surprises, and rare market shocks. Ordinary trading days are calmer; sharp moves remain possible.</div><details id="economyPanel" class="economy-panel">
  <summary><span class="economy-heading"><span class="economy-signal" aria-hidden="true">◈</span> ECONOMY PULSE</span><span class="economy-brief" id="economyBrief">Macro indicators · simulated</span><span class="economy-caret" aria-hidden="true">⌄</span></summary>
  <div class="economy-inner">
-  <p class="economy-description">FICTIONAL ECONOMY · Reports update every 21 trading days. Rates, prices, growth and confidence influence stocks differently across sectors.</p>
+  <p class="economy-description">FICTIONAL ECONOMY · Reports update every 21 trading days. Rates, wages, credit spreads, manufacturing, inflation and growth influence sectors. Policy decisions lag changes in the economy.</p>
   <div class="economy-grid">
    <div class="economy-stat"><span>POLICY RATE</span><strong id="economyRate">3.50%</strong><small id="economyRateTrend">HOLD</small></div>
    <div class="economy-stat"><span>INFLATION</span><strong id="economyInflation">2.60%</strong><small>ANNUALIZED CPI</small></div>
    <div class="economy-stat"><span>GDP GROWTH</span><strong id="economyGrowth">+2.10%</strong><small>ANNUALIZED</small></div>
    <div class="economy-stat"><span>UNEMPLOYMENT</span><strong id="economyJobs">4.70%</strong><small>LABOR MARKET</small></div>
    <div class="economy-stat"><span>CONFIDENCE</span><strong id="economyConfidence">100.0</strong><small>INDEX / 100 BASE</small></div>
+   <div class="economy-stat"><span>CREDIT SPREAD</span><strong id="economyCredit">1.60%</strong><small>FUNDING RISK</small></div>
+   <div class="economy-stat"><span>FACTORY PMI</span><strong id="economyPmi">52.0</strong><small>50 = EXPANSION LINE</small></div>
+   <div class="economy-stat"><span>WAGE GROWTH</span><strong id="economyWages">3.20%</strong><small>ANNUALIZED</small></div>
   </div>
   <p class="economy-foot" id="economyNext">Next report: Day 21</p>
  </div>
@@ -903,8 +1005,24 @@ body[data-profile="mobile"] .perf-hud{right:12px;bottom:calc(83px + env(safe-are
 </div>
 <div id="columnDivider" class="column-divider" role="separator" tabindex="0" aria-orientation="vertical" aria-label="Resize left and right dashboard columns" aria-valuemin="28" aria-valuemax="92" aria-valuenow="72" title="Drag, double-click to reset, or use ← → Home End"><span>⋮</span></div>
 <div class="right">
-<section class="panel sizable" id="tradepanel" aria-label="Trade desk"><div class="panelhead"><span class="heading"><span class="desktop-heading">04 / TRADE DESK</span><span class="mobile-heading">Trade ticket</span></span><span class="meta">NO FEES · INSTANT FILLS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="tradepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="tradepanel" role="button" aria-label="Move tradepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="trade"><div class="mobile-stock-picker"><label for="mobilecompany">COMPANY</label><select id="mobilecompany" aria-label="Stock to trade"><option value="NEON">NEON · Neon Dynamics</option><option value="HARB">HARB · Harbor Industries</option><option value="MISO">MISO · Miso Retail</option><option value="VOLT">VOLT · Volt Energy</option><option value="AERO">AERO · Aero Works</option><option value="BYTE">BYTE · Byte Labs</option></select></div><div class="pair"><button class="side" id="buy" aria-pressed="true">BUY</button><button class="side" id="sell" aria-pressed="false">SELL</button></div><div class="fieldrow"><label for="qty">SHARES OF <strong id="orderticker">NEON</strong></label><button class="fillmax" id="max" type="button">MAX BUY</button></div><input class="qty" id="qty" type="number" min="1" step="1" value="1" inputmode="numeric" autocomplete="off"><div class="mobile-quick-qty" id="mobileQtyPresets" aria-label="Quick order quantities"><span>QUICK FILL</span><button type="button" data-qty-pct="25">25%</button><button type="button" data-qty-pct="50">50%</button><button type="button" data-qty-pct="100">MAX</button></div><div class="lineitem"><span>Current share price</span><strong id="unitprice">$46.20</strong></div><div class="lineitem"><span>Order total</span><strong id="ordercost">$46.20</strong></div><button type="button" id="tradeMoreToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="tradeMoreBody"><span>Buying power &amp; order details</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div id="tradeMoreBody" class="trade-more-body"><div class="lineitem"><span id="availablelabel">Buying power</span><strong id="available">$10,000.00</strong></div><div class="lineitem"><span id="caplabel">Available public float</span><strong id="floatavailable">0</strong></div></div><button class="execute" id="execute">BUY 1 SHARE</button><p class="toast" role="status" aria-live="polite" id="toast"></p></div><div class="panelsizer" data-panel="tradepanel" role="separator" tabindex="0" aria-label="Resize trade panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
-<section class="panel sizable" id="holdingspanel" aria-label="Portfolio holdings"><div class="panelhead"><span class="heading"><span class="desktop-heading">05 / HOLDINGS</span><span class="mobile-heading">Your positions</span></span><span class="meta" id="positioncount">0 POSITIONS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="holdingspanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="holdingspanel" role="button" aria-label="Move holdingspanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div id="holdings"></div><button type="button" class="mobile-reset" id="mobileReset">↺ Reset the simulated market</button><div class="panelsizer" data-panel="holdingspanel" role="separator" tabindex="0" aria-label="Resize holdings panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="tradepanel" aria-label="Trade desk"><div class="panelhead"><span class="heading"><span class="desktop-heading">04 / TRADE DESK</span><span class="mobile-heading">Trade ticket</span></span><span class="meta">NO FEES · INSTANT FILLS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="tradepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="tradepanel" role="button" aria-label="Move tradepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="trade"><div class="mobile-stock-picker"><label for="mobilecompany">COMPANY</label><select id="mobilecompany" aria-label="Stock to trade"><option value="NEON">NEON · Neon Dynamics</option><option value="HARB">HARB · Harbor Industries</option><option value="MISO">MISO · Miso Retail</option><option value="VOLT">VOLT · Volt Energy</option><option value="AERO">AERO · Aero Works</option><option value="BYTE">BYTE · Byte Labs</option></select></div><div class="pair"><button class="side" id="buy" aria-pressed="true">BUY</button><button class="side" id="sell" aria-pressed="false">SELL</button></div><div class="fieldrow"><label for="qty">SHARES OF <strong id="orderticker">NEON</strong></label><button class="fillmax" id="max" type="button">MAX BUY</button></div><input class="qty" id="qty" type="number" min="1" step="1" value="1" inputmode="numeric" autocomplete="off"><div class="mobile-quick-qty" id="mobileQtyPresets" aria-label="Quick order quantities"><span>QUICK FILL</span><button type="button" data-qty-pct="25">25%</button><button type="button" data-qty-pct="50">50%</button><button type="button" data-qty-pct="100">MAX</button></div><div class="lineitem"><span>Current share price</span><strong id="unitprice">$46.20</strong></div><div class="lineitem"><span>Order total</span><strong id="ordercost">$46.20</strong></div><button type="button" id="tradeMoreToggle" class="mobile-expand-row" aria-expanded="false" aria-controls="tradeMoreBody"><span>Buying power &amp; order details</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><div id="tradeMoreBody" class="trade-more-body"><div class="lineitem"><span id="availablelabel">Buying power</span><strong id="available">$10,000.00</strong></div><div class="lineitem"><span id="caplabel">Available public float</span><strong id="floatavailable">0</strong></div></div><button class="execute" id="execute">BUY 1 SHARE</button><p class="toast" role="status" aria-live="polite" id="toast"></p><details id="optionsBeta" class="option-ticket">
+<summary><span>◇ OPTIONS DESK <small>BETA</small></span><span class="option-summary-hint">100 shares / contract · simulated premiums</span><span class="option-caret">⌄</span></summary>
+<div class="option-inner">
+<p class="option-warning">Fictional options quotes. Bought calls and puts settle in cash at expiry and can lose the entire premium. Covered calls cap upside and can sell your shares below market; cash-secured puts can force a share purchase above market. Written calls reserve 100 owned shares per contract; written puts lock strike-value cash. No naked selling, borrowing, or real market execution.</p>
+<div class="option-form">
+<label>POSITION<select id="optionSide" aria-label="Buy or write options"><option value="long">BUY TO OPEN</option><option value="short">WRITE TO OPEN</option></select></label>
+<label>TYPE<select id="optionType" aria-label="Call or put option"><option value="call">CALL</option><option value="put">PUT</option></select></label>
+<label>STRIKE<select id="optionStrike" aria-label="Strike price"></select></label>
+<label>EXPIRES<select id="optionExpiry" aria-label="Option expiration"><option value="7">7 DAYS</option><option value="21" selected>21 DAYS</option><option value="63">63 DAYS</option></select></label>
+<label>CONTRACTS<input id="optionQty" type="number" min="1" max="10" step="1" value="1" inputmode="numeric" aria-label="Number of 100-share contracts"></label>
+</div>
+<div class="option-quote" id="optionPreview" aria-live="polite">Choose a contract for a quote.</div>
+<button type="button" class="execute option-submit" id="optionExecute">BUY TO OPEN</button>
+<p class="option-message" id="optionMessage" role="status" aria-live="polite"></p>
+<div class="option-position-heading">OPEN OPTION CONTRACTS <span id="optionCount">0</span></div>
+<div id="optionPositions" class="option-position-list"></div>
+</div></details></div><div class="panelsizer" data-panel="tradepanel" role="separator" tabindex="0" aria-label="Resize trade panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
+<section class="panel sizable" id="holdingspanel" aria-label="Portfolio holdings"><div class="panelhead"><span class="heading"><span class="desktop-heading">05 / HOLDINGS</span><span class="mobile-heading">Your positions</span></span><span class="meta" id="positioncount">0 POSITIONS</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="holdingspanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="holdingspanel" role="button" aria-label="Move holdingspanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div id="positionTotals" class="position-totals"><span>UNREALIZED P&amp;L <strong id="unrealizedTotal">$0.00</strong></span><span>REALIZED STOCK P&amp;L <strong id="realizedTotal">$0.00</strong></span><span>OPTIONS P&amp;L <strong id="optionRealizedTotal">$0.00</strong></span></div><div id="holdings"></div><details class="portfolio-options" id="portfolioOptions"><summary>OPEN OPTIONS <strong id="portfolioOptionCount">0</strong><span aria-hidden="true">⌄</span></summary><div id="optionsPortfolio" class="option-position-list"></div></details><button type="button" class="mobile-reset" id="mobileReset">↺ Reset the simulated market</button><div class="panelsizer" data-panel="holdingspanel" role="separator" tabindex="0" aria-label="Resize holdings panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
 <button type="button" id="portfolioActivityToggle" class="mobile-expand-row portfolio-activity-toggle" aria-expanded="false" aria-controls="tapepanel"><span>Recent market activity</span><span class="fold-arrow" aria-hidden="true">⌄</span></button><section class="panel sizable" id="tapepanel" aria-label="Activity feed"><div class="panelhead"><span class="heading"><span class="desktop-heading">06 / MARKET TAPE</span><span class="mobile-heading">Recent activity</span></span><span class="meta">LATEST FIRST</span><div class="paneltools"><button type="button" class="pinbtn" data-pin="tapepanel" aria-pressed="false" title="Pin this panel at the top of its column while scrolling">♧ PIN</button><span class="draghandle" draggable="true" tabindex="0" data-drag="tapepanel" role="button" aria-label="Move tapepanel panel. Drag it, or use Shift and arrow keys." title="Drag to move between columns · Shift + arrows to move with keyboard">⠿</span></div></div><div class="activity" id="activity"></div><div class="panelsizer" data-panel="tapepanel" role="separator" tabindex="0" aria-label="Resize market tape panel height" aria-orientation="horizontal" title="Drag or use ↑ ↓ to resize"><span></span></div></section>
 </div></div>
 <nav class="mobile-nav" id="mobilenav" aria-label="Mobile sections">
@@ -981,6 +1099,7 @@ if(raw.heights&&typeof raw.heights==='object'&&!Array.isArray(raw.heights))for(c
 
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n));
 const cents=n=>Math.round(n*100),usd=n=>n/100;
+const priceCentsFromQuote=q=>cents(q.price);
 const moneyFmt=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
 const numFmt=new Intl.NumberFormat('en-US',{maximumFractionDigits:0});
 const money=n=>moneyFmt.format(n),amount=n=>money(usd(n)),integer=n=>numFmt.format(n);
@@ -1006,25 +1125,94 @@ function preHistory(s,c,last){let price=cents(last),history=[usd(price)];for(let
 // The economy is fictional, deterministic and stored alongside the v2 portfolio.
 // Missing economy data from older saves receives stable, backward-compatible defaults.
 const roundEconomy=n=>Math.round(n*100)/100;
-function freshEconomy(){return{rate:3.5,inflation:2.6,growth:2.1,unemployment:4.7,confidence:100,lastReportDay:0,policyDirection:'hold'}}
+function freshEconomy(){return{rate:3.5,inflation:2.6,growth:2.1,unemployment:4.7,confidence:100,creditSpread:1.6,pmi:52,wageGrowth:3.2,lastReportDay:0,policyDirection:'hold'}}
 function normalizeEconomy(raw,day){
  if(raw===undefined)return freshEconomy();
  if(!raw||typeof raw!=='object'||Array.isArray(raw))return null;
  const limits={rate:[0,10],inflation:[0,12],growth:[-8,10],unemployment:[1,20],confidence:[40,160]};
  for(const [key,[low,high]] of Object.entries(limits))if(typeof raw[key]!=='number'||!Number.isFinite(raw[key])||raw[key]<low||raw[key]>high)return null;
  if(!Number.isSafeInteger(raw.lastReportDay)||raw.lastReportDay<0||raw.lastReportDay>day||!['up','down','hold'].includes(raw.policyDirection))return null;
+ const defaults=freshEconomy();
+ const extraLimits={creditSpread:[.4,10],pmi:[30,70],wageGrowth:[-3,12]};
+ const extra={};
+ for(const [key,[low,high]] of Object.entries(extraLimits)){
+  const value=raw[key]===undefined?defaults[key]:raw[key];
+  if(typeof value!=='number'||!Number.isFinite(value)||value<low||value>high)return null;
+  extra[key]=value;
+ }
  return{rate:raw.rate,inflation:raw.inflation,growth:raw.growth,unemployment:raw.unemployment,
-  confidence:raw.confidence,lastReportDay:raw.lastReportDay,policyDirection:raw.policyDirection};
+  confidence:raw.confidence,...extra,lastReportDay:raw.lastReportDay,policyDirection:raw.policyDirection};
 }
-function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{},economy:freshEconomy()};for(const c of COMPANIES)s.companies[c.id]={price:c.price,previous:c.price,history:preHistory(s,c,c.price),volume:0};s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
+function fresh(){const s={version:2,seed:827165,day:1,cash:usd(START_CENTS),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:'NEON',side:'buy',view:'all',ui:defaultUI(),companies:{},events:[],regime:'normal',regimeDays:0,marketMomentum:0,sectorMomentum:{},stockMomentum:{},economy:freshEconomy()};for(const c of COMPANIES)s.companies[c.id]={price:c.price,previous:c.price,history:preHistory(s,c,c.price),volume:0};s.events=[{day:1,text:'The exchange opens with six publicly traded companies.'}];return s}
 function normalize(raw){
 if(!raw||typeof raw!=='object'||Array.isArray(raw)||raw.version!==2||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295||!raw.companies||typeof raw.companies!=='object'||Array.isArray(raw.companies)||!raw.holdings||typeof raw.holdings!=='object'||Array.isArray(raw.holdings))return null;
 const economy=normalizeEconomy(raw.economy,raw.day);if(!economy)return null;
-const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{},economy};
+const s={version:2,seed:raw.seed>>>0,day:raw.day,cash:usd(cents(raw.cash)),holdings:{},positionCostCents:{},estimatedBasis:{},realizedPnLCents:0,options:[],nextOptionId:1,optionRealizedCents:0,selected:company(raw.selected)?raw.selected:'NEON',side:raw.side==='sell'?'sell':'buy',view:raw.view==='single'?'single':'all',ui:sanitizeUI(raw.ui),companies:{},events:[],regime:['normal','bull','bear','volatile'].includes(raw.regime)?raw.regime:'normal',regimeDays:Number.isSafeInteger(raw.regimeDays)&&raw.regimeDays>=0&&raw.regimeDays<=300?raw.regimeDays:0,marketMomentum:clampMomentum(raw.marketMomentum,.022),sectorMomentum:{},stockMomentum:{},economy};
 for(const sector of new Set(COMPANIES.map(c=>c.sector)))s.sectorMomentum[sector]=clampMomentum(raw.sectorMomentum?.[sector],.014);
 for(const c of COMPANIES)s.stockMomentum[c.id]=clampMomentum(raw.stockMomentum?.[c.id],.023);
 for(const c of COMPANIES){const q=raw.companies[c.id],n=raw.holdings[c.id]??0;if(!q||typeof q!=='object'||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(n)||n<0||n>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price)||!Number.isSafeInteger(q.volume)||q.volume<0||q.volume>c.float)return null;
 s.companies[c.id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:q.volume};if(n)s.holdings[c.id]=n;}
+
+// Cost basis is the total cost in integer cents (weighted-average method).
+// Legacy holdings have no historical trade cost recorded. Mark them as estimated
+// and baseline to the current price rather than inventing an entry price.
+if(raw.realizedPnLCents!==undefined){
+ if(!Number.isSafeInteger(raw.realizedPnLCents)||Math.abs(raw.realizedPnLCents)>MAX_CASH_CENTS)return null;
+ s.realizedPnLCents=raw.realizedPnLCents;
+}
+if(raw.optionRealizedCents!==undefined){
+ if(!Number.isSafeInteger(raw.optionRealizedCents)||Math.abs(raw.optionRealizedCents)>MAX_CASH_CENTS)return null;
+ s.optionRealizedCents=raw.optionRealizedCents;
+}
+if(raw.positionCostCents!==undefined&&(!raw.positionCostCents||typeof raw.positionCostCents!=='object'||Array.isArray(raw.positionCostCents)))return null;
+if(raw.estimatedBasis!==undefined&&(!raw.estimatedBasis||typeof raw.estimatedBasis!=='object'||Array.isArray(raw.estimatedBasis)))return null;
+for(const c of COMPANIES){
+ const owned=s.holdings[c.id],basis=raw.positionCostCents?.[c.id];
+ if(!owned){
+  if(basis!==undefined&&basis!==0)return null;
+  continue;
+ }
+ if(basis===undefined){
+  s.positionCostCents[c.id]=owned*priceCentsFromQuote(s.companies[c.id]);
+  if(!Number.isSafeInteger(s.positionCostCents[c.id]))return null;
+  s.estimatedBasis[c.id]=true;
+ }else{
+  if(!Number.isSafeInteger(basis)||basis<0||basis>Number.MAX_SAFE_INTEGER)return null;
+  s.positionCostCents[c.id]=basis;
+  if(raw.estimatedBasis?.[c.id]===true)s.estimatedBasis[c.id]=true;
+ }
+}
+if(raw.options!==undefined){
+ if(!Array.isArray(raw.options)||raw.options.length>30)return null;
+ for(const o of raw.options){
+  if(!o||typeof o!=='object'||!Number.isSafeInteger(o.id)||o.id<1||
+   !company(o.ticker)||!['call','put'].includes(o.type)||!['long','short'].includes(o.side)||
+   (o.side==='short'&&o.type==='call'&&s.holdings[o.ticker]===undefined)||
+   !Number.isSafeInteger(o.qty)||o.qty<1||o.qty>10||
+   !Number.isSafeInteger(o.strike)||o.strike<1||o.strike>MAX_PRICE_CENTS||
+   !Number.isSafeInteger(o.expiryDay)||o.expiryDay<=s.day||o.expiryDay>MAX_DAY||
+   !Number.isSafeInteger(o.openedDay)||o.openedDay<1||o.openedDay>s.day||
+   !Number.isSafeInteger(o.entryPremiumCents)||o.entryPremiumCents<1||o.entryPremiumCents>MAX_PRICE_CENTS||
+   s.options.some(old=>old.id===o.id))return null;
+  s.options.push({id:o.id,ticker:o.ticker,type:o.type,side:o.side,
+   qty:o.qty,strike:o.strike,expiryDay:o.expiryDay,openedDay:o.openedDay,
+   entryPremiumCents:o.entryPremiumCents});
+ }
+}
+const lastOptionId=s.options.reduce((n,o)=>Math.max(n,o.id),0);
+if(raw.nextOptionId!==undefined&&(!Number.isSafeInteger(raw.nextOptionId)||raw.nextOptionId<=lastOptionId||raw.nextOptionId>1000000000))return null;
+s.nextOptionId=raw.nextOptionId??lastOptionId+1;
+for(const c of COMPANIES){
+ const lockedShares=s.options.filter(o=>o.side==='short'&&o.type==='call'&&o.ticker===c.id)
+  .reduce((n,o)=>n+o.qty*100,0);
+ if(lockedShares>(s.holdings[c.id]||0))return null;
+ const committedPuts=s.options.filter(o=>o.side==='short'&&o.type==='put'&&o.ticker===c.id)
+  .reduce((n,o)=>n+o.qty*100,0);
+ if(committedPuts+(s.holdings[c.id]||0)>c.float)return null;
+}
+const lockedCash=s.options.filter(o=>o.side==='short'&&o.type==='put')
+ .reduce((n,o)=>n+o.strike*o.qty*100,0);
+if(!Number.isSafeInteger(lockedCash)||lockedCash>cents(s.cash))return null;
 if(Array.isArray(raw.events))s.events=raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,14).map(e=>({day:e.day,text:e.text}));return s;
 }
 function migrateV1(raw){if(!raw||raw.version!==1||!raw.companies||!raw.holdings||!Number.isSafeInteger(raw.day)||raw.day<1||raw.day>MAX_DAY||!safePrice(raw.cash,0,MAX_CASH_CENTS)||!Number.isSafeInteger(raw.seed)||raw.seed<0||raw.seed>4294967295)return null;const s=fresh();s.seed=raw.seed;s.day=raw.day;s.cash=usd(cents(raw.cash));s.selected=company(raw.selected)?raw.selected:'NEON';s.side=raw.side==='sell'?'sell':'buy';for(const id of ['NEON','HARB','MISO','VOLT']){const q=raw.companies[id],owned=raw.holdings[id]??0,c=company(id);if(!q||!safePrice(q.price,1,MAX_PRICE_CENTS)||!safePrice(q.previous,1,MAX_PRICE_CENTS)||!Number.isSafeInteger(owned)||owned<0||owned>c.float||!Array.isArray(q.history)||q.history.length<2||q.history.length>HISTORY||q.history.some(v=>!safePrice(v,1,MAX_PRICE_CENTS))||cents(q.history.at(-1))!==cents(q.price))return null;s.companies[id]={price:usd(cents(q.price)),previous:usd(cents(q.previous)),history:q.history.map(v=>usd(cents(v))),volume:0};if(owned)s.holdings[id]=owned;}s.events=Array.isArray(raw.events)?raw.events.filter(e=>e&&Number.isSafeInteger(e.day)&&e.day>=1&&e.day<=s.day&&typeof e.text==='string'&&e.text.length<=200).slice(0,13):[];s.events.unshift({day:s.day,text:'MarketLab upgraded to v0.2. Two companies joined the exchange.'});return s}
@@ -1069,8 +1257,50 @@ function setProfileMode(mode){if(!['auto','desktop','mobile'].includes(mode))ret
  state.ui.profileMode=mode;save();render();
 }
 const quote=id=>state.companies[id],priceCents=id=>cents(quote(id).price),shares=id=>state.holdings[id]||0;
+// Stock ledger: integer-cent weighted-average basis for reproducible P&L.
+const basisCents=id=>state.positionCostCents[id]||0;
+const reservedShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='call'&&o.ticker===id?o.qty*100:0),0);
+const reservedPutShares=id=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'&&o.ticker===id?o.qty*OPTION_MULTIPLIER:0),0);
+const reservedCashCents=()=>state.options.reduce((n,o)=>n+(o.side==='short'&&o.type==='put'?o.qty*o.strike*100:0),0);
+const buyingPowerCents=()=>Math.max(0,cents(state.cash)-reservedCashCents());
+function buyStockAt(id,qty,unitCents){
+ const total=qty*unitCents,old=shares(id);
+ if(!Number.isSafeInteger(total)||!Number.isSafeInteger(basisCents(id)+total))return false;
+ state.holdings[id]=old+qty;
+ state.positionCostCents[id]=basisCents(id)+total;
+ return true;
+}
+function sellStockAt(id,qty,unitCents){
+ const old=shares(id),basis=basisCents(id);
+ if(!qty||old<qty)return false;
+ const soldBasis=qty===old?basis:Math.round(basis*(qty/old));
+ const gain=qty*unitCents-soldBasis;
+ if(!Number.isSafeInteger(state.realizedPnLCents+gain))return false;
+ state.realizedPnLCents+=gain;
+ if(qty===old){delete state.holdings[id];delete state.positionCostCents[id];delete state.estimatedBasis[id]}
+ else{state.holdings[id]=old-qty;state.positionCostCents[id]=basis-soldBasis}
+ return true;
+}
+const OPTION_MULTIPLIER=100;
+const optionsMarkCents=()=>state.options.reduce((n,o)=>{
+ const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
+ return n+(o.side==='long'?1:-1)*mark*OPTION_MULTIPLIER*o.qty;
+},0);
+// Approximate, bounded fictional model: intrinsic value plus decaying time
+// premium. Not a real exchange quotation or Black-Scholes implementation.
+function optionQuoteCents(ticker,type,strike,expiryDay){
+ const spot=priceCents(ticker),days=Math.max(0,expiryDay-state.day);
+ const intrinsic=Math.max(0,type==='call'?spot-strike:strike-spot);
+ if(!days)return intrinsic;
+ const c=company(ticker);
+ const annualVol=clamp(c.volatility*Math.sqrt(252)*.75,.18,.78);
+ const stress=clamp(1+(state.economy.creditSpread??1.6)*.10,.95,1.55);
+ const distance=Math.abs(Math.log(Math.max(1,spot)/Math.max(1,strike)));
+ const timeValue=spot*annualVol*Math.sqrt(days/252)*.46*Math.exp(-2*distance)*stress;
+ return Math.min(MAX_PRICE_CENTS,Math.max(1,Math.round(intrinsic+timeValue)));
+}
 const holdingsCents=()=>COMPANIES.reduce((n,c)=>n+shares(c.id)*priceCents(c.id),0);
-const worthCents=()=>cents(state.cash)+holdingsCents();
+const worthCents=()=>cents(state.cash)+holdingsCents()+optionsMarkCents();
 const marketCap=c=>c.shares*quote(c.id).price;
 const marketCapPrevious=c=>c.shares*quote(c.id).previous;
 const totalCap=()=>COMPANIES.reduce((n,c)=>n+marketCap(c),0);
@@ -1097,7 +1327,7 @@ function showSessionStatus(){
   $('sessionRetry').disabled=awaiting;
   $('sessionRetry').textContent=session.role==='conflict'?'RESUME AFTER CLOSING OTHERS':'CHECK AGAIN';
  }
- for(const id of ['execute','next','next10','auto','mobileAdvance','mobileAuto','reset','chooseImport','syncCloud','restoreCloud','replaceCloud','fullWipe']){
+ for(const id of ['execute','next','next10','auto','mobileAdvance','mobileAuto','reset','chooseImport','syncCloud','restoreCloud','replaceCloud','fullWipe','optionExecute']){
   if(viewer)$(id).disabled=true;
  }
  if(!viewer){$('reset').disabled=false;$('chooseImport').disabled=false;}
@@ -1307,25 +1537,40 @@ function updateEconomy(s){
  e.unemployment=roundEconomy(clamp(e.unemployment*.92+(4.75-e.growth*.04)*.08+
    bellNoise(s)*.18,1,20));
  e.confidence=roundEconomy(clamp(e.confidence*.87+(98+e.growth*.85-e.unemployment*.35)*.13+
-   bellNoise(s)*2.6,40,160));
+   bellNoise(s)*2.1,40,160));
+ e.pmi=roundEconomy(clamp(e.pmi*.69+(50.7+e.growth*.67-e.creditSpread*.12)*.31+
+   bellNoise(s)*1.25,30,70));
+ e.creditSpread=roundEconomy(clamp(e.creditSpread*.81+1.6*.19+
+   Math.max(0,1.3-e.growth)*.10+Math.max(0,49-e.pmi)*.032+bellNoise(s)*.18,.4,10));
+ e.wageGrowth=roundEconomy(clamp(e.wageGrowth*.84+(3.1-(e.unemployment-4.7)*.20)*.16+
+   bellNoise(s)*.20,-3,12));
  const previous=e.rate;
- if(e.inflation>3.1&&e.growth>-.8)e.rate=clamp(roundEconomy(e.rate+.25),0,10);
- else if(e.growth<.6&&e.inflation<2.8)e.rate=clamp(roundEconomy(e.rate-.25),0,10);
+ // Rate decisions are deliberately less reactive: modest quarter-point moves
+ // only on alternating macro reports, and only when conditions support them.
+ if(s.day%42===0){
+  if(e.inflation>3.25&&e.growth>1.05)e.rate=clamp(roundEconomy(e.rate+.25),0,10);
+  else if((e.growth<.65||e.unemployment>6.3||e.creditSpread>3.1)&&e.inflation<4)
+   e.rate=clamp(roundEconomy(e.rate-.25),0,10);
+ }
  e.policyDirection=e.rate>previous?'up':e.rate<previous?'down':'hold';
  e.lastReportDay=s.day;
  const direction=e.policyDirection==='up'?'hikes':e.policyDirection==='down'?'cuts':'holds';
  pushEvent('Economic report: growth '+signed(e.growth)+', inflation '+e.inflation.toFixed(2)+
+  '%. Factory PMI '+e.pmi.toFixed(1)+', credit spread '+e.creditSpread.toFixed(2)+
   '%. Central bank '+direction+' rates at '+e.rate.toFixed(2)+'%.');
 }
 function economyMarketMove(e){
+ const spread=e.creditSpread??1.6,pmi=e.pmi??52;
  return clamp((e.growth-2.1)*.00016+(e.confidence-100)*.000019-
-  (e.inflation-2.6)*.00017-(e.rate-3.5)*.00023,-.005,.005);
+  (e.inflation-2.6)*.00017-(e.rate-3.5)*.00023-(spread-1.6)*.00024+
+  (pmi-52)*.000029,-.005,.005);
 }
 function economySectorMove(sector,e){
+ const spread=e.creditSpread??1.6,pmi=e.pmi??52,wage=e.wageGrowth??3.2;
  let move=0;
- if(sector==='Technology')move=-(e.rate-3.5)*.00044+(e.growth-2.1)*.00024;
- else if(sector==='Industrials')move=(e.growth-2.1)*.00035-(e.unemployment-4.7)*.00019;
- else if(sector==='Consumer')move=(e.confidence-100)*.000055-(e.inflation-2.6)*.00024;
+ if(sector==='Technology')move=-(e.rate-3.5)*.00044+(e.growth-2.1)*.00024-(spread-1.6)*.00025;
+ else if(sector==='Industrials')move=(e.growth-2.1)*.00030-(e.unemployment-4.7)*.00019+(pmi-52)*.000052;
+ else if(sector==='Consumer')move=(e.confidence-100)*.000055-(e.inflation-2.6)*.00024+(wage-3.2)*.000095;
  else if(sector==='Energy')move=(e.inflation-2.6)*.00030+(e.growth-2.1)*.00018;
  return clamp(move,-.006,.006);
 }
@@ -1340,36 +1585,52 @@ function valuationPressure(c,price,day){
  if(state.day>=MAX_DAY){stopAuto();notify('Maximum simulated day reached.');return}
  updateEconomy(state);
  if(state.regimeDays<=0){
-  const r=random(state);state.regime=r<.28?'bull':r<.54?'bear':r<.72?'volatile':'normal';
+  const e=state.economy,r=random(state);
+  const stress=clamp((1.2-e.growth)*.055+((e.creditSpread??1.6)-1.6)*.07,-.10,.20);
+  const bull=clamp(.30-stress,.12,.42),bear=clamp(.23+stress,.12,.44);
+  const volatile=clamp(.12+((e.creditSpread??1.6)-1.6)*.035,.08,.24);
+  state.regime=r<bull?'bull':r<bull+bear?'bear':r<bull+bear+volatile?'volatile':'normal';
   state.regimeDays=48+Math.floor(random(state)*105);
   pushEvent(`Market cycle shifts to ${state.regime.toUpperCase()}.`);
  }
  state.regimeDays--;
- const bias=state.regime==='bull'?.0019:state.regime==='bear'?-.0025:state.regime==='normal'?.00038:0;
- const turbulence=state.regime==='volatile'?1.8:state.regime==='bear'?1.18:1;
+ const bias=state.regime==='bull'?.00145:state.regime==='bear'?-.0019:state.regime==='normal'?.00025:0;
+ const turbulence=state.regime==='volatile'?1.48:state.regime==='bear'?1.12:1;
  // Persistent momentum creates trends, while random shocks keep prices unpredictable.
- state.marketMomentum=clamp(state.marketMomentum*.92+bellNoise(state)*.0018+bias*.10,-.022,.022);
+ state.marketMomentum=clamp(state.marketMomentum*.92+bellNoise(state)*.0013+bias*.10,-.022,.022);
  let macroEvent=0;
- if(random(state)<.009){macroEvent=(random(state)<.60?-1:1)*(.043+random(state)*.094);pushEvent(macroEvent<0?'Broad market selloff hits the exchange.':'Unexpected market-wide rally lifts prices.');}
- const marketMove=bias+state.marketMomentum+bellNoise(state)*.016*turbulence+macroEvent+economyMarketMove(state.economy);
+ const shockOdds=.0021+Math.max(0,(state.economy.creditSpread??1.6)-2)*.00055;
+ if(random(state)<shockOdds){
+  const stressed=state.economy.growth<.5||(state.economy.creditSpread??1.6)>3;
+  macroEvent=(random(state)<(stressed?.68:.50)?-1:1)*(.048+random(state)*.095);
+  pushEvent(macroEvent<0?'Rare credit/liquidity shock triggers a market selloff.':'Unexpected market-wide rally lifts prices.');
+ }
+ const marketMove=bias+state.marketMomentum+bellNoise(state)*.010*turbulence+macroEvent+economyMarketMove(state.economy);
  const sectors={};
  for(const c of COMPANIES)if(!(c.sector in sectors)){
-  const momentum=clamp((state.sectorMomentum[c.sector]||0)*.93+bellNoise(state)*.0016,-.014,.014);
+  const momentum=clamp((state.sectorMomentum[c.sector]||0)*.93+bellNoise(state)*.0012,-.014,.014);
   state.sectorMomentum[c.sector]=momentum;
-  sectors[c.sector]=momentum+bellNoise(state)*.010*turbulence;
+  sectors[c.sector]=momentum+bellNoise(state)*.006*turbulence;
  }
  let top=null,low=null;
  for(const c of COMPANIES){
   const q=quote(c.id),old=priceCents(c.id);q.previous=usd(old);
-  const companyMomentum=clamp((state.stockMomentum[c.id]||0)*.88+bellNoise(state)*.003,-.023,.023);
+  const companyMomentum=clamp((state.stockMomentum[c.id]||0)*.88+bellNoise(state)*.0019,-.023,.023);
   state.stockMomentum[c.id]=companyMomentum;
   let eventMove=0;
-  if(random(state)<.012){
-   eventMove=(random(state)<.52?-1:1)*(.045+random(state)*.11);
-   pushEvent(`${c.id}: ${eventMove<0?'earnings miss / negative outlook':'breakout earnings / positive outlook'} drives sharp repricing.`);
+  // Quarterly earnings create scheduled catalysts; breaking news is rare.
+  if(state.day%63===0&&random(state)<.55){
+   const tailwind=state.economy.growth>1.6?.54:.40;
+   eventMove=(random(state)<tailwind?1:-1)*(.028+random(state)*.077);
+   pushEvent(c.id+': quarterly earnings '+(eventMove>0?'beat':'miss')+
+    ' expectations; shares reprice.');
+  }else if(random(state)<.0027){
+   eventMove=(random(state)<.51?-1:1)*(.055+random(state)*.098);
+   pushEvent(c.id+': rare '+(eventMove<0?'negative':'positive')+
+    ' company news surprises investors.');
   }
   const sectorWeight=c.sector==='Technology'?1.13:c.sector==='Energy'?.83:1;
-  const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.63*turbulence+eventMove+economySectorMove(c.sector,state.economy)+valuationPressure(c,q.price,state.day),-.33,.33);
+  const step=clamp(c.drift+marketMove*sectorWeight+sectors[c.sector]+companyMomentum+bellNoise(state)*c.volatility*.38*turbulence+eventMove+economySectorMove(c.sector,state.economy)+valuationPressure(c,q.price,state.day),-.33,.33);
   q.price=usd(clamp(marketRoundCents(old*(1+step),state),1,MAX_PRICE_CENTS));
   q.history.push(q.price);if(q.history.length>HISTORY)q.history.shift();
   q.volume=clamp(Math.round(c.float*(.001+random(state)*.006)*(1+Math.abs(step)*13)),1,c.float);
@@ -1377,22 +1638,113 @@ function valuationPressure(c,price,day){
   if(!top||d>top.d)top={id:c.id,d};if(!low||d<low.d)low={id:c.id,d};
  }
  state.day++;
+ settleExpiringOptions();
  // Tape includes context without generating unbounded saved events.
  if(macroEvent===0)pushEvent(top.d>=0?`${top.id} led today's session (${signed(top.d)}).`:`Red session: ${low.id} closed ${signed(low.d)}.`);
 }
 function advance(days){if(!requireEditor())return;const count=Math.min(days,MAX_DAY-state.day);if(count<=0)return;for(let i=0;i<count;i++)tick();save();renderMarketFrame();if(state.day===MAX_DAY)stopAuto()}
-function maxQty(){const c=company(state.selected),p=priceCents(c.id),owned=shares(c.id),cash=cents(state.cash);if(state.side==='sell')return Math.max(0,Math.min(owned,Math.floor((MAX_CASH_CENTS-cash)/p)));
-return Math.max(0,Math.min(Math.floor(cash/p),c.float-owned,Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
+// Options beta uses 100-share contracts and model prices. Long positions are
+// cash-settled at expiration. Short calls must be covered with owned shares;
+// short puts reserve enough cash to take delivery at the strike.
+function placeOptionOrder({ticker,type,side,qty,strike,days}){
+ if(!company(ticker)||!['call','put'].includes(type)||!['long','short'].includes(side)||
+  !Number.isSafeInteger(qty)||qty<1||qty>10||
+  !Number.isSafeInteger(strike)||strike<1||strike>MAX_PRICE_CENTS||
+  ![7,21,63].includes(days)||state.day+days>MAX_DAY)return{ok:false,reason:'Invalid option order.'};
+ if(state.options.length>=30||state.nextOptionId>=1000000000)return{ok:false,reason:'Option position limit reached.'};
+ const expiryDay=state.day+days,unit=optionQuoteCents(ticker,type,strike,expiryDay);
+ const premium=unit*OPTION_MULTIPLIER*qty,cash=cents(state.cash);
+ if(!Number.isSafeInteger(premium))return{ok:false,reason:'Option premium exceeds supported limits.'};
+ if(side==='long'&&premium>buyingPowerCents())return{ok:false,reason:'Not enough unreserved cash to buy the option.'};
+ if(side==='short'&&type==='call'&&shares(ticker)-reservedShares(ticker)<qty*OPTION_MULTIPLIER)
+  return{ok:false,reason:'Writing calls requires 100 unreserved shares per contract.'};
+ if(side==='short'&&type==='put'&&strike*OPTION_MULTIPLIER*qty>buyingPowerCents())
+  return{ok:false,reason:'Cash-secured puts require enough unreserved cash for assignment.'};
+ if(side==='short'&&type==='put'&&shares(ticker)+reservedPutShares(ticker)+qty*OPTION_MULTIPLIER>company(ticker).float)
+  return{ok:false,reason:'Insufficient public float to guarantee put assignment.'};
+ if(side==='short'&&cash+premium>MAX_CASH_CENTS)
+  return{ok:false,reason:'Premium exceeds the cash balance limit.'};
+ state.cash=usd(side==='long'?cash-premium:cash+premium);
+ const o={id:state.nextOptionId++,ticker,type,side,qty,strike,expiryDay,openedDay:state.day,entryPremiumCents:unit};
+ state.options.push(o);
+ pushEvent((side==='long'?'Bought ':'Wrote covered/secured ')+qty+' '+ticker+' '+type.toUpperCase()+
+  ' contract(s) at '+amount(unit*100)+' premium each.');
+ return{ok:true,option:o,premium};
+}
+function closeOptionPosition(id){
+ const index=state.options.findIndex(o=>o.id===id);
+ if(index<0)return{ok:false,reason:'Option position not found.'};
+ const o=state.options[index],unit=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
+ const total=unit*OPTION_MULTIPLIER*o.qty,cash=cents(state.cash);
+ if(o.side==='short'){
+  // Free this put's own cash collateral for closing, not other open puts' funds.
+  const ownReserve=o.type==='put'?o.strike*OPTION_MULTIPLIER*o.qty:0;
+  if(total>cash-(reservedCashCents()-ownReserve))
+   return{ok:false,reason:'Insufficient available funds to buy back this option.'};
+ }else if(cash+total>MAX_CASH_CENTS)return{ok:false,reason:'Maximum cash balance reached.'};
+ const realized=(o.side==='long'?unit-o.entryPremiumCents:o.entryPremiumCents-unit)*
+  OPTION_MULTIPLIER*o.qty;
+ if(!Number.isSafeInteger(state.optionRealizedCents+realized))return{ok:false,reason:'P&L precision limit reached.'};
+ state.cash=usd(o.side==='long'?cash+total:cash-total);
+ state.optionRealizedCents+=realized;
+ state.options.splice(index,1);
+ pushEvent((o.side==='long'?'Sold to close ':'Bought to close ')+o.ticker+' '+o.type.toUpperCase()+
+  ' · option P&L '+(realized>=0?'+':'−')+amount(Math.abs(realized))+'.');
+ return{ok:true,realized};
+}
+function settleExpiringOptions(){
+ if(!state.options.length||!state.options.some(o=>o.expiryDay<=state.day))return;
+ const pending=state.options.filter(o=>o.expiryDay<=state.day);
+ for(const o of pending){
+  const count=OPTION_MULTIPLIER*o.qty,spot=priceCents(o.ticker);
+  const intrinsic=Math.max(0,o.type==='call'?spot-o.strike:o.strike-spot);
+  const payoff=intrinsic*count,entry=o.entryPremiumCents*count;
+  if(o.side==='long'){
+   state.cash=usd(cents(state.cash)+payoff);
+   state.optionRealizedCents+=payoff-entry;
+   pushEvent(o.ticker+' '+o.type.toUpperCase()+' long expires: '+
+    (payoff?'cash settlement '+amount(payoff):'out of the money')+'.');
+  }else if(o.type==='call'){
+   // Assignment delivers already-owned, reserved shares for strike cash.
+   if(intrinsic>0){
+    sellStockAt(o.ticker,count,o.strike);
+    state.cash=usd(cents(state.cash)+o.strike*count);
+   }
+   state.optionRealizedCents+=entry;
+   pushEvent(o.ticker+' covered call '+(intrinsic?'assigned: '+count+' shares sold at '+amount(o.strike):
+     'expired unassigned')+'.');
+  }else{
+   // Secured collateral was held as cash rather than removed from balance.
+   if(intrinsic>0){
+    buyStockAt(o.ticker,count,o.strike);
+    state.cash=usd(cents(state.cash)-o.strike*count);
+   }
+   state.optionRealizedCents+=entry;
+   pushEvent(o.ticker+' cash-secured put '+(intrinsic?'assigned: '+count+' shares bought at '+amount(o.strike):
+     'expired unassigned')+'.');
+  }
+ }
+ state.options=state.options.filter(o=>o.expiryDay>state.day);
+}
+function maxQty(){const c=company(state.selected),p=priceCents(c.id),owned=shares(c.id),cash=cents(state.cash);if(state.side==='sell')return Math.max(0,Math.min(owned-reservedShares(c.id),Math.floor((MAX_CASH_CENTS-cash)/p)));
+return Math.max(0,Math.min(Math.floor(buyingPowerCents()/p),c.float-owned-reservedPutShares(c.id),Math.floor(MAX_CASH_CENTS/p),Math.floor(Number.MAX_SAFE_INTEGER/p)))}
 function validateOrder(){const raw=$('qty').value.trim(),qty=/^\d+$/.test(raw)?Number(raw):NaN,id=state.selected,c=company(id),owned=shares(id),p=priceCents(id);
 if(!Number.isSafeInteger(qty)||qty<1)return{ok:false,qty,reason:'Enter a positive whole number of shares.'};
 const cost=qty*p;if(!Number.isSafeInteger(cost)||cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'This order exceeds the exchange trade limit.'};
-if(state.side==='buy'&&qty>c.float-owned)return{ok:false,qty,reason:'Not enough shares remain in the public float.'};
-if(state.side==='buy'&&cost>cents(state.cash))return{ok:false,qty,reason:'Not enough cash for that order.'};
-if(state.side==='sell'&&qty>owned)return{ok:false,qty,reason:'You do not own that many shares.'};
+if(state.side==='buy'&&qty>c.float-owned-reservedPutShares(id))return{ok:false,qty,reason:'Not enough shares remain in the public float.'};
+if(state.side==='buy'&&cost>buyingPowerCents())return{ok:false,qty,reason:'Insufficient unreserved buying power (cash may secure puts).'};
+if(state.side==='sell'&&qty>owned-reservedShares(id))return{ok:false,qty,reason:'Those shares are reserved to cover open calls.'};
 if(state.side==='sell'&&cents(state.cash)+cost>MAX_CASH_CENTS)return{ok:false,qty,reason:'Maximum cash balance reached.'};
 return{ok:true,qty,cost,reason:''}}
 function trade(){if(!requireEditor())return;const o=validateOrder();if(!o.ok){notify(o.reason);renderTrade();return}
-const id=state.selected,old=shares(id),cash=cents(state.cash);if(state.side==='buy'){state.cash=usd(cash-o.cost);state.holdings[id]=old+o.qty}else{state.cash=usd(cash+o.cost);if(old===o.qty)delete state.holdings[id];else state.holdings[id]=old-o.qty}
+const id=state.selected,cash=cents(state.cash);
+if(state.side==='buy'){
+ if(!buyStockAt(id,o.qty,priceCents(id)))return notify('Position basis exceeds supported precision.');
+ state.cash=usd(cash-o.cost);
+}else{
+ if(!sellStockAt(id,o.qty,priceCents(id)))return notify('Could not safely allocate cost basis.');
+ state.cash=usd(cash+o.cost);
+}
 pushEvent(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} ${o.qty===1?'share':'shares'} @ ${amount(priceCents(id))}.`);notify(`${state.side==='buy'?'Bought':'Sold'} ${integer(o.qty)} ${id} for ${amount(o.cost)}.`);save();render()}
 function setSide(side){state.side=side;save();renderTrade();notify(validateOrder().reason)}
 function select(id){if(!company(id))return;state.selected=id;save();render();notify(validateOrder().reason)}
@@ -1428,16 +1780,17 @@ function renderEconomy(){
   economyRate:rate,economyRateTrend:e.policyDirection.toUpperCase(),
   economyInflation:inflation,economyGrowth:signed(e.growth),
   economyJobs:e.unemployment.toFixed(2)+'%',
-  economyConfidence:e.confidence.toFixed(1),
+  economyConfidence:e.confidence.toFixed(1),economyCredit:e.creditSpread.toFixed(2)+'%',
+  economyPmi:e.pmi.toFixed(1),economyWages:e.wageGrowth.toFixed(2)+'%',
   economyNext:'Next report: Day '+(Math.floor(state.day/21)+1)*21+
-    ' · Technology reacts to rates, retail to confidence, industry to growth and energy to inflation.'
+    ' · Rates, manufacturing and credit conditions influence the next cycle.'
  };
  for(const [id,value] of Object.entries(values)){
   const node=$(id);if(node.textContent!==value)node.textContent=value;
  }
 }
-function renderStats(){const w=worthCents(),held=holdingsCents(),gain=w-START_CENTS;
-$('networth').textContent=amount(w);$('cash').textContent=amount(cents(state.cash));$('invested').textContent=amount(held);$('sharecount').textContent=integer(COMPANIES.reduce((n,c)=>n+shares(c.id),0))+' shares held';$('day').textContent=String(state.day).padStart(3,'0');
+function renderStats(){const w=worthCents(),held=holdingsCents()+optionsMarkCents(),gain=w-START_CENTS;
+$('networth').textContent=amount(w);$('cash').textContent=amount(cents(state.cash));$('invested').textContent=amount(held);$('sharecount').textContent=integer(COMPANIES.reduce((n,c)=>n+shares(c.id),0))+' shares held'+(state.options.length?' · '+state.options.length+' option position(s)':'');$('day').textContent=String(state.day).padStart(3,'0');
 $('profit').textContent=signed(changePct(w,START_CENTS))+' · '+(gain>=0?'+':'−')+amount(Math.abs(gain));$('profit').className='statnote '+(gain>0?'pos':gain<0?'neg':'');
 const cap=totalCap(),prev=totalCapPrevious(),d=changePct(cap,prev);$('index').textContent=(cap/BASE_MARKET_CAP*1000).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});$('indexchange').textContent=signed(d)+' today';$('indexchange').className='statnote '+(d>0?'pos':d<0?'neg':'');$('totalcap').textContent=compact(cap);$('regime').textContent=state.regime.toUpperCase()+' MARKET';
 // Keep the trend algorithm for a future research unlock, but don't
@@ -1574,8 +1927,80 @@ function toggleFocus(id){if(!company(id)||!state.ui.visible.includes(id))return;
 
 function renderTrade(){const id=state.selected,c=company(id),raw=$('qty').value.trim(),n=/^\d+$/.test(raw)?Number(raw):NaN,qty=Number.isSafeInteger(n)&&n>=1?n:null,o=validateOrder();$('buy').setAttribute('aria-pressed',String(state.side==='buy'));$('sell').setAttribute('aria-pressed',String(state.side==='sell'));$('orderticker').textContent=id;$('mobilecompany').value=id;$('unitprice').textContent=amount(priceCents(id));
 for(const b of $('mobileQtyPresets').querySelectorAll('[data-qty-pct]'))b.disabled=maxQty()<1;
-const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(cents(state.cash)):integer(shares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES')}
-function renderHoldings(){const owned=COMPANIES.filter(c=>shares(c.id)>0);$('positioncount').textContent=owned.length+' '+(owned.length===1?'POSITION':'POSITIONS');$('holdings').innerHTML=owned.length?owned.map(c=>`<button type="button" class="holding" data-holding="${c.id}" aria-label="Trade ${c.name}, ${integer(shares(c.id))} shares held"><strong>${c.id}</strong><span class="muted">${integer(shares(c.id))} shares</span><b>${amount(shares(c.id)*priceCents(c.id))}</b></button>`).join(''):'<div class="empty">No holdings. Pick a stock and buy shares.</div>'}
+const cost=qty===null?NaN:qty*priceCents(id);$('ordercost').textContent=Number.isSafeInteger(cost)&&cost<=MAX_CASH_CENTS?amount(cost):'—';$('availablelabel').textContent=state.side==='buy'?'Buying power':'Shares owned';$('available').textContent=state.side==='buy'?amount(buyingPowerCents()):integer(shares(id)-reservedShares(id));$('caplabel').textContent='Remaining public float';$('floatavailable').textContent=compactShares(c.float-shares(id));$('max').textContent=state.side==='buy'?'MAX BUY':'MAX SELL';$('max').disabled=maxQty()<1;$('execute').disabled=!o.ok;$('execute').textContent=(state.side==='buy'?'BUY ':'SELL ')+(qty===null?'?':integer(qty))+' '+(qty===1?'SHARE':'SHARES');renderOptionTicket()}
+// Options ticket intentionally lives inside a disclosure to preserve mobile space.
+let lastOptionTicker='',lastOptionMarkup='';
+function optionStrikeChoices(){
+ const input=$('optionStrike'),ticker=state.selected,spot=priceCents(ticker);
+ const current=Number(input.value);
+ if(ticker===lastOptionTicker&&input.options.length&&Math.abs(spot-current)/Math.max(1,spot)<.20)return;
+ const strikes=[.85,.90,.95,1,1.05,1.10,1.15].map(f=>Math.max(50,Math.round(spot*f/50)*50));
+ const values=[...new Set(strikes)].sort((a,b)=>a-b);
+ input.innerHTML=values.map(c=>`<option value="${c}">${amount(c)}</option>`).join('');
+ const nearest=values.reduce((best,v)=>Math.abs(v-spot)<Math.abs(best-spot)?v:best,values[0]);
+ input.value=String(ticker===lastOptionTicker&&values.includes(current)?current:nearest);
+ lastOptionTicker=ticker;
+}
+function renderOptionTicket(){
+ optionStrikeChoices();
+ const type=$('optionType').value,side=$('optionSide').value;
+ const qty=Number($('optionQty').value),strike=Number($('optionStrike').value),days=Number($('optionExpiry').value);
+ $('optionExecute').textContent=side==='long'?'BUY OPTION':'WRITE OPTION';
+ const valid=Number.isSafeInteger(qty)&&qty>=1&&qty<=10&&Number.isSafeInteger(strike)&&strike>0;
+ $('optionExecute').disabled=session.role!=='writer'||!valid||state.day+days>MAX_DAY;
+ if(!valid){$('optionPreview').textContent='Enter 1–10 contracts and a valid strike.';return}
+ const price=optionQuoteCents(state.selected,type,strike,state.day+days);
+ const premium=price*OPTION_MULTIPLIER*qty;
+ const isWrite=side==='short';
+ const reserve=isWrite?(type==='put'?amount(strike*OPTION_MULTIPLIER*qty):
+   integer(OPTION_MULTIPLIER*qty)+' free shares'):'none';
+ const available=type==='call'&&isWrite?Math.floor(Math.max(0,shares(state.selected)-reservedShares(state.selected))/100):
+   type==='put'&&isWrite?Math.floor(buyingPowerCents()/(strike*100)):
+   Math.floor(buyingPowerCents()/Math.max(1,price*100));
+ const legend=isWrite?(type==='call'?'Covered call · capped upside':'Cash-secured put · stock purchase risk'):
+  type==='call'?'Long call · bullish':'Long put · bearish';
+ $('optionPreview').innerHTML=`<strong>${escape(legend)}</strong><span>Model premium: ${amount(price*100)} / contract · ${amount(premium)} total (${isWrite?'credit':'debit'})</span><span>Expiry: Day ${state.day+days} · Strike: ${amount(strike)} · Collateral: ${reserve}</span><span>Estimated max contracts affordable: ${Math.max(0,Math.min(10,available))} · Intrinsic at expiry varies with the market.</span>`;
+}
+const optionsOpenPnl=()=>state.options.reduce((sum,o)=>{
+ const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay);
+ return sum+(o.side==='long'?mark-o.entryPremiumCents:o.entryPremiumCents-mark)*OPTION_MULTIPLIER*o.qty;
+},0);
+function renderOptionPositions(){
+ const open=state.options;
+ const row=o=>{
+  const mark=optionQuoteCents(o.ticker,o.type,o.strike,o.expiryDay),value=mark*OPTION_MULTIPLIER*o.qty;
+  const paid=o.entryPremiumCents*OPTION_MULTIPLIER*o.qty;
+  const pnl=(o.side==='long'?value-paid:paid-value);
+  const disposition=o.side==='long'?'LONG':o.type==='call'?'COVERED SHORT':'CASH-SECURED SHORT';
+  return `<div class="option-position-row"><div class="option-position-top"><strong>${o.ticker} ${o.type.toUpperCase()} · ${disposition}</strong><b class="${pnl>=0?'pos':'neg'}">${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</b></div><div class="option-position-grid"><span>CONTRACTS <strong>${o.qty}</strong></span><span>STRIKE <strong>${amount(o.strike)}</strong></span><span>DAY <strong>${o.expiryDay}</strong></span><span>ENTRY PREMIUM <strong>${amount(paid)}</strong></span><span>MARK VALUE <strong>${amount(value)}</strong></span><span>UNREALIZED P&L <strong>${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</strong></span></div><button class="option-close" type="button" data-option-close="${o.id}" ${session.role!=='writer'?'disabled':''}>${o.side==='long'?'SELL TO CLOSE':'BUY TO CLOSE'}</button></div>`;
+ };
+ const markup=open.length?open.map(row).join(''):'<div class="empty">No open option contracts.</div>';
+ if(markup!==lastOptionMarkup){
+  $('optionPositions').innerHTML=markup;
+  $('optionsPortfolio').innerHTML=markup;
+  lastOptionMarkup=markup;
+ }
+ $('optionCount').textContent=String(open.length);
+ $('portfolioOptionCount').textContent=String(open.length);
+}
+function renderHoldings(){
+ const owned=COMPANIES.filter(c=>shares(c.id)>0);
+ $('positioncount').textContent=owned.length+' STOCK '+(owned.length===1?'POSITION':'POSITIONS');
+ const stockPnl=owned.reduce((sum,c)=>sum+shares(c.id)*priceCents(c.id)-basisCents(c.id),0);
+ const unrealized=stockPnl+optionsOpenPnl();
+ for(const [id,value] of [['unrealizedTotal',unrealized],['realizedTotal',state.realizedPnLCents],
+ ['optionRealizedTotal',state.optionRealizedCents]]){
+  const el=$(id);el.textContent=(value>=0?'+':'−')+amount(Math.abs(value));
+  el.className=value>0?'pos':value<0?'neg':'';
+ }
+ $('holdings').innerHTML=owned.length?owned.map(c=>{
+  const qty=shares(c.id),basis=basisCents(c.id),mark=qty*priceCents(c.id),
+    pnl=mark-basis,pct=basis>0?pnl/basis*100:0,avg=Math.round(basis/qty);
+  const estimated=state.estimatedBasis[c.id];
+  return `<button type="button" class="holding position-card" data-holding="${c.id}" aria-label="View and trade ${escape(c.name)}, ${qty} shares, unrealized P&L ${pnl>=0?'plus':'minus'} ${amount(Math.abs(pnl))}"><span class="position-card-head"><strong>${c.id} <small>${escape(c.name)}</small></strong><b>${amount(mark)}</b></span><span class="position-card-grid"><span>SHARES <strong>${integer(qty)}</strong></span><span>AVG BUY <strong>${amount(avg)}${estimated?'*':''}</strong></span><span>PRICE NOW <strong>${amount(priceCents(c.id))}</strong></span><span>COST BASIS <strong>${amount(basis)}</strong></span><span>UNREALIZED P&L <strong class="${pnl>=0?'pos':'neg'}">${pnl>=0?'+':'−'}${amount(Math.abs(pnl))}</strong></span><span>RETURN <strong class="${pct>=0?'pos':'neg'}">${signed(pct)}</strong></span></span>${estimated?'<span class="basis-disclaimer">* Estimated basis from the first upgraded save. Original purchase price was not recorded.</span>':''}</button>`;
+ }).join(''):'<div class="empty">No holdings. Pick a stock and buy shares.</div>';
+ renderOptionPositions();
+}
 function renderEvents(){$('activity').innerHTML=state.events.map(e=>`<div class="event"><span class="eventday">D${String(e.day).padStart(3,'0')}</span><span>${escape(e.text)}</span></div>`).join('')}
 // On mobile, render only the currently visible work area after initial boot.
 // Hidden panels are refreshed when opened. Desktop retains its full workspace.
@@ -1657,6 +2082,33 @@ $('max').addEventListener('click',()=>{$('qty').value=String(maxQty());renderTra
 $('mobileQtyPresets').addEventListener('click',e=>{const b=e.target.closest('[data-qty-pct]');if(!b)return;const available=maxQty();if(available<1)return;const pct=Number(b.dataset.qtyPct);$('qty').value=String(Math.max(1,Math.floor(available*pct/100)));renderTrade();notify(validateOrder().reason);});
 $('qty').addEventListener('input',()=>{renderTrade();notify(validateOrder().reason)});
 $('qty').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();trade()}});
+for(const id of ['optionType','optionSide','optionStrike','optionExpiry','optionQty']){
+ $(id).addEventListener(id==='optionQty'?'input':'change',()=>{
+  $('optionMessage').textContent='';
+  renderOptionTicket();
+ });
+}
+$('optionExecute').addEventListener('click',()=>{
+ if(!requireEditor())return;
+ const result=placeOptionOrder({
+  ticker:state.selected,type:$('optionType').value,side:$('optionSide').value,
+  qty:Number($('optionQty').value),strike:Number($('optionStrike').value),days:Number($('optionExpiry').value)
+ });
+ if(!result.ok){$('optionMessage').textContent=result.reason;return}
+ $('optionMessage').textContent=(result.option.side==='long'?'Bought ':'Wrote ')+result.option.qty+
+  ' contract(s) for '+amount(result.premium)+' premium.';
+ save();render();
+});
+document.addEventListener('click',event=>{
+ const btn=event.target.closest('[data-option-close]');
+ if(!btn)return;
+ if(!requireEditor())return;
+ const result=closeOptionPosition(Number(btn.dataset.optionClose));
+ if(!result.ok){$('optionMessage').textContent=result.reason;notify(result.reason);return}
+ $('optionMessage').textContent='Option position closed. Realized '+(result.realized>=0?'+':'−')+
+  amount(Math.abs(result.realized))+'.';
+ save();render();
+});
 $('execute').addEventListener('click',trade);$('next').addEventListener('click',()=>advance(1));$('next10').addEventListener('click',()=>advance(10));$('auto').addEventListener('click',toggleAuto);
 $('reset').addEventListener('click',()=>{if(!requireEditor())return;if(cloud.busy)return notify('Cloud operation in progress. Try reset after it completes.');if(window.confirm('Reset this simulated exchange and erase your portfolio? This cannot be undone.')){stopAuto();cloud.epoch++;state=fresh();$('qty').value='1';cloud.allowAuto=false;cloud.revision=null;cloud.lastSnapshot='';forgetMeta();save();render();cloudStatus('Market reset. Automatic cloud sync paused to protect the previous cloud save. Use RESTORE CLOUD or REPLACE CLOUD when ready.');notify('Fresh start. Your cloud backup was left untouched.')}});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAuto()});window.addEventListener('pagehide',stopAuto);

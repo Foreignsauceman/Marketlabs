@@ -1,4 +1,4 @@
-# MarketLab v0.6.0
+# MarketLab v0.6.1
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -73,3 +73,30 @@ The **Frame & Render Profiler** in Settings is opt-in and local-only. Start it, 
 **Save compatibility:** The save key and version-2 schema remain intact. Older saves without an economy field receive conservative baseline indicators on load, preserving cash, holdings, share prices, history and RNG seed; newly saved games include their economic state. Import/export and folder backups include the economic state. Export a JSON backup before a major upgrade. Re-import only if you need to restore a different portfolio, switch origins or recover progress.
 
 **QA:** CI verifies deterministic long-running simulations and monthly reports, economic migration and validation, sector effects, save/trading math, responsive economy/profiler UI, live Chrome rendering, multi-tab locks and the published PWA.
+
+## v0.6.1: portfolio analytics, calmer market, economy expansion, options beta
+
+### Portfolio cost basis and P&L
+- Every stock position records a **weighted-average acquisition cost in integer cents**. Buys add their cost to the position; sells proportionately reduce cost basis, reporting realized gains/losses. Unrealized P&L is current market value minus remaining basis. Current price, average purchase price, share quantity, total basis, unrealized P&L and return percentage appear on every holding card.
+- The Portfolio view also summarizes realized stock P&L, realized options P&L and total unrealized stock-plus-options P&L. Net worth includes marked long options and subtracts short-option liabilities.
+- **Backward-compatible migration:** MarketLab did not previously track purchase prices. Existing portfolios retain their cash, shares, quote history and RNG seed. For older positions, starting basis is estimated using the price **when the updated save is first loaded**, explicitly marked by an asterisk. Real historical acquisition prices cannot be recovered from old saves.
+- The existing `marketlab.tiny-exchange.v2` key and version-2 save envelope are retained, with additional optional position/contract fields. Exports and cloud-folder backups contain the expanded portfolio data.
+
+### A more robust but less frantic economy
+- The Economy Pulse includes credit spreads, manufacturing PMI and annualized wage growth in addition to rates, inflation, GDP growth, unemployment and confidence.
+- Economic releases continue every 21 simulated sessions. Fictional policy moves are now more gradual and occur only on alternating reports; credit stress and industrial activity influence market regimes.
+- Lower ordinary market, sector and stock noise reduces day-to-day volatility. **Large shocks still occur but are rarer**. Quarterly earnings can trigger company-specific repricings. These are intentionally game-balanced fictional behaviors, not calibrated stock-return or macroeconomic forecasts.
+
+### Simulated options beta
+- The Trade ticket has a collapsed **Options Desk (BETA)** with **calls and puts**, 100-share contracts, strikes near the current price, 7/21/63-day expirations, estimated premiums and contract quantity controls.
+- Buying a call or put is a **long option** and debits the premium. You can sell to close before expiry. Purchased options settle intrinsic value **in cash** at expiration, rather than automatically exercising into stock.
+- Writing a **covered call** collects premium but reserves 100 owned shares per contract; those shares cannot be sold until the call is closed or expires. In-the-money calls deliver shares at the strike price on expiry.
+- Writing a **cash-secured put** collects premium and reserves the full strike-cost in cash; this amount is unavailable for other stock or option purchases. In-the-money puts purchase 100 shares per contract at the strike price on expiry. Available public float is also reserved.
+- Closing a written contract uses a **buy-to-close** at the current simulated model mark. Premiums and option P&L, reserved cash/shares, open contracts and expiry dates are shown in the interface.
+- **No naked calls, no margin borrowing, no selling puts without cash, no early-exercise model, no real option exchange/greeks or bid-ask book.** Quotes use a bounded, time-decaying fictional intrinsic-plus-time-value model. This is a beta game mechanic, **not real-world investment pricing or execution**.
+- Options positions are limited to 30 open lots and up to 10 contracts per lot. Margin/collateral and expiry are checked during saves and test runs.
+
+### Testing and backup
+- Automated tests cover cent-accurate average-cost accounting, trade execution, legacy basis migration, options premiums, collateral, exercise/assignment, deterministic simulations and corrupted save rejection, plus responsive options UI and real-browser two-tab locks.
+- The existing optional frame monitor remains available in Settings; watch p95 frame timing while opening options and after longer market simulation.
+- **Export JSON before updating** because trading and save mechanics are changing. No import is needed if your current local save loads correctly. Retain the backup until you have verified positions and trading in v0.6.1.
