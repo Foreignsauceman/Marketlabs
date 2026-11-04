@@ -1,4 +1,4 @@
-# MarketLab v0.5.3
+# MarketLab v0.6.0
 
 A lightweight, offline-first fictional stock market simulator with desktop and mobile UI profiles.
 
@@ -105,3 +105,13 @@ If you set a custom Pages domain later, override the CI URL with `MARKETLAB_URL`
 - Removed duplicated profile syncing and clock rendering.
 - Browser CI now records median and 95th percentile synchronous JS+layout time, verifies persistent DOM stock rows, and checks mobile 520-session chart geometry. These timings are diagnostics from a shared CI runner, **not a real-device 120 FPS guarantee**.
 - Market math, trading validation, multi-tab editor lock, and `marketlab.tiny-exchange.v2` save schema remain unchanged. A JSON export is prudent before testing this release.
+
+## v0.6.0: economy foundation + frame diagnostics
+
+**Economic Pulse** is a collapsible section below the market watchlist. Five fictional indicators (policy rate, inflation, GDP growth, unemployment, confidence) start from baseline values, then evolve every 21 simulated trading days. Policy decisions and economic reports appear in market news. Macro indicators slightly influence all prices and create different pressures by sector: technology is more rate-sensitive; industrials respond to growth and employment; retail to confidence and inflation; energy to growth and inflation. This is a stylized *fictional* economic simulator, not real data or a forecast. No credit, bonds, or government budgets yet; these can be future phases.
+
+The **Frame & Render Profiler** in Settings is opt-in and local-only. Start it, close Settings, use the app for 20–30 seconds on a 120 Hz-capable display, then stop and export diagnostics. A floating HUD reports observed requestAnimationFrame cadence, p95 frame-callback interval, estimated display rate and missed refresh opportunities. Browsers supporting the Long Animation Frames API additionally report >50 ms frames and paint/presentation/layout estimates when exposed. No portfolio data is included in the diagnostic file. This is **not** a true GPU frame-present measurement: rAF happens before repaint, and true rasterization/compositor/GPU bottlenecks require Chrome DevTools Performance or Safari Web Inspector. Keep the monitor off outside profiling to minimize overhead.
+
+**Save compatibility:** The save key and version-2 schema remain intact. Older saves without an economy field receive conservative baseline indicators on load, preserving cash, holdings, share prices, history and RNG seed; newly saved games include their economic state. Import/export and folder backups include the economic state. Export a JSON backup before a major upgrade. Re-import only if you need to restore a different portfolio, switch origins or recover progress.
+
+**QA:** CI verifies deterministic long-running simulations and monthly reports, economic migration and validation, sector effects, save/trading math, responsive economy/profiler UI, live Chrome rendering, multi-tab locks and the published PWA.
