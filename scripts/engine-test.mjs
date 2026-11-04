@@ -29,6 +29,7 @@ const engineSource = [
   section('function valuationPressure(', 'function advance('),
   section('function maxQty(', 'function setSide('),
   'let writeCount=0,renderCount=0,lastNotice="";',
+  'function requireEditor(){return true}',
   'function save(){writeCount++}',
   'function render(){renderCount++}',
   'function renderTrade(){}',
